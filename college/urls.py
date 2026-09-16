@@ -477,7 +477,11 @@ path(
 # =========================
 # STUDENT ACCOUNT
 # =========================
-
+path(
+'accounts/login/',
+views.application_form,
+name='login'
+),
 path(
     'dashboard/',
     views.dashboard,
