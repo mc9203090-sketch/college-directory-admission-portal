@@ -1,0 +1,910 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Superior College Chishtian Location</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f5f7f5;
+            color: #333;
+        }
+
+        /* ================= HEADER ================= */
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 5%;
+            background: #1a6260;
+            color: white;
+            min-height: 90px;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-container {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid white;
+            flex-shrink: 0;
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .college-text {
+            display: flex;
+            flex-direction: column;
+            color: white;
+            font-weight: bold;
+            line-height: 1.2;
+            font-size: 18px;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+            transition: 0.3s;
+        }
+
+        .navbar a:hover {
+            color: #f5a623;
+        }
+
+        /* ================= HERO ================= */
+
+        .hero-banner {
+            width: 100%;
+            height: 60vh;
+            min-height: 350px;
+            background: url("/static/images/hero (5).png")
+                        center center / cover no-repeat;
+        }
+
+        /* ================= MAIN SECTION ================= */
+
+        .principal-section {
+            background: url("/static/images/hero (5).png")
+                        center center / cover no-repeat;
+            padding: 50px 20px;
+        }
+
+        .principal-container {
+            width: 85%;
+            max-width: 1200px;
+            margin: auto;
+            background: #fff;
+            border-radius: 0 0 0 60px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 50px;
+        }
+
+        .principal-container h2 {
+            text-align: center;
+            color: #31A943;
+            font-size: 28px;
+            margin-bottom: 25px;
+        }
+
+        /* ================= MAP ================= */
+
+        .map-container {
+            width: 100%;
+            height: 450px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            margin-top: 20px;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .note {
+            margin-top: 15px;
+            text-align: center;
+            color: #555;
+            font-size: 14px;
+        }
+
+        /* ================= CONTACT SECTION ================= */
+
+        .contact-container {
+            display: flex;
+            gap: 40px;
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+
+        .form-section {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .form-section input,
+        .form-section select,
+        .form-section textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .form-section input:focus,
+        .form-section select:focus,
+        .form-section textarea:focus {
+            border-color: #31A943;
+        }
+
+        .row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .row > * {
+            flex: 1;
+        }
+
+        textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        button {
+            background: #2e8b57;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #1f6f45;
+        }
+
+        #successMsg {
+            color: #31A943;
+            margin-top: 10px;
+            display: none;
+        }
+
+        /* ================= CONTACT DETAILS ================= */
+
+        .contact-details {
+            flex: 1;
+            min-width: 300px;
+            background: #e6efe6;
+            padding: 25px;
+            border: 1px solid #d6e4d6;
+            border-radius: 10px;
+            height: fit-content;
+        }
+
+        .contact-details h2 {
+            color: #2e8b57;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .contact-details p {
+            margin-bottom: 18px;
+            line-height: 1.6;
+        }
+
+        .contact-details a {
+            color: #31A943;
+            text-decoration: none;
+            word-break: break-word;
+        }
+
+        .contact-details a:hover {
+            text-decoration: underline;
+        }
+
+        /* ================= FOOTER ================= */
+
+        .custom-footer {
+            position: relative;
+            background: url("/static/images/footer hero.png")
+                        center center / cover no-repeat;
+            color: #7BA388;
+            font-family: Arial, sans-serif;
+        }
+
+        .footer-overlay {
+            background: rgba(0, 0, 0, 0.75);
+            padding: 60px 8%;
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+
+        .footer-left {
+            min-width: 180px;
+        }
+
+        .footer-left ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-left ul li {
+            margin-bottom: 14px;
+        }
+
+        .footer-left ul li a {
+            color: #7BA388;
+            text-decoration: none;
+            font-size: 14px;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        .footer-left ul li a:hover {
+            color: #ffffff;
+        }
+
+        .footer-right {
+            max-width: 700px;
+        }
+
+        .footer-right h3 {
+            margin-bottom: 20px;
+            font-size: 18px;
+            letter-spacing: 2px;
+        }
+
+        .footer-right p {
+            margin-bottom: 10px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .footer-right a {
+            color: #7BA388;
+            text-decoration: none;
+            word-break: break-word;
+        }
+
+        .footer-bottom {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #7BA388;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            font-size: 14px;
+        }
+
+        .footer-bottom p {
+            color: #d0d0d0;
+        }
+
+        /* ================= BACK TO TOP ================= */
+
+        #back-to-top {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #31A943;
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            z-index: 999;
+        }
+
+        /* ================= TABLET ================= */
+
+        @media (max-width: 1000px) {
+
+            header {
+                padding: 10px 4%;
+            }
+
+            .navbar {
+                gap: 12px;
+            }
+
+            .navbar a {
+                font-size: 12px;
+            }
+
+            .principal-container {
+                width: 92%;
+                padding: 40px;
+            }
+
+            .contact-container {
+                gap: 25px;
+            }
+
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 768px) {
+
+            header {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px 20px;
+                text-align: center;
+            }
+
+            .logo-section {
+                justify-content: center;
+            }
+
+            .logo-container {
+                width: 60px;
+                height: 60px;
+            }
+
+            .college-text {
+                font-size: 16px;
+            }
+
+            .navbar {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 12px 18px;
+            }
+
+            .navbar a {
+                font-size: 13px;
+            }
+
+            .hero-banner {
+                height: 35vh;
+                min-height: 220px;
+            }
+
+            .principal-section {
+                padding: 30px 15px;
+            }
+
+            .principal-container {
+                width: 100%;
+                padding: 30px 20px;
+                border-radius: 0 0 0 30px;
+            }
+
+            .principal-container h2 {
+                font-size: 23px;
+                line-height: 1.4;
+            }
+
+            .map-container {
+                height: 350px;
+            }
+
+            .contact-container {
+                flex-direction: column;
+                gap: 30px;
+                margin-top: 35px;
+            }
+
+            .form-section,
+            .contact-details {
+                width: 100%;
+                min-width: 0;
+            }
+
+            .row {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .footer-overlay {
+                padding: 45px 25px;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                gap: 35px;
+            }
+
+            .footer-right {
+                max-width: 100%;
+            }
+
+            .footer-bottom {
+                margin-top: 30px;
+                text-align: center;
+                justify-content: center;
+            }
+
+            #back-to-top {
+                display: block;
+            }
+
+        }
+
+        /* ================= SMALL MOBILE ================= */
+
+        @media (max-width: 480px) {
+
+            .logo-container {
+                width: 55px;
+                height: 55px;
+            }
+
+            .college-text {
+                font-size: 15px;
+            }
+
+            .navbar {
+                gap: 10px 14px;
+            }
+
+            .navbar a {
+                font-size: 12px;
+            }
+
+            .hero-banner {
+                height: 28vh;
+                min-height: 180px;
+            }
+
+            .principal-section {
+                padding: 20px 10px;
+            }
+
+            .principal-container {
+                padding: 25px 15px;
+                border-radius: 0 0 0 20px;
+            }
+
+            .principal-container h2 {
+                font-size: 20px;
+            }
+
+            .map-container {
+                height: 280px;
+            }
+
+            .note {
+                font-size: 13px;
+            }
+
+            .form-section input,
+            .form-section select,
+            .form-section textarea {
+                font-size: 13px;
+                padding: 10px;
+            }
+
+            button {
+                width: 100%;
+            }
+
+            .contact-details {
+                padding: 20px;
+            }
+
+            .footer-overlay {
+                padding: 40px 20px;
+            }
+
+            .footer-left ul li a,
+            .footer-right p,
+            .footer-bottom {
+                font-size: 12px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body id="top">
+
+
+    <!-- ================= HEADER ================= -->
+
+    <header>
+
+        <div class="logo-section">
+
+            <div class="logo-container">
+
+                <img src="{% static 'images/sup logo.png' %}"
+                     alt="Superior College Chishtian Logo">
+
+            </div>
+
+            <div class="college-text">
+
+                <span>Superior</span>
+                <span>College</span>
+                <span>Chishtian</span>
+
+            </div>
+
+        </div>
+
+
+        <nav class="navbar">
+
+            <a href="{% url 'index' %}">
+                Home
+            </a>
+
+            <a href="#">
+                ABOUT US
+            </a>
+
+            <a href="#">
+                ADMISSIONS
+            </a>
+
+            <a href="#">
+                FACILITIES
+            </a>
+
+            <a href="#">
+                LEARNING AT SUPERIOR
+            </a>
+
+            <a href="{% url 'contact' %}">
+                CONTACT US
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- ================= HERO ================= -->
+
+    <section class="hero-banner">
+    </section>
+
+
+    <!-- ================= MAIN SECTION ================= -->
+
+    <section class="principal-section">
+
+        <div class="principal-container">
+
+            <h2>
+                Location of Superior College Chishtian
+            </h2>
+
+
+            <!-- ================= MAP ================= -->
+
+            <div class="map-container">
+
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m12!1m8!1m3!1d110798.50356821335!2d72.8873028!3d29.7934477!3m2!1i1024!2i768!4f13.1!2m1!1ssuperior%20college%20chishtian%20location!5e0!3m2!1sen!2s!4v1773016835924!5m2!1sen!2s"
+                    allowfullscreen=""
+                    loading="lazy">
+                </iframe>
+
+            </div>
+
+
+            <div class="note">
+
+                Click the arrows or icons on the map to open
+                Superior College Chishtian in Google Maps.
+
+            </div>
+
+
+            <!-- ================= CONTACT SECTION ================= -->
+
+            <div class="contact-container">
+
+
+                <!-- CONTACT FORM -->
+
+                <div class="form-section">
+
+                    <select>
+
+                        <option>
+                            * Who do you wish to contact?
+                        </option>
+
+                        <option>Principal</option>
+                        <option>Admin</option>
+                        <option>Admissions</option>
+
+                    </select>
+
+
+                    <div class="row">
+
+                        <select>
+
+                            <option>* Title</option>
+                            <option>Sir</option>
+                            <option>Ms</option>
+                            <option>Mam</option>
+
+                        </select>
+
+
+                        <input
+                            type="text"
+                            placeholder="* First Name(s)">
+
+                    </div>
+
+
+                    <div class="row">
+
+                        <input
+                            type="text"
+                            placeholder="* Surname">
+
+
+                        <input
+                            type="text"
+                            placeholder="* Contact Number">
+
+                    </div>
+
+
+                    <div class="row">
+
+                        <input
+                            type="email"
+                            placeholder="* Email">
+
+
+                        <input
+                            type="text"
+                            placeholder="* Subject">
+
+                    </div>
+
+
+                    <textarea
+                        placeholder="* Message"></textarea>
+
+
+                    <button onclick="showMessage()">
+                        Send Message
+                    </button>
+
+
+                    <p id="successMsg">
+
+                        Message Sent Successfully ✅
+
+                    </p>
+
+                </div>
+
+
+                <!-- CONTACT DETAILS -->
+
+                <div class="contact-details">
+
+                    <h2>
+                        Contact Details
+                    </h2>
+
+
+                    <p>
+                        <strong>Principal:</strong>
+                        Sir Faisal
+                    </p>
+
+
+                    <p>
+                        <strong>College Email:</strong>
+
+                        <a href="mailto:superiorctn@gmail.com">
+
+                            superiorctn@gmail.com
+
+                        </a>
+
+                    </p>
+
+
+                    <p>
+                        <strong>Main Office Telephone:</strong>
+                        +92 300 6989030
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="custom-footer">
+
+        <div class="footer-overlay">
+
+            <div class="footer-container">
+
+
+                <!-- LEFT MENU -->
+
+                <div class="footer-left">
+
+                    <ul>
+
+                        <li>
+                            <a href="{% url 'superior' %}">
+                                HOME
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{% url 'historysup' %}">
+                                ABOUT US
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{% url 'addmission' %}">
+                                ADMISSIONS
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{% url 'results' %}">
+                                LEARNING AT SUPERIOR
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{% url 'contact' %}">
+                                CONTACT US
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+
+                <!-- RIGHT CONTACT INFO -->
+
+                <div class="footer-right">
+
+                    <h3>
+                        GET IN TOUCH
+                    </h3>
+
+
+                    <p>
+                        THE Superior College, Chishtian,
+                    </p>
+
+
+                    <p>
+                        MAIN OFFICE TELEPHONE:
+                        +92 300 6989030 or +92 308 6985000.
+                    </p>
+
+
+                    <p>
+
+                        EMAIL:
+
+                        <a href="mailto:superiorctn@gmail.com">
+
+                            superiorctn@gmail.com
+
+                        </a>
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- BOTTOM BAR -->
+
+            <div class="footer-bottom">
+
+                <p>
+                    Legal &amp; Privacy Policy |
+                    Copyright © 2023 - All Rights Reserved
+                </p>
+
+            </div>
+
+
+            <!-- BACK TO TOP -->
+
+            <div class="arrow-box">
+
+                <a href="#top" id="back-to-top">
+
+                    Back to Top ↑
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <script>
+
+        function showMessage() {
+
+            document.getElementById("successMsg").style.display = "block";
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>
+

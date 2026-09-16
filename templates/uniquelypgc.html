@@ -1,0 +1,1398 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Uniquely PGC</title>
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background: #2e2c6a;
+            color: white;
+            position: relative;
+            z-index: 1000;
+        }
+
+
+        /* LOGO */
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        .logo-container {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid white;
+            flex-shrink: 0;
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .college-text {
+            display: flex;
+            flex-direction: column;
+            color: white;
+            font-weight: bold;
+            line-height: 1.2;
+            font-size: 18px;
+        }
+
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .navbar > a,
+        .navbar .dropdown > a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .navbar a:hover {
+            color: #F5E547;
+        }
+
+
+        /* DROPDOWN */
+
+        .navbar .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .navbar .dropdown > a {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .navbar .sub-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #2e2c6a;
+            list-style: none;
+            padding: 10px 0;
+            margin: 0;
+            min-width: 230px;
+            border-radius: 0 0 5px 5px;
+            z-index: 2000;
+        }
+
+        .navbar .sub-menu li {
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar .sub-menu li a {
+            padding: 9px 15px;
+            color: white;
+            display: block;
+            font-size: 14px;
+            text-decoration: none;
+            white-space: normal;
+        }
+
+        .navbar .sub-menu li a:hover {
+            background: #242252;
+            color: #f5a623;
+        }
+
+
+        /* DESKTOP HOVER */
+
+        @media (min-width: 768px) {
+
+            .navbar .dropdown:hover .sub-menu {
+                display: block;
+            }
+
+            /*
+                Invisible bridge:
+                Is se mouse parent aur dropdown ke darmiyan
+                gap ki wajah se menu disappear nahi hoga.
+            */
+
+            .navbar .dropdown::after {
+                content: "";
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 100%;
+                height: 10px;
+                background: transparent;
+            }
+        }
+
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .rit-hero {
+            background: #eee;
+            padding: 120px 0;
+            position: relative;
+            min-height: 430px;
+        }
+
+        .orange-strip {
+            background: #E13B23;
+            min-height: 220px;
+            display: flex;
+            align-items: center;
+            padding-left: 120px;
+            padding-right: 40px;
+        }
+
+        .orange-strip h1 {
+            color: white;
+            font-size: 45px;
+            font-weight: bold;
+            text-align: left;
+            margin: 0;
+        }
+
+
+        /* HERO IMAGE */
+
+        .image-box {
+            position: absolute;
+            right: 60px;
+            top: 60px;
+            background: #cfd3d6;
+            padding: 10px;
+            max-width: 48%;
+        }
+
+        .image-box img {
+            width: 520px;
+            max-width: 100%;
+            height: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+
+        /* =========================
+           UNIQUELY SECTION
+        ========================= */
+
+        .uniquely-pgc {
+            padding: 60px 10%;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #eee;
+        }
+
+        .uniquely-pgc .container {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .uniquely-pgc h1 {
+            font-size: 60px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #2e2c6a;
+        }
+
+        .about-text {
+            font-size: 20px;
+            line-height: 1.7;
+            color: #E13B23;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        .highlight {
+            font-size: 28px;
+            font-weight: bold;
+            margin-top: 30px;
+            text-align: left;
+            color: #2e2c6a;
+            line-height: 1.4;
+        }
+
+
+        /* =========================
+           CARDS
+        ========================= */
+
+        .rit-grid {
+            padding: 60px 8%;
+            background: #f2f2f2;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            max-width: 1400px;
+            margin: auto;
+        }
+
+        .card {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .card img {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .card h3 {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+            z-index: 2;
+            width: 80%;
+            margin: 0;
+            line-height: 1.3;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 102, 0, 0);
+            transition: 0.4s;
+            z-index: 1;
+        }
+
+        .card:hover .overlay {
+            background: rgba(249, 3, 3, 0.511);
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        .footer {
+            background: #2e2c6a;
+            color: white;
+            width: 100%;
+            padding: 80px 80px 120px;
+            position: relative;
+        }
+
+        .footer-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            justify-content: space-between;
+            align-items: flex-start;
+            width: 100%;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .footer-left h2 {
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .footer-left p {
+            margin: 8px 0;
+            line-height: 1.5;
+        }
+
+        .social-icons {
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 20px;
+            margin-right: 15px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .social-icons a:hover {
+            color: #E13B23;
+            transition: 0.3s;
+        }
+
+        .copyright {
+            margin-top: 25px !important;
+        }
+
+        .footer-right {
+            position: absolute;
+            right: 120px;
+            top: 60px;
+        }
+
+        .apply-btn {
+            background: #E13B23;
+            padding: 15px 30px;
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 6px;
+            display: inline-block;
+        }
+
+        .apply-btn:hover {
+            background: #c92f1b;
+            color: white;
+        }
+
+
+        /* =========================
+           BACK TO TOP
+        ========================= */
+
+        #back-to-top {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #E13B23;
+            color: white;
+            text-decoration: none;
+            padding: 10px 14px;
+            border-radius: 5px;
+            z-index: 3000;
+        }
+
+        #back-to-top:hover {
+            color: white;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        .menu-toggle {
+            display: none;
+        }
+
+
+        @media (max-width: 1100px) {
+
+            .navbar {
+                gap: 12px;
+            }
+
+            .navbar > a,
+            .navbar .dropdown > a {
+                font-size: 13px;
+            }
+
+            .grid-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .image-box {
+                right: 30px;
+            }
+
+            .orange-strip {
+                padding-left: 60px;
+            }
+        }
+
+
+        @media (max-width: 767px) {
+
+            /* HEADER */
+
+            header {
+                padding: 10px 15px;
+                min-height: 75px;
+            }
+
+            .logo-container {
+                width: 58px;
+                height: 58px;
+            }
+
+            .college-text {
+                font-size: 15px;
+            }
+
+
+            /* HAMBURGER */
+
+            .menu-toggle {
+                display: flex;
+                width: 42px;
+                height: 42px;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                font-size: 25px;
+                cursor: pointer;
+                border: 1px solid rgba(255,255,255,0.4);
+                border-radius: 5px;
+            }
+
+
+            /* MOBILE NAV */
+
+            .navbar {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #2e2c6a;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0;
+                padding: 10px 0;
+                box-shadow: 0 5px 12px rgba(0,0,0,0.2);
+            }
+
+            .navbar.active {
+                display: flex;
+            }
+
+            .navbar > a,
+            .navbar .dropdown > a {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+                padding: 13px 20px;
+                font-size: 15px;
+            }
+
+
+            /* MOBILE DROPDOWN */
+
+            .navbar .dropdown {
+                width: 100%;
+            }
+
+            .navbar .sub-menu {
+                position: static;
+                display: none;
+                width: 100%;
+                min-width: 0;
+                padding: 0;
+                margin: 0;
+                border-radius: 0;
+                background: #242252;
+            }
+
+            .navbar .dropdown.open .sub-menu {
+                display: block;
+            }
+
+            .navbar .sub-menu li a {
+                padding: 12px 35px;
+                font-size: 14px;
+            }
+
+
+            /* HERO */
+
+            .rit-hero {
+                padding: 0;
+                min-height: auto;
+                background: #eee;
+            }
+
+            .orange-strip {
+                min-height: 180px;
+                padding: 40px 20px;
+                justify-content: center;
+                text-align: center;
+            }
+
+            .orange-strip h1 {
+                font-size: 34px;
+                text-align: center;
+            }
+
+            /*
+                Mobile par image ko crop nahi karna.
+                Image apni complete height mein show hogi.
+            */
+
+            .image-box {
+                position: static;
+                width: 100%;
+                max-width: 100%;
+                padding: 10px;
+                background: #cfd3d6;
+            }
+
+            .image-box img {
+                width: 100%;
+                max-width: 100%;
+                height: auto;
+                object-fit: contain;
+            }
+
+
+            /* CONTENT */
+
+            .uniquely-pgc {
+                padding: 45px 20px;
+            }
+
+            .uniquely-pgc h1 {
+                font-size: 38px;
+                line-height: 1.2;
+                margin-top: 0;
+                margin-bottom: 25px;
+            }
+
+            .about-text {
+                font-size: 17px;
+                line-height: 1.7;
+                text-align: left;
+            }
+
+            .highlight {
+                font-size: 23px;
+                line-height: 1.4;
+                margin-top: 25px;
+            }
+
+
+            /* CARDS */
+
+            .rit-grid {
+                padding: 40px 20px;
+            }
+
+            .grid-container {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            .card {
+                width: 100%;
+            }
+
+            /*
+                Cards ki images ko mobile par half nahi dikhana.
+                Height auto rakhi gayi hai.
+            */
+
+            .card img {
+                width: 100%;
+                height: auto;
+                object-fit: contain;
+            }
+
+            .card h3 {
+                font-size: 20px;
+                left: 15px;
+                bottom: 15px;
+                width: 90%;
+            }
+
+
+            /* FOOTER */
+
+            .footer {
+                width: 100%;
+                padding: 55px 25px 90px;
+            }
+
+            .footer-container {
+                width: 100%;
+                max-width: 100%;
+                align-items: flex-start;
+            }
+
+            .footer-left {
+                width: 100%;
+            }
+
+            .footer-left h2 {
+                font-size: 25px;
+            }
+
+            .footer-left p {
+                font-size: 14px;
+                word-break: break-word;
+            }
+
+            .social-icons {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+
+            .social-icons a {
+                margin-right: 0;
+            }
+
+            .footer-right {
+                position: static;
+                width: 100%;
+                margin-top: 10px;
+            }
+
+            .apply-btn {
+                padding: 13px 25px;
+            }
+
+            #back-to-top {
+                bottom: 15px;
+                right: 15px;
+                font-size: 13px;
+            }
+        }
+
+
+        @media (max-width: 400px) {
+
+            .college-text {
+                font-size: 13px;
+            }
+
+            .logo-container {
+                width: 52px;
+                height: 52px;
+            }
+
+            .orange-strip h1 {
+                font-size: 29px;
+            }
+
+            .uniquely-pgc h1 {
+                font-size: 32px;
+            }
+
+            .about-text {
+                font-size: 16px;
+            }
+
+            .highlight {
+                font-size: 21px;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body id="top">
+
+
+    <!-- =========================
+         HEADER
+    ========================= -->
+
+    <header>
+
+        <div class="logo-section">
+
+            <div class="logo-container">
+                <img src="{% static 'images/pgc logo.png' %}" alt="Punjab College Logo">
+            </div>
+
+            <div class="college-text">
+                <span>Punjab</span>
+                <span>College</span>
+                <span>Chishtian</span>
+            </div>
+
+        </div>
+
+
+        <!-- MOBILE MENU BUTTON -->
+
+        <div class="menu-toggle" id="menu-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+
+
+        <!-- NAVIGATION -->
+
+        <nav class="navbar" id="navbar">
+
+            <a href="{% url 'index' %}">Home</a>
+
+
+            <!-- ABOUT US -->
+
+            <div class="dropdown">
+
+                <a href="#">
+                    ABOUT US
+                    <i class="fa fa-caret-down"></i>
+                </a>
+
+                <ul class="sub-menu">
+
+                    <li>
+                        <a href="{% url 'historypgc' %}">
+                            About PGC
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'uniquelypgc' %}">
+                            Uniquely PGC
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'missionpgc' %}">
+                            Mission,Vision,Goals PGC
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <!-- ADMISSIONS -->
+
+            <div class="dropdown">
+
+                <a href="#">
+                    ADDMISSIONS
+                    <i class="fa fa-caret-down"></i>
+                </a>
+
+                <ul class="sub-menu">
+
+                    <li>
+                        <a href="{% url 'undergraduatepgc' %}">
+                            UnderGraduates Programmes
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'feepgc' %}">
+                            Scholarship *&* Fee Consection
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'applypgc' %}">
+                            Apply
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <!-- ACTIVITIES -->
+
+            <a href="{% url 'activitypgc' %}">
+                Activities
+            </a>
+
+
+            <!-- LEARNING AT PUNJAB -->
+
+            <div class="dropdown">
+
+                <a href="#">
+                    LEARNING AT PUNJAB
+                    <i class="fa fa-caret-down"></i>
+                </a>
+
+                <ul class="sub-menu">
+
+                    <li>
+                        <a href="{% url 'blogpgc' %}">
+                            Blogs PGC
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'careerpgc' %}">
+                            Careers
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'affiliatepgc' %}">
+                            AFFILIATE
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <!-- CONTACT -->
+
+            <a href="{% url 'contactpgc' %}">
+                CONTACT US
+            </a>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- =========================
+         HERO
+    ========================= -->
+
+    <section class="rit-hero">
+
+        <div class="orange-strip">
+
+            <h1>
+                Uniquely PGC
+            </h1>
+
+        </div>
+
+
+        <div class="image-box">
+
+            <img
+                src="{% static 'images/pgchistory.jpg' %}"
+                alt="History of RIT"
+            >
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         UNIQUELY PGC CONTENT
+    ========================= -->
+
+    <section class="uniquely-pgc">
+
+        <div class="container">
+
+            <h1>
+                Uniquely Punjab College
+            </h1>
+
+
+            <p class="about-text">
+
+                What makes Punjab College Chishtian... well, special?
+                We encourage students to develop confidence,
+                creativity, and a passion for learning.
+                At Punjab College Chishtian, we challenge students to
+                think beyond limits and achieve excellence in academics and character.
+
+            </p>
+
+
+            <p class="about-text">
+
+                We welcome and celebrate differences, because we believe great ideas come from diverse
+                perspectives. Our goal is to bring positive change to our campus, our city, and our country
+                through quality education and strong values.
+
+            </p>
+
+
+            <h2 class="highlight">
+
+                We build bright futures every day.<br>
+                In ways big and small.
+
+            </h2>
+
+
+            <p class="about-text">
+
+                This is who we are.
+                And, this is why we’re always on to something Uniquely PGC.
+
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         CARDS
+    ========================= -->
+
+    <section class="rit-grid">
+
+        <div class="grid-container">
+
+
+            <div class="card">
+
+                <img
+                    src="{% static 'images/creativepgc.jpg' %}"
+                    alt="Creativity and Innovation"
+                >
+
+                <div class="overlay"></div>
+
+                <h3>
+                    Creativity and Innovation
+                </h3>
+
+            </div>
+
+
+            <div class="card">
+
+                <img
+                    src="{% static 'images/art pgc.jpg' %}"
+                    alt="Technology Arts and Design"
+                >
+
+                <div class="overlay"></div>
+
+                <h3>
+                    Technology, the Arts, and Design
+                </h3>
+
+            </div>
+
+
+            <div class="card">
+
+                <img
+                    src="{% static 'images/communitypgc.jpg' %}"
+                    alt="Commitment to Goodness"
+                >
+
+                <div class="overlay"></div>
+
+                <h3>
+                    Commitment to Goodness
+                </h3>
+
+            </div>
+
+
+            <div class="card">
+
+                <img
+                    src="{% static 'images/cooppgc.jpg' %}"
+                    alt="Co-op and Careers"
+                >
+
+                <div class="overlay"></div>
+
+                <h3>
+                    Co-op and Careers
+                </h3>
+
+            </div>
+
+
+            <div class="card">
+
+                <img
+                    src="{% static 'images/researchpgc.jpg' %}"
+                    alt="Revolutionary Research"
+                >
+
+                <div class="overlay"></div>
+
+                <h3>
+                    Revolutionary Research
+                </h3>
+
+            </div>
+
+
+            <div class="card">
+
+                <img
+                    src="{% static 'images/globalpgc.jpg' %}"
+                    alt="Global Engagement"
+                >
+
+                <div class="overlay"></div>
+
+                <h3>
+                    Global Engagement
+                </h3>
+
+            </div>
+
+
+            <div class="card">
+
+                <img
+                    src="{% static 'images/leadership pgc.jpg' %}"
+                    alt="Leadership in Sustainability"
+                >
+
+                <div class="overlay"></div>
+
+                <h3>
+                    Leadership in Sustainability
+                </h3>
+
+            </div>
+
+
+            <div class="card">
+
+                <img
+                    src="{% static 'images/welpgc.webp' %}"
+                    alt="Welcoming and Inclusive Environment"
+                >
+
+                <div class="overlay"></div>
+
+                <h3>
+                    Welcoming and Inclusive Environment
+                </h3>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         FOOTER
+    ========================= -->
+
+    <footer class="footer">
+
+        <div class="footer-container">
+
+            <div class="footer-left">
+
+                <h2>
+                    PUNJAB COLLEGES
+                </h2>
+
+
+                <p>
+                    <strong>WhatsApp</strong>
+                    0312 2026500
+                </p>
+
+
+                <p>
+                    <strong>EMAIL</strong>
+                    pcchishitan@pgc.edu
+                </p>
+
+
+                <p>
+                    <strong>COMPLAINT PORTAL</strong>
+                    complaint.pgc.edu
+                </p>
+
+
+                <div class="social-icons">
+
+                    <a
+                        href="https://www.facebook.com/PGCWorld/"
+                        target="_blank"
+                        aria-label="Facebook"
+                    >
+                        <i class="fa-brands fa-facebook"></i>
+                    </a>
+
+
+                    <a
+                        href="https://twitter.com/pgcworld"
+                        target="_blank"
+                        aria-label="Twitter"
+                    >
+                        <i class="fa-brands fa-twitter"></i>
+                    </a>
+
+
+                    <a
+                        href="https://www.instagram.com/pgcworld/"
+                        target="_blank"
+                        aria-label="Instagram"
+                    >
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+
+
+                    <a
+                        href="https://www.youtube.com/user/pgcworld"
+                        target="_blank"
+                        aria-label="YouTube"
+                    >
+                        <i class="fa-brands fa-youtube"></i>
+                    </a>
+
+
+                    <a
+                        href="https://www.linkedin.com/company/pgcworld/"
+                        target="_blank"
+                        aria-label="LinkedIn"
+                    >
+                        <i class="fa-brands fa-linkedin"></i>
+                    </a>
+
+                </div>
+
+
+                <p class="copyright">
+                    2020 Punjab Colleges. All Rights Reserved.
+                </p>
+
+            </div>
+
+
+            <div class="footer-right">
+
+                <a
+                    href="{% url 'applypgc' %}"
+                    class="apply-btn"
+                >
+                    APPLY NOW
+                </a>
+
+            </div>
+
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- BACK TO TOP -->
+
+    <a href="#top" id="back-to-top">
+        Back to Top
+        <i class="fas fa-chevron-up"></i>
+    </a>
+
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================= -->
+
+    <script>
+
+        /* =========================
+           MOBILE MENU
+        ========================= */
+
+        const menuToggle = document.getElementById("menu-toggle");
+        const navbar = document.getElementById("navbar");
+
+        menuToggle.addEventListener("click", function () {
+
+            navbar.classList.toggle("active");
+
+        });
+
+
+        /* =========================
+           MOBILE DROPDOWNS
+        ========================= */
+
+        const dropdownLinks =
+            document.querySelectorAll(".dropdown > a");
+
+        dropdownLinks.forEach(function (link) {
+
+            link.addEventListener("click", function (event) {
+
+                if (window.innerWidth <= 767) {
+
+                    event.preventDefault();
+
+                    const dropdown =
+                        this.parentElement;
+
+                    const isOpen =
+                        dropdown.classList.contains("open");
+
+
+                    document
+                        .querySelectorAll(".dropdown")
+                        .forEach(function (item) {
+
+                            item.classList.remove("open");
+
+                        });
+
+
+                    if (!isOpen) {
+
+                        dropdown.classList.add("open");
+
+                    }
+
+                }
+
+            });
+
+        });
+
+
+        /* =========================
+           CLOSE MOBILE MENU
+           AFTER CLICKING LINK
+        ========================= */
+
+        document
+            .querySelectorAll(".navbar .sub-menu a, .navbar > a")
+            .forEach(function (link) {
+
+                link.addEventListener("click", function () {
+
+                    if (window.innerWidth <= 767) {
+
+                        navbar.classList.remove("active");
+
+                    }
+
+                });
+
+            });
+
+
+        /* =========================
+           RESET MOBILE MENU
+           WHEN SCREEN BECOMES DESKTOP
+        ========================= */
+
+        window.addEventListener("resize", function () {
+
+            if (window.innerWidth > 767) {
+
+                navbar.classList.remove("active");
+
+                document
+                    .querySelectorAll(".dropdown")
+                    .forEach(function (dropdown) {
+
+                        dropdown.classList.remove("open");
+
+                    });
+
+            }
+
+        });
+
+
+        /* =========================
+           BACK TO TOP
+        ========================= */
+
+        const backToTop =
+            document.getElementById("back-to-top");
+
+
+        window.addEventListener("scroll", function () {
+
+            if (
+                document.documentElement.scrollTop > 200 ||
+                document.body.scrollTop > 200
+            ) {
+
+                backToTop.style.display = "block";
+
+            } else {
+
+                backToTop.style.display = "none";
+
+            }
+
+        });
+
+
+        backToTop.addEventListener("click", function (event) {
+
+            event.preventDefault();
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        });
+
+    </script>
+
+</body>
+
+</html>
+   

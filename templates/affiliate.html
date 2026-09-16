@@ -1,0 +1,1214 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Superior College Chishtian | Affiliations</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            overflow-x: hidden;
+        }
+
+        /* ================= HEADER ================= */
+
+        header {
+            width: 100%;
+            min-height: 90px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 30px;
+            background: #0d3b3a;
+            color: white;
+            position: relative;
+            z-index: 1000;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .logo-container {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid white;
+            flex-shrink: 0;
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .college-text {
+            display: flex;
+            flex-direction: column;
+            font-weight: bold;
+            line-height: 1.2;
+            font-size: 17px;
+        }
+
+        /* ================= HAMBURGER ================= */
+
+        .menu-toggle {
+            display: none;
+            font-size: 28px;
+            color: white;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .navbar > a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .navbar > a:hover {
+            color: #f5a623;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown > a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            font-size: 15px;
+            white-space: nowrap;
+        }
+
+        .dropdown > a:hover {
+            color: #f5a623;
+        }
+
+        .sub-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #0d3b3a;
+            list-style: none;
+            padding: 10px 0;
+            min-width: 230px;
+            border-radius: 5px;
+            z-index: 2000;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        .sub-menu li {
+            margin: 0;
+            padding: 0;
+        }
+
+        .sub-menu li a {
+            padding: 9px 15px;
+            color: white;
+            display: block;
+            font-size: 14px;
+            text-decoration: none;
+            line-height: 1.4;
+        }
+
+        .sub-menu li a:hover {
+            background: #1a6260;
+            color: #f5a623;
+        }
+
+        /* Desktop dropdown */
+        @media (min-width: 769px) {
+            .dropdown:hover .sub-menu {
+                display: block;
+            }
+        }
+
+        /* ================= HERO ================= */
+
+        .hero-banner {
+            min-height: 60vh;
+            background: url("/static/images/hero (5).png") center center / cover no-repeat;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            color: white;
+            padding: 20px;
+        }
+
+        .hero-overlay h1 {
+            font-size: 24px;
+            letter-spacing: 3px;
+            font-family: "Open Sans", Arial, sans-serif;
+            line-height: 1.4;
+        }
+
+        .breadcrumb {
+            margin-top: 25px;
+            font-size: 14px;
+        }
+
+        .breadcrumb a {
+            color: white;
+            text-decoration: none;
+            position: relative;
+            margin: 0 5px;
+        }
+
+        .breadcrumb a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -3px;
+            width: 0;
+            height: 2px;
+            background: white;
+            transition: 0.3s;
+        }
+
+        .breadcrumb a:hover::after {
+            width: 100%;
+        }
+
+        /* ================= MAIN SECTION ================= */
+
+        .principal-section {
+            background: url("/static/images/hero (5).png") center center / cover no-repeat;
+            padding: 60px 20px;
+        }
+
+        .principal-container {
+            width: 85%;
+            max-width: 1400px;
+            margin: auto;
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        /* ================= TITLE ================= */
+
+        .affiliated-title {
+            text-align: center;
+            font-size: 30px;
+            color: #31A943;
+            margin-bottom: 50px;
+            line-height: 1.4;
+        }
+
+        /* ================= UNIVERSITY GRID ================= */
+
+        .university-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 35px;
+        }
+
+        /* ================= CARD ================= */
+
+        .university-card {
+            background: #f7f9fc;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .university-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+        }
+
+        /* ================= IMAGE ================= */
+
+        .uni-img {
+            width: 100%;
+            height: 230px;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* ================= NAME ================= */
+
+        .university-card h3 {
+            padding: 15px 20px;
+            font-size: 16px;
+            color: #31A943;
+            line-height: 1.5;
+        }
+
+        /* ================= LOGO ================= */
+
+        .uni-logo {
+            width: 110px;
+            height: 110px;
+            object-fit: contain;
+            margin: 10px auto;
+            display: block;
+        }
+
+        /* ================= BUTTON ================= */
+
+        .visit-btn {
+            display: inline-block;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            background: #31A943;
+            border: 2px solid #31A943;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .visit-btn:hover {
+            background: #7BA388;
+            border-color: #7BA388;
+            color: black;
+        }
+
+        /* ================= CTA ================= */
+
+        .cta-bar {
+            margin-top: 40px;
+            background: linear-gradient(90deg, #31A943, #7BA388);
+            color: white;
+            text-align: center;
+            padding: 25px;
+            border-radius: 10px;
+        }
+
+        .cta-bar h2 {
+            margin-bottom: 8px;
+            font-size: 22px;
+        }
+
+        .cta-bar p {
+            font-size: 14px;
+        }
+
+        /* ================= FOOTER ================= */
+
+        .custom-footer {
+            background: url("/static/images/footer hero.png") center center / cover no-repeat;
+            color: #7BA388;
+            margin-top: 0;
+        }
+
+        .footer-overlay {
+            background: rgba(0, 0, 0, 0.75);
+            padding: 60px 80px;
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+
+        .footer-left {
+            min-width: 180px;
+        }
+
+        .footer-left ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-left li {
+            margin-bottom: 10px;
+        }
+
+        .footer-left a {
+            color: #7BA388;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .footer-left a:hover {
+            color: white;
+        }
+
+        .footer-right {
+            max-width: 800px;
+        }
+
+        .footer-right h3 {
+            margin-bottom: 15px;
+            font-size: 18px;
+            letter-spacing: 2px;
+        }
+
+        .footer-right p {
+            font-size: 14px;
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .footer-right a {
+            color: #7BA388;
+            text-decoration: none;
+        }
+
+        .footer-right a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            margin-top: 30px;
+            border-top: 1px solid #7BA388;
+            padding-top: 15px;
+            font-size: 14px;
+        }
+
+        /* ================================================= */
+        /* ================= TABLET ======================== */
+        /* ================================================= */
+
+        @media (max-width: 1100px) {
+
+            header {
+                padding: 10px 20px;
+            }
+
+            .navbar {
+                gap: 12px;
+            }
+
+            .navbar > a,
+            .dropdown > a {
+                font-size: 13px;
+            }
+
+            .principal-container {
+                width: 95%;
+            }
+
+            .principal-container {
+                padding: 40px;
+            }
+
+            .footer-overlay {
+                padding: 50px 40px;
+            }
+        }
+
+        /* ================================================= */
+        /* ================= MOBILE ======================== */
+        /* ================================================= */
+
+        @media (max-width: 768px) {
+
+            /* HEADER */
+
+            header {
+                min-height: 80px;
+                padding: 8px 15px;
+            }
+
+            .logo-container {
+                width: 58px;
+                height: 58px;
+            }
+
+            .college-text {
+                font-size: 15px;
+            }
+
+            /* HAMBURGER */
+
+            .menu-toggle {
+                display: block;
+            }
+
+            /* NAVBAR */
+
+            .navbar {
+                display: none;
+
+                position: absolute;
+                top: 80px;
+                right: 0;
+
+                width: 100%;
+
+                background: #0d3b3a;
+
+                flex-direction: column;
+                align-items: stretch;
+
+                gap: 0;
+                padding: 10px 0 15px;
+
+                box-shadow: 0 8px 15px rgba(0, 0, 0, 0.25);
+            }
+
+            .navbar.active {
+                display: flex;
+            }
+
+            .navbar > a {
+                display: block;
+                width: 100%;
+                padding: 13px 20px;
+                font-size: 14px;
+            }
+
+            .navbar > a:hover {
+                background: #1a6260;
+            }
+
+            /* DROPDOWNS */
+
+            .dropdown {
+                width: 100%;
+            }
+
+            .dropdown > a {
+                width: 100%;
+                padding: 13px 20px;
+                justify-content: space-between;
+                font-size: 14px;
+            }
+
+            .dropdown > a:hover {
+                background: #1a6260;
+            }
+
+            .sub-menu {
+                position: static;
+                width: 100%;
+                min-width: 0;
+                background: #082d2c;
+                border-radius: 0;
+                padding: 0;
+                box-shadow: none;
+            }
+
+            .dropdown.open .sub-menu {
+                display: block;
+            }
+
+            .sub-menu li a {
+                padding: 11px 35px;
+                font-size: 13px;
+            }
+
+            /* HERO */
+
+            .hero-banner {
+                min-height: 50vh;
+                padding: 60px 15px;
+            }
+
+            .hero-overlay h1 {
+                font-size: 20px;
+                letter-spacing: 2px;
+            }
+
+            .breadcrumb {
+                font-size: 13px;
+                margin-top: 20px;
+            }
+
+            /* MAIN */
+
+            .principal-section {
+                padding: 30px 15px 50px;
+            }
+
+            .principal-container {
+                width: 100%;
+                padding: 30px 20px 35px;
+                border-radius: 15px;
+            }
+
+            .affiliated-title {
+                font-size: 24px;
+                margin-bottom: 35px;
+            }
+
+            /* GRID */
+
+            .university-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            /* CARD */
+
+            .university-card:hover {
+                transform: none;
+            }
+
+            .uni-img {
+                height: 200px;
+            }
+
+            .university-card h3 {
+                font-size: 15px;
+                padding: 15px;
+            }
+
+            .uni-logo {
+                width: 100px;
+                height: 100px;
+            }
+
+            .visit-btn {
+                padding: 9px 22px;
+                font-size: 13px;
+            }
+
+            /* CTA */
+
+            .cta-bar {
+                margin-top: 30px;
+                padding: 22px 15px;
+            }
+
+            .cta-bar h2 {
+                font-size: 19px;
+                line-height: 1.4;
+            }
+
+            .cta-bar p {
+                font-size: 13px;
+            }
+
+            /* FOOTER */
+
+            .footer-overlay {
+                padding: 45px 25px;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                gap: 35px;
+            }
+
+            .footer-left,
+            .footer-right {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .footer-right h3 {
+                font-size: 17px;
+            }
+
+            .footer-right p {
+                font-size: 13px;
+            }
+
+            .footer-bottom {
+                margin-top: 25px;
+            }
+
+            .footer-bottom p {
+                font-size: 12px;
+            }
+        }
+
+        /* ================================================= */
+        /* ================= SMALL MOBILE ================== */
+        /* ================================================= */
+
+        @media (max-width: 480px) {
+
+            header {
+                padding: 8px 12px;
+            }
+
+            .logo-container {
+                width: 52px;
+                height: 52px;
+            }
+
+            .college-text {
+                font-size: 13px;
+            }
+
+            .menu-toggle {
+                font-size: 25px;
+            }
+
+            .navbar {
+                top: 68px;
+            }
+
+            .hero-banner {
+                min-height: 45vh;
+            }
+
+            .hero-overlay h1 {
+                font-size: 17px;
+                letter-spacing: 1px;
+            }
+
+            .breadcrumb {
+                font-size: 12px;
+            }
+
+            .principal-section {
+                padding: 20px 10px 40px;
+            }
+
+            .principal-container {
+                padding: 25px 15px 30px;
+            }
+
+            .affiliated-title {
+                font-size: 21px;
+                margin-bottom: 30px;
+            }
+
+            .uni-img {
+                height: 180px;
+            }
+
+            .university-card h3 {
+                font-size: 14px;
+            }
+
+            .cta-bar h2 {
+                font-size: 17px;
+            }
+
+            .footer-overlay {
+                padding: 40px 20px;
+            }
+
+            .footer-left a {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<header>
+
+    <div class="logo-section">
+
+        <div class="logo-container">
+            <img src="{% static 'images/sup logo.png' %}" alt="Superior College Logo">
+        </div>
+
+        <div class="college-text">
+            <span>Superior</span>
+            <span>College</span>
+            <span>Chishtian</span>
+        </div>
+
+    </div>
+
+    <!-- HAMBURGER -->
+
+    <div class="menu-toggle" id="menu-toggle">
+        ☰
+    </div>
+
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar" id="navbar">
+
+        <a href="{% url 'index' %}">
+            Home
+        </a>
+
+
+        <!-- ABOUT US -->
+
+        <div class="dropdown">
+
+            <a href="#">
+                ABOUT US
+                <span>▼</span>
+            </a>
+
+            <ul class="sub-menu">
+
+                <li>
+                    <a href="{% url 'aboutsup' %}">
+                        Welcome Message From the Principal
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'historysup' %}">
+                        About Superior
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'missionsup' %}">
+                        Mission Vision and Values
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'results' %}">
+                        Results
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <!-- ADMISSIONS -->
+
+        <div class="dropdown">
+
+            <a href="#">
+                ADMISSIONS
+                <span>▼</span>
+            </a>
+
+            <ul class="sub-menu">
+
+                <li>
+                    <a href="{% url 'addmission' %}">
+                        Admissions
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'fee' %}">
+                        Fees Structure
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'apply' %}">
+                        Apply
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <!-- FACILITIES -->
+
+        <div class="dropdown">
+
+            <a href="#">
+                FACILITIES
+                <span>▼</span>
+            </a>
+
+            <ul class="sub-menu">
+
+                <li>
+                    <a href="{% url 'class' %}">
+                        Living Classrooms
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'spaces' %}">
+                        Unique College Learning Spaces
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <!-- LEARNING AT SUPERIOR -->
+
+        <div class="dropdown">
+
+            <a href="#">
+                LEARNING AT SUPERIOR
+                <span>▼</span>
+            </a>
+
+            <ul class="sub-menu">
+
+                <li>
+                    <a href="{% url 'spaces' %}">
+                        LEARNING AT SUPERIOR
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'affiliate' %}">
+                        AFFILIATE
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <!-- CONTACT -->
+
+        <a href="{% url 'contact' %}">
+            CONTACT US
+        </a>
+
+    </nav>
+
+</header>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero-banner">
+
+    <div class="hero-overlay">
+
+        <h1>
+            AFFILIATE | SUPERIOR COLLEGE CTN
+        </h1>
+
+        <div class="breadcrumb">
+
+            <a href="{% url 'superior' %}">
+                Home
+            </a>
+
+            |
+
+            <a href="{% url 'affiliate' %}">
+                Affiliate
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= MAIN SECTION ================= -->
+
+<section class="principal-section">
+
+    <div class="principal-container">
+
+        <h2 class="affiliated-title">
+            Our Affiliated Universities
+        </h2>
+
+
+        <div class="university-grid">
+
+
+            <!-- ================= KFUEIT ================= -->
+
+            <div class="university-card">
+
+                <img
+                    src="{% static 'images/kfu.jfif' %}"
+                    class="uni-img"
+                    alt="KFUEIT"
+                >
+
+                <h3>
+                    Khwaja Fareed University of Engineering &amp; Information Technology (KFUEIT)
+                </h3>
+
+                <img
+                    src="{% static 'images/kfulogo.jfif' %}"
+                    class="uni-logo"
+                    alt="KFUEIT Logo"
+                >
+
+                <a
+                    href="https://kfueit.edu.pk/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="visit-btn"
+                >
+                    Visit KFUEIT Website
+                </a>
+
+            </div>
+
+
+            <!-- ================= IUB ================= -->
+
+            <div class="university-card">
+
+                <img
+                    src="{% static 'images/iub.jfif' %}"
+                    class="uni-img"
+                    alt="The Islamia University of Bahawalpur"
+                >
+
+                <h3>
+                    The Islamia University of Bahawalpur (IUB)
+                </h3>
+
+                <img
+                    src="{% static 'images/logoiub.png' %}"
+                    class="uni-logo"
+                    alt="IUB Logo"
+                >
+
+                <a
+                    href="https://www.iub.edu.pk/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="visit-btn"
+                >
+                    Visit IUB Website
+                </a>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- ================= CTA ================= -->
+
+        <div class="cta-bar">
+
+            <h2>
+                Start Your Journey with Us Today!
+            </h2>
+
+            <p>
+                Explore Our Programs and Opportunities
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer class="custom-footer">
+
+    <div class="footer-overlay">
+
+        <div class="footer-container">
+
+
+            <!-- LEFT MENU -->
+
+            <div class="footer-left">
+
+                <ul>
+
+                    <li>
+                        <a href="{% url 'superior' %}">
+                            HOME
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'historysup' %}">
+                            ABOUT US
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'addmission' %}">
+                            ADMISSIONS
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'results' %}">
+                            LEARNING AT SUPERIOR
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'contact' %}">
+                            CONTACT US
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <!-- RIGHT CONTACT -->
+
+            <div class="footer-right">
+
+                <h3>
+                    GET IN TOUCH
+                </h3>
+
+                <p>
+                    THE Superior College, Chishtian
+                </p>
+
+                <p>
+                    MAIN OFFICE TELEPHONE:
+                    +92 300 6989030
+                </p>
+
+                <p>
+                    EMAIL:
+                    <a href="mailto:superiorctn@gmail.com">
+                        superiorctn@gmail.com
+                    </a>
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- FOOTER BOTTOM -->
+
+        <div class="footer-bottom">
+
+            <p>
+                Copyright © 2023 - All Rights Reserved
+            </p>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+    /* ================= MOBILE MENU ================= */
+
+    const menuToggle = document.getElementById("menu-toggle");
+    const navbar = document.getElementById("navbar");
+
+    menuToggle.addEventListener("click", function () {
+
+        navbar.classList.toggle("active");
+
+    });
+
+
+    /* ================= MOBILE DROPDOWNS ================= */
+
+    const dropdowns = document.querySelectorAll(".dropdown");
+
+    dropdowns.forEach(function (dropdown) {
+
+        const dropdownLink = dropdown.querySelector(":scope > a");
+
+        dropdownLink.addEventListener("click", function (event) {
+
+            if (window.innerWidth <= 768) {
+
+                event.preventDefault();
+
+                dropdowns.forEach(function (otherDropdown) {
+
+                    if (otherDropdown !== dropdown) {
+                        otherDropdown.classList.remove("open");
+                    }
+
+                });
+
+                dropdown.classList.toggle("open");
+
+            }
+
+        });
+
+    });
+
+
+    /* ================= CLOSE MENU AFTER NORMAL LINK ================= */
+
+    const normalLinks = navbar.querySelectorAll(
+        "a:not(.dropdown > a)"
+    );
+
+    normalLinks.forEach(function (link) {
+
+        link.addEventListener("click", function () {
+
+            if (window.innerWidth <= 768) {
+                navbar.classList.remove("active");
+            }
+
+        });
+
+    });
+
+</script>
+
+</body>
+</html>

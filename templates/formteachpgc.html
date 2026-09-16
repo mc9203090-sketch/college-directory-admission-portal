@@ -1,0 +1,1584 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Recruitment Form</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #2e2c6a;
+        }
+
+
+        /* =========================
+           HEADER
+        ========================== */
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background: #2e2c6a;
+            color: white;
+            position: relative;
+            z-index: 1000;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        .logo-container {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid white;
+            flex-shrink: 0;
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .college-text {
+            display: flex;
+            flex-direction: column;
+            color: white;
+            font-weight: bold;
+            line-height: 1.2;
+            font-size: 18px;
+        }
+
+
+        /* =========================
+           NAVBAR
+        ========================== */
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .navbar > a,
+        .navbar .dropdown > a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .navbar a:hover {
+            color: #F5E547;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown > a {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+
+        /* =========================
+           DESKTOP DROPDOWN
+        ========================== */
+
+        .sub-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #2e2c6a;
+            list-style: none;
+            padding: 8px 0;
+            margin: 0;
+            min-width: 230px;
+            border-radius: 0 0 6px 6px;
+            z-index: 9999;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
+        }
+
+        .sub-menu li {
+            margin: 0;
+            padding: 0;
+        }
+
+        .sub-menu li a {
+            padding: 10px 15px;
+            color: white;
+            display: block;
+            font-size: 14px;
+            text-decoration: none;
+            white-space: normal;
+        }
+
+        .sub-menu li a:hover {
+            background: #242253;
+            color: #f5a623;
+        }
+
+        /* Desktop hover */
+        @media (min-width: 768px) {
+
+            .dropdown:hover .sub-menu {
+                display: block;
+            }
+
+            /*
+              Invisible bridge prevents dropdown
+              from disappearing while moving mouse
+              from parent to submenu.
+            */
+            .dropdown::after {
+                content: "";
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 100%;
+                height: 8px;
+            }
+        }
+
+
+        /* =========================
+           MOBILE MENU BUTTON
+        ========================== */
+
+        .menu-toggle {
+            display: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            padding: 5px;
+        }
+
+
+        /* =========================
+           HERO
+        ========================== */
+
+        .rit-hero {
+            background: #eee;
+            padding: 0;
+            position: relative;
+        }
+
+        .orange-strip {
+            background: #E13B28;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 40px;
+        }
+
+        .orange-strip h1 {
+            color: white;
+            font-size: 45px;
+            font-weight: bold;
+            text-align: center;
+            margin: 0;
+        }
+
+
+        /* =========================
+           FORM
+        ========================== */
+
+        .form-section {
+            width: 90%;
+            max-width: 1400px;
+            margin: auto;
+            padding: 60px 0;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            column-gap: 60px;
+            row-gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            min-width: 0;
+        }
+
+        label {
+            font-size: 14px;
+            letter-spacing: 1px;
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #2e2c6a;
+        }
+
+        input,
+        select,
+        textarea {
+            font-family: Arial, sans-serif;
+            max-width: 100%;
+        }
+
+        input::placeholder {
+            color: #888;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 16px 20px;
+            border-radius: 40px;
+            border: 2px solid #E13B28;
+            background: #efefef;
+            font-size: 15px;
+            outline: none;
+            color: #2e2c6a;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #2e2c6a;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 16px 20px;
+            border-radius: 20px;
+            border: 2px solid #E13B28;
+            background: #efefef;
+            outline: none;
+            font-size: 15px;
+            resize: vertical;
+        }
+
+        input[type="file"] {
+            padding: 12px 15px;
+            border-radius: 12px;
+            background: #efefef;
+        }
+
+        hr {
+            border: 0;
+            border-top: 1px solid #ccc;
+            margin: 45px 0;
+        }
+
+        .section-title {
+            font-size: 26px;
+            font-weight: bold;
+            margin: 50px 0 30px 0;
+            color: #2e2c6a;
+        }
+
+        .qualification-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            column-gap: 60px;
+            row-gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .file-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            column-gap: 60px;
+            row-gap: 25px;
+            margin-top: 40px;
+        }
+
+        .send-btn {
+            display: block;
+            margin: 40px 0 0 auto;
+            background: #E13B28;
+            color: white;
+            padding: 16px 60px;
+            border: none;
+            border-radius: 40px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .send-btn:hover {
+            background: #c92f20;
+        }
+
+        #successMessage {
+            display: none;
+            color: green;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================== */
+
+        .footer {
+            background: #2e2c6a;
+            color: white;
+            width: 100%;
+            padding: 70px 80px 80px;
+            position: relative;
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 50px;
+            width: 100%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .footer-left {
+            flex: 1;
+        }
+
+        .footer-left h2 {
+            margin: 0 0 20px;
+            line-height: 1.5;
+        }
+
+        .footer-left p {
+            margin: 8px 0;
+            line-height: 1.5;
+            word-break: break-word;
+        }
+
+        .social-icons {
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 20px;
+            margin-right: 15px;
+            text-decoration: none;
+        }
+
+        .social-icons a:hover {
+            color: #E13B28;
+            transition: 0.3s;
+        }
+
+        .copyright {
+            margin-top: 25px !important;
+        }
+
+        .footer-right {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 10px;
+        }
+
+        .apply-btn {
+            display: inline-block;
+            background: #E13B28;
+            padding: 15px 30px;
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+        .apply-btn:hover {
+            background: #c92f20;
+        }
+
+
+        /* =========================
+           BACK TO TOP
+        ========================== */
+
+        #back-to-top {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            color: white;
+            background: #E13B28;
+            padding: 12px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            z-index: 9999;
+            font-size: 14px;
+        }
+
+        #back-to-top i {
+            margin-left: 5px;
+        }
+
+
+        /* =========================
+           TABLET
+        ========================== */
+
+        @media (max-width: 1100px) {
+
+            .navbar {
+                gap: 12px;
+            }
+
+            .navbar > a,
+            .navbar .dropdown > a {
+                font-size: 13px;
+            }
+
+            .qualification-grid {
+                grid-template-columns: repeat(2, 1fr);
+                column-gap: 30px;
+            }
+
+            .form-row,
+            .file-row {
+                column-gap: 30px;
+            }
+
+            .footer {
+                padding-left: 40px;
+                padding-right: 40px;
+            }
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================== */
+
+        @media (max-width: 767px) {
+
+            header {
+                padding: 10px 15px;
+                min-height: 80px;
+            }
+
+            .logo-container {
+                width: 58px;
+                height: 58px;
+            }
+
+            .college-text {
+                font-size: 15px;
+            }
+
+            .menu-toggle {
+                display: block;
+                margin-left: auto;
+            }
+
+            .navbar {
+                display: none;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background: #2e2c6a;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0;
+                padding: 10px 0 15px;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
+            }
+
+            .navbar.active {
+                display: flex;
+            }
+
+            .navbar > a,
+            .navbar .dropdown > a {
+                display: flex;
+                width: 100%;
+                padding: 13px 20px;
+                font-size: 14px;
+            }
+
+            .navbar > a:hover,
+            .navbar .dropdown > a:hover {
+                background: #242253;
+            }
+
+            .dropdown {
+                width: 100%;
+            }
+
+            .dropdown > a {
+                justify-content: space-between;
+            }
+
+            .sub-menu {
+                display: none;
+                position: static;
+                width: 100%;
+                min-width: 0;
+                padding: 0;
+                margin: 0;
+                border-radius: 0;
+                box-shadow: none;
+                background: #242253;
+            }
+
+            .dropdown.open .sub-menu {
+                display: block;
+            }
+
+            .sub-menu li a {
+                padding: 11px 35px;
+                font-size: 13px;
+            }
+
+            .rit-hero {
+                width: 100%;
+            }
+
+            .orange-strip {
+                min-height: 150px;
+                padding: 30px 20px;
+            }
+
+            .orange-strip h1 {
+                font-size: 30px;
+                line-height: 1.2;
+            }
+
+            .form-section {
+                width: 92%;
+                padding: 40px 0;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                row-gap: 22px;
+                margin-bottom: 22px;
+            }
+
+            .qualification-grid {
+                grid-template-columns: 1fr;
+                row-gap: 22px;
+            }
+
+            .file-row {
+                grid-template-columns: 1fr;
+                row-gap: 22px;
+                margin-top: 30px;
+            }
+
+            label {
+                font-size: 13px;
+                letter-spacing: 0.7px;
+            }
+
+            input,
+            select {
+                padding: 14px 16px;
+                font-size: 14px;
+            }
+
+            textarea {
+                padding: 14px 16px;
+            }
+
+            .section-title {
+                font-size: 22px;
+                margin: 40px 0 25px;
+            }
+
+            hr {
+                margin: 35px 0;
+            }
+
+            .send-btn {
+                width: 100%;
+                margin-top: 35px;
+                padding: 14px 25px;
+                font-size: 17px;
+            }
+
+            .footer {
+                padding: 50px 25px 70px;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 35px;
+            }
+
+            .footer-left {
+                width: 100%;
+            }
+
+            .footer-left h2 {
+                font-size: 23px;
+            }
+
+            .footer-left p {
+                font-size: 14px;
+            }
+
+            .social-icons {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+
+            .social-icons a {
+                margin-right: 0;
+                font-size: 19px;
+            }
+
+            .footer-right {
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            .apply-btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            #back-to-top {
+                bottom: 15px;
+                right: 15px;
+                padding: 10px 13px;
+                font-size: 13px;
+            }
+        }
+
+
+        /* =========================
+           VERY SMALL MOBILE
+        ========================== */
+
+        @media (max-width: 400px) {
+
+            .college-text {
+                font-size: 13px;
+            }
+
+            .logo-container {
+                width: 52px;
+                height: 52px;
+            }
+
+            .orange-strip h1 {
+                font-size: 26px;
+            }
+
+            .form-section {
+                width: 94%;
+            }
+
+            .footer {
+                padding-left: 18px;
+                padding-right: 18px;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body id="top">
+
+    <!-- =========================
+         HEADER
+    ========================== -->
+
+    <header>
+
+        <div class="logo-section">
+
+            <div class="logo-container">
+                <img src="{% static 'images/pgc logo.png' %}" alt="Punjab College Logo">
+            </div>
+
+            <div class="college-text">
+                <span>Punjab</span>
+                <span>College</span>
+                <span>Chishtian</span>
+            </div>
+
+        </div>
+
+
+        <!-- Mobile Hamburger -->
+
+        <button class="menu-toggle" id="menu-toggle" aria-label="Open Menu">
+            <i class="fas fa-bars"></i>
+        </button>
+
+
+        <!-- Navigation -->
+
+        <nav class="navbar" id="navbar">
+
+            <a href="{% url 'index' %}">Home</a>
+
+
+            <!-- ABOUT US -->
+
+            <div class="dropdown">
+
+                <a href="#">
+                    ABOUT US
+                    <i class="fa fa-caret-down"></i>
+                </a>
+
+                <ul class="sub-menu">
+
+                    <li>
+                        <a href="{% url 'historypgc' %}">
+                            About PGC
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'uniquelypgc' %}">
+                            Uniquely PGC
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'missionpgc' %}">
+                            Mission,Vision,Goals PGC
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <!-- ADMISSIONS -->
+
+            <div class="dropdown">
+
+                <a href="#">
+                    ADDMISSIONS
+                    <i class="fa fa-caret-down"></i>
+                </a>
+
+                <ul class="sub-menu">
+
+                    <li>
+                        <a href="{% url 'undergraduatepgc' %}">
+                            UnderGraduates Programmes
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'feepgc' %}">
+                            Scholarship *&* Fee Consection
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'applypgc' %}">
+                            Apply
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <!-- ACTIVITIES -->
+
+            <a href="{% url 'activitypgc' %}">
+                Activities
+            </a>
+
+
+            <!-- LEARNING AT PUNJAB -->
+
+            <div class="dropdown">
+
+                <a href="#">
+                    LEARNING AT PUNJAB
+                    <i class="fa fa-caret-down"></i>
+                </a>
+
+                <ul class="sub-menu">
+
+                    <li>
+                        <a href="{% url 'blogpgc' %}">
+                            Blogs PGC
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'careerpgc' %}">
+                            Careers
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'affiliatepgc' %}">
+                            AFFILIATE
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <!-- CONTACT -->
+
+            <a href="{% url 'contactpgc' %}">
+                CONTACT US
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- =========================
+         HERO
+    ========================== -->
+
+    <section class="rit-hero">
+
+        <div class="orange-strip">
+
+            <h1>Recruitment form</h1>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         FORM
+    ========================== -->
+
+    <div class="form-section">
+
+        <form id="applicationForm">
+
+
+            <!-- PERSONAL INFORMATION -->
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label>NAME*</label>
+
+                    <input
+                        type="text"
+                        placeholder="Name"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>FATHER NAME*</label>
+
+                    <input
+                        type="text"
+                        placeholder="Father Name"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label>DATE OF BIRTH*</label>
+
+                    <input
+                        type="date"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>NATIONALITY*</label>
+
+                    <input
+                        type="text"
+                        placeholder="Nationality"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label>CNIC#*</label>
+
+                    <input
+                        type="text"
+                        placeholder="XXXXX-XXXXXXX-X"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>DOMICILE*</label>
+
+                    <input
+                        type="text"
+                        placeholder="Domicile"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label>PRESENT ADDRESS</label>
+
+                    <input
+                        type="text"
+                        placeholder="Present Address"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>PERMANENT ADDRESS</label>
+
+                    <input
+                        type="text"
+                        placeholder="Permanent Address"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label>EMAIL*</label>
+
+                    <input
+                        type="email"
+                        placeholder="Email"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>PHONE*</label>
+
+                    <input
+                        type="text"
+                        placeholder="Phone"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- DEPARTMENT -->
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label>DEPARTMENT / SUBJECT*</label>
+
+                    <select required>
+
+                        <option value="">Select Subject</option>
+                        <option>Mathematics</option>
+                        <option>Physics</option>
+                        <option>Chemistry</option>
+                        <option>Computer Science</option>
+                        <option>English</option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>CAMPUS TO BE APPLIED FOR</label>
+
+                    <select>
+
+                        <option value="">Select Campus</option>
+                        <option>Lahore</option>
+                        <option>Multan</option>
+                        <option>Bahawalpur</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <hr>
+
+
+            <!-- LAST QUALIFICATION -->
+
+            <div class="section-title">
+                LAST QUALIFICATION
+            </div>
+
+
+            <div class="qualification-grid">
+
+                <div class="form-group">
+
+                    <label>LAST DEGREE*</label>
+
+                    <select required>
+
+                        <option value="">Select</option>
+                        <option>BS</option>
+                        <option>MS</option>
+                        <option>MPhil</option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>DEGREE TITLE*</label>
+
+                    <input
+                        type="text"
+                        placeholder="Degree Title"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>PASSING YEAR*</label>
+
+                    <input
+                        type="text"
+                        placeholder="Passing Year"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>UNIVERSITY*</label>
+
+                    <input
+                        type="text"
+                        placeholder="University"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>INSTITUTION*</label>
+
+                    <input
+                        type="text"
+                        placeholder="Institution"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>MARKS/CGPA*</label>
+
+                    <input
+                        type="text"
+                        placeholder="Marks/CGPA"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>SPECIALIZATION*</label>
+
+                    <input
+                        type="text"
+                        placeholder="Specialization"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- EXPERIENCE -->
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label>EXPERIENCE</label>
+
+                    <select>
+
+                        <option value="">Select</option>
+                        <option>0-1 Years</option>
+                        <option>2-5 Years</option>
+                        <option>5+ Years</option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>LAST ORGANIZATION</label>
+
+                    <input
+                        type="text"
+                        placeholder="Last Organization"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- REFERENCES -->
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label>REFERENCE 1</label>
+
+                    <input
+                        type="text"
+                        placeholder="Reference 1"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>REFERENCE 2</label>
+
+                    <input
+                        type="text"
+                        placeholder="Reference 2"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- FILES -->
+
+            <div class="file-row">
+
+                <div class="form-group">
+
+                    <label>CV*</label>
+
+                    <input
+                        type="file"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>OTHER DOCUMENTS</label>
+
+                    <input
+                        type="file"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- SEND -->
+
+            <button type="submit" class="send-btn">
+                Send
+            </button>
+
+
+            <div id="successMessage">
+
+                ✅ Your application has been submitted successfully!
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer class="footer">
+
+        <div class="footer-container">
+
+
+            <div class="footer-left">
+
+                <h2>PUNJAB COLLEGES</h2>
+
+                <p>
+                    <strong>WhatsApp</strong>
+                    0312 2026500
+                </p>
+
+                <p>
+                    <strong>EMAIL</strong>
+                    pcchishitan@pgc.edu
+                </p>
+
+                <p>
+                    <strong>COMPLAINT PORTAL</strong>
+                    complaint.pgc.edu
+                </p>
+
+
+                <!-- SOCIAL ICONS -->
+
+                <div class="social-icons">
+
+                    <a href="https://www.facebook.com/PGCWorld/"
+                       target="_blank"
+                       aria-label="Facebook">
+
+                        <i class="fa-brands fa-facebook"></i>
+
+                    </a>
+
+
+                    <a href="https://twitter.com/pgcworld"
+                       target="_blank"
+                       aria-label="Twitter">
+
+                        <i class="fa-brands fa-twitter"></i>
+
+                    </a>
+
+
+                    <a href="https://www.instagram.com/pgcworld/"
+                       target="_blank"
+                       aria-label="Instagram">
+
+                        <i class="fa-brands fa-instagram"></i>
+
+                    </a>
+
+
+                    <a href="https://www.youtube.com/user/pgcworld"
+                       target="_blank"
+                       aria-label="YouTube">
+
+                        <i class="fa-brands fa-youtube"></i>
+
+                    </a>
+
+
+                    <a href="https://www.linkedin.com/company/pgcworld/"
+                       target="_blank"
+                       aria-label="LinkedIn">
+
+                        <i class="fa-brands fa-linkedin"></i>
+
+                    </a>
+
+                </div>
+
+
+                <p class="copyright">
+                    2020 Punjab Colleges. All Rights Reserved.
+                </p>
+
+            </div>
+
+
+            <!-- APPLY NOW -->
+
+            <div class="footer-right">
+
+                <a href="{% url 'applypgc' %}" class="apply-btn">
+                    APPLY NOW
+                </a>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <!-- BACK TO TOP -->
+
+    <a href="#top" id="back-to-top">
+        Back to Top
+        <i class="fas fa-chevron-up"></i>
+    </a>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+
+    <script>
+
+        /* =========================
+           MOBILE MENU
+        ========================== */
+
+        const menuToggle = document.getElementById("menu-toggle");
+        const navbar = document.getElementById("navbar");
+
+        menuToggle.addEventListener("click", function () {
+
+            navbar.classList.toggle("active");
+
+            const icon = menuToggle.querySelector("i");
+
+            if (navbar.classList.contains("active")) {
+
+                icon.classList.remove("fa-bars");
+                icon.classList.add("fa-xmark");
+
+            } else {
+
+                icon.classList.remove("fa-xmark");
+                icon.classList.add("fa-bars");
+
+            }
+
+        });
+
+
+        /* =========================
+           MOBILE DROPDOWNS
+        ========================== */
+
+        document.querySelectorAll(".dropdown > a").forEach(function (dropdownLink) {
+
+            dropdownLink.addEventListener("click", function (e) {
+
+                if (window.innerWidth <= 767) {
+
+                    e.preventDefault();
+
+                    const parent = this.parentElement;
+
+                    document.querySelectorAll(".dropdown").forEach(function (dropdown) {
+
+                        if (dropdown !== parent) {
+                            dropdown.classList.remove("open");
+                        }
+
+                    });
+
+                    parent.classList.toggle("open");
+                }
+
+            });
+
+        });
+
+
+        /* =========================
+           CLOSE MOBILE MENU
+           WHEN NORMAL LINK CLICKED
+        ========================== */
+
+        document.querySelectorAll(".navbar > a").forEach(function (link) {
+
+            link.addEventListener("click", function () {
+
+                if (window.innerWidth <= 767) {
+
+                    navbar.classList.remove("active");
+
+                    const icon = menuToggle.querySelector("i");
+
+                    icon.classList.remove("fa-xmark");
+                    icon.classList.add("fa-bars");
+
+                }
+
+            });
+
+        });
+
+
+        /* =========================
+           CLOSE MENU ON RESIZE
+        ========================== */
+
+        window.addEventListener("resize", function () {
+
+            if (window.innerWidth > 767) {
+
+                navbar.classList.remove("active");
+
+                document.querySelectorAll(".dropdown").forEach(function (dropdown) {
+                    dropdown.classList.remove("open");
+                });
+
+                const icon = menuToggle.querySelector("i");
+
+                icon.classList.remove("fa-xmark");
+                icon.classList.add("fa-bars");
+
+            }
+
+        });
+
+
+        /* =========================
+           FORM SUCCESS MESSAGE
+        ========================== */
+
+        document.getElementById("applicationForm").addEventListener("submit", function (e) {
+
+            e.preventDefault();
+
+            document.getElementById("successMessage").style.display = "block";
+
+            window.scrollTo({
+                top: document.getElementById("successMessage").offsetTop - 100,
+                behavior: "smooth"
+            });
+
+        });
+
+
+        /* =========================
+           BACK TO TOP
+        ========================== */
+
+        window.addEventListener("scroll", function () {
+
+            const button = document.getElementById("back-to-top");
+
+            if (
+                document.body.scrollTop > 200 ||
+                document.documentElement.scrollTop > 200
+            ) {
+
+                button.style.display = "block";
+
+            } else {
+
+                button.style.display = "none";
+
+            }
+
+        });
+
+    </script>
+
+</body>
+
+</html>

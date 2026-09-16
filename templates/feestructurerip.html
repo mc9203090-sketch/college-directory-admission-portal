@@ -1,0 +1,1283 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Fee Ripah College</title>
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background: #1C3C6B;
+            color: white;
+            position: relative;
+            z-index: 1000;
+        }
+
+        /* LOGO */
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        .logo-container {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid white;
+            flex-shrink: 0;
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .college-text {
+            display: flex;
+            flex-direction: column;
+            color: white;
+            font-weight: bold;
+            line-height: 1.2;
+            font-size: 18px;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .navbar > a,
+        .navbar .dropdown > a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .navbar a:hover {
+            color: #F5E547;
+        }
+
+        .navbar .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .navbar .dropdown > a {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        /* Desktop dropdown */
+
+        .navbar .sub-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #1C3C6B;
+            list-style: none;
+            padding: 10px 0;
+            margin: 0;
+            min-width: 230px;
+            border-radius: 0 0 5px 5px;
+            z-index: 2000;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /*
+           Invisible bridge:
+           Mouse can move from parent menu to submenu
+           without dropdown disappearing.
+        */
+
+        .navbar .dropdown::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 100%;
+            height: 10px;
+            background: transparent;
+        }
+
+        .navbar .sub-menu li {
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar .sub-menu li a {
+            padding: 10px 15px;
+            color: white;
+            display: block;
+            font-size: 14px;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .navbar .sub-menu li a:hover {
+            background: #244b82;
+            color: #f5a623;
+        }
+
+        /* Desktop hover */
+
+        @media (min-width: 768px) {
+
+            .navbar .dropdown:hover .sub-menu {
+                display: block;
+            }
+
+        }
+
+        /* =========================
+           MOBILE MENU BUTTON
+        ========================= */
+
+        .menu-toggle {
+            display: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+        }
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            width: 100%;
+            min-height: 25vh;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            background-color: #D78D32;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 20px;
+        }
+
+        .slider {
+            text-align: center;
+            color: #ffffff;
+            width: 100%;
+        }
+
+        .slider h1 {
+            margin: 0;
+            font-size: 42px;
+            line-height: 1.2;
+        }
+
+        .slider hr {
+            width: 60px;
+            margin: 15px auto;
+            border: 0;
+            height: 4px;
+            background-color: #1C3C6B;
+        }
+
+        /* =========================
+           ABOUT
+        ========================= */
+
+        .about-pgc {
+            background: #eee;
+            text-align: center;
+            padding: 35px 20px;
+        }
+
+        .about-text {
+            max-width: 900px;
+            margin: auto;
+            font-size: 28px;
+            padding: 0;
+            line-height: 1.8;
+            color: #1C3C6B;
+            text-align: center;
+        }
+
+        /* =========================
+           SCHOLARSHIP SECTION
+        ========================= */
+
+        .scholarship-section {
+            max-width: 1100px;
+            margin: auto;
+            padding: 70px 20px;
+            font-family: Arial, sans-serif;
+        }
+
+        .title {
+            font-size: 48px;
+            font-weight: bold;
+            color: #D78D32;
+            margin-top: 0;
+            margin-bottom: 25px;
+            line-height: 1.2;
+        }
+
+        .procedure {
+            font-size: 36px;
+            color: #D78D32;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+
+        .sub {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            color: #1C3C6B;
+            line-height: 1.4;
+        }
+
+        .note {
+            font-size: 22px;
+            font-weight: bold;
+            color: #D78D32;
+            margin-top: 20px;
+        }
+
+        .desc {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #1C3C6B;
+            margin-bottom: 20px;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        .custom-footer {
+            position: relative;
+            background: url("/static/images/ripah1.png") center center / cover no-repeat;
+            color: #7BA388;
+            font-family: Arial, sans-serif;
+        }
+
+        .footer-overlay {
+            background: rgba(0, 0, 0, 0.75);
+            padding: 60px 80px;
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+
+        .footer-left {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .footer-left ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-left ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-left ul li a {
+            color: #7BA388;
+            text-decoration: none;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+
+        .footer-left ul li a:hover {
+            color: #ffffff;
+        }
+
+        .footer-right {
+            flex: 1;
+            max-width: 800px;
+            min-width: 250px;
+        }
+
+        .footer-right h3 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 18px;
+            letter-spacing: 2px;
+        }
+
+        .footer-right p {
+            margin-bottom: 10px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .footer-bottom {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #7BA388;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            font-size: 14px;
+        }
+
+        .footer-bottom p {
+            color: #cccccc;
+            margin: 0;
+        }
+
+        /* =========================
+           BACK TO TOP
+        ========================= */
+
+        #back-to-top {
+            display: none;
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            background: #D78D32;
+            color: white;
+            text-decoration: none;
+            padding: 10px 14px;
+            border-radius: 5px;
+            z-index: 9999;
+            font-size: 14px;
+        }
+
+        #back-to-top:hover {
+            background: #1C3C6B;
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 767px) {
+
+            header {
+                padding: 10px 15px;
+                min-height: 75px;
+            }
+
+            .logo-container {
+                width: 55px;
+                height: 55px;
+            }
+
+            .college-text {
+                font-size: 14px;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .navbar {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #1C3C6B;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0;
+                padding: 10px 0;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            }
+
+            .navbar.active {
+                display: flex;
+            }
+
+            .navbar > a,
+            .navbar .dropdown > a {
+                width: 100%;
+                padding: 13px 20px;
+                font-size: 14px;
+            }
+
+            .navbar .dropdown {
+                width: 100%;
+            }
+
+            /* Disable desktop bridge on mobile */
+
+            .navbar .dropdown::after {
+                display: none;
+            }
+
+            /* Mobile dropdown */
+
+            .navbar .sub-menu {
+                position: static;
+                display: none;
+                width: 100%;
+                min-width: 0;
+                padding: 0;
+                margin: 0;
+                border-radius: 0;
+                box-shadow: none;
+                background: #163256;
+            }
+
+            .navbar .dropdown.open .sub-menu {
+                display: block;
+            }
+
+            .navbar .sub-menu li a {
+                padding: 11px 35px;
+                font-size: 13px;
+                white-space: normal;
+            }
+
+            /* Hero */
+
+            .hero {
+                min-height: 190px;
+                padding: 30px 15px;
+            }
+
+            .slider h1 {
+                font-size: 28px;
+            }
+
+            /* About */
+
+            .about-pgc {
+                padding: 25px 15px;
+            }
+
+            .about-text {
+                font-size: 18px;
+                line-height: 1.7;
+            }
+
+            /* Scholarship */
+
+            .scholarship-section {
+                padding: 45px 18px;
+            }
+
+            .title {
+                font-size: 30px;
+                line-height: 1.3;
+                margin-bottom: 25px;
+            }
+
+            .procedure {
+                font-size: 27px;
+                margin-top: 35px;
+            }
+
+            .sub {
+                font-size: 20px;
+                line-height: 1.4;
+                margin-top: 25px;
+            }
+
+            .desc {
+                font-size: 15px;
+                line-height: 1.8;
+                text-align: left;
+            }
+
+            .note {
+                font-size: 20px;
+            }
+
+            /* Footer */
+
+            .footer-overlay {
+                padding: 45px 20px;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            .footer-left,
+            .footer-right {
+                width: 100%;
+                max-width: 100%;
+                min-width: 0;
+            }
+
+            .footer-left ul li a {
+                font-size: 13px;
+            }
+
+            .footer-right h3 {
+                font-size: 17px;
+            }
+
+            .footer-right p {
+                font-size: 13px;
+                word-break: break-word;
+            }
+
+            .footer-bottom {
+                margin-top: 30px;
+                padding-top: 15px;
+                font-size: 12px;
+                line-height: 1.6;
+            }
+
+            #back-to-top {
+                right: 12px;
+                bottom: 12px;
+                font-size: 12px;
+                padding: 9px 11px;
+            }
+        }
+
+        /* =========================
+           SMALL MOBILE
+        ========================= */
+
+        @media (max-width: 420px) {
+
+            .college-text {
+                font-size: 13px;
+            }
+
+            .logo-container {
+                width: 50px;
+                height: 50px;
+            }
+
+            .slider h1 {
+                font-size: 24px;
+            }
+
+            .about-text {
+                font-size: 17px;
+            }
+
+            .title {
+                font-size: 26px;
+            }
+
+            .procedure {
+                font-size: 24px;
+            }
+
+            .sub {
+                font-size: 18px;
+            }
+
+            .desc {
+                font-size: 14px;
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+    <!-- =========================
+         HEADER
+    ========================= -->
+
+    <header>
+
+        <div class="logo-section">
+
+            <div class="logo-container">
+                <img src="{% static 'images/ripah logo.jfif' %}" alt="Ripah College Logo">
+            </div>
+
+            <div class="college-text">
+                <span>RIPAH</span>
+                <span>College</span>
+                <span>Chishtian</span>
+            </div>
+
+        </div>
+
+
+        <!-- Mobile Menu Button -->
+
+        <button class="menu-toggle" id="menu-toggle" aria-label="Open Menu">
+            <i class="fas fa-bars"></i>
+        </button>
+
+
+        <!-- NAVBAR -->
+
+        <nav class="navbar" id="navbar">
+
+            <a href="{% url 'index' %}">Home</a>
+
+
+            <!-- ABOUT US -->
+
+            <div class="dropdown">
+
+                <a href="#">
+                    ABOUT US
+                    <i class="fa fa-caret-down"></i>
+                </a>
+
+                <ul class="sub-menu">
+
+                    <li>
+                        <a href="{% url 'historyrip' %}">
+                            About Punjab
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'missionrip' %}">
+                            Mission Vision and Values
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <!-- ADMISSIONS -->
+
+            <div class="dropdown">
+
+                <a href="#">
+                    ADDMISSIONS
+                    <i class="fa fa-caret-down"></i>
+                </a>
+
+                <ul class="sub-menu">
+
+                    <li>
+                        <a href="{% url 'feestructurerip' %}">
+                            Fees Structure
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'applyrip' %}">
+                            Apply
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <!-- FACILITIES -->
+
+            <div class="dropdown">
+
+                <a href="{% url 'classrip' %}">
+                    FACILITIES
+                </a>
+
+            </div>
+
+
+            <!-- LEARNING -->
+
+            <div class="dropdown">
+
+                <a href="#">
+                    LEARNING AT RIPAH
+                    <i class="fa fa-caret-down"></i>
+                </a>
+
+                <ul class="sub-menu">
+
+                    <li>
+                        <a href="{% url 'spacerip' %}">
+                            LEARNING AT RIPAH
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'affiliaterip' %}">
+                            AFFILIATE
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <!-- CONTACT -->
+
+            <a href="{% url 'contactrip' %}">
+                CONTACT US
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- =========================
+         HERO SECTION
+    ========================= -->
+
+    <section class="hero">
+
+        <div class="slider">
+
+            <h1>FEE STRUCTURE</h1>
+
+            <hr>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         ABOUT
+    ========================= -->
+
+    <section class="about-pgc">
+
+        <p class="about-text">
+
+            We’re here to support your future success and make a world-class
+            education within reach. We are committed to making an PGC
+            experience accessible. Our goal is to work with each family to
+            create a financial plan that provides the means to help you launch
+            the career of your dreams.
+
+        </p>
+
+    </section>
+
+
+    <!-- =========================
+         SCHOLARSHIP / FEE
+    ========================= -->
+
+    <section class="scholarship-section">
+
+        <h1 class="title">
+            SCHOLARSHIPS *&* FEE CONCESSIONS
+        </h1>
+
+
+        <p class="desc">
+
+            At Ripah College we believe that hard working students deserve
+            rewards, and that every child deserves an education. Incentives and
+            scholarships have always been a source of encouragement and much
+            needed support for students. These awards inspire talented students
+            to work harder and attain the best results in their examinations.
+            Position holders are the pride of their alma mater. Punjab College
+            offers a number of incentives for all those students who perform
+            exceptionally well in their Boards/University exams. Other than
+            incentives on the basis of performance, Punjab Group of Colleges is
+            also concerned about the need of education of those students who
+            can’t afford the fees and provide financial support by giving them
+            concession or free education through different categories.
+
+        </p>
+
+
+        <h2 class="procedure">
+            PROCEDURE
+        </h2>
+
+
+        <h3 class="sub">
+            1. MERIT-BASED SCHOLARSHIP:
+        </h3>
+
+        <p class="desc">
+
+            Ripah Colleges promotes hard work and excellence. We offer an
+            exclusive scholarship to students who show excellent performance
+            in academics. They can avail up to a 100% fee waiver. Students with
+            75% or above marks are eligible to apply for free education at the
+            time of admission.
+
+        </p>
+
+
+        <h3 class="sub">
+            2. TEACHERS’ CHILDREN:
+        </h3>
+
+        <p class="desc">
+
+            Ripah Colleges facilitate teachers and ensure that their children
+            can avail high-quality education. Children of teachers at public
+            sector and well-known private institutes are eligible for this
+            concession.
+
+        </p>
+
+
+        <h3 class="sub">
+            3. KINSHIP:
+        </h3>
+
+        <p class="desc">
+
+            Ripah Colleges take care of the family of its students. The direct
+            family members of old *&* current students are offered a special
+            discount on their education.
+
+        </p>
+
+
+        <h3 class="sub">
+            4. ORPHAN STUDENTS:
+        </h3>
+
+        <p class="desc">
+
+            Orphans are entitled to a special scholarship at Ripah Colleges.
+            Those who have lost their fathers/guardians can apply under this
+            category.
+
+        </p>
+
+
+        <h3 class="sub">
+            5. STUDENTS WITH SPECIAL NEEDS:
+        </h3>
+
+        <p class="desc">
+
+            To motivate students with special needs to pursue education and
+            nurture their minds with hope, a special fee concession opportunity
+            has been ensured for them.
+
+        </p>
+
+
+        <h3 class="sub">
+            6. NEED-BASED CONCESSION:
+        </h3>
+
+        <p class="desc">
+
+            Recognizing that not all students can afford the fees and may face
+            economic crises, RHP is concerned about their need for education
+            and provides financial support through concessions or free
+            education.
+
+        </p>
+
+
+        <h3 class="sub">
+            7. 1122 EMPLOYEES:
+        </h3>
+
+        <p class="desc">
+
+            The employees and paramedical staff of rescue 1122 risk their lives
+            in the line of duty. They deserve our support, and to cope with
+            that, Punjab Colleges provide special concessions for the children
+            of Rescue 1122 employees.
+
+        </p>
+
+
+        <h3 class="sub">
+            8. SHUHDA’S CHILDREN:
+        </h3>
+
+        <p class="desc">
+
+            Ripah Colleges take special care of children of Shuhada of armed
+            forces and police of our country who sacrificed their lives for us.
+            We provide a specific concession to Shuhda’s children so that they
+            can study in Ripah College without any financial burden.
+
+        </p>
+
+
+        <h3 class="sub">
+            9. INCENTIVE POLICIES FOR HIGH ACHIEVERS:
+        </h3>
+
+        <p class="desc">
+
+            Ripah Colleges honor students who perform exceptionally well in
+            their respective Boards. The top position holders in intermediate
+            from all boards are awarded with a brand new car/cash prizes.
+
+        </p>
+
+
+        <h3 class="sub">
+            10. INCENTIVE POLICIES FOR MATRIC TOPPERS:
+        </h3>
+
+        <p class="desc">
+
+            Students securing top positions in matric from all boards are
+            awarded with a brand new car/cash prizes upon joining Ripah College.
+
+        </p>
+
+
+        <h3 class="sub">
+            11. INCENTIVE POLICY FOR PGC STUDENTS IN UNIVERSITIES:
+        </h3>
+
+        <p class="desc">
+
+            Old students of RHP can avail concessions at the time of admission
+            at the University of Central Ripah-Fasialabad, Mohammad Ali Jinnah
+            University-Karachi, and Capital University of Science *&*
+            Technology-Islamabad.
+
+        </p>
+
+
+        <h3 class="sub">
+            12. SPECIAL CIRCUMSTANCES FINANCIAL AID:
+        </h3>
+
+        <p class="desc">
+
+            If the father/guardian of any current student unfortunately passes
+            away, the responsibility of their fees will be taken over by Ripah
+            College itself, and education will be free for the student.
+
+        </p>
+
+
+        <h3 class="sub">
+            OTHER DISCOUNTS:
+        </h3>
+
+        <p class="desc">
+
+            For Afternoon Programs at RIPAH, students have another opportunity
+            to avail a 50% discount on fees and receive quality education
+            without financial constraints. Furthermore, all the scholarship
+            categories mentioned above can be equally applied to all Afternoon
+            programs for students studying in Afternoon classes.
+
+        </p>
+
+
+        <h3 class="note">
+            Note:
+        </h3>
+
+        <p class="desc">
+
+            To continue availing the concession or scholarship, students must
+            maintain 90% attendance.
+
+        </p>
+
+    </section>
+
+
+    <!-- =========================
+         FOOTER
+    ========================= -->
+
+    <footer class="custom-footer">
+
+        <div class="footer-overlay">
+
+            <div class="footer-container">
+
+
+                <!-- LEFT MENU -->
+
+                <div class="footer-left">
+
+                    <ul>
+
+                        <li>
+                            <a href="{% url 'ripah' %}">
+                                HOME
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{% url 'historyrip' %}">
+                                ABOUT US
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{% url 'applyrip' %}">
+                                ADMISSIONS
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{% url 'classrip' %}">
+                                THE CAMPUS
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{% url 'spacerip' %}">
+                                LEARNING AT RIPAH
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{% url 'contactrip' %}">
+                                CONTACT US
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+
+                <!-- RIGHT CONTACT -->
+
+                <div class="footer-right">
+
+                    <h3>
+                        GET IN TOUCH
+                    </h3>
+
+                    <p>
+                        THE Ripah College, Chishtian,
+                    </p>
+
+                    <p>
+                        MAIN OFFICE TELEPHONE: 0322 7771218.
+                    </p>
+
+                    <p>
+                        EMAIL:
+                        <a href="mailto:coordinator.chishtian@ric.edu.pk"
+                           style="color:#7BA388; text-decoration:none;">
+                            coordinator.chishtian@ric.edu.pk
+                        </a>
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- BOTTOM BAR -->
+
+            <div class="footer-bottom">
+
+                <p>
+                    Legal *&* Privacy Policy | Copyright © 2023 - All Rights Reserved
+                </p>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <!-- =========================
+         BACK TO TOP
+    ========================= -->
+
+    <a href="#top" id="back-to-top">
+        Back to Top
+        <i class="fas fa-chevron-up"></i>
+    </a>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================= -->
+
+    <script>
+
+        const menuToggle = document.getElementById("menu-toggle");
+        const navbar = document.getElementById("navbar");
+
+        /* MOBILE MENU */
+
+        menuToggle.addEventListener("click", function () {
+
+            navbar.classList.toggle("active");
+
+        });
+
+
+        /* MOBILE DROPDOWNS ONLY */
+
+        const dropdownLinks = document.querySelectorAll(".dropdown > a");
+
+        dropdownLinks.forEach(function (link) {
+
+            link.addEventListener("click", function (event) {
+
+                if (window.innerWidth <= 767) {
+
+                    const dropdown = this.parentElement;
+
+                    /*
+                       Agar dropdown ke andar submenu hai,
+                       tab mobile par click se open hoga.
+                    */
+
+                    const submenu = dropdown.querySelector(".sub-menu");
+
+                    if (submenu) {
+
+                        event.preventDefault();
+
+                        /*
+                           Baqi dropdowns close karo
+                        */
+
+                        document.querySelectorAll(".dropdown").forEach(function (item) {
+
+                            if (item !== dropdown) {
+                                item.classList.remove("open");
+                            }
+
+                        });
+
+                        dropdown.classList.toggle("open");
+
+                    }
+
+                }
+
+                /*
+                   Desktop par preventDefault nahi hoga,
+                   isliye submenu links normally clickable rahenge.
+                */
+
+            });
+
+        });
+
+
+        /* CLOSE MOBILE MENU AFTER NORMAL LINK CLICK */
+
+        document.querySelectorAll(".navbar > a").forEach(function (link) {
+
+            link.addEventListener("click", function () {
+
+                if (window.innerWidth <= 767) {
+                    navbar.classList.remove("active");
+                }
+
+            });
+
+        });
+
+
+        /* CLOSE MENU WHEN WINDOW BECOMES DESKTOP */
+
+        window.addEventListener("resize", function () {
+
+            if (window.innerWidth > 767) {
+
+                navbar.classList.remove("active");
+
+                document.querySelectorAll(".dropdown").forEach(function (item) {
+                    item.classList.remove("open");
+                });
+
+            }
+
+        });
+
+
+        /* BACK TO TOP */
+
+        const backToTop = document.getElementById("back-to-top");
+
+        window.addEventListener("scroll", function () {
+
+            if (window.scrollY > 300) {
+
+                backToTop.style.display = "block";
+
+            } else {
+
+                backToTop.style.display = "none";
+
+            }
+
+        });
+
+
+        backToTop.addEventListener("click", function (event) {
+
+            event.preventDefault();
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        });
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,698 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Application Details</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        /* HEADER */
+
+        .header {
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 18px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: #173b73;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile-name {
+            color: #555;
+            font-size: 14px;
+        }
+
+        .profile-circle {
+            width: 40px;
+            height: 40px;
+            background: #173b73;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+        }
+
+        /* MAIN */
+
+        .container {
+            width: 88%;
+            max-width: 1100px;
+            margin: 35px auto;
+        }
+
+        .back-button {
+            display: inline-block;
+            text-decoration: none;
+            color: #173b73;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .page-title {
+            margin-bottom: 25px;
+        }
+
+        .page-title h1 {
+            color: #173b73;
+            font-size: 30px;
+            margin-bottom: 7px;
+        }
+
+        .page-title p {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        /* APPLICATION HEADER */
+
+        .application-header {
+            background: white;
+            border-radius: 14px;
+            padding: 25px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+
+        .application-header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .college-name {
+            color: #173b73;
+            font-size: 22px;
+            margin-bottom: 7px;
+        }
+
+        .application-number {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        /* STATUS */
+
+        .status-badge {
+            padding: 9px 17px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .pending {
+            background: #fff7ed;
+            color: #c2410c;
+        }
+
+        .approved {
+            background: #f0fdf4;
+            color: #15803d;
+        }
+
+        .rejected {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+
+        /* STATUS MESSAGE */
+
+        .status-message {
+            margin-top: 20px;
+            padding: 14px 16px;
+            border-radius: 9px;
+            font-size: 14px;
+        }
+
+        .pending-message {
+            background: #fff7ed;
+            color: #9a3412;
+        }
+
+        .approved-message {
+            background: #f0fdf4;
+            color: #166534;
+        }
+
+        .rejected-message {
+            background: #fef2f2;
+            color: #991b1b;
+        }
+
+        /* SECTIONS */
+
+        .section {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+        }
+
+        .section-title {
+            color: #173b73;
+            font-size: 19px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px 30px;
+        }
+
+        .detail-item {
+            padding-bottom: 12px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .detail-label {
+            display: block;
+            color: #6b7280;
+            font-size: 12px;
+            margin-bottom: 6px;
+        }
+
+        .detail-value {
+            color: #374151;
+            font-size: 14px;
+            font-weight: 600;
+            word-break: break-word;
+        }
+
+        /* BUTTONS */
+
+        .bottom-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        .button {
+            text-decoration: none;
+            padding: 11px 19px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .dashboard-button {
+            background: #173b73;
+            color: white;
+        }
+
+        .dashboard-button:hover {
+            background: #0f2d59;
+        }
+
+        .logout-button {
+            border: 1px solid #d1d5db;
+            color: #374151;
+            background: white;
+        }
+
+        .logout-button:hover {
+            border-color: #173b73;
+            color: #173b73;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 600px) {
+
+            .header {
+                padding: 15px 5%;
+            }
+
+            .logo {
+                font-size: 19px;
+            }
+
+            .profile-name {
+                display: none;
+            }
+
+            .container {
+                width: 92%;
+                margin: 25px auto;
+            }
+
+            .page-title h1 {
+                font-size: 25px;
+            }
+
+            .application-header {
+                padding: 18px;
+            }
+
+            .application-header-top {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .college-name {
+                font-size: 19px;
+            }
+
+            .section {
+                padding: 18px;
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .bottom-actions {
+                flex-direction: column;
+            }
+
+            .button {
+                text-align: center;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="logo">
+            College Directory
+        </div>
+
+        <div class="profile">
+
+            <div class="profile-name">
+                {{ user.first_name|default:user.username }}
+            </div>
+
+            <div class="profile-circle">
+                {{ user.first_name|first|upper }}
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- MAIN -->
+
+    <main class="container">
+
+        <a href="{% url 'dashboard' %}" class="back-button">
+            ← Back to Dashboard
+        </a>
+
+
+        <div class="page-title">
+
+            <h1>Application Details</h1>
+
+            <p>
+                Complete information about your admission application.
+            </p>
+
+        </div>
+
+
+        <!-- APPLICATION HEADER -->
+
+        <div class="application-header">
+
+            <div class="application-header-top">
+
+                <div>
+
+                    <h2 class="college-name">
+                        {{ application.college.name }}
+                    </h2>
+
+                    <p class="application-number">
+                        Application #{{ application.id }}
+                    </p>
+
+                </div>
+
+
+                {% if application.status == "Pending" %}
+
+                    <span class="status-badge pending">
+                        Pending
+                    </span>
+
+                {% elif application.status == "Approved" %}
+
+                    <span class="status-badge approved">
+                        Approved
+                    </span>
+
+                {% elif application.status == "Rejected" %}
+
+                    <span class="status-badge rejected">
+                        Rejected
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+
+            {% if application.status == "Pending" %}
+
+                <div class="status-message pending-message">
+                    Your application is currently under review.
+                    Please wait for the college administration to review it.
+                </div>
+
+            {% elif application.status == "Approved" %}
+
+                <div class="status-message approved-message">
+                    🎉 Congratulations! Your admission application has been approved.
+                </div>
+
+            {% elif application.status == "Rejected" %}
+
+                <div class="status-message rejected-message">
+                    Your admission application has been rejected.
+                    Please contact the college administration for further information.
+                </div>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- PERSONAL INFORMATION -->
+
+        <section class="section">
+
+            <h2 class="section-title">
+                Personal Information
+            </h2>
+
+            <div class="details-grid">
+
+                <div class="detail-item">
+                    <span class="detail-label">Full Name</span>
+                    <span class="detail-value">
+                        {{ application.full_name|default:"Not provided" }}
+                    </span>
+                </div>
+
+                <div class="detail-item">
+                    <span class="detail-label">Gender</span>
+                    <span class="detail-value">
+                        {{ application.gender|default:"Not provided" }}
+                    </span>
+                </div>
+
+                <div class="detail-item">
+                    <span class="detail-label">Date of Birth</span>
+                    <span class="detail-value">
+                        {{ application.date_of_birth|default:"Not provided" }}
+                    </span>
+                </div>
+
+                <div class="detail-item">
+                    <span class="detail-label">Student CNIC / B-Form</span>
+                    <span class="detail-value">
+                        {{ application.student_cnic|default:"Not provided" }}
+                    </span>
+                </div>
+
+                <div class="detail-item">
+                    <span class="detail-label">Location</span>
+                    <span class="detail-value">
+                        {{ application.location|default:"Not provided" }}
+                    </span>
+                </div>
+
+                <div class="detail-item">
+                    <span class="detail-label">Address</span>
+                    <span class="detail-value">
+                        {{ application.address|default:"Not provided" }}
+                    </span>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- GUARDIAN INFORMATION -->
+
+        <section class="section">
+
+            <h2 class="section-title">
+                Guardian Information
+            </h2>
+
+            <div class="details-grid">
+
+                <div class="detail-item">
+                    <span class="detail-label">Father / Guardian Name</span>
+                    <span class="detail-value">
+                        {{ application.father_name|default:"Not provided" }}
+                    </span>
+                </div>
+
+                <div class="detail-item">
+                    <span class="detail-label">Relationship</span>
+                    <span class="detail-value">
+                        {{ application.relationship|default:"Not provided" }}
+                    </span>
+                </div>
+
+                <div class="detail-item">
+                    <span class="detail-label">Guardian CNIC</span>
+                    <span class="detail-value">
+                        {{ application.guardian_cnic|default:"Not provided" }}
+                    </span>
+                </div>
+
+                <div class="detail-item">
+                    <span class="detail-label">Guardian Contact</span>
+                    <span class="detail-value">
+                        {{ application.guardian_contact|default:"Not provided" }}
+                    </span>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CONTACT INFORMATION -->
+
+        <section class="section">
+
+            <h2 class="section-title">
+                Contact Information
+            </h2>
+
+            <div class="details-grid">
+
+                <div class="detail-item">
+                    <span class="detail-label">Student Contact</span>
+                    <span class="detail-value">
+                        {{ application.student_contact|default:"Not provided" }}
+                    </span>
+                </div>
+
+                <div class="detail-item">
+                    <span class="detail-label">Email</span>
+                    <span class="detail-value">
+                        {{ application.email|default:"Not provided" }}
+                    </span>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ACADEMIC INFORMATION -->
+
+        <section class="section">
+
+            <h2 class="section-title">
+                Academic Information
+            </h2>
+
+            <div class="details-grid">
+
+                <div class="detail-item">
+                    <span class="detail-label">Course</span>
+                    <span class="detail-value">
+                        {{ application.course|default:"Not provided" }}
+                    </span>
+                </div>
+
+                <div class="detail-item">
+                    <span class="detail-label">Degree</span>
+                    <span class="detail-value">
+                        {{ application.degree|default:"Not provided" }}
+                    </span>
+                </div>
+
+                <div class="detail-item">
+                    <span class="detail-label">Passing Year</span>
+                    <span class="detail-value">
+                        {{ application.passing_year|default:"Not provided" }}
+                    </span>
+                </div>
+
+                <div class="detail-item">
+                    <span class="detail-label">Board</span>
+                    <span class="detail-value">
+                        {{ application.board|default:"Not provided" }}
+                    </span>
+                </div>
+
+                <div class="detail-item">
+                    <span class="detail-label">Group</span>
+                    <span class="detail-value">
+                        {{ application.group|default:"Not provided" }}
+                    </span>
+                </div>
+
+                <div class="detail-item">
+                    <span class="detail-label">Obtained Marks</span>
+                    <span class="detail-value">
+                        {{ application.obtained_marks|default:"Not provided" }}
+                    </span>
+                </div>
+
+                <div class="detail-item">
+                    <span class="detail-label">Total Marks</span>
+                    <span class="detail-value">
+                        {{ application.total_marks|default:"Not provided" }}
+                    </span>
+                </div>
+
+                <div class="detail-item">
+                    <span class="detail-label">Board Roll Number</span>
+                    <span class="detail-value">
+                        {{ application.board_roll_no|default:"Not provided" }}
+                    </span>
+                </div>
+
+                <div class="detail-item">
+                    <span class="detail-label">Previous School / College</span>
+                    <span class="detail-value">
+                        {{ application.previous_school|default:"Not provided" }}
+                    </span>
+                </div>
+
+                <div class="detail-item">
+                    <span class="detail-label">How did you hear about us?</span>
+                    <span class="detail-value">
+                        {{ application.heard_about_us|default:"Not provided" }}
+                    </span>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- APPLICATION INFORMATION -->
+
+        <section class="section">
+
+            <h2 class="section-title">
+                Application Information
+            </h2>
+
+            <div class="details-grid">
+
+                <div class="detail-item">
+                    <span class="detail-label">College</span>
+                    <span class="detail-value">
+                        {{ application.college.name }}
+                    </span>
+                </div>
+
+                <div class="detail-item">
+                    <span class="detail-label">Application Date</span>
+                    <span class="detail-value">
+                        {{ application.created_at|date:"d M Y, h:i A" }}
+                    </span>
+                </div>
+
+                <div class="detail-item">
+                    <span class="detail-label">Current Status</span>
+                    <span class="detail-value">
+                        {{ application.status }}
+                    </span>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ACTIONS -->
+
+        <div class="bottom-actions">
+
+            <a
+                href="{% url 'dashboard' %}"
+                class="button dashboard-button"
+            >
+                ← Back to Dashboard
+            </a>
+
+            <a
+                href="{% url 'logout' %}"
+                class="button logout-button"
+            >
+                Logout
+            </a>
+
+        </div>
+
+    </main>
+
+</body>
+</html>

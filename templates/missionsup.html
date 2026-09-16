@@ -1,0 +1,1164 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<title>Mission Vision Values</title>
+
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
+
+    body {
+        overflow-x: hidden;
+        background: #fff;
+    }
+
+    /* ================= HEADER ================= */
+
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        background: #1a6260;
+        color: white;
+        position: relative;
+        z-index: 1000;
+    }
+
+    .logo-section {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .logo-container {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 3px solid white;
+        flex-shrink: 0;
+    }
+
+    .logo-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .college-text {
+        display: flex;
+        flex-direction: column;
+        color: white;
+        font-weight: bold;
+        line-height: 1.2;
+        font-size: 18px;
+    }
+
+    /* ================= NAVBAR ================= */
+
+    .navbar {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .navbar > a,
+    .navbar .dropdown > a {
+        color: white;
+        text-decoration: none;
+        font-size: 15px;
+        font-weight: 500;
+    }
+
+    .navbar a:hover {
+        color: #f5a623;
+    }
+
+    .navbar .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .navbar .dropdown > a {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        cursor: pointer;
+    }
+
+    .navbar .sub-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: #0d3b3a;
+        list-style: none;
+        padding: 10px 0;
+        min-width: 220px;
+        border-radius: 5px;
+        z-index: 1001;
+    }
+
+    .navbar .sub-menu li a {
+        padding: 8px 15px;
+        color: white;
+        display: block;
+        font-size: 14px;
+        text-decoration: none;
+    }
+
+    .navbar .sub-menu li a:hover {
+        background: #1a6260;
+        color: #f5a623;
+    }
+
+    /* Desktop dropdown */
+    .navbar .dropdown:hover .sub-menu {
+        display: block;
+    }
+
+    /* ================= MOBILE MENU BUTTON ================= */
+
+    .menu-toggle {
+        display: none;
+        font-size: 27px;
+        cursor: pointer;
+        color: white;
+    }
+
+    /* ================= HERO ================= */
+
+    .hero-banner {
+        min-height: 60vh;
+        background: url("/static/images/hero (5).png") center center/cover no-repeat;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding-top: 15%;
+    }
+
+    .hero-overlay {
+        background: rgba(0, 0, 0, 0.5);
+        width: 100%;
+        min-height: 60vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        padding: 30px 20px;
+    }
+
+    .hero-overlay h1 {
+        font-size: 24px;
+        letter-spacing: 3px;
+        font-family: "Open Sans", Arial, sans-serif;
+    }
+
+    .breadcrumb {
+        margin-top: 15px;
+        font-size: 14px;
+    }
+
+    .breadcrumb a {
+        color: white;
+        text-decoration: none;
+        position: relative;
+    }
+
+    .breadcrumb a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -3px;
+        width: 0;
+        height: 2px;
+        background: white;
+        transition: 0.3s;
+    }
+
+    .breadcrumb a:hover::after {
+        width: 100%;
+    }
+
+    .breadcrumb .active {
+        color: #f5a623;
+    }
+
+    /* ================= CONTENT SECTION ================= */
+
+    .principal-section {
+        background: url("/static/images/hero (5).png") center center/cover no-repeat;
+        padding: 40px 20px 60px;
+        position: relative;
+    }
+
+    .principal-container {
+        width: 85%;
+        margin-left: 12%;
+        margin-right: 3%;
+        background: #fff;
+        display: flex;
+        border-radius: 0 0 0 60px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    /* ================= LEFT SIDEBAR ================= */
+
+    .left-side {
+        width: 30%;
+        background: #f3f3f3;
+        padding: 40px;
+    }
+
+    .left-side h3 {
+        color: #31A943;
+        letter-spacing: 4px;
+    }
+
+    .left-side p {
+        padding-top: 2%;
+        padding-bottom: 2%;
+        color: #5D5D5D;
+        font-size: 15px;
+    }
+
+    .left-side hr {
+        border: 0;
+        border-top: 2px solid #F5E547;
+        margin: 10px 0 15px;
+    }
+
+    .left-side .sidebar-link {
+        display: block;
+        width: fit-content;
+        margin: 10px 0;
+        text-decoration: none;
+        color: #5D5D5D;
+        border-bottom: 2px solid transparent;
+        padding-bottom: 2px;
+        transition: color 0.3s, border-color 0.3s;
+        line-height: 1.5;
+    }
+
+    .left-side .sidebar-link:hover {
+        color: #31A943;
+        border-bottom-color: #F5E547;
+    }
+
+    .left-side .sidebar-link.active {
+        color: #31A943;
+        border-bottom-color: #F5E547;
+    }
+
+    /* ================= RIGHT SIDE ================= */
+
+    .right-side {
+        width: 70%;
+        padding: 50px;
+    }
+
+    .mission-section h1 {
+        color: #31A943;
+        font-family: "Open Sans", Arial, sans-serif;
+        font-size: 22px;
+        margin-bottom: 40px;
+        text-align: center;
+    }
+
+    .mission-section .section {
+        margin: 30px 0;
+        display: flex;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .mission-section .section h3 {
+        color: #31A943;
+        position: relative;
+        margin: 0;
+        font-family: "Open Sans", Arial, sans-serif;
+        min-width: 100px;
+        text-align: left;
+    }
+
+    .mission-section .section h3::before {
+        content: "";
+        position: absolute;
+        left: -15px;
+        top: 0;
+        width: 4px;
+        height: 100%;
+        background-color: #F5E547;
+    }
+
+    .mission-section .section p {
+        margin: 0;
+        font-family: "Open Sans", Arial, sans-serif;
+        color: #5D5D5D;
+        text-align: justify;
+        font-size: 16px;
+        line-height: 1.8;
+        flex: 1;
+    }
+
+    /* ================= FOOTER ================= */
+
+    .custom-footer {
+        position: relative;
+        background: url("/static/images/footer hero.png") center center/cover no-repeat;
+        color: #7BA388;
+        font-family: Arial, sans-serif;
+    }
+
+    .footer-overlay {
+        background: rgba(0, 0, 0, 0.75);
+        padding: 60px 80px;
+    }
+
+    .footer-container {
+        display: flex;
+        justify-content: space-between;
+        gap: 50px;
+        flex-wrap: wrap;
+    }
+
+    .footer-left {
+        min-width: 180px;
+    }
+
+    .footer-left ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .footer-left ul li {
+        margin-bottom: 12px;
+    }
+
+    .footer-left ul li a {
+        color: #7BA388;
+        text-decoration: none;
+        font-size: 14px;
+        letter-spacing: 1px;
+    }
+
+    .footer-left ul li a:hover {
+        color: #ffffff;
+    }
+
+    .footer-right {
+        max-width: 800px;
+    }
+
+    .footer-right h3 {
+        margin-bottom: 20px;
+        font-size: 18px;
+        letter-spacing: 2px;
+    }
+
+    .footer-right p {
+        margin-bottom: 10px;
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    .footer-right a {
+        color: #7BA388;
+        text-decoration: none;
+    }
+
+    .footer-right a:hover {
+        color: white;
+    }
+
+    .footer-bottom {
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px solid #7BA388;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        font-size: 14px;
+    }
+
+    .footer-bottom p {
+        color: #ddd;
+    }
+
+    /* ================= BACK TO TOP ================= */
+
+    #back-to-top {
+        display: none;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: #31A943;
+        color: white;
+        padding: 12px 15px;
+        border-radius: 5px;
+        text-decoration: none;
+        z-index: 2000;
+    }
+
+    #back-to-top:hover {
+        background: #1a6260;
+    }
+
+    /* ================= TABLET ================= */
+
+    @media (max-width: 992px) {
+
+        .navbar {
+            gap: 12px;
+        }
+
+        .navbar > a,
+        .navbar .dropdown > a {
+            font-size: 13px;
+        }
+
+        .principal-container {
+            width: 92%;
+            margin: 0 auto;
+        }
+
+        .left-side {
+            padding: 30px 25px;
+        }
+
+        .right-side {
+            padding: 40px 30px;
+        }
+
+        .mission-section .section {
+            gap: 15px;
+        }
+    }
+
+    /* ================= MOBILE ================= */
+
+    @media (max-width: 768px) {
+
+        header {
+            padding: 8px 15px;
+            min-height: 70px;
+        }
+
+        .logo-container {
+            width: 55px;
+            height: 55px;
+        }
+
+        .college-text {
+            font-size: 15px;
+        }
+
+        .menu-toggle {
+            display: block;
+        }
+
+        .navbar {
+            display: none;
+            position: absolute;
+            top: 70px;
+            right: 0;
+            width: 250px;
+            background: #0d3b3a;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 0;
+            padding: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .navbar.active {
+            display: flex;
+        }
+
+        .navbar > a,
+        .navbar .dropdown > a {
+            display: block;
+            padding: 12px 8px;
+            font-size: 14px;
+            margin: 0;
+        }
+
+        .navbar .dropdown {
+            width: 100%;
+        }
+
+        /* Mobile dropdown */
+        .navbar .dropdown .sub-menu {
+            position: static;
+            width: 100%;
+            min-width: unset;
+            background: #124947;
+            border-radius: 0;
+            padding: 0;
+        }
+
+        .navbar .dropdown:hover .sub-menu {
+            display: none;
+        }
+
+        .navbar .dropdown.open .sub-menu {
+            display: block;
+        }
+
+        .navbar .sub-menu li a {
+            padding: 10px 20px;
+            font-size: 13px;
+        }
+
+        .hero-banner {
+            min-height: 50vh;
+            padding-top: 0;
+        }
+
+        .hero-overlay {
+            min-height: 50vh;
+            padding: 25px 15px;
+        }
+
+        .hero-overlay h1 {
+            font-size: 20px;
+            letter-spacing: 1.5px;
+            line-height: 1.4;
+        }
+
+        .breadcrumb {
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        .principal-section {
+            padding: 25px 12px 40px;
+        }
+
+        .principal-container {
+            width: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            border-radius: 0 0 0 30px;
+        }
+
+        .left-side {
+            width: 100%;
+            padding: 25px 20px;
+        }
+
+        .left-side h3 {
+            font-size: 18px;
+            letter-spacing: 3px;
+        }
+
+        .left-side .sidebar-link {
+            margin: 8px 0;
+            font-size: 14px;
+        }
+
+        .right-side {
+            width: 100%;
+            padding: 30px 20px;
+        }
+
+        .mission-section h1 {
+            font-size: 20px;
+            line-height: 1.4;
+            margin-bottom: 30px;
+        }
+
+        .mission-section .section {
+            display: block;
+            margin: 25px 0;
+        }
+
+        .mission-section .section h3 {
+            margin-bottom: 12px;
+            margin-left: 15px;
+            font-size: 18px;
+        }
+
+        .mission-section .section h3::before {
+            left: -12px;
+            width: 3px;
+        }
+
+        .mission-section .section p {
+            font-size: 14px;
+            line-height: 1.7;
+            text-align: justify;
+        }
+
+        .footer-overlay {
+            padding: 40px 25px;
+        }
+
+        .footer-container {
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .footer-right {
+            max-width: 100%;
+        }
+
+        .footer-bottom {
+            margin-top: 25px;
+            gap: 10px;
+            font-size: 12px;
+        }
+
+        #back-to-top {
+            bottom: 15px;
+            right: 15px;
+            padding: 10px 12px;
+        }
+    }
+
+    /* ================= SMALL MOBILE ================= */
+
+    @media (max-width: 480px) {
+
+        .college-text {
+            font-size: 13px;
+        }
+
+        .logo-container {
+            width: 50px;
+            height: 50px;
+        }
+
+        .navbar {
+            width: 100%;
+            right: 0;
+        }
+
+        .hero-overlay h1 {
+            font-size: 17px;
+        }
+
+        .breadcrumb {
+            font-size: 11px;
+        }
+
+        .right-side {
+            padding: 25px 16px;
+        }
+
+        .mission-section h1 {
+            font-size: 18px;
+        }
+
+        .mission-section .section h3 {
+            font-size: 17px;
+        }
+
+        .mission-section .section p {
+            font-size: 13px;
+        }
+
+        .footer-overlay {
+            padding: 35px 20px;
+        }
+
+        .footer-right h3 {
+            font-size: 16px;
+        }
+
+        .footer-right p {
+            font-size: 13px;
+        }
+    }
+</style>
+
+</head>
+
+<body>
+
+
+<!-- ================= HEADER ================= -->
+
+<header>
+
+    <div class="logo-section">
+
+        <div class="logo-container">
+            <img src="{% static 'images/sup logo.png' %}" alt="Superior College Logo">
+        </div>
+
+        <div class="college-text">
+            <span>Superior</span>
+            <span>College</span>
+            <span>Chishtian</span>
+        </div>
+
+    </div>
+
+    <!-- Mobile Menu Button -->
+    <div class="menu-toggle" id="menu-toggle">
+        <i class="fas fa-bars"></i>
+    </div>
+
+    <nav class="navbar" id="navbar">
+
+        <a href="{% url 'index' %}">Home</a>
+
+        <div class="dropdown">
+
+            <a href="#">
+                ABOUT US
+                <i class="fa fa-caret-down"></i>
+            </a>
+
+            <ul class="sub-menu">
+
+                <li>
+                    <a href="{% url 'aboutsup' %}">
+                        Welcome Message From the Principal
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'historysup' %}">
+                        About Superior
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'missionsup' %}">
+                        Mission Vision and Values
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'results' %}">
+                        Results
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+        <div class="dropdown">
+
+            <a href="#">
+                ADMISSIONS
+                <i class="fa fa-caret-down"></i>
+            </a>
+
+            <ul class="sub-menu">
+
+                <li>
+                    <a href="{% url 'addmission' %}">
+                        Admissions
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'fee' %}">
+                        Fees Structure
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'apply' %}">
+                        Apply
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+        <div class="dropdown">
+
+            <a href="#">
+                FACILITIES
+                <i class="fa fa-caret-down"></i>
+            </a>
+
+            <ul class="sub-menu">
+
+                <li>
+                    <a href="{% url 'class' %}">
+                        Living Classrooms
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'spaces' %}">
+                        Unique College Learning Spaces
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+        <div class="dropdown">
+
+            <a href="#">
+                LEARNING AT SUPERIOR
+                <i class="fa fa-caret-down"></i>
+            </a>
+
+            <ul class="sub-menu">
+
+                <li>
+                    <a href="{% url 'spaces' %}">
+                        LEARNING AT SUPERIOR
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'affiliate' %}">
+                        AFFILIATE
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+        <a href="{% url 'contact' %}">
+            CONTACT US
+        </a>
+
+    </nav>
+
+</header>
+
+
+<!-- ================= HERO SECTION ================= -->
+
+<section class="hero-banner">
+
+    <div class="hero-overlay">
+
+        <h1>
+            MISSION VISION AND VALUES | SUPERIOR COLLEGE CTN
+        </h1>
+
+        <div class="breadcrumb">
+
+            <a href="{% url 'superior' %}" class="home-link">
+                Home
+            </a>
+
+            |
+
+            <a href="{% url 'aboutsup' %}" class="home-link">
+                About Us
+            </a>
+
+            |
+
+            <span class="active">
+                Mission, Vision and Values
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= CONTENT SECTION ================= -->
+
+<section class="principal-section">
+
+    <div class="principal-container">
+
+        <!-- LEFT SIDEBAR -->
+
+        <div class="left-side">
+
+            <h3>ABOUT US</h3>
+
+            <p>In this Section</p>
+
+            <hr>
+
+            <a href="{% url 'aboutsup' %}" class="sidebar-link">
+                Welcome Message From the Principal
+            </a>
+
+            <a href="{% url 'historysup' %}" class="sidebar-link">
+                About Superior
+            </a>
+
+            <a href="{% url 'missionsup' %}" class="sidebar-link active">
+                Mission, Vision &amp; Values
+            </a>
+
+            <a href="{% url 'results' %}" class="sidebar-link">
+                Results
+            </a>
+
+        </div>
+
+
+        <!-- RIGHT CONTENT -->
+
+        <div class="right-side">
+
+            <div class="mission-section">
+
+                <h1>
+                    OUR MISSION, VISION AND VALUES
+                </h1>
+
+                <div class="section">
+
+                    <h3>Mission</h3>
+
+                    <p>
+                        Arbor School provides an education that connects our
+                        community with the natural world and inspires students
+                        to flourish while embracing sustainability and ethical
+                        stewardship.
+                    </p>
+
+                </div>
+
+
+                <div class="section">
+
+                    <h3>Vision</h3>
+
+                    <p>
+                        To cultivate a compassionate, resilient, and
+                        environmentally conscious community of learners
+                        empowered to thrive in a rapidly changing world.
+                    </p>
+
+                </div>
+
+
+                <div class="section">
+
+                    <h3>Values</h3>
+
+                    <p>
+                        We uphold British values in an international context,
+                        emphasizing ecological awareness and our commitment to
+                        "Enough For All, Forever."
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer class="custom-footer">
+
+    <div class="footer-overlay">
+
+        <div class="footer-container">
+
+            <!-- Left Menu -->
+
+            <div class="footer-left">
+
+                <ul>
+
+                    <li>
+                        <a href="{% url 'superior' %}">
+                            HOME
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'historysup' %}">
+                            ABOUT US
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'addmission' %}">
+                            ADMISSIONS
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'results' %}">
+                            LEARNING AT SUPERIOR
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'contact' %}">
+                            CONTACT US
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <!-- Right Contact Info -->
+
+            <div class="footer-right">
+
+                <h3>GET IN TOUCH</h3>
+
+                <p>
+                    THE Superior College, Chishtian,
+                </p>
+
+                <p>
+                    MAIN OFFICE TELEPHONE:
+                    +92 300 6989030 or +92 308 6985000.
+                </p>
+
+                <p>
+                    EMAIL:
+                    <a href="mailto:superiorctn@gmail.com">
+                        superiorctn@gmail.com
+                    </a>
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- Bottom Bar -->
+
+        <div class="footer-bottom">
+
+            <p>
+                Legal &amp; Privacy Policy |
+                Copyright © 2023 - All Rights Reserved
+            </p>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+    /* Mobile Menu */
+
+    const menuToggle = document.getElementById("menu-toggle");
+    const navbar = document.getElementById("navbar");
+
+    menuToggle.addEventListener("click", function () {
+        navbar.classList.toggle("active");
+    });
+
+
+    /* Mobile Dropdowns */
+
+    const dropdowns = document.querySelectorAll(".navbar .dropdown");
+
+    dropdowns.forEach(function (dropdown) {
+
+        const dropdownLink = dropdown.querySelector(":scope > a");
+
+        dropdownLink.addEventListener("click", function (event) {
+
+            if (window.innerWidth <= 768) {
+
+                event.preventDefault();
+
+                dropdowns.forEach(function (otherDropdown) {
+
+                    if (otherDropdown !== dropdown) {
+                        otherDropdown.classList.remove("open");
+                    }
+
+                });
+
+                dropdown.classList.toggle("open");
+            }
+
+        });
+
+    });
+
+
+    /* Close menu after clicking normal link */
+
+    document.querySelectorAll(".navbar > a").forEach(function (link) {
+
+        link.addEventListener("click", function () {
+
+            if (window.innerWidth <= 768) {
+                navbar.classList.remove("active");
+            }
+
+        });
+
+    });
+
+
+    /* Back To Top */
+
+    window.onscroll = function () {
+
+        const button = document.getElementById("back-to-top");
+
+        if (
+            document.body.scrollTop > 200 ||
+            document.documentElement.scrollTop > 200
+        ) {
+
+            button.style.display = "block";
+
+        } else {
+
+            button.style.display = "none";
+
+        }
+
+    };
+
+</script>
+
+<a href="#top" id="back-to-top">
+    <i class="fas fa-chevron-up"></i>
+</a>
+
+
+</body>
+
+</html>

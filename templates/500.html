@@ -1,0 +1,148 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>500 - Server Error | College Directory</title>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        min-height: 100vh;
+        background: #f5f7fa;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    .error-container {
+        width: 100%;
+        max-width: 650px;
+        background: #ffffff;
+        padding: 55px 40px;
+        text-align: center;
+        border-radius: 18px;
+        box-shadow: 0 10px 35px rgba(0, 0, 0, 0.10);
+    }
+
+    .error-code {
+        font-size: 110px;
+        font-weight: 800;
+        line-height: 1;
+        color: #1c3c6b;
+        margin-bottom: 15px;
+    }
+
+    .error-title {
+        font-size: 32px;
+        color: #222;
+        margin-bottom: 15px;
+    }
+
+    .error-message {
+        font-size: 17px;
+        line-height: 1.7;
+        color: #666;
+        max-width: 500px;
+        margin: 0 auto 30px;
+    }
+
+    .home-btn {
+        display: inline-block;
+        text-decoration: none;
+        background: #1c3c6b;
+        color: #ffffff;
+        padding: 13px 28px;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        transition: 0.3s ease;
+    }
+
+    .home-btn:hover {
+        background: #142d50;
+        transform: translateY(-2px);
+    }
+
+    .brand {
+        margin-top: 30px;
+        font-size: 14px;
+        color: #888;
+    }
+
+    @media (max-width: 600px) {
+        body {
+            padding: 15px;
+        }
+
+        .error-container {
+            padding: 45px 22px;
+            border-radius: 14px;
+        }
+
+        .error-code {
+            font-size: 80px;
+        }
+
+        .error-title {
+            font-size: 25px;
+        }
+
+        .error-message {
+            font-size: 15px;
+        }
+
+        .home-btn {
+            width: 100%;
+            padding: 13px 20px;
+        }
+    }
+
+    @media (max-width: 380px) {
+        .error-code {
+            font-size: 65px;
+        }
+
+        .error-title {
+            font-size: 22px;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="error-container">
+
+    <div class="error-code">500</div>
+
+    <h1 class="error-title">Server Error</h1>
+
+    <p class="error-message">
+        Something went wrong on our server.
+        Please try again after a few moments.
+        We apologize for the inconvenience.
+    </p>
+
+    <a href="{% url 'index' %}" class="home-btn">
+        ← Back to Home
+    </a>
+
+    <div class="brand">
+        🎓 College Directory
+    </div>
+
+</div>
+
+</body>
+</html>

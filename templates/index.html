@@ -1,0 +1,436 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Colleges in Chishtian</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body id="top">
+
+    <!-- =========================
+         NAVBAR
+    ========================== -->
+
+    <header>
+
+        <div class="logo">
+            🎓 Discover Colleges in Chishtian
+        </div>
+
+        <!-- Mobile Menu Button -->
+     <br>
+
+        <nav class="navbar" id="navbar">
+
+            <a href="{% url 'index' %}">
+                HOME
+            </a>
+
+            <!-- COLLEGES DROPDOWN -->
+            <div class="dropdown">
+
+                <a href="#" class="dropdown-toggle">
+                    COLLEGES
+                    <span>▼</span>
+                </a>
+
+                <ul class="sub-menu">
+
+                    <li>
+                        <a href="{% url 'superior' %}">
+                            Superior College Chishtian
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'pgc' %}">
+                            Punjab College Chishtian
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'chishtian_science' %}">
+                            Chishtian Science College
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'ripah' %}">
+                            Riphah International College
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <!-- CONTACT US DROPDOWN -->
+            <div class="dropdown">
+
+                <a href="#" class="dropdown-toggle">
+                    CONTACT US
+                    <span>▼</span>
+                </a>
+
+                <ul class="sub-menu">
+
+                    <li>
+                        <a href="{% url 'contact' %}">
+                            Superior College
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'contactpgc' %}">
+                            PGC
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'contactcsc' %}">
+                            Chishtian Science
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'contactrip' %}">
+                            RIC
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </nav>
+
+    </header>
+
+
+    <!-- =========================
+         HERO SECTION
+    ========================== -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <h1>
+                Start Your Academic Journey Here
+            </h1>
+
+            <p>
+                Explore Top Colleges in Chishtian
+            </p>
+
+            <a href="#universities" class="hero-btn">
+                Explore Colleges
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         UNIVERSITIES SECTION
+    ========================== -->
+
+    <section class="universities" id="universities">
+
+        <h2>
+            Top Colleges in Chishtian
+        </h2>
+
+
+        <div class="card-container">
+
+
+            <!-- =========================
+                 SUPERIOR COLLEGE
+            ========================== -->
+
+            <div class="card">
+
+                <div class="card-image">
+
+                    <img
+                        src="{% static 'images/1sup.png' %}"
+                        alt="Superior College"
+                    >
+
+                    <div class="overlay">
+
+                        <h3>
+                            Superior College
+                        </h3>
+
+                        <p>
+                            Leading institution for higher education in Chishtian
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <a
+                    href="{% url 'superior' %}"
+                    class="card-btn"
+                >
+                    View Details
+                </a>
+
+            </div>
+
+
+            <!-- =========================
+                 PUNJAB COLLEGE
+            ========================== -->
+
+            <div class="card">
+
+                <div class="card-image">
+
+                    <img
+                        src="{% static 'images/pgc1.png' %}"
+                        alt="Punjab College Chishtian"
+                    >
+
+                    <div class="overlay">
+
+                        <h3>
+                            PGC
+                        </h3>
+
+                        <p>
+                            Punjab College, Chishtian – Offers Intermediate &amp; Bachelor programs
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <a
+                    href="{% url 'pgc' %}"
+                    class="card-btn"
+                >
+                    View Details
+                </a>
+
+            </div>
+
+
+            <!-- =========================
+                 CHISHTIAN SCIENCE COLLEGE
+            ========================== -->
+
+            <div class="card">
+
+                <div class="card-image">
+
+                    <img
+                        src="{% static 'images/ctn sci.png' %}"
+                        alt="Chishtian Science College"
+                    >
+
+                    <div class="overlay">
+
+                        <h3>
+                            Chishtian Science College
+                        </h3>
+
+                        <p>
+                            Leading institute for scientific education in Chishtian
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <a
+                    href="{% url 'chishtian_science' %}"
+                    class="card-btn"
+                >
+                    View Details
+                </a>
+
+            </div>
+
+
+            <!-- =========================
+                 RIPHAH COLLEGE
+            ========================== -->
+
+            <div class="card">
+
+                <div class="card-image">
+
+                    <img
+                        src="{% static 'images/ripah1.png' %}"
+                        alt="Riphah International College"
+                    >
+
+                    <div class="overlay">
+
+                        <h3>
+                            Riphah College
+                        </h3>
+
+                        <p>
+                            Renowned College for medical and technology education
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <a
+                    href="{% url 'ripah' %}"
+                    class="card-btn"
+                >
+                    View Details
+                </a>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer>
+
+        <p>
+            © 2024 Colleges in Chishtian | All Rights Reserved
+        </p>
+
+
+        <div class="arrow-box">
+
+            <a href="#top" id="back-to-top">
+
+                Back to Top
+                ↑
+
+            </a>
+
+        </div>
+
+    </footer>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+
+    <script>
+
+        /* =========================
+           MOBILE MENU
+        ========================== */
+
+        const menuToggle = document.getElementById("menu-toggle");
+        const navbar = document.getElementById("navbar");
+
+        menuToggle.addEventListener("click", function () {
+
+            navbar.classList.toggle("active");
+
+        });
+
+
+        /* =========================
+           MOBILE DROPDOWNS
+        ========================== */
+
+        const dropdowns =
+            document.querySelectorAll(".dropdown");
+
+        dropdowns.forEach(function (dropdown) {
+
+            const dropdownToggle =
+                dropdown.querySelector(".dropdown-toggle");
+
+            dropdownToggle.addEventListener("click", function (event) {
+
+                event.preventDefault();
+
+                /* Mobile only */
+                if (window.innerWidth <= 768) {
+
+                    dropdown.classList.toggle("active");
+
+                }
+
+            });
+
+        });
+
+
+        /* =========================
+           BACK TO TOP
+        ========================== */
+
+        const backToTop =
+            document.getElementById("back-to-top");
+
+
+        window.addEventListener("scroll", function () {
+
+            if (window.scrollY > 200) {
+
+                backToTop.style.display = "block";
+
+            } else {
+
+                backToTop.style.display = "none";
+
+            }
+
+        });
+
+
+        /* =========================
+           CLOSE MOBILE MENU
+           AFTER CLICKING NORMAL LINK
+        ========================== */
+
+        const normalLinks =
+            document.querySelectorAll(".navbar > a");
+
+        normalLinks.forEach(function (link) {
+
+            link.addEventListener("click", function () {
+
+                if (window.innerWidth <= 768) {
+
+                    navbar.classList.remove("active");
+
+                }
+
+            });
+
+        });
+
+    </script>
+
+</body>
+
+</html>

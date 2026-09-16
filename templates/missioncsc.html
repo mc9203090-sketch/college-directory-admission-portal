@@ -1,0 +1,1098 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mission Vision Goals</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+}
+
+/* ================= HEADER ================= */
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background: #2e2c6a;
+    color: white;
+    position: relative;
+    z-index: 1000;
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-container {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid white;
+    flex-shrink: 0;
+}
+
+.logo-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.college-text {
+    display: flex;
+    flex-direction: column;
+    color: white;
+    font-weight: bold;
+    line-height: 1.2;
+    font-size: 18px;
+}
+
+/* ================= NAVBAR ================= */
+
+.navbar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.navbar > a,
+.navbar .dropdown > a {
+    color: white;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.navbar > a:hover,
+.navbar .dropdown > a:hover {
+    color: #F5E547;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Invisible bridge between parent and submenu */
+.dropdown::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    height: 10px;
+    display: none;
+}
+
+.dropdown:hover::after {
+    display: block;
+}
+
+.dropdown > a {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.sub-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #2e2c6a;
+    list-style: none;
+    padding: 10px 0;
+    margin: 0;
+    min-width: 230px;
+    border-radius: 0 0 5px 5px;
+    z-index: 2000;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.dropdown:hover .sub-menu {
+    display: block;
+}
+
+.sub-menu li {
+    margin: 0;
+    padding: 0;
+}
+
+.sub-menu li a {
+    padding: 9px 15px;
+    color: white;
+    display: block;
+    font-size: 14px;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.sub-menu li a:hover {
+    background: #252354;
+    color: #f5a623;
+}
+
+/* ================= MOBILE MENU BUTTON ================= */
+
+.menu-toggle {
+    display: none;
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+    padding: 5px;
+}
+
+/* ================= HERO ================= */
+
+.rit-hero {
+    background: #eee;
+    padding: 120px 0;
+    position: relative;
+    min-height: 440px;
+}
+
+.orange-strip {
+    background: #E13B23;
+    min-height: 220px;
+    display: flex;
+    align-items: center;
+    padding-left: 120px;
+    padding-right: 40px;
+}
+
+.orange-strip h1 {
+    color: white;
+    font-size: 45px;
+    font-weight: bold;
+    text-align: left;
+    margin: 0;
+    line-height: 1.2;
+}
+
+/* ================= HERO IMAGE ================= */
+
+.image-box {
+    position: absolute;
+    right: 60px;
+    top: 60px;
+    background: #cfd3d6;
+    padding: 10px;
+    max-width: 550px;
+}
+
+.image-box img {
+    width: 520px;
+    max-width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+}
+
+/* ================= INTRO ================= */
+
+.about-pgc {
+    background: #eee;
+    text-align: center;
+    padding: 20px;
+}
+
+.about-text {
+    max-width: 900px;
+    margin: auto;
+    font-size: 28px;
+    padding-top: 0;
+    line-height: 1.8;
+    color: #2e2c6a;
+    text-align: center;
+}
+
+/* ================= VISION SECTION ================= */
+
+.vision-section {
+    max-width: 1200px;
+    margin: auto;
+    background: #f3f3f3;
+    padding: 20px 0 30px;
+    font-family: Arial, sans-serif;
+}
+
+.vision-title {
+    font-size: 32px;
+    font-weight: bold;
+    margin: 30px 20px 10px;
+    color: #2e2c6a;
+}
+
+.section-box {
+    margin: 30px;
+    background: white;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+.section-header {
+    background: #0d4a87;
+    color: white;
+    padding: 15px 20px;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.section-content {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    padding: 25px;
+    align-items: flex-start;
+}
+
+.section-text {
+    flex: 1;
+    font-size: 18px;
+    line-height: 1.8;
+    color: #E13A27;
+}
+
+.section-img {
+    flex-shrink: 0;
+}
+
+.section-img img {
+    width: 160px;
+    height: auto;
+    max-height: 180px;
+    object-fit: contain;
+    border: 4px solid #e5e5e5;
+    display: block;
+}
+
+.goals-list {
+    margin-top: 20px;
+    padding-left: 25px;
+}
+
+.goals-list li {
+    margin-bottom: 15px;
+}
+
+/* ================= FOOTER ================= */
+
+.footer {
+    background: #2e2c6a;
+    color: white;
+    width: 100%;
+    padding: 70px 60px 100px;
+    position: relative;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 40px;
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.footer-left {
+    max-width: 800px;
+}
+
+.footer-left h2 {
+    margin: 0 0 20px;
+    line-height: 1.5;
+}
+
+.footer-left p {
+    margin: 8px 0;
+    line-height: 1.5;
+}
+
+.social-icons {
+    margin-top: 20px;
+}
+
+.social-icons a {
+    color: white;
+    font-size: 20px;
+    margin-right: 15px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.social-icons a:hover {
+    color: #E13B23;
+}
+
+.footer-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 20px;
+}
+
+.apply-btn {
+    background: #E13B23;
+    padding: 15px 30px;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 6px;
+    display: inline-block;
+    transition: 0.3s;
+}
+
+.apply-btn:hover {
+    background: #c92f1b;
+}
+
+/* ================= BACK TO TOP ================= */
+
+#back-to-top {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    color: white;
+    background: #2e2c6a;
+    padding: 10px 14px;
+    border-radius: 5px;
+    text-decoration: none;
+    z-index: 9999;
+}
+
+#back-to-top i {
+    margin-left: 5px;
+}
+
+/* ================= TABLET ================= */
+
+@media (max-width: 1000px) {
+
+    .navbar {
+        gap: 12px;
+    }
+
+    .navbar > a,
+    .navbar .dropdown > a {
+        font-size: 13px;
+    }
+
+    .rit-hero {
+        padding: 80px 0;
+    }
+
+    .orange-strip {
+        padding-left: 60px;
+    }
+
+    .orange-strip h1 {
+        font-size: 38px;
+    }
+
+    .image-box {
+        right: 30px;
+        max-width: 45%;
+    }
+
+    .about-text {
+        font-size: 24px;
+    }
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 767px) {
+
+    header {
+        padding: 10px 15px;
+        min-height: 75px;
+    }
+
+    .logo-container {
+        width: 55px;
+        height: 55px;
+    }
+
+    .college-text {
+        font-size: 15px;
+    }
+
+    /* Show hamburger */
+    .menu-toggle {
+        display: block;
+        margin-left: auto;
+    }
+
+    /* Mobile navbar */
+    .navbar {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: #2e2c6a;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 10px 0;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .navbar.active {
+        display: flex;
+    }
+
+    .navbar > a,
+    .navbar .dropdown > a {
+        width: 100%;
+        padding: 13px 20px;
+        font-size: 14px;
+    }
+
+    .navbar > a:hover,
+    .navbar .dropdown > a:hover {
+        background: #252354;
+    }
+
+    .dropdown {
+        width: 100%;
+    }
+
+    /* Disable desktop hover on mobile */
+    .dropdown:hover .sub-menu {
+        display: none;
+    }
+
+    .dropdown.open .sub-menu {
+        display: block;
+        position: static;
+        width: 100%;
+        min-width: 100%;
+        border-radius: 0;
+        box-shadow: none;
+        padding: 0;
+    }
+
+    .sub-menu li a {
+        padding: 11px 40px;
+        font-size: 13px;
+        white-space: normal;
+    }
+
+    .dropdown::after {
+        display: none;
+    }
+
+    /* HERO */
+    .rit-hero {
+        padding: 30px 15px;
+        min-height: auto;
+        background: #eee;
+    }
+
+    .orange-strip {
+        min-height: 170px;
+        padding: 30px 20px;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .orange-strip h1 {
+        font-size: 32px;
+        text-align: center;
+    }
+
+    /* Hero image full and NOT cropped */
+    .image-box {
+        position: static;
+        width: 100%;
+        max-width: 100%;
+        margin-top: 20px;
+        padding: 8px;
+        background: #cfd3d6;
+    }
+
+    .image-box img {
+        width: 100%;
+        height: auto;
+        max-height: none;
+        object-fit: contain;
+    }
+
+    /* INTRO */
+    .about-pgc {
+        padding: 25px 15px;
+    }
+
+    .about-text {
+        font-size: 18px;
+        line-height: 1.7;
+    }
+
+    /* VISION */
+    .vision-section {
+        padding: 15px 0 25px;
+    }
+
+    .vision-title {
+        font-size: 24px;
+        line-height: 1.3;
+        margin: 20px 15px;
+    }
+
+    .section-box {
+        margin: 20px 15px;
+    }
+
+    .section-header {
+        font-size: 19px;
+        padding: 13px 15px;
+    }
+
+    .section-content {
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px 15px;
+    }
+
+    .section-text {
+        font-size: 16px;
+        line-height: 1.7;
+    }
+
+    /* Show complete images */
+    .section-img {
+        width: 100%;
+        text-align: center;
+    }
+
+    .section-img img {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        max-height: none;
+        object-fit: contain;
+        margin: auto;
+    }
+
+    .goals-list {
+        padding-left: 20px;
+    }
+
+    .goals-list li {
+        margin-bottom: 12px;
+    }
+
+    /* FOOTER */
+    .footer {
+        width: 100%;
+        padding: 50px 20px 70px;
+    }
+
+    .footer-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 30px;
+    }
+
+    .footer-left {
+        width: 100%;
+    }
+
+    .footer-left h2 {
+        font-size: 22px;
+    }
+
+    .footer-left p {
+        font-size: 14px;
+        word-break: break-word;
+    }
+
+    .social-icons a {
+        font-size: 19px;
+        margin-right: 12px;
+    }
+
+    .footer-right {
+        padding-top: 0;
+    }
+
+    .apply-btn {
+        padding: 13px 25px;
+    }
+}
+
+/* ================= SMALL MOBILE ================= */
+
+@media (max-width: 400px) {
+
+    .college-text {
+        font-size: 13px;
+    }
+
+    .logo-container {
+        width: 50px;
+        height: 50px;
+    }
+
+    .orange-strip {
+        min-height: 145px;
+    }
+
+    .orange-strip h1 {
+        font-size: 27px;
+    }
+
+    .about-text {
+        font-size: 16px;
+    }
+
+    .vision-title {
+        font-size: 21px;
+    }
+
+    .section-header {
+        font-size: 17px;
+    }
+
+    .section-text {
+        font-size: 15px;
+    }
+}
+</style>
+
+</head>
+
+<body>
+
+<header>
+<div class="logo-section">
+
+    <div class="logo-container">
+        <img src="{% static 'images/csc logo.png' %}" alt="Chishtian Science College Logo">
+    </div>
+
+    <div class="college-text">
+        <span>Chishtian</span>
+        <span>Science</span>
+        <span>College</span>
+    </div>
+
+</div>
+
+<div class="menu-toggle" id="menu-toggle">
+    <i class="fas fa-bars"></i>
+</div>
+
+<nav class="navbar" id="navbar">
+
+    <a href="{% url 'index' %}">Home</a>
+
+    <div class="dropdown">
+
+        <a href="#">
+            ABOUT US <i class="fa fa-caret-down"></i>
+        </a>
+
+        <ul class="sub-menu">
+            <li>
+                <a href="{% url 'historycsc' %}">About CSC</a>
+            </li>
+            <li>
+                <a href="{% url 'uniquelycsc' %}">Uniquely CSC</a>
+            </li>
+            <li>
+                <a href="{% url 'missioncsc' %}">Mission,Vision,Goals CSC</a>
+            </li>
+        </ul>
+
+    </div>
+
+    <div class="dropdown">
+
+        <a href="#">
+            ADDMISSIONS <i class="fa fa-caret-down"></i>
+        </a>
+
+        <ul class="sub-menu">
+
+            <li>
+                <a href="{% url 'undergraduatecsc' %}">
+                    UnderGraduates Programmes
+                </a>
+            </li>
+
+            <li>
+                <a href="{% url 'feecsc' %}">
+                    Scholarship & Fee Consection
+                </a>
+            </li>
+
+            <li>
+                <a href="{% url 'applycsc' %}">
+                    Apply
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+
+    <a href="{% url 'activitycsc' %}">Activities</a>
+
+    <div class="dropdown">
+
+        <a href="#">
+            LEARNING AT CHISHTIAN SCIENCE
+            <i class="fa fa-caret-down"></i>
+        </a>
+
+        <ul class="sub-menu">
+
+            <li>
+                <a href="{% url 'careercsc' %}">
+                    Careers
+                </a>
+            </li>
+
+            <li>
+                <a href="{% url 'affiliatecsc' %}">
+                    AFFILIATE
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+
+    <a href="{% url 'contactcsc' %}">CONTACT US</a>
+
+</nav>
+
+</header>
+<!-- ================= HERO ================= -->
+
+<section class="rit-hero">
+
+<div class="orange-strip">
+    <h1>
+        Vision Mission
+        <br>
+        Goals
+    </h1>
+</div>
+
+<div class="image-box">
+
+    <img src="{% static 'images/imgcsc.jpg' %}" alt="Mission Vision Goals">
+
+</div>
+</section>
+
+<!-- ================= INTRO ================= -->
+
+<section class="about-pgc">
+
+<p class="about-text">
+    We’re here to support your future success and make a world-class education within reach. We are committed to making an PGC experience accessible. Our goal is to work with each family to create a financial plan that provides the means to help you launch the career of your dreams.
+</p>
+
+</section>
+
+<!-- ================= VISION / MISSION / GOALS ================= -->
+
+<div class="vision-section">
+<h2 class="vision-title">
+    VISION, MISSION STATEMENT AND GOALS
+</h2>
+
+<!-- Vision -->
+
+<div class="section-box">
+
+    <div class="section-header">
+        Vision
+    </div>
+
+    <div class="section-content">
+
+        <div class="section-text">
+            Develop scientific, socio-cultural, economic and political leadership, through learner-centred teaching and research among the graduates in order to promote national cohesion and stability through providing quality education at par with international standards.
+        </div>
+
+        <div class="section-img">
+            <img src="{% static 'images/visionpgc.jpg' %}" alt="Vision">
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Mission -->
+
+<div class="section-box">
+
+    <div class="section-header">
+        Mission Statement
+    </div>
+
+    <div class="section-content">
+
+        <div class="section-text">
+            Our mission is to provide quality education to ensure that our graduates are nurtured to be sensitive, tolerant, humane, and carry wisdom of knowledge, creative thinking and research skills for their holistic development. This will hone their potential for assuming leadership roles in diverse fields of the society.
+        </div>
+
+        <div class="section-img">
+            <img src="{% static 'images/missionstatpgc.jpg' %}" alt="Mission Statement">
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Goals -->
+
+<div class="section-box">
+
+    <div class="section-header">
+        Goals
+    </div>
+
+    <div class="section-content">
+
+        <div class="section-text">
+
+            Based on above vision and mission, the College will strive for achieving the following aims and goals.
+
+            <ol class="goals-list">
+
+                <li>
+                    Improve quality and standard of education to conform to national and international standards.
+                </li>
+
+                <li>
+                    Provide access to higher education to the students at nominal expense.
+                </li>
+
+                <li>
+                    Equip students with implicit and explicit knowledge and develop critical thinking and applied research skills.
+                </li>
+
+                <li>
+                    Develop character and inculcate moral values as desired by the Pakistani society.
+                </li>
+
+                <li>
+                    Promote team-spirit, tolerance and peace among students for their holistic development
+                </li>
+
+                <li>
+                    Develop leadership skills among graduates fortheir diverse roles in the society
+                </li>
+
+            </ol>
+
+        </div>
+
+        <div class="section-img">
+
+            <img src="{% static 'images/goalspgc.jpg' %}" alt="Goals">
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+<!-- ================= FOOTER ================= -->
+
+<footer class="footer">
+<div class="footer-container">
+
+    <div class="footer-left">
+
+        <h2>
+            CHISHTIAN SCIENCE COLLEGES
+        </h2>
+
+        <p>
+            <strong>ADDRESS:</strong>
+            G-Block Baldia Colony, Chishtian Mandi, Pakistan
+        </p>
+
+        <p>
+            <strong>Phone no:</strong>
+            0305 7367771
+        </p>
+
+        <p>
+            <strong>EMAIL:</strong>
+            chishtiansciencecollege@gmail.com
+        </p>
+
+        <div class="social-icons">
+
+            <a href="https://www.facebook.com/CSCgirls.chishtian/" target="_blank">
+                <i class="fa-brands fa-facebook"></i>
+            </a>
+
+            <a href="https://www.instagram.com/csc_girls_official/" target="_blank">
+                <i class="fa-brands fa-instagram"></i>
+            </a>
+
+            <a href="https://www.youtube.com/channel/UCUe6DD33vb_D4pDWMF60_jg" target="_blank">
+                <i class="fa-brands fa-youtube"></i>
+            </a>
+
+        </div>
+
+        <p class="copyright">
+            2020 Chishtian Science Colleges. All Rights Reserved.
+        </p>
+
+    </div>
+
+    <div class="footer-right">
+
+        <a href="{% url 'applycsc' %}" class="apply-btn">
+            APPLY NOW
+        </a>
+
+    </div>
+
+</div>
+
+</footer>
+
+<!-- ================= BACK TO TOP ================= -->
+
+<a href="#top" id="back-to-top">
+    Back to Top
+    <i class="fas fa-chevron-up"></i>
+</a>
+
+<script>
+
+/* ================= MOBILE MENU ================= */
+
+const menuToggle = document.getElementById("menu-toggle");
+const navbar = document.getElementById("navbar");
+
+menuToggle.addEventListener("click", function () {
+    navbar.classList.toggle("active");
+});
+
+/* ================= MOBILE DROPDOWNS ================= */
+
+document.querySelectorAll(".dropdown > a").forEach(function (item) {
+
+    item.addEventListener("click", function (e) {
+
+        if (window.innerWidth <= 767) {
+
+            e.preventDefault();
+
+            const dropdown = this.parentElement;
+
+            document.querySelectorAll(".dropdown").forEach(function (other) {
+
+                if (other !== dropdown) {
+                    other.classList.remove("open");
+                }
+
+            });
+
+            dropdown.classList.toggle("open");
+        }
+
+    });
+
+});
+
+/* ================= CLOSE MOBILE MENU AFTER LINK CLICK ================= */
+
+document.querySelectorAll(".navbar a").forEach(function (link) {
+
+    link.addEventListener("click", function () {
+
+        if (window.innerWidth <= 767 && !this.parentElement.classList.contains("dropdown")) {
+            navbar.classList.remove("active");
+        }
+
+    });
+
+});
+
+/* ================= BACK TO TOP ================= */
+
+const backToTop = document.getElementById("back-to-top");
+
+window.addEventListener("scroll", function () {
+
+    if (window.scrollY > 200) {
+        backToTop.style.display = "block";
+    } else {
+        backToTop.style.display = "none";
+    }
+
+});
+
+backToTop.addEventListener("click", function (e) {
+
+    e.preventDefault();
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+});
+
+/* ================= RESET MOBILE MENU ON RESIZE ================= */
+
+window.addEventListener("resize", function () {
+
+    if (window.innerWidth > 767) {
+
+        navbar.classList.remove("active");
+
+        document.querySelectorAll(".dropdown").forEach(function (dropdown) {
+            dropdown.classList.remove("open");
+        });
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>

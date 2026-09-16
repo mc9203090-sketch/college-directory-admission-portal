@@ -1,0 +1,736 @@
+/* =========================
+   GLOBAL
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #f4f6f9;
+    overflow-x: hidden;
+}
+
+
+/* =========================
+   HEADER / NAVBAR
+========================= */
+
+header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 60px;
+    background: #001B2C;
+    color: white;
+    position: relative;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.navbar a:hover {
+    color: #9f5a20;
+}
+
+
+/* =========================
+   DROPDOWN
+========================= */
+
+.navbar .dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.navbar .dropdown > a {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.navbar .sub-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #001B2C;
+    list-style: none;
+    padding: 10px 0;
+    min-width: 220px;
+    border-radius: 5px;
+    z-index: 1001;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.navbar .sub-menu li {
+    width: 100%;
+}
+
+.navbar .sub-menu li a {
+    padding: 9px 15px;
+    color: white;
+    display: block;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.navbar .sub-menu li a:hover {
+    background: #16315c;
+    color: #9f5a20;
+}
+
+
+/* Desktop dropdown */
+.navbar .dropdown:hover .sub-menu {
+    display: block;
+}
+
+
+/* =========================
+   HERO SECTION
+========================= */
+
+.hero {
+    width: 100%;
+    min-height: 85vh;
+
+    background:
+        linear-gradient(
+            rgba(0, 0, 0, 0.5),
+            rgba(0, 0, 0, 0.5)
+        ),
+        url("../images/hero.png");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+    color: white;
+
+    padding: 40px 20px;
+}
+
+.hero h1 {
+    font-size: 45px;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    font-size: 18px;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.hero-btn {
+    display: inline-block;
+    padding: 12px 25px;
+    background: #9f5a20;
+    border: none;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+.hero-btn:hover {
+    background: #3e291b;
+}
+
+
+/* =========================
+   UNIVERSITIES SECTION
+========================= */
+
+.universities {
+    width: 100%;
+    padding: 70px 60px;
+    text-align: center;
+}
+
+.universities h2 {
+    font-size: 32px;
+    margin-bottom: 40px;
+    color: #1e3c72;
+}
+
+
+/* =========================
+   CARD CONTAINER
+========================= */
+
+.card-container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+
+    display: grid;
+
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(300px, 1fr)
+    );
+
+    gap: 30px;
+    padding: 20px;
+}
+
+
+/* =========================
+   CARD
+========================= */
+
+.card {
+    width: 100%;
+    min-width: 0;
+
+    background: rgba(255, 255, 255, 0.15);
+
+    border-radius: 15px;
+
+    box-shadow:
+        0 8px 32px rgba(31, 38, 135, 0.37);
+
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    border: 1px solid rgba(255, 255, 255, 0.18);
+
+    cursor: pointer;
+    overflow: hidden;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.card:hover {
+    transform: scale(1.03);
+
+    box-shadow:
+        0 15px 30px rgba(31, 38, 135, 0.7);
+}
+
+
+/* =========================
+   CARD IMAGE
+========================= */
+
+.card-image {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: contain;
+    object-position: center;
+
+    transition: transform 0.3s ease;
+}
+
+.card:hover .card-image img {
+    transform: scale(1.08);
+}
+
+
+/* =========================
+   CARD OVERLAY
+========================= */
+
+.overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    width: 100%;
+
+    background: rgba(152, 133, 108, 0.6);
+
+    color: #fff;
+
+    padding: 15px;
+
+    backdrop-filter: blur(5px);
+}
+
+.overlay h3 {
+    margin: 0 0 5px 0;
+    font-size: 20px;
+}
+
+.overlay p {
+    margin: 0;
+    font-size: 14px;
+    opacity: 0.9;
+    line-height: 1.5;
+}
+
+
+/* =========================
+   CARD BUTTON
+========================= */
+
+.card-btn {
+    display: block;
+
+    text-align: center;
+
+    margin: 15px auto 20px;
+
+    padding: 10px 25px;
+
+    background: #001B2C;
+    color: white;
+
+    border-radius: 6px;
+
+    text-decoration: none;
+
+    font-size: 16px;
+
+    transition: background 0.3s ease;
+
+    width: 50%;
+}
+
+.card-btn:hover {
+    background: #16315c;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    background: #001B2C;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 50px;
+}
+
+.custom-footer {
+    position: relative;
+
+    background:
+        url("../images/hero.png")
+        no-repeat center center / cover;
+
+    color: #f5a623;
+
+    font-family: Arial, sans-serif;
+}
+
+.footer-overlay {
+    background: rgba(0, 0, 0, 0.75);
+    padding: 60px 80px;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+.footer-left ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-left ul li {
+    margin-bottom: 12px;
+}
+
+.footer-left ul li a {
+    color: #f5a623;
+    text-decoration: none;
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+
+.footer-left ul li a:hover {
+    color: #ffffff;
+}
+
+.footer-right {
+    max-width: 800px;
+}
+
+.footer-right h3 {
+    margin-bottom: 20px;
+    font-size: 20px;
+    letter-spacing: 2px;
+}
+
+.footer-right p {
+    margin-bottom: 10px;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.footer-bottom {
+    margin-top: 40px;
+    padding-top: 20px;
+
+    border-top: 1px solid #f5a623;
+
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    font-size: 14px;
+}
+
+.footer-bottom p {
+    color: #5D5D5D;
+}
+
+
+/* =========================
+   BACK TO TOP
+========================= */
+
+#back-to-top {
+    display: none;
+
+    position: fixed;
+
+    bottom: 20px;
+    right: 20px;
+
+    color: #5D5D5D;
+
+    z-index: 999;
+}
+
+
+/* ==================================================
+   TABLET
+   769px - 1024px
+================================================== */
+
+@media (max-width: 1024px) {
+
+    header {
+        padding: 15px 30px;
+    }
+
+    .navbar {
+        gap: 14px;
+    }
+
+    .navbar a {
+        font-size: 14px;
+    }
+
+    .hero h1 {
+        font-size: 38px;
+    }
+
+    .hero p {
+        font-size: 17px;
+    }
+
+    .universities {
+        padding: 60px 30px;
+    }
+
+    .card-container {
+        grid-template-columns: repeat(
+            2,
+            minmax(0, 1fr)
+        );
+
+        gap: 25px;
+    }
+
+    .footer-overlay {
+        padding: 50px 40px;
+    }
+}
+
+
+/* ==================================================
+   MOBILE
+   768px and below
+================================================== */
+
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+
+.menu-toggle {
+    display: none;
+}
+
+
+/* =========================
+   TABLET / MOBILE
+========================= */
+
+@media (max-width: 768px) {
+
+    header {
+        width: 100%;
+        min-height: 60px;
+        padding: 15px 20px;
+
+        display: flex;
+        flex-direction: row;
+
+        justify-content: center;
+        align-items: center;
+
+        position: relative;
+        text-align: center;
+    }
+
+    /* Hamburger sirf mobile par */
+    .menu-toggle {
+        display: block;
+
+        position: absolute;
+        right: 20px;
+        top: 50%;
+
+        transform: translateY(-50%);
+
+        background: transparent;
+        border: none;
+
+        color: white;
+
+        font-size: 28px;
+
+        cursor: pointer;
+
+        z-index: 1002;
+    }
+
+    /* Navbar initially hidden */
+    .navbar {
+        display: none;
+
+        width: 100%;
+
+        flex-direction: column;
+        align-items: center;
+
+        gap: 0;
+
+        margin-top: 15px;
+    }
+
+    /* Click ke baad navbar */
+    .navbar.active {
+        display: flex;
+    }
+
+    .navbar > a,
+    .navbar .dropdown {
+        width: 100%;
+        text-align: center;
+    }
+
+    .navbar > a {
+        padding: 10px 0;
+    }
+
+    /* Mobile dropdown */
+    .navbar .dropdown {
+        display: block;
+    }
+
+    .navbar .dropdown > a {
+        justify-content: center;
+        padding: 10px 0;
+    }
+
+    .navbar .sub-menu {
+        position: static;
+
+        width: 100%;
+        min-width: 0;
+
+        padding: 0;
+
+        border-radius: 0;
+
+        box-shadow: none;
+
+        background: #01283f;
+    }
+
+    .navbar .sub-menu li a {
+        text-align: center;
+        padding: 9px 10px;
+    }
+
+
+    /* HERO */
+
+    .hero {
+        min-height: 70vh;
+        padding: 30px 20px;
+    }
+
+    .hero h1 {
+        font-size: 32px;
+        line-height: 1.2;
+    }
+
+    .hero p {
+        font-size: 16px;
+        line-height: 1.5;
+    }
+
+
+    /* UNIVERSITIES */
+
+    .universities {
+        padding: 45px 15px;
+    }
+
+    .universities h2 {
+        font-size: 28px;
+        margin-bottom: 25px;
+    }
+
+
+    /* CARDS */
+
+    .card-container {
+        width: 100%;
+
+        grid-template-columns: 1fr;
+
+        gap: 25px;
+
+        padding: 10px;
+    }
+
+    .card {
+        width: 100%;
+    }
+
+    .card-image {
+        height: 220px;
+    }
+
+    .card-btn {
+        width: 70%;
+    }
+
+
+    /* FOOTER */
+
+    .footer-overlay {
+        padding: 40px 20px;
+    }
+
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 30px;
+    }
+
+    .footer-right {
+        max-width: 100%;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+}
+
+
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media (max-width: 480px) {
+
+    .logo {
+        font-size: 18px;
+    }
+
+    .hero h1 {
+        font-size: 27px;
+    }
+
+    .hero p {
+        font-size: 14px;
+    }
+
+    .universities h2 {
+        font-size: 24px;
+    }
+
+    .card-image {
+        height: 200px;
+    }
+
+    .card-btn {
+        width: 80%;
+    }
+
+    .footer-overlay {
+        padding: 35px 15px;
+    }
+
+}

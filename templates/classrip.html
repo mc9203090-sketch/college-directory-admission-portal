@@ -1,0 +1,1010 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Living Room</title>
+
+<!-- Font Awesome -->
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #ffffff;
+        color: #5D5D5D;
+    }
+
+    /* =========================
+       HEADER
+    ========================== */
+
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        background: #1C3C6B;
+        color: white;
+        position: relative;
+        z-index: 1000;
+    }
+
+    /* LOGO */
+
+    .logo-section {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-shrink: 0;
+    }
+
+    .logo-container {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 3px solid white;
+        flex-shrink: 0;
+    }
+
+    .logo-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .college-text {
+        display: flex;
+        flex-direction: column;
+        color: white;
+        font-weight: bold;
+        line-height: 1.2;
+        font-size: 18px;
+    }
+
+    /* =========================
+       NAVBAR
+    ========================== */
+
+    .navbar {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .navbar > a,
+    .navbar .dropdown > a {
+        color: white;
+        text-decoration: none;
+        font-size: 15px;
+        font-weight: 500;
+        white-space: nowrap;
+    }
+
+    .navbar > a:hover,
+    .navbar .dropdown > a:hover {
+        color: #F5E547;
+    }
+
+    .dropdown {
+        position: relative;
+    }
+
+    .dropdown > a {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        cursor: pointer;
+    }
+
+    /* =========================
+       DESKTOP SUBMENU
+    ========================== */
+
+    .sub-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        min-width: 230px;
+        background: #1C3C6B;
+        list-style: none;
+        padding: 10px 0;
+        margin: 0;
+        border-radius: 0 0 5px 5px;
+        z-index: 9999;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .sub-menu li {
+        margin: 0;
+        padding: 0;
+    }
+
+    .sub-menu li a {
+        display: block;
+        padding: 10px 15px;
+        color: white;
+        font-size: 14px;
+        text-decoration: none;
+        white-space: nowrap;
+    }
+
+    .sub-menu li a:hover {
+        background: #D78D32;
+        color: white;
+    }
+
+    /* Desktop hover */
+
+    @media (min-width: 768px) {
+        .dropdown:hover .sub-menu {
+            display: block;
+        }
+
+        /* Invisible bridge so submenu does not disappear */
+        .dropdown::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 100%;
+            height: 10px;
+        }
+    }
+
+    /* =========================
+       MOBILE MENU BUTTON
+    ========================== */
+
+    #menu-toggle {
+        display: none;
+        background: transparent;
+        border: none;
+        color: white;
+        font-size: 28px;
+        cursor: pointer;
+        padding: 5px;
+    }
+
+    /* =========================
+       HERO
+    ========================== */
+
+    .hero {
+        width: 100%;
+        min-height: 25vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #D78D32;
+        padding: 30px 20px;
+    }
+
+    .slider {
+        text-align: center;
+        color: #ffffff;
+    }
+
+    .slider h1 {
+        margin: 0;
+        font-size: 36px;
+        letter-spacing: 1px;
+    }
+
+    /* =========================
+       CONTENT
+    ========================== */
+
+    .right-side {
+        width: 100%;
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 60px 50px;
+    }
+
+    .results-heading {
+        color: #1C3C6B;
+        text-align: left;
+        margin: 0 0 30px;
+        line-height: 1.5;
+        border-left: 2px solid #D78D32;
+        padding-left: 20px;
+    }
+
+    h2.results-heading {
+        font-size: 28px;
+    }
+
+    h4.results-heading {
+        font-size: 18px;
+        font-weight: 500;
+        text-align: justify;
+    }
+
+    .results-text p {
+        color: #5D5D5D;
+        text-align: justify;
+        padding-left: 20px;
+        line-height: 1.8;
+        font-size: 16px;
+        margin: 0 0 20px;
+    }
+
+    /* =========================
+       FOOTER
+    ========================== */
+
+    .custom-footer {
+        position: relative;
+        background: url("/static/images/ripah1.png") center center / cover no-repeat;
+        color: #7BA388;
+        font-family: Arial, sans-serif;
+    }
+
+    .footer-overlay {
+        background: rgba(0, 0, 0, 0.75);
+        padding: 60px 80px 30px;
+    }
+
+    .footer-container {
+        display: flex;
+        justify-content: space-between;
+        gap: 50px;
+        flex-wrap: wrap;
+    }
+
+    .footer-left {
+        flex: 1;
+        min-width: 220px;
+    }
+
+    .footer-left ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .footer-left ul li {
+        margin-bottom: 12px;
+    }
+
+    .footer-left ul li a {
+        color: #7BA388;
+        text-decoration: none;
+        font-size: 14px;
+        letter-spacing: 1px;
+    }
+
+    .footer-left ul li a:hover {
+        color: #ffffff;
+    }
+
+    .footer-right {
+        flex: 1;
+        max-width: 800px;
+        min-width: 250px;
+    }
+
+    .footer-right h3 {
+        margin: 0 0 20px;
+        font-size: 18px;
+        letter-spacing: 2px;
+    }
+
+    .footer-right p {
+        margin: 0 0 10px;
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    .footer-right a {
+        color: #7BA388;
+        text-decoration: none;
+        word-break: break-word;
+    }
+
+    .footer-bottom {
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px solid #7BA388;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        font-size: 14px;
+    }
+
+    .footer-bottom p {
+        color: #ffffff;
+        margin: 0;
+        line-height: 1.6;
+    }
+
+    /* =========================
+       BACK TO TOP
+    ========================== */
+
+    #back-to-top {
+        display: none;
+        position: fixed;
+        right: 20px;
+        bottom: 20px;
+        width: 45px;
+        height: 45px;
+        background: #1C3C6B;
+        color: white;
+        text-decoration: none;
+        border-radius: 50%;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    #back-to-top:hover {
+        background: #D78D32;
+    }
+
+    /* =========================
+       TABLET
+    ========================== */
+
+    @media (max-width: 1000px) {
+
+        header {
+            padding: 10px 15px;
+        }
+
+        .navbar {
+            gap: 12px;
+        }
+
+        .navbar > a,
+        .navbar .dropdown > a {
+            font-size: 13px;
+        }
+
+        .right-side {
+            padding: 50px 35px;
+        }
+
+        .footer-overlay {
+            padding: 50px 40px 30px;
+        }
+    }
+
+    /* =========================
+       MOBILE
+    ========================== */
+
+    @media (max-width: 767px) {
+
+        header {
+            padding: 10px 15px;
+            min-height: 80px;
+        }
+
+        .logo-container {
+            width: 55px;
+            height: 55px;
+        }
+
+        .college-text {
+            font-size: 15px;
+        }
+
+        #menu-toggle {
+            display: block;
+        }
+
+        .navbar {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: #1C3C6B;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 0;
+            padding: 10px 0 15px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar.active {
+            display: flex;
+        }
+
+        .navbar > a,
+        .navbar .dropdown > a {
+            width: 100%;
+            padding: 13px 20px;
+            font-size: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dropdown {
+            width: 100%;
+        }
+
+        .sub-menu {
+            position: static;
+            display: none;
+            width: 100%;
+            min-width: 0;
+            border-radius: 0;
+            box-shadow: none;
+            padding: 0;
+            background: #17345c;
+        }
+
+        .dropdown.open .sub-menu {
+            display: block;
+        }
+
+        .sub-menu li a {
+            padding: 11px 35px;
+            font-size: 14px;
+            white-space: normal;
+        }
+
+        .sub-menu li a:hover {
+            background: #D78D32;
+        }
+
+        .hero {
+            min-height: 220px;
+            padding: 35px 15px;
+        }
+
+        .slider h1 {
+            font-size: 28px;
+        }
+
+        .right-side {
+            width: 100%;
+            padding: 40px 20px;
+        }
+
+        h2.results-heading {
+            font-size: 24px;
+            margin-bottom: 25px;
+        }
+
+        h4.results-heading {
+            font-size: 16px;
+            line-height: 1.7;
+            padding-left: 15px;
+        }
+
+        .results-text p {
+            padding-left: 0;
+            font-size: 15px;
+            line-height: 1.8;
+            text-align: left;
+        }
+
+        .footer-overlay {
+            padding: 40px 25px 25px;
+        }
+
+        .footer-container {
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .footer-left,
+        .footer-right {
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+        }
+
+        .footer-left ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-right h3 {
+            font-size: 17px;
+        }
+
+        .footer-right p {
+            font-size: 13px;
+        }
+
+        .footer-bottom {
+            margin-top: 30px;
+            padding-top: 15px;
+        }
+
+        .footer-bottom p {
+            font-size: 12px;
+        }
+
+        #back-to-top {
+            right: 15px;
+            bottom: 15px;
+            width: 42px;
+            height: 42px;
+        }
+    }
+
+    /* =========================
+       SMALL MOBILE
+    ========================== */
+
+    @media (max-width: 400px) {
+
+        .college-text {
+            font-size: 13px;
+        }
+
+        .logo-container {
+            width: 50px;
+            height: 50px;
+        }
+
+        .slider h1 {
+            font-size: 24px;
+        }
+
+        .right-side {
+            padding: 35px 15px;
+        }
+
+        h2.results-heading {
+            font-size: 21px;
+        }
+
+        h4.results-heading {
+            font-size: 15px;
+        }
+
+        .results-text p {
+            font-size: 14px;
+        }
+
+        .footer-overlay {
+            padding: 35px 20px 20px;
+        }
+    }
+</style>
+
+</head>
+
+<body>
+
+<!-- =========================
+     HEADER
+========================== -->
+
+<header>
+<div class="logo-section">
+
+    <div class="logo-container">
+        <img src="{% static 'images/ripah logo.jfif' %}" alt="Ripah College Chishtian Logo">
+    </div>
+
+    <div class="college-text">
+        <span>RIPAH</span>
+        <span>College</span>
+        <span>Chishtian</span>
+    </div>
+
+</div>
+
+<!-- Mobile Menu Button -->
+
+<button id="menu-toggle" aria-label="Open Menu">
+    <i class="fas fa-bars"></i>
+</button>
+
+<!-- Navigation -->
+
+<nav class="navbar" id="navbar">
+
+    <a href="{% url 'index' %}">Home</a>
+
+    <!-- ABOUT US -->
+
+    <div class="dropdown">
+
+        <a href="#">
+            ABOUT US
+            <i class="fa fa-caret-down"></i>
+        </a>
+
+        <ul class="sub-menu">
+
+            <li>
+                <a href="{% url 'historyrip' %}">
+                    About Punjab
+                </a>
+            </li>
+
+            <li>
+                <a href="{% url 'missionrip' %}">
+                    Mission Vision and Values
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+
+    <!-- ADMISSIONS -->
+
+    <div class="dropdown">
+
+        <a href="#">
+            ADDMISSIONS
+            <i class="fa fa-caret-down"></i>
+        </a>
+
+        <ul class="sub-menu">
+
+            <li>
+                <a href="{% url 'feestructurerip' %}">
+                    Fees Structure
+                </a>
+            </li>
+
+            <li>
+                <a href="{% url 'applyrip' %}">
+                    Apply
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+
+    <!-- FACILITIES -->
+
+    <div class="dropdown">
+
+        <a href="{% url 'classrip' %}">
+            FACILITIES
+        </a>
+
+    </div>
+
+    <!-- LEARNING AT RIPAH -->
+
+    <div class="dropdown">
+
+        <a href="#">
+            LEARNING AT RIPAH
+            <i class="fa fa-caret-down"></i>
+        </a>
+
+        <ul class="sub-menu">
+
+            <li>
+                <a href="{% url 'spacerip' %}">
+                    LEARNING AT RIPAH
+                </a>
+            </li>
+
+            <li>
+                <a href="{% url 'affiliaterip' %}">
+                    AFFILIATE
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+
+    <!-- CONTACT -->
+
+    <a href="{% url 'contactrip' %}">
+        CONTACT US
+    </a>
+
+</nav>
+</header>
+
+<!-- =========================
+     HERO SECTION
+========================== -->
+
+<section class="hero">
+<div class="slider">
+
+    <h1>LIVING ROOMS</h1>
+
+    <hr style="
+        width:60px;
+        margin:10px auto;
+        border:0;
+        height:4px;
+        background-color:#1C3C6B;
+    ">
+
+</div>
+</section>
+
+<!-- =========================
+     CONTENT
+========================== -->
+
+<main>
+<div class="right-side">
+
+    <h2 class="results-heading">
+        LIVING CLASSROOMS
+    </h2>
+
+    <h4 class="results-heading">
+
+        Our advanced learning spaces include modern, climate-controlled facilities and innovative environments designed to enhance student learning. These spaces support practical education, research, and interactive learning experiences for students across all academic programs.
+
+    </h4>
+
+    <div class="results-text">
+
+        <p>
+            At Ripah College Chishtian, we provide a modern and supportive environment where students can learn, explore, and grow. Our campus is designed to support both academic excellence and personal development through quality facilities and engaging learning spaces.
+        </p>
+
+        <p>
+            To support practical education, the college has a modern computer lab where students gain hands-on experience and develop their technical skills through practical learning. The campus also includes a beautiful garden that provides a refreshing space for relaxation and informal learning.
+        </p>
+
+        <p>
+            In addition, the college offers two spacious sports grounds where students participate in different sports and physical activities, encouraging teamwork, fitness, and a healthy lifestyle. These facilities together create a balanced environment where students can learn, explore new skills, and develop their potential.
+        </p>
+
+    </div>
+
+</div>
+</main>
+
+<!-- =========================
+     FOOTER
+========================== -->
+
+<footer class="custom-footer">
+<div class="footer-overlay">
+
+    <div class="footer-container">
+
+        <!-- Left Menu -->
+
+        <div class="footer-left">
+
+            <ul>
+
+                <li>
+                    <a href="{% url 'ripah' %}">
+                        HOME
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'historyrip' %}">
+                        ABOUT US
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'applyrip' %}">
+                        ADMISSIONS
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'classrip' %}">
+                        THE CAMPUS
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'spacerip' %}">
+                        LEARNING AT RIPAH
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'contactrip' %}">
+                        CONTACT US
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <!-- Right Contact Info -->
+
+        <div class="footer-right">
+
+            <h3>
+                GET IN TOUCH
+            </h3>
+
+            <p>
+                THE Ripah College, Chishtian,
+            </p>
+
+            <p>
+                MAIN OFFICE TELEPHONE: 0322 7771218.
+            </p>
+
+            <p>
+                EMAIL:
+                <a href="mailto:coordinator.chishtian@ric.edu.pk">
+                    coordinator.chishtian@ric.edu.pk
+                </a>
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- Bottom Bar -->
+
+    <div class="footer-bottom">
+
+        <p>
+            Legal *&* Privacy Policy | Copyright © 2023 - All Rights Reserved
+        </p>
+
+    </div>
+
+</div>
+</footer>
+
+<!-- =========================
+     BACK TO TOP
+========================== -->
+
+<a href="#" id="back-to-top" aria-label="Back to Top">
+    <i class="fas fa-chevron-up"></i>
+</a>
+
+<!-- =========================
+     JAVASCRIPT
+========================== -->
+
+<script>
+
+    const menuToggle = document.getElementById("menu-toggle");
+    const navbar = document.getElementById("navbar");
+
+    /* MOBILE MENU */
+
+    menuToggle.addEventListener("click", function () {
+
+        navbar.classList.toggle("active");
+
+    });
+
+
+    /* MOBILE DROPDOWNS ONLY */
+
+    document.querySelectorAll(".dropdown > a").forEach(function (item) {
+
+        item.addEventListener("click", function (e) {
+
+            if (window.innerWidth <= 767) {
+
+                const dropdown = this.parentElement;
+                const submenu = dropdown.querySelector(".sub-menu");
+
+                if (submenu) {
+
+                    e.preventDefault();
+
+                    document.querySelectorAll(".dropdown").forEach(function (otherDropdown) {
+
+                        if (otherDropdown !== dropdown) {
+                            otherDropdown.classList.remove("open");
+                        }
+
+                    });
+
+                    dropdown.classList.toggle("open");
+
+                }
+
+            }
+
+        });
+
+    });
+
+
+    /* CLOSE MOBILE MENU AFTER NORMAL LINK CLICK */
+
+    document.querySelectorAll(".navbar > a, .sub-menu a").forEach(function (link) {
+
+        link.addEventListener("click", function () {
+
+            if (window.innerWidth <= 767) {
+
+                if (!this.parentElement.classList.contains("dropdown")) {
+
+                    navbar.classList.remove("active");
+
+                }
+
+            }
+
+        });
+
+    });
+
+
+    /* CLOSE MENU WHEN SCREEN BECOMES DESKTOP */
+
+    window.addEventListener("resize", function () {
+
+        if (window.innerWidth > 767) {
+
+            navbar.classList.remove("active");
+
+            document.querySelectorAll(".dropdown").forEach(function (dropdown) {
+                dropdown.classList.remove("open");
+            });
+
+        }
+
+    });
+
+
+    /* BACK TO TOP */
+
+    const backToTop = document.getElementById("back-to-top");
+
+    window.addEventListener("scroll", function () {
+
+        if (window.scrollY > 300) {
+
+            backToTop.style.display = "flex";
+
+        } else {
+
+            backToTop.style.display = "none";
+
+        }
+
+    });
+
+
+    backToTop.addEventListener("click", function (e) {
+
+        e.preventDefault();
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    });
+
+</script>
+
+</body>
+</html>
