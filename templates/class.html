@@ -69,7 +69,7 @@
             font-size: 18px;
         }
 
-        /* =========================
+         /* =========================
            NAVBAR
         ========================= */
 
@@ -85,7 +85,6 @@
             text-decoration: none;
             font-size: 15px;
             font-weight: 500;
-            white-space: nowrap;
         }
 
         .navbar > a:hover,
@@ -95,6 +94,7 @@
 
         .dropdown {
             position: relative;
+            display: inline-block;
         }
 
         .dropdown > a {
@@ -107,24 +107,28 @@
         .sub-menu {
             display: none;
             position: absolute;
-            top: calc(100% + 8px);
+            top: 100%;
             left: 0;
             background: #0d3b3a;
             list-style: none;
             padding: 10px 0;
-            min-width: 220px;
+            min-width: 230px;
             border-radius: 5px;
-            z-index: 1000;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+            z-index: 9999;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+        }
+
+        .sub-menu li {
+            margin: 0;
         }
 
         .sub-menu li a {
-            display: block;
-            padding: 9px 15px;
+            padding: 10px 15px;
             color: white;
+            display: block;
             font-size: 14px;
             text-decoration: none;
-            line-height: 1.4;
+            white-space: normal;
         }
 
         .sub-menu li a:hover {
@@ -135,6 +139,18 @@
         /* Desktop dropdown */
         .dropdown:hover .sub-menu {
             display: block;
+        }
+
+        /* =========================
+           MOBILE MENU BUTTON
+        ========================= */
+
+        .menu-toggle {
+            display: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: white;
+            user-select: none;
         }
 
         /* =========================
@@ -704,142 +720,135 @@
 
         <nav class="navbar" id="navbar">
 
-            <a href="{% url 'index' %}">
-                Home
+        <a href="{% url 'index' %}">Home</a>
+
+        <!-- ABOUT US -->
+        <div class="dropdown">
+
+            <a href="#">
+                ABOUT US
+                <span>▾</span>
             </a>
 
+            <ul class="sub-menu">
 
-            <!-- ABOUT US -->
+                <li>
+                    <a href="{% url 'aboutsup' %}">
+                        Welcome Message From the Principal
+                    </a>
+                </li>
 
-            <div class="dropdown">
+                <li>
+                    <a href="{% url 'historysup' %}">
+                        About Superior
+                    </a>
+                </li>
 
-                <a href="#" class="dropdown-toggle">
-                    ABOUT US ▾
-                </a>
+                <li>
+                    <a href="{% url 'missionsup' %}">
+                        Mission Vision and Values
+                    </a>
+                </li>
 
-                <ul class="sub-menu">
+                <li>
+                    <a href="{% url 'results' %}">
+                        Results
+                    </a>
+                </li>
 
-                    <li>
-                        <a href="{% url 'aboutsup' %}">
-                            Welcome Message From the Principal
-                        </a>
-                    </li>
+            </ul>
 
-                    <li>
-                        <a href="{% url 'historysup' %}">
-                            About Superior
-                        </a>
-                    </li>
+        </div>
 
-                    <li>
-                        <a href="{% url 'missionsup' %}">
-                            Mission Vision and Values
-                        </a>
-                    </li>
+        <!-- ADMISSIONS -->
+        <div class="dropdown">
 
-                    <li>
-                        <a href="{% url 'results' %}">
-                            Results
-                        </a>
-                    </li>
-
-                </ul>
-
-            </div>
-
-
-            <!-- ADMISSIONS -->
-
-            <div class="dropdown">
-
-                <a href="#" class="dropdown-toggle">
-                    ADMISSIONS ▾
-                </a>
-
-                <ul class="sub-menu">
-
-                    <li>
-                        <a href="{% url 'addmission' %}">
-                            Addmissions
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="{% url 'fee' %}">
-                            Fees Structure
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="{% url 'apply' %}">
-                            Apply
-                        </a>
-                    </li>
-
-                </ul>
-
-            </div>
-
-
-            <!-- FACILITIES -->
-
-            <div class="dropdown">
-
-                <a href="#" class="dropdown-toggle">
-                    FACILITIES ▾
-                </a>
-
-                <ul class="sub-menu">
-
-                    <li>
-                        <a href="{% url 'class' %}">
-                            Living Classrooms
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="{% url 'spaces' %}">
-                            Unique College Learning Spaces
-                        </a>
-                    </li>
-
-                </ul>
-
-            </div>
-
-
-            <!-- LEARNING AT SUPERIOR -->
-
-            <div class="dropdown">
-
-                <a href="#" class="dropdown-toggle">
-                    LEARNING AT SUPERIOR ▾
-                </a>
-
-                <ul class="sub-menu">
-
-                    <li>
-                        <a href="{% url 'spaces' %}">
-                            LEARNING AT SUPERIOR
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="{% url 'affiliate' %}">
-                            AFFILIATE
-                        </a>
-                    </li>
-
-                </ul>
-
-            </div>
-
-
-            <a href="{% url 'contact' %}">
-                CONTACT US
+            <a href="#">
+                ADMISSIONS
+                <span>▾</span>
             </a>
 
-        </nav>
+            <ul class="sub-menu">
+
+                <li>
+                    <a href="{% url 'addmission' %}">
+                        Admissions
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'fee' %}">
+                        Fees Structure
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'apply' %}">
+                        Apply
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+        <!-- FACILITIES -->
+        <div class="dropdown">
+
+            <a href="#">
+                FACILITIES
+                <span>▾</span>
+            </a>
+
+            <ul class="sub-menu">
+
+                <li>
+                    <a href="{% url 'class' %}">
+                        Living Classrooms
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'spaces' %}">
+                        Unique College Learning Spaces
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+        <!-- LEARNING AT SUPERIOR -->
+        <div class="dropdown">
+
+            <a href="#">
+                LEARNING AT SUPERIOR
+                <span>▾</span>
+            </a>
+
+            <ul class="sub-menu">
+
+                <li>
+                    <a href="{% url 'spaces' %}">
+                        LEARNING AT SUPERIOR
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'affiliate' %}">
+                        AFFILIATE
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+        <a href="{% url 'contact' %}">
+            CONTACT US
+        </a>
+
+    </nav>
 
     </header>
 
