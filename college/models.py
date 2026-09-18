@@ -2,9 +2,9 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-# =========================
+# =========================================================
 # COLLEGE
-# =========================
+# =========================================================
 
 class College(models.Model):
 
@@ -34,7 +34,7 @@ class College(models.Model):
     )
 
     image = models.ImageField(
-        upload_to='colleges/',
+        upload_to="colleges/",
         blank=True,
         null=True
     )
@@ -43,20 +43,20 @@ class College(models.Model):
         return self.name
 
 
-# =========================
+# =========================================================
 # STUDENT PROFILE
-# =========================
+# =========================================================
 
 class StudentProfile(models.Model):
 
     user = models.OneToOneField(
         User,
         on_delete=models.CASCADE,
-        related_name='student_profile'
+        related_name="student_profile"
     )
 
     profile_picture = models.ImageField(
-        upload_to='profile_pictures/',
+        upload_to="profile_pictures/",
         blank=True,
         null=True
     )
@@ -65,9 +65,9 @@ class StudentProfile(models.Model):
         return f"{self.user.username} Profile"
 
 
-# =========================
+# =========================================================
 # APPLICATION
-# =========================
+# =========================================================
 
 class Application(models.Model):
 
@@ -97,24 +97,24 @@ class Application(models.Model):
         return self.full_name
 
 
-# =========================
+# =========================================================
 # ADMISSION APPLICATION
-# =========================
+# =========================================================
 
 class AdmissionApplication(models.Model):
 
     STATUS_CHOICES = [
-        ('Pending', 'Pending'),
-        ('Approved', 'Approved'),
-        ('Rejected', 'Rejected'),
+        ("Pending", "Pending"),
+        ("Approved", "Approved"),
+        ("Rejected", "Rejected"),
     ]
 
-    # =========================
+    # -----------------------------------------------------
     # STUDENT & COLLEGE
-    # =========================
+    # -----------------------------------------------------
 
     student = models.ForeignKey(
-        'auth.User',
+        User,
         on_delete=models.CASCADE
     )
 
@@ -123,19 +123,19 @@ class AdmissionApplication(models.Model):
         on_delete=models.CASCADE
     )
 
-    # =========================
+    # -----------------------------------------------------
     # APPLICATION STATUS
-    # =========================
+    # -----------------------------------------------------
 
     status = models.CharField(
         max_length=20,
         choices=STATUS_CHOICES,
-        default='Pending'
+        default="Pending"
     )
 
-    # =========================
+    # -----------------------------------------------------
     # STUDENT INFORMATION
-    # =========================
+    # -----------------------------------------------------
 
     gender = models.CharField(
         max_length=20,
@@ -167,9 +167,9 @@ class AdmissionApplication(models.Model):
         blank=True
     )
 
-    # =========================
+    # -----------------------------------------------------
     # CNIC
-    # =========================
+    # -----------------------------------------------------
 
     guardian_cnic = models.CharField(
         max_length=13,
@@ -186,9 +186,9 @@ class AdmissionApplication(models.Model):
         null=True
     )
 
-    # =========================
+    # -----------------------------------------------------
     # CONTACT INFORMATION
-    # =========================
+    # -----------------------------------------------------
 
     guardian_contact = models.CharField(
         max_length=11,
@@ -208,9 +208,9 @@ class AdmissionApplication(models.Model):
         blank=True
     )
 
-    # =========================
+    # -----------------------------------------------------
     # ACADEMIC INFORMATION
-    # =========================
+    # -----------------------------------------------------
 
     degree = models.CharField(
         max_length=100,
@@ -257,9 +257,9 @@ class AdmissionApplication(models.Model):
         blank=True
     )
 
-    # =========================
+    # -----------------------------------------------------
     # CREATED DATE
-    # =========================
+    # -----------------------------------------------------
 
     created_at = models.DateTimeField(
         auto_now_add=True
@@ -267,3 +267,43 @@ class AdmissionApplication(models.Model):
 
     def __str__(self):
         return f"{self.full_name} - {self.college.name}"
+
+
+# =========================================================
+# NOTIFICATION
+# =========================================================
+
+class Notification(models.Model):
+
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="notifications"
+    )
+
+    application = models.ForeignKey(
+        AdmissionApplication,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
+    )
+
+    title = models.CharField(
+        max_length=200
+    )
+
+    message = models.TextField()
+
+    is_read = models.BooleanField(
+        default=False
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    class Meta:
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"{self.user.username} - {self.title}"

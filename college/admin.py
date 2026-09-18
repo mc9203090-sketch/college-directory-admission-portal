@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.core.mail import send_mail
 
-from .models import College, AdmissionApplication
+from .models import College, AdmissionApplication, Notification
 
 
 @admin.register(College)
@@ -209,3 +209,4 @@ class AdmissionApplicationAdmin(admin.ModelAdmin):
                 [obj.email],
                 fail_silently=True,
             )
+            Notification.objects.create( user=obj.student, application=obj, title=subject, message=message, )

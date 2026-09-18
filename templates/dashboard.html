@@ -50,7 +50,47 @@
             align-items: center;
             gap: 15px;
         }
+        .notification-wrapper {
+position: relative;
+}
 
+.notification-bell {
+width: 42px;
+height: 42px;
+border: 1px solid #e5e7eb;
+border-radius: 50%;
+background: #ffffff;
+display: flex;
+align-items: center;
+justify-content: center;
+text-decoration: none;
+font-size: 20px;
+transition: 0.25s;
+}
+
+.notification-bell:hover {
+background: #f4f7fb;
+transform: translateY(-1px);
+}
+
+.notification-badge {
+position: absolute;
+top: -4px;
+right: -3px;
+min-width: 19px;
+height: 19px;
+padding: 0 5px;
+border-radius: 20px;
+background: #dc2626;
+color: white;
+font-size: 11px;
+font-weight: 700;
+display: flex;
+align-items: center;
+justify-content: center;
+border: 2px solid white;
+}
+ 
         .welcome {
             color: #555;
             font-size: 14px;
@@ -536,10 +576,10 @@
 
 </head>
 
-
+<script src="{% static 'notifications.js' %}"></script>
 <body>
 
-
+<div id="notification-data" data-title="{{ latest_notification.title|default:'' }}" data-message="{{ latest_notification.message|default:'' }}"> </div>
     <!-- ================= HEADER ================= -->
 
     <header class="dashboard-header">
@@ -549,7 +589,7 @@
         </div>
 
         <div class="header-right">
-
+         <a href="{% url 'notifications' %}" class="notification-wrapper"> <div class="notification-bell"> 🔔 {% if unread_notifications_count > 0 %} <span class="notification-badge"> {{ unread_notifications_count }} </span> {% endif %} </div> </a>
             <div class="welcome">
                 Welcome, {{ user.first_name|default:user.username }}
             </div>
