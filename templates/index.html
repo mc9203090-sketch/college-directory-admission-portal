@@ -9,24 +9,25 @@
 
     <title>Colleges in Chishtian</title>
 
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 
 <body id="top">
 
-    <!-- =========================
+    <!-- =====================================================
          NAVBAR
-    ========================== -->
+         SAME NAVBAR - ONLY STICKY
+    ====================================================== -->
 
-    <header class="main-header">
+    <header>
 
         <div class="logo">
             🎓 Discover Colleges in Chishtian
         </div>
-
-        <button class="mobile-menu-btn" id="menu-toggle" aria-label="Open Menu">
-            ☰
-        </button>
 
         <nav class="navbar" id="navbar">
 
@@ -116,9 +117,10 @@
     </header>
 
 
-    <!-- =========================
-         HERO SECTION
-    ========================== -->
+    <!-- =====================================================
+         HERO
+         YOUR EXISTING HERO
+    ====================================================== -->
 
     <section class="hero">
 
@@ -141,16 +143,16 @@
     </section>
 
 
-    <!-- =========================
-         UNIVERSITIES SECTION
-    ========================== -->
+    <!-- =====================================================
+         UNIVERSITIES
+    ====================================================== -->
 
     <section class="universities" id="universities">
 
         <div class="section-heading">
 
             <span class="section-label">
-                VERIFIED ACADEMIC INSTITUTIONS
+                CHOOSE YOUR ACADEMIC DESTINATION
             </span>
 
             <h2>
@@ -158,23 +160,19 @@
             </h2>
 
             <p>
-                Explore leading colleges offering quality education,
-                modern facilities and career-focused programs.
+                Compare institutions, programs, facilities and admission
+                options before starting your academic journey.
             </p>
 
         </div>
 
 
-        <!-- =========================
-             COLLEGE CARDS
-        ========================== -->
-
-        <div class="college-grid">
+        <div class="card-container">
 
 
-            <!-- ==================================
+            <!-- =================================================
                  SUPERIOR COLLEGE
-            =================================== -->
+            ================================================== -->
 
             <article class="college-card">
 
@@ -185,12 +183,24 @@
                         alt="Superior College Chishtian"
                     >
 
-                    <div class="image-badge">
-                        🏆 ACADEMIC EXCELLENCE
+                    <div class="image-top-label">
+                        <span>
+                            <i class="fa-solid fa-graduation-cap"></i>
+                            ACADEMIC PRESTIGE
+                        </span>
+
+                        <span>
+                            <i class="fa-solid fa-location-dot"></i>
+                            CHISHTIAN
+                        </span>
                     </div>
 
-                    <div class="college-overlay">
-                        <span>Superior College Chishtian</span>
+                    <div class="image-title">
+
+                        <h3>
+                            Superior College Chishtian (SCCTN)
+                        </h3>
+
                     </div>
 
                 </div>
@@ -198,29 +208,10 @@
 
                 <div class="college-content">
 
-                    <div class="college-title-row">
-
-                        <div>
-                            <h3>
-                                Superior College Chishtian
-                            </h3>
-
-                            <p class="college-location">
-                                📍 Chishtian, Bahawalnagar
-                            </p>
-                        </div>
-
-                        <span class="verified-icon">
-                            ✓
-                        </span>
-
-                    </div>
-
-
                     <p class="college-description">
-                        A leading educational institution offering
-                        intermediate and undergraduate education with
-                        modern learning opportunities.
+                        A leading educational institution offering quality
+                        education, modern learning facilities and a wide
+                        range of academic opportunities for students.
                     </p>
 
 
@@ -228,22 +219,22 @@
 
                     <div class="college-stats">
 
-                        <div class="stat">
+                        <div class="stat-box">
                             <strong>1,000+</strong>
                             <span>Students</span>
                         </div>
 
-                        <div class="stat">
+                        <div class="stat-box">
                             <strong>120</strong>
                             <span>Faculty</span>
                         </div>
 
-                        <div class="stat">
+                        <div class="stat-box">
                             <strong>50+</strong>
                             <span>Programs</span>
                         </div>
 
-                        <div class="stat">
+                        <div class="stat-box">
                             <strong>75–100%</strong>
                             <span>Scholarships</span>
                         </div>
@@ -255,10 +246,20 @@
 
                     <div class="college-tags">
 
-                        <span>F.Sc Pre-Medical</span>
-                        <span>F.Sc Pre-Engineering</span>
-                        <span>ICS</span>
-                        <span>Computer Science</span>
+                        <span>
+                            <i class="fa-solid fa-laptop-code"></i>
+                            Computer Science
+                        </span>
+
+                        <span>
+                            <i class="fa-solid fa-flask"></i>
+                            Pre-Medical
+                        </span>
+
+                        <span>
+                            <i class="fa-solid fa-chart-line"></i>
+                            Business
+                        </span>
 
                     </div>
 
@@ -268,33 +269,38 @@
                     <ul class="college-features">
 
                         <li>
-                            ✓ Experienced faculty and modern classrooms
+                            <i class="fa-solid fa-circle-check"></i>
+                            Experienced teaching faculty
                         </li>
 
                         <li>
-                            ✓ Computer and science laboratories
+                            <i class="fa-solid fa-circle-check"></i>
+                            Modern classrooms and facilities
                         </li>
 
                         <li>
-                            ✓ Career-focused learning environment
+                            <i class="fa-solid fa-circle-check"></i>
+                            Computer and science laboratories
+                        </li>
+
+                        <li>
+                            <i class="fa-solid fa-circle-check"></i>
+                            Career-focused academic environment
                         </li>
 
                     </ul>
 
 
-                    <!-- ONLY APPLY BUTTON -->
+                    <!-- ONLY APPLY -->
 
-                    <div class="college-actions">
-
-                        <a
-                            href="{% url 'apply' %}"
-                            class="apply-btn"
-                        >
-                            <span>➜</span>
+                    <a href="{% url 'apply' %}" class="college-btn">
+                        <span>
+                            <i class="fa-solid fa-file-signature"></i>
                             Apply
-                        </a>
+                        </span>
 
-                    </div>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
 
                 </div>
 
@@ -302,9 +308,9 @@
 
 
 
-            <!-- ==================================
-                 PUNJAB COLLEGE
-            =================================== -->
+            <!-- =================================================
+                 PGC
+            ================================================== -->
 
             <article class="college-card">
 
@@ -315,12 +321,26 @@
                         alt="Punjab College Chishtian"
                     >
 
-                    <div class="image-badge">
-                        🎓 RECOGNIZED INSTITUTION
+                    <div class="image-top-label">
+
+                        <span>
+                            <i class="fa-solid fa-award"></i>
+                            EDUCATIONAL NETWORK
+                        </span>
+
+                        <span>
+                            <i class="fa-solid fa-location-dot"></i>
+                            CHISHTIAN
+                        </span>
+
                     </div>
 
-                    <div class="college-overlay">
-                        <span>Punjab College Chishtian</span>
+                    <div class="image-title">
+
+                        <h3>
+                            Punjab College Chishtian (PGC)
+                        </h3>
+
                     </div>
 
                 </div>
@@ -328,101 +348,95 @@
 
                 <div class="college-content">
 
-                    <div class="college-title-row">
+                    <p class="college-description">
+                        A recognized educational institution providing
+                        intermediate and undergraduate programs with a
+                        student-focused academic environment.
+                    </p>
 
-                        <div>
-                            <h3>
-                                Punjab College Chishtian
-                            </h3>
 
-                            <p class="college-location">
-                                📍 Chishtian, Bahawalnagar
-                            </p>
+                    <div class="college-stats">
+
+                        <div class="stat-box">
+                            <strong>900+</strong>
+                            <span>Students</span>
                         </div>
 
-                        <span class="verified-icon">
-                            ✓
+                        <div class="stat-box">
+                            <strong>20+</strong>
+                            <span>Programs</span>
+                        </div>
+
+                        <div class="stat-box">
+                            <strong>30+</strong>
+                            <span>Teachers</span>
+                        </div>
+
+                        <div class="stat-box">
+                            <strong>10+</strong>
+                            <span>Years</span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="college-tags">
+
+                        <span>
+                            <i class="fa-solid fa-microscope"></i>
+                            Pre-Medical
+                        </span>
+
+                        <span>
+                            <i class="fa-solid fa-calculator"></i>
+                            Pre-Engineering
+                        </span>
+
+                        <span>
+                            <i class="fa-solid fa-computer"></i>
+                            ICS
                         </span>
 
                     </div>
 
 
-                    <p class="college-description">
-                        Punjab College provides quality intermediate
-                        and higher education with a strong academic
-                        environment.
-                    </p>
-
-
-                    <!-- STATS -->
-
-                    <div class="college-stats">
-
-                        <div class="stat">
-                            <strong>900+</strong>
-                            <span>Students</span>
-                        </div>
-
-                        <div class="stat">
-                            <strong>70</strong>
-                            <span>Faculty</span>
-                        </div>
-
-                        <div class="stat">
-                            <strong>30+</strong>
-                            <span>Programs</span>
-                        </div>
-
-                        <div class="stat">
-                            <strong>90%</strong>
-                            <span>Results</span>
-                        </div>
-
-                    </div>
-
-
-                    <!-- TAGS -->
-
-                    <div class="college-tags">
-
-                        <span>F.Sc Pre-Medical</span>
-                        <span>F.Sc Pre-Engineering</span>
-                        <span>ICS</span>
-                        <span>Commerce</span>
-
-                    </div>
-
-
-                    <!-- FEATURES -->
-
                     <ul class="college-features">
 
                         <li>
-                            ✓ High-quality educational environment
+                            <i class="fa-solid fa-circle-check"></i>
+                            High-quality educational environment
                         </li>
 
                         <li>
-                            ✓ Experienced teachers and laboratories
+                            <i class="fa-solid fa-circle-check"></i>
+                            Experienced teaching staff
                         </li>
 
                         <li>
-                            ✓ Academic and career guidance
+                            <i class="fa-solid fa-circle-check"></i>
+                            Academic and co-curricular activities
+                        </li>
+
+                        <li>
+                            <i class="fa-solid fa-circle-check"></i>
+                            Career-oriented programs
                         </li>
 
                     </ul>
 
 
-                    <div class="college-actions">
+                    <!-- ONLY CHECK FOR ADMISSION -->
 
-                        <a
-                            href="{% url 'applypgc' %}"
-                            class="apply-btn"
-                        >
-                            <span>➜</span>
+                    <a href="{% url 'applypgc' %}" class="college-btn">
+
+                        <span>
+                            <i class="fa-solid fa-magnifying-glass"></i>
                             Check for Admission
-                        </a>
+                        </span>
 
-                    </div>
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </a>
 
                 </div>
 
@@ -430,9 +444,9 @@
 
 
 
-            <!-- ==================================
+            <!-- =================================================
                  CHISHTIAN SCIENCE COLLEGE
-            =================================== -->
+            ================================================== -->
 
             <article class="college-card">
 
@@ -443,12 +457,26 @@
                         alt="Chishtian Science College"
                     >
 
-                    <div class="image-badge">
-                        🔬 SCIENCE &amp; TECHNOLOGY
+                    <div class="image-top-label">
+
+                        <span>
+                            <i class="fa-solid fa-flask"></i>
+                            SCIENCE & TECHNOLOGY
+                        </span>
+
+                        <span>
+                            <i class="fa-solid fa-location-dot"></i>
+                            CHISHTIAN
+                        </span>
+
                     </div>
 
-                    <div class="college-overlay">
-                        <span>Chishtian Science College</span>
+                    <div class="image-title">
+
+                        <h3>
+                            Chishtian Science College (CSC)
+                        </h3>
+
                     </div>
 
                 </div>
@@ -456,101 +484,95 @@
 
                 <div class="college-content">
 
-                    <div class="college-title-row">
+                    <p class="college-description">
+                        A science-focused institution offering academic
+                        programs with emphasis on scientific learning,
+                        technology and career development.
+                    </p>
 
-                        <div>
-                            <h3>
-                                Chishtian Science College
-                            </h3>
 
-                            <p class="college-location">
-                                📍 Chishtian, Bahawalnagar
-                            </p>
+                    <div class="college-stats">
+
+                        <div class="stat-box">
+                            <strong>600+</strong>
+                            <span>Students</span>
                         </div>
 
-                        <span class="verified-icon">
-                            ✓
+                        <div class="stat-box">
+                            <strong>18</strong>
+                            <span>Programs</span>
+                        </div>
+
+                        <div class="stat-box">
+                            <strong>98%</strong>
+                            <span>Success Rate</span>
+                        </div>
+
+                        <div class="stat-box">
+                            <strong>Top 5%</strong>
+                            <span>Results</span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="college-tags">
+
+                        <span>
+                            <i class="fa-solid fa-flask"></i>
+                            Pre-Medical
+                        </span>
+
+                        <span>
+                            <i class="fa-solid fa-gears"></i>
+                            Pre-Engineering
+                        </span>
+
+                        <span>
+                            <i class="fa-solid fa-code"></i>
+                            Computer Science
                         </span>
 
                     </div>
 
 
-                    <p class="college-description">
-                        A science-focused institution providing
-                        academic learning with practical and
-                        technology-oriented education.
-                    </p>
-
-
-                    <!-- STATS -->
-
-                    <div class="college-stats">
-
-                        <div class="stat">
-                            <strong>600+</strong>
-                            <span>Students</span>
-                        </div>
-
-                        <div class="stat">
-                            <strong>18</strong>
-                            <span>Faculty</span>
-                        </div>
-
-                        <div class="stat">
-                            <strong>98%</strong>
-                            <span>Success Rate</span>
-                        </div>
-
-                        <div class="stat">
-                            <strong>Top 5%</strong>
-                            <span>Performance</span>
-                        </div>
-
-                    </div>
-
-
-                    <!-- TAGS -->
-
-                    <div class="college-tags">
-
-                        <span>F.Sc Pre-Medical</span>
-                        <span>F.Sc Pre-Engineering</span>
-                        <span>ICS</span>
-                        <span>Science</span>
-
-                    </div>
-
-
-                    <!-- FEATURES -->
-
                     <ul class="college-features">
 
                         <li>
-                            ✓ Practical science learning
+                            <i class="fa-solid fa-circle-check"></i>
+                            Science-focused learning
                         </li>
 
                         <li>
-                            ✓ Computer and laboratory facilities
+                            <i class="fa-solid fa-circle-check"></i>
+                            Practical laboratory experience
                         </li>
 
                         <li>
-                            ✓ Experienced academic staff
+                            <i class="fa-solid fa-circle-check"></i>
+                            Qualified teaching faculty
+                        </li>
+
+                        <li>
+                            <i class="fa-solid fa-circle-check"></i>
+                            Student development activities
                         </li>
 
                     </ul>
 
 
-                    <div class="college-actions">
+                    <!-- ONLY APPLY -->
 
-                        <a
-                            href="{% url 'applycsc' %}"
-                            class="apply-btn"
-                        >
-                            <span>➜</span>
+                    <a href="{% url 'applycsc' %}" class="college-btn">
+
+                        <span>
+                            <i class="fa-solid fa-file-signature"></i>
                             Apply for Admission
-                        </a>
+                        </span>
 
-                    </div>
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </a>
 
                 </div>
 
@@ -558,9 +580,9 @@
 
 
 
-            <!-- ==================================
-                 RIPHAH INTERNATIONAL COLLEGE
-            =================================== -->
+            <!-- =================================================
+                 RIPHAH
+            ================================================== -->
 
             <article class="college-card">
 
@@ -571,12 +593,26 @@
                         alt="Riphah International College"
                     >
 
-                    <div class="image-badge">
-                        🏥 HEALTH &amp; TECHNOLOGY
+                    <div class="image-top-label">
+
+                        <span>
+                            <i class="fa-solid fa-building-columns"></i>
+                            RECOGNIZED COLLEGE
+                        </span>
+
+                        <span>
+                            <i class="fa-solid fa-location-dot"></i>
+                            CHISHTIAN
+                        </span>
+
                     </div>
 
-                    <div class="college-overlay">
-                        <span>Riphah International College</span>
+                    <div class="image-title">
+
+                        <h3>
+                            Riphah International College (RIC)
+                        </h3>
+
                     </div>
 
                 </div>
@@ -584,101 +620,95 @@
 
                 <div class="college-content">
 
-                    <div class="college-title-row">
+                    <p class="college-description">
+                        A renowned college providing academic programs in
+                        medical, technology and other disciplines with a
+                        focus on professional development.
+                    </p>
 
-                        <div>
-                            <h3>
-                                Riphah International College
-                            </h3>
 
-                            <p class="college-location">
-                                📍 Chishtian, Bahawalnagar
-                            </p>
+                    <div class="college-stats">
+
+                        <div class="stat-box">
+                            <strong>750+</strong>
+                            <span>Students</span>
                         </div>
 
-                        <span class="verified-icon">
-                            ✓
+                        <div class="stat-box">
+                            <strong>HEC</strong>
+                            <span>Recognized</span>
+                        </div>
+
+                        <div class="stat-box">
+                            <strong>14</strong>
+                            <span>Programs</span>
+                        </div>
+
+                        <div class="stat-box">
+                            <strong>Hospital</strong>
+                            <span>Affiliation</span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="college-tags">
+
+                        <span>
+                            <i class="fa-solid fa-heart-pulse"></i>
+                            Medical
+                        </span>
+
+                        <span>
+                            <i class="fa-solid fa-laptop-code"></i>
+                            Technology
+                        </span>
+
+                        <span>
+                            <i class="fa-solid fa-graduation-cap"></i>
+                            Professional
                         </span>
 
                     </div>
 
 
-                    <p class="college-description">
-                        An institution providing academic education
-                        with opportunities in medical, computing and
-                        technology-related fields.
-                    </p>
-
-
-                    <!-- STATS -->
-
-                    <div class="college-stats">
-
-                        <div class="stat">
-                            <strong>750+</strong>
-                            <span>Students</span>
-                        </div>
-
-                        <div class="stat">
-                            <strong>14</strong>
-                            <span>Programs</span>
-                        </div>
-
-                        <div class="stat">
-                            <strong>HEC</strong>
-                            <span>Recognized</span>
-                        </div>
-
-                        <div class="stat">
-                            <strong>14</strong>
-                            <span>Departments</span>
-                        </div>
-
-                    </div>
-
-
-                    <!-- TAGS -->
-
-                    <div class="college-tags">
-
-                        <span>Medical</span>
-                        <span>Computing</span>
-                        <span>Pre-Medical</span>
-                        <span>Technology</span>
-
-                    </div>
-
-
-                    <!-- FEATURES -->
-
                     <ul class="college-features">
 
                         <li>
-                            ✓ Modern academic facilities
+                            <i class="fa-solid fa-circle-check"></i>
+                            Professional academic programs
                         </li>
 
                         <li>
-                            ✓ Medical and technology education
+                            <i class="fa-solid fa-circle-check"></i>
+                            Modern educational facilities
                         </li>
 
                         <li>
-                            ✓ Career-oriented learning environment
+                            <i class="fa-solid fa-circle-check"></i>
+                            Career-oriented education
+                        </li>
+
+                        <li>
+                            <i class="fa-solid fa-circle-check"></i>
+                            Student-focused environment
                         </li>
 
                     </ul>
 
 
-                    <div class="college-actions">
+                    <!-- ONLY APPLY -->
 
-                        <a
-                            href="{% url 'applyrip' %}"
-                            class="apply-btn"
-                        >
-                            <span>➜</span>
+                    <a href="{% url 'applyrip' %}" class="college-btn">
+
+                        <span>
+                            <i class="fa-solid fa-file-signature"></i>
                             Apply for Admission
-                        </a>
+                        </span>
 
-                    </div>
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </a>
 
                 </div>
 
@@ -690,9 +720,10 @@
     </section>
 
 
-    <!-- =========================
+
+    <!-- =====================================================
          FOOTER
-    ========================== -->
+    ====================================================== -->
 
     <footer>
 
@@ -711,87 +742,32 @@
     </footer>
 
 
-    <!-- =========================
+
+    <!-- =====================================================
          JAVASCRIPT
-    ========================== -->
+    ====================================================== -->
 
     <script>
 
-        /* =========================
-           MOBILE MENU
-        ========================== */
-
-        const menuToggle =
-            document.getElementById("menu-toggle");
-
-        const navbar =
-            document.getElementById("navbar");
-
-
-        if (menuToggle && navbar) {
-
-            menuToggle.addEventListener("click", function () {
-
-                navbar.classList.toggle("active");
-
-            });
-
-        }
-
-
-        /* =========================
+        /* =========================================
            MOBILE DROPDOWNS
-        ========================== */
+        ========================================= */
 
         const dropdowns =
             document.querySelectorAll(".dropdown");
-
 
         dropdowns.forEach(function (dropdown) {
 
             const dropdownToggle =
                 dropdown.querySelector(".dropdown-toggle");
 
-
-            if (dropdownToggle) {
-
-                dropdownToggle.addEventListener(
-                    "click",
-                    function (event) {
-
-                        event.preventDefault();
-
-                        if (window.innerWidth <= 768) {
-
-                            dropdown.classList.toggle("active");
-
-                        }
-
-                    }
-                );
-
-            }
-
-        });
-
-
-        /* =========================
-           CLOSE MENU AFTER NORMAL LINK
-        ========================== */
-
-        const normalLinks =
-            document.querySelectorAll(
-                ".navbar > a"
-            );
-
-
-        normalLinks.forEach(function (link) {
-
-            link.addEventListener("click", function () {
+            dropdownToggle.addEventListener("click", function (event) {
 
                 if (window.innerWidth <= 768) {
 
-                    navbar.classList.remove("active");
+                    event.preventDefault();
+
+                    dropdown.classList.toggle("active");
 
                 }
 
@@ -800,9 +776,9 @@
         });
 
 
-        /* =========================
+        /* =========================================
            BACK TO TOP
-        ========================== */
+        ========================================= */
 
         const backToTop =
             document.getElementById("back-to-top");
@@ -810,9 +786,7 @@
 
         window.addEventListener("scroll", function () {
 
-            if (!backToTop) return;
-
-            if (window.scrollY > 250) {
+            if (window.scrollY > 200) {
 
                 backToTop.style.display = "block";
 
@@ -821,6 +795,30 @@
                 backToTop.style.display = "none";
 
             }
+
+        });
+
+
+        /* =========================================
+           CARD HOVER
+        ========================================= */
+
+        const cards =
+            document.querySelectorAll(".college-card");
+
+        cards.forEach(function (card) {
+
+            card.addEventListener("mouseenter", function () {
+
+                card.classList.add("card-active");
+
+            });
+
+            card.addEventListener("mouseleave", function () {
+
+                card.classList.remove("card-active");
+
+            });
 
         });
 
