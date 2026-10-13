@@ -460,16 +460,11 @@ header {
 
 .college-description {
     color: #666f78;
-
-    font-size: 10px;
-
-    line-height: 1.55;
-
-    min-height: 48px;
-
-    margin-bottom: 13px;
+    font-size: 14px;
+    line-height: 1.7;
+    min-height: 80px;
+    margin-bottom: 16px;
 }
-
 
 /* =====================================================
    STATS
@@ -535,23 +530,20 @@ header {
 
     margin-bottom: 12px;
 }
-
 .college-tags span {
     background: #f1f7f6;
-
     color: #17615c;
-
     border: 1px solid #dcecea;
-
     border-radius: 20px;
-
-    padding: 4px 7px;
-
-    font-size: 7px;
-
+    padding: 6px 10px;
+    font-size: 11px;
     font-weight: 600;
-
     transition: all 0.25s ease;
+}
+
+.college-tags i {
+    margin-right: 4px;
+    font-size: 11px;
 }
 
 .college-tags span:hover {
@@ -562,11 +554,7 @@ header {
     border-color: #0b5b55;
 }
 
-.college-tags i {
-    margin-right: 3px;
 
-    font-size: 7px;
-}
 
 
 /* =====================================================
@@ -583,62 +571,43 @@ header {
 
 .college-features li {
     display: flex;
-
     align-items: flex-start;
-
-    gap: 6px;
-
+    gap: 8px;
     color: #69737d;
-
-    font-size: 8px;
-
-    line-height: 1.5;
-
-    margin-bottom: 5px;
+    font-size: 12px;
+    line-height: 1.6;
+    margin-bottom: 8px;
 }
 
 .college-features i {
     color: #0b7169;
-
-    font-size: 8px;
-
-    margin-top: 2px;
+    font-size: 12px;
+    margin-top: 3px;
 }
-
-
 /* =====================================================
    COLLEGE BUTTON
 ===================================================== */
 
 .college-btn {
     width: 100%;
-
-    min-height: 35px;
-
+    min-height: 44px;
     display: flex;
-
     justify-content: space-between;
-
     align-items: center;
-
-    padding: 8px 12px;
-
+    padding: 11px 14px;
     background: #003d3b;
-
     color: white;
-
     text-decoration: none;
-
-    border-radius: 4px;
-
-    font-size: 9px;
-
+    border-radius: 5px;
+    font-size: 13px;
     font-weight: 700;
+    transition: background 0.3s ease,
+                transform 0.25s ease,
+                box-shadow 0.3s ease;
+}
 
-    transition:
-        background 0.3s ease,
-        transform 0.25s ease,
-        box-shadow 0.3s ease;
+.college-btn i {
+    font-size: 13px;
 }
 
 .college-btn span {
@@ -649,9 +618,7 @@ header {
     gap: 6px;
 }
 
-.college-btn i {
-    font-size: 9px;
-}
+
 
 .college-btn:hover {
     background: #00635d;
@@ -918,9 +885,13 @@ footer p {
     }
 
 
-    .image-title h3 {
-        font-size: 18px;
-    }
+   .image-title h3 {
+    color: white;
+    font-size: 20px;
+    line-height: 1.35;
+    font-weight: 700;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
 
 
     .college-content {
@@ -928,10 +899,11 @@ footer p {
     }
 
 
-    .college-description {
-        font-size: 10px;
-    }
-
+   .college-description {
+    font-size: 13px;
+    line-height: 1.65;
+    min-height: auto;
+}
 
     .college-stats {
         grid-template-columns: repeat(2, 1fr);
@@ -960,23 +932,20 @@ footer p {
     }
 
 
-    .college-tags span {
-        font-size: 8px;
+   .college-tags span {
+    font-size: 11px;
+    padding: 6px 9px;
+}
 
-        padding: 5px 8px;
-    }
+.college-features li {
+    font-size: 12px;
+    line-height: 1.6;
+}
 
-
-    .college-features li {
-        font-size: 9px;
-    }
-
-
-    .college-btn {
-        min-height: 40px;
-
-        font-size: 10px;
-    }
+   .college-btn {
+    min-height: 44px;
+    font-size: 12px;
+}
 
 
     footer {
@@ -1076,14 +1045,20 @@ footer p {
     }
 
 
-    .stat-box strong {
-        font-size: 11px;
-    }
+  .stat-box strong {
+    display: block;
+    color: #17232d;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
 
-
-    .stat-box span {
-        font-size: 7px;
-    }
+.stat-box span {
+    display: block;
+    color: #89919a;
+    font-size: 11px;
+    line-height: 1.4;
+}
 
 
     .college-features li {

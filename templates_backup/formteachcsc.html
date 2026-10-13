@@ -1,0 +1,1545 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Recruitment form</title>
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #2e2c6a;
+        }
+
+        /* =========================
+           HEADER
+        ========================== */
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 30px;
+            background: #2e2c6a;
+            color: white;
+            position: relative;
+            z-index: 1000;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        .logo-container {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid white;
+            flex-shrink: 0;
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .college-text {
+            display: flex;
+            flex-direction: column;
+            color: white;
+            font-weight: bold;
+            line-height: 1.2;
+            font-size: 18px;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================== */
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .navbar > a,
+        .navbar .dropdown > a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .navbar a:hover {
+            color: #f5e547;
+        }
+
+        .navbar .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .navbar .dropdown > a {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        /* Invisible bridge prevents desktop dropdown from disappearing */
+        .navbar .dropdown::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 100%;
+            height: 12px;
+            background: transparent;
+        }
+
+        .navbar .sub-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #2e2c6a;
+            list-style: none;
+            padding: 10px 0;
+            margin: 0;
+            min-width: 235px;
+            border-radius: 0 0 6px 6px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            z-index: 2000;
+        }
+
+        .navbar .sub-menu li {
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar .sub-menu li a {
+            padding: 10px 15px;
+            color: white;
+            display: block;
+            font-size: 14px;
+            text-decoration: none;
+            white-space: normal;
+        }
+
+        .navbar .sub-menu li a:hover {
+            background: #3d3a7d;
+            color: #f5a623;
+        }
+
+        /* Desktop hover */
+        @media (min-width: 768px) {
+            .navbar .dropdown:hover .sub-menu {
+                display: block;
+            }
+        }
+
+        /* Hamburger */
+        .menu-toggle {
+            display: none;
+            border: none;
+            background: transparent;
+            color: white;
+            font-size: 25px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        /* =========================
+           HERO
+        ========================== */
+
+        .rit-hero {
+            background: #eee;
+            padding: 120px 0;
+            position: relative;
+        }
+
+        .orange-strip {
+            background: #E13B28;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 35px 8%;
+        }
+
+        .orange-strip h1 {
+            color: white;
+            font-size: 45px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        /* =========================
+           FORM SECTION
+        ========================== */
+
+        .form-section {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+            padding: 60px 0;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            column-gap: 60px;
+            row-gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        label {
+            font-size: 14px;
+            letter-spacing: 1px;
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #2e2c6a;
+        }
+
+        input::placeholder {
+            color: #888;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            max-width: 100%;
+            padding: 16px 20px;
+            border-radius: 40px;
+            border: 2px solid #E13B28;
+            background: #efefef;
+            font-size: 15px;
+            outline: none;
+            color: #2e2c6a;
+            font-family: Arial, sans-serif;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #2e2c6a;
+            background: white;
+        }
+
+        textarea {
+            border-radius: 20px;
+            resize: vertical;
+        }
+
+        input[type="file"] {
+            padding: 12px 15px;
+            border-radius: 15px;
+            background: #efefef;
+            cursor: pointer;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #ccc;
+            margin: 45px 0;
+        }
+
+        .section-title {
+            font-size: 26px;
+            font-weight: bold;
+            margin: 50px 0 30px 0;
+            color: #2e2c6a;
+        }
+
+        /* =========================
+           QUALIFICATION
+        ========================== */
+
+        .qualification-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            column-gap: 60px;
+            row-gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .file-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            column-gap: 60px;
+            row-gap: 25px;
+            margin-top: 40px;
+        }
+
+        /* =========================
+           SEND BUTTON
+        ========================== */
+
+        .send-btn {
+            margin-top: 40px;
+            margin-bottom: 30px;
+            background: #E13B28;
+            color: white;
+            padding: 16px 60px;
+            border: none;
+            border-radius: 40px;
+            font-size: 18px;
+            cursor: pointer;
+            float: right;
+            transition: 0.3s;
+        }
+
+        .send-btn:hover {
+            background: #c92f1f;
+            transform: translateY(-2px);
+        }
+
+        .form-clear {
+            clear: both;
+        }
+
+        /* =========================
+           SUCCESS MESSAGE
+        ========================== */
+
+        #successMessage {
+            display: none;
+            color: green;
+            font-size: 18px;
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            background: #eaf8ea;
+            border: 1px solid #a8d8a8;
+        }
+
+        /* =========================
+           FOOTER
+        ========================== */
+
+        .footer {
+            background: #2e2c6a;
+            color: white;
+            width: 100%;
+            padding: 80px 80px 100px;
+            position: relative;
+            margin-top: 40px;
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 40px;
+            width: 100%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .footer-left {
+            max-width: 800px;
+        }
+
+        .footer-left h2 {
+            margin: 0 0 20px;
+            line-height: 1.5;
+            font-size: 25px;
+        }
+
+        .footer-left p {
+            margin: 8px 0;
+            line-height: 1.5;
+            font-size: 15px;
+        }
+
+        .social-icons {
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 20px;
+            margin-right: 15px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: #E13B28;
+        }
+
+        .copyright {
+            margin-top: 25px !important;
+        }
+
+        .footer-right {
+            flex-shrink: 0;
+            padding-top: 10px;
+        }
+
+        .apply-btn {
+            display: inline-block;
+            background: #E13B28;
+            padding: 15px 30px;
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: 0.3s;
+        }
+
+        .apply-btn:hover {
+            background: #c92f1f;
+        }
+
+        /* =========================
+           BACK TO TOP
+        ========================== */
+
+        #back-to-top {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 45px;
+            height: 45px;
+            background: #E13B28;
+            color: white;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            z-index: 9999;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+        }
+
+        #back-to-top:hover {
+            background: #2e2c6a;
+        }
+
+        /* =========================
+           TABLET
+        ========================== */
+
+        @media (max-width: 1100px) {
+
+            header {
+                padding: 10px 20px;
+            }
+
+            .navbar {
+                gap: 13px;
+            }
+
+            .navbar > a,
+            .navbar .dropdown > a {
+                font-size: 13px;
+            }
+
+            .qualification-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .form-row,
+            .file-row {
+                column-gap: 30px;
+            }
+
+            .footer {
+                padding-left: 40px;
+                padding-right: 40px;
+            }
+        }
+
+        /* =========================
+           MOBILE
+        ========================== */
+
+        @media (max-width: 767px) {
+
+            header {
+                padding: 10px 15px;
+                min-height: 78px;
+            }
+
+            .logo-container {
+                width: 55px;
+                height: 55px;
+            }
+
+            .college-text {
+                font-size: 15px;
+            }
+
+            /* Hamburger visible only mobile */
+            .menu-toggle {
+                display: block;
+            }
+
+            .navbar {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #2e2c6a;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0;
+                padding: 10px 0 15px;
+                box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            }
+
+            .navbar.active {
+                display: flex;
+            }
+
+            .navbar > a,
+            .navbar .dropdown > a {
+                width: 100%;
+                padding: 14px 20px;
+                font-size: 14px;
+            }
+
+            .navbar > a:hover,
+            .navbar .dropdown > a:hover {
+                background: #3d3a7d;
+            }
+
+            .navbar .dropdown {
+                width: 100%;
+            }
+
+            .navbar .dropdown::after {
+                display: none;
+            }
+
+            /* Disable desktop hover on mobile */
+            .navbar .dropdown:hover .sub-menu {
+                display: none;
+            }
+
+            .navbar .dropdown.open .sub-menu {
+                display: block;
+            }
+
+            .navbar .sub-menu {
+                position: static;
+                width: 100%;
+                min-width: 0;
+                border-radius: 0;
+                box-shadow: none;
+                padding: 0;
+                background: #252354;
+            }
+
+            .navbar .sub-menu li a {
+                padding: 12px 35px;
+                font-size: 13px;
+            }
+
+            /* Hero */
+            .rit-hero {
+                padding: 45px 0;
+            }
+
+            .orange-strip {
+                min-height: 160px;
+                padding: 35px 20px;
+                justify-content: center;
+            }
+
+            .orange-strip h1 {
+                font-size: 34px;
+                text-align: center;
+                line-height: 1.2;
+            }
+
+            /* Form */
+            .form-section {
+                width: 92%;
+                padding: 40px 0;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                column-gap: 0;
+                row-gap: 22px;
+                margin-bottom: 22px;
+            }
+
+            .qualification-grid {
+                grid-template-columns: 1fr;
+                column-gap: 0;
+                row-gap: 22px;
+            }
+
+            .file-row {
+                grid-template-columns: 1fr;
+                column-gap: 0;
+                row-gap: 22px;
+                margin-top: 30px;
+            }
+
+            label {
+                font-size: 13px;
+            }
+
+            input,
+            select {
+                padding: 14px 17px;
+                font-size: 14px;
+            }
+
+            textarea {
+                padding: 14px 17px;
+                font-size: 14px;
+            }
+
+            input[type="file"] {
+                font-size: 13px;
+                padding: 10px;
+            }
+
+            .section-title {
+                font-size: 23px;
+                margin: 35px 0 25px;
+            }
+
+            hr {
+                margin: 35px 0;
+            }
+
+            .send-btn {
+                float: none;
+                width: 100%;
+                margin-top: 30px;
+                padding: 15px 30px;
+            }
+
+            /* Footer */
+            .footer {
+                width: 100%;
+                margin: 0;
+                padding: 55px 20px 70px;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 30px;
+            }
+
+            .footer-left {
+                width: 100%;
+            }
+
+            .footer-left h2 {
+                font-size: 21px;
+            }
+
+            .footer-left p {
+                font-size: 14px;
+            }
+
+            .social-icons a {
+                font-size: 19px;
+                margin: 0 7px;
+            }
+
+            .footer-right {
+                padding-top: 0;
+            }
+
+            .apply-btn {
+                padding: 13px 28px;
+            }
+
+            #back-to-top {
+                width: 42px;
+                height: 42px;
+                right: 15px;
+                bottom: 15px;
+            }
+        }
+
+        /* =========================
+           VERY SMALL MOBILE
+        ========================== */
+
+        @media (max-width: 400px) {
+
+            .college-text {
+                font-size: 13px;
+            }
+
+            .logo-container {
+                width: 50px;
+                height: 50px;
+            }
+
+            .orange-strip h1 {
+                font-size: 29px;
+            }
+
+            .form-section {
+                width: 94%;
+            }
+
+            .footer-left h2 {
+                font-size: 19px;
+            }
+        }
+    </style>
+</head>
+
+<body id="top">
+
+    <!-- =========================
+         HEADER
+    ========================== -->
+
+    <header>
+
+        <div class="logo-section">
+
+            <div class="logo-container">
+                <img src="{% static 'images/csc logo.png' %}" alt="Chishtian Science College Logo">
+            </div>
+
+            <div class="college-text">
+                <span>Chishtian</span>
+                <span>Science</span>
+                <span>College</span>
+            </div>
+
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button
+            class="menu-toggle"
+            id="menuToggle"
+            type="button"
+            aria-label="Open menu"
+            aria-expanded="false">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <!-- NAVBAR -->
+
+        <nav class="navbar" id="navbar">
+
+            <a href="{% url 'index' %}">Home</a>
+
+            <!-- ABOUT US -->
+
+            <div class="dropdown">
+
+                <a href="#">
+                    ABOUT US
+                    <i class="fa fa-caret-down"></i>
+                </a>
+
+                <ul class="sub-menu">
+
+                    <li>
+                        <a href="{% url 'historycsc' %}">
+                            About CSC
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'uniquelycsc' %}">
+                            Uniquely CSC
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'missioncsc' %}">
+                            Mission,Vision,Goals CSC
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+            <!-- ADDMISSIONS -->
+
+            <div class="dropdown">
+
+                <a href="#">
+                    ADDMISSIONS
+                    <i class="fa fa-caret-down"></i>
+                </a>
+
+                <ul class="sub-menu">
+
+                    <li>
+                        <a href="{% url 'undergraduatecsc' %}">
+                            UnderGraduates Programmes
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'feecsc' %}">
+                            Scholarship *&* Fee Consection
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'applycsc' %}">
+                            Apply
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+            <a href="{% url 'activitycsc' %}">
+                Activities
+            </a>
+
+            <!-- LEARNING -->
+
+            <div class="dropdown">
+
+                <a href="#">
+                    LEARNING AT CHISHTIAN SCIENCE
+                    <i class="fa fa-caret-down"></i>
+                </a>
+
+                <ul class="sub-menu">
+
+                    <li>
+                        <a href="{% url 'careercsc' %}">
+                            Careers
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'affiliatecsc' %}">
+                            AFFILIATE
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+            <a href="{% url 'contactcsc' %}">
+                CONTACT US
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- =========================
+         HERO
+    ========================== -->
+
+    <section class="rit-hero">
+
+        <div class="orange-strip">
+
+            <h1>
+                Recruitment form
+            </h1>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         FORM
+    ========================== -->
+
+    <div class="form-section">
+
+        <form id="applicationForm">
+
+            <!-- NAME / FATHER NAME -->
+
+            <div class="form-row">
+
+                <div>
+
+                    <label>NAME*</label>
+
+                    <input
+                        type="text"
+                        placeholder="Name">
+
+                </div>
+
+                <div>
+
+                    <label>FATHER NAME*</label>
+
+                    <input
+                        type="text"
+                        placeholder="Father Name">
+
+                </div>
+
+            </div>
+
+
+            <!-- DOB / NATIONALITY -->
+
+            <div class="form-row">
+
+                <div>
+
+                    <label>DATE OF BIRTH*</label>
+
+                    <input type="date">
+
+                </div>
+
+                <div>
+
+                    <label>NATIONALITY*</label>
+
+                    <input
+                        type="text"
+                        placeholder="Nationality">
+
+                </div>
+
+            </div>
+
+
+            <!-- CNIC / DOMICILE -->
+
+            <div class="form-row">
+
+                <div>
+
+                    <label>CNIC#*</label>
+
+                    <input
+                        type="text"
+                        placeholder="XXXXX-XXXXXXX-X">
+
+                </div>
+
+                <div>
+
+                    <label>DOMICILE*</label>
+
+                    <input
+                        type="text"
+                        placeholder="Domicile">
+
+                </div>
+
+            </div>
+
+
+            <!-- PRESENT / PERMANENT ADDRESS -->
+
+            <div class="form-row">
+
+                <div>
+
+                    <label>PRESENT ADDRESS</label>
+
+                    <input
+                        type="text"
+                        placeholder="Present Address">
+
+                </div>
+
+                <div>
+
+                    <label>PERMANENT ADDRESS</label>
+
+                    <input
+                        type="text"
+                        placeholder="Permanent Address">
+
+                </div>
+
+            </div>
+
+
+            <!-- EMAIL / PHONE -->
+
+            <div class="form-row">
+
+                <div>
+
+                    <label>EMAIL*</label>
+
+                    <input
+                        type="email"
+                        placeholder="Email">
+
+                </div>
+
+                <div>
+
+                    <label>PHONE*</label>
+
+                    <input
+                        type="text"
+                        placeholder="Phone">
+
+                </div>
+
+            </div>
+
+
+            <!-- DEPARTMENT / CAMPUS -->
+
+            <div class="form-row">
+
+                <div>
+
+                    <label>DEPARTMENT / SUBJECT*</label>
+
+                    <select>
+
+                        <option>Select Subject</option>
+                        <option>Mathematics</option>
+                        <option>Physics</option>
+                        <option>Chemistry</option>
+                        <option>Computer Science</option>
+                        <option>English</option>
+
+                    </select>
+
+                </div>
+
+                <div>
+
+                    <label>CAMPUS TO BE APPLIED FOR</label>
+
+                    <select>
+
+                        <option>Select Campus</option>
+                        <option>Lahore</option>
+                        <option>Multan</option>
+                        <option>Bahawalpur</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <hr>
+
+
+            <!-- LAST QUALIFICATION -->
+
+            <div class="section-title">
+                LAST QUALIFICATION
+            </div>
+
+
+            <div class="qualification-grid">
+
+                <div>
+
+                    <label>LAST DEGREE*</label>
+
+                    <select>
+
+                        <option>Select</option>
+                        <option>BS</option>
+                        <option>MS</option>
+                        <option>MPhil</option>
+
+                    </select>
+
+                </div>
+
+
+                <div>
+
+                    <label>DEGREE TITLE*</label>
+
+                    <input
+                        type="text"
+                        placeholder="Degree Title">
+
+                </div>
+
+
+                <div>
+
+                    <label>PASSING YEAR*</label>
+
+                    <input
+                        type="text"
+                        placeholder="Passing Year">
+
+                </div>
+
+
+                <div>
+
+                    <label>UNIVERSITY*</label>
+
+                    <input
+                        type="text"
+                        placeholder="University">
+
+                </div>
+
+
+                <div>
+
+                    <label>INSTITUTION*</label>
+
+                    <input
+                        type="text"
+                        placeholder="Institution">
+
+                </div>
+
+
+                <div>
+
+                    <label>MARKS/CGPA*</label>
+
+                    <input
+                        type="text"
+                        placeholder="Marks/CGPA">
+
+                </div>
+
+
+                <div>
+
+                    <label>SPECIALIZATION*</label>
+
+                    <input
+                        type="text"
+                        placeholder="Specialization">
+
+                </div>
+
+            </div>
+
+
+            <!-- EXPERIENCE -->
+
+            <div class="form-row">
+
+                <div>
+
+                    <label>EXPERIENCE</label>
+
+                    <select>
+
+                        <option>Select</option>
+                        <option>0-1 Years</option>
+                        <option>2-5 Years</option>
+                        <option>5+ Years</option>
+
+                    </select>
+
+                </div>
+
+
+                <div>
+
+                    <label>LAST ORGANIZATION</label>
+
+                    <input
+                        type="text"
+                        placeholder="Last Organization">
+
+                </div>
+
+            </div>
+
+
+            <!-- REFERENCES -->
+
+            <div class="form-row">
+
+                <div>
+
+                    <label>REFERENCE 1</label>
+
+                    <input
+                        type="text"
+                        placeholder="Reference 1">
+
+                </div>
+
+
+                <div>
+
+                    <label>REFERENCE 2</label>
+
+                    <input
+                        type="text"
+                        placeholder="Reference 2">
+
+                </div>
+
+            </div>
+
+
+            <!-- FILES -->
+
+            <div class="file-row">
+
+                <div>
+
+                    <label>CV*</label>
+
+                    <input type="file">
+
+                </div>
+
+
+                <div>
+
+                    <label>OTHER DOCUMENTS</label>
+
+                    <input type="file">
+
+                </div>
+
+            </div>
+
+
+            <!-- SEND BUTTON -->
+
+            <button
+                type="submit"
+                class="send-btn">
+                Send
+            </button>
+
+            <div class="form-clear"></div>
+
+
+            <!-- SUCCESS MESSAGE -->
+
+            <div id="successMessage">
+
+                ✅ Your application has been submitted successfully!
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer class="footer">
+
+        <div class="footer-container">
+
+            <div class="footer-left">
+
+                <h2>
+                    CHISHTIAN SCIENCE COLLEGES
+                </h2>
+
+                <p>
+                    <strong>ADDRESS:</strong>
+                    G-Block Baldia Colony, Chishtian Mandi, Pakistan
+                </p>
+
+                <p>
+                    <strong>Phone no:</strong>
+                    0305 7367771
+                </p>
+
+                <p>
+                    <strong>EMAIL:</strong>
+                    chishtiansciencecollege@gmail.com
+                </p>
+
+
+                <!-- SOCIAL ICONS -->
+
+                <div class="social-icons">
+
+                    <a
+                        href="https://www.facebook.com/CSCgirls.chishtian/"
+                        target="_blank"
+                        rel="noopener noreferrer">
+
+                        <i class="fa-brands fa-facebook"></i>
+
+                    </a>
+
+
+                    <a
+                        href="https://www.instagram.com/csc_girls_official/"
+                        target="_blank"
+                        rel="noopener noreferrer">
+
+                        <i class="fa-brands fa-instagram"></i>
+
+                    </a>
+
+
+                    <a
+                        href="https://www.youtube.com/channel/UCUe6DD33vb_D4pDWMF60_jg"
+                        target="_blank"
+                        rel="noopener noreferrer">
+
+                        <i class="fa-brands fa-youtube"></i>
+
+                    </a>
+
+                </div>
+
+
+                <p class="copyright">
+                    2020 Chishtian Science Colleges. All Rights Reserved.
+                </p>
+
+            </div>
+
+
+            <!-- APPLY BUTTON -->
+
+            <div class="footer-right">
+
+                <a
+                    href="{% url 'applycsc' %}"
+                    class="apply-btn">
+
+                    APPLY NOW
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <!-- BACK TO TOP -->
+
+    <a
+        href="#top"
+        id="back-to-top"
+        aria-label="Back to top">
+
+        <i class="fas fa-chevron-up"></i>
+
+    </a>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+
+    <script>
+
+        /* =========================
+           MOBILE MENU
+        ========================== */
+
+        const menuToggle = document.getElementById("menuToggle");
+        const navbar = document.getElementById("navbar");
+
+        menuToggle.addEventListener("click", function () {
+
+            navbar.classList.toggle("active");
+
+            const isOpen = navbar.classList.contains("active");
+
+            menuToggle.setAttribute("aria-expanded", isOpen);
+
+            if (isOpen) {
+                menuToggle.innerHTML =
+                    '<i class="fa-solid fa-xmark"></i>';
+            } else {
+                menuToggle.innerHTML =
+                    '<i class="fa-solid fa-bars"></i>';
+            }
+
+        });
+
+
+        /* =========================
+           MOBILE DROPDOWNS
+        ========================== */
+
+        document.querySelectorAll(".dropdown > a").forEach(function (item) {
+
+            item.addEventListener("click", function (e) {
+
+                if (window.innerWidth <= 767) {
+
+                    e.preventDefault();
+
+                    const parent = this.parentElement;
+
+                    document.querySelectorAll(".dropdown").forEach(function (dropdown) {
+
+                        if (dropdown !== parent) {
+                            dropdown.classList.remove("open");
+                        }
+
+                    });
+
+                    parent.classList.toggle("open");
+
+                }
+
+            });
+
+        });
+
+
+        /* =========================
+           CLOSE MENU AFTER LINK CLICK
+        ========================== */
+
+        document.querySelectorAll(".navbar a:not(.dropdown > a)").forEach(function (link) {
+
+            link.addEventListener("click", function () {
+
+                if (window.innerWidth <= 767) {
+
+                    navbar.classList.remove("active");
+
+                    menuToggle.setAttribute("aria-expanded", "false");
+
+                    menuToggle.innerHTML =
+                        '<i class="fa-solid fa-bars"></i>';
+
+                }
+
+            });
+
+        });
+
+
+        /* =========================
+           WINDOW RESIZE
+        ========================== */
+
+        window.addEventListener("resize", function () {
+
+            if (window.innerWidth > 767) {
+
+                navbar.classList.remove("active");
+
+                menuToggle.setAttribute("aria-expanded", "false");
+
+                menuToggle.innerHTML =
+                    '<i class="fa-solid fa-bars"></i>';
+
+                document.querySelectorAll(".dropdown").forEach(function (dropdown) {
+
+                    dropdown.classList.remove("open");
+
+                });
+
+            }
+
+        });
+
+
+        /* =========================
+           FORM SUCCESS MESSAGE
+        ========================== */
+
+        document.getElementById("applicationForm").addEventListener("submit", function (e) {
+
+            e.preventDefault();
+
+            document.getElementById("successMessage").style.display = "block";
+
+            document.getElementById("successMessage").scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+
+        });
+
+
+        /* =========================
+           BACK TO TOP
+        ========================== */
+
+        window.addEventListener("scroll", function () {
+
+            const button = document.getElementById("back-to-top");
+
+            if (
+                document.body.scrollTop > 200 ||
+                document.documentElement.scrollTop > 200
+            ) {
+
+                button.style.display = "flex";
+
+            } else {
+
+                button.style.display = "none";
+
+            }
+
+        });
+
+
+        document.getElementById("back-to-top").addEventListener("click", function (e) {
+
+            e.preventDefault();
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        });
+
+    </script>
+
+</body>
+</html>

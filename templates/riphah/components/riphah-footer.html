@@ -1,0 +1,87 @@
+
+{% load static %}
+
+<footer class="riphah-footer">
+    <div class="riphah-footer-overlay">
+        <div class="riphah-footer-container">
+
+            <div class="riphah-footer-left">
+                <ul>
+                    <li>
+                        <a href="{% url 'ripah' %}">HOME</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'historyrip' %}">ABOUT US</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'applyrip' %}">ADMISSIONS</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'classrip' %}">THE CAMPUS</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'spacerip' %}">
+                            LEARNING AT RIPAH
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'contactrip' %}">CONTACT US</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="riphah-footer-right">
+                <h3>GET IN TOUCH</h3>
+
+                <p>THE Riphah College, Chishtian,</p>
+
+                <p>MAIN OFFICE TELEPHONE: 0322 7771218.</p>
+
+                <p>
+                    EMAIL:
+                    <a href="mailto:coordinator.chishtian@ric.edu.pk">
+                        coordinator.chishtian@ric.edu.pk
+                    </a>
+                </p>
+            </div>
+
+        </div>
+
+        <div class="riphah-footer-bottom">
+            <p>
+                Legal *&amp;* Privacy Policy |
+                Copyright © 2023 - All Rights Reserved
+            </p>
+        </div>
+    </div>
+</footer>
+
+<a href="#top" id="riphah-back-to-top" aria-label="Back to top">
+    Back to Top <i class="fas fa-chevron-up"></i>
+</a>
+
+<script>
+(function () {
+    const button = document.getElementById("riphah-back-to-top");
+    if (!button || button.dataset.initialized === "true") return;
+    button.dataset.initialized = "true";
+
+    function updateButton() {
+        button.classList.toggle(
+            "riphah-back-to-top-visible",
+            window.scrollY > 200
+        );
+    }
+
+    window.addEventListener("scroll", updateButton, { passive: true });
+    updateButton();
+
+    button.addEventListener("click", function (event) {
+        event.preventDefault();
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    });
+})();
+</script>

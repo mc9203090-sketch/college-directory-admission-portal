@@ -1,0 +1,2020 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chishtian Science</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+    padding:0;
+    overflow-x:hidden;
+    font-family:Arial, sans-serif;
+    background:#f5f5f5;
+}
+
+/* ================= HEADER ================= */
+
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:10px 20px;
+    background:#2e2c6a;
+    color:white;
+    position:relative;
+    z-index:1000;
+}
+
+.logo-section{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    flex-shrink:0;
+}
+
+.logo-container{
+    width:70px;
+    height:70px;
+    border-radius:50%;
+    overflow:hidden;
+    border:3px solid white;
+    flex-shrink:0;
+}
+
+.logo-container img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.college-text{
+    display:flex;
+    flex-direction:column;
+    color:white;
+    font-weight:bold;
+    line-height:1.2;
+    font-size:18px;
+}
+
+.navbar{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+.navbar > a,
+.navbar .dropdown > a{
+    color:white;
+    text-decoration:none;
+    font-size:15px;
+    font-weight:500;
+    white-space:nowrap;
+}
+
+.navbar a:hover{
+    color:#F5E547;
+}
+
+.navbar .dropdown{
+    position:relative;
+    display:inline-block;
+}
+
+/* Invisible bridge prevents desktop dropdown from disappearing */
+.navbar .dropdown::after{
+    content:"";
+    position:absolute;
+    left:0;
+    right:0;
+    top:100%;
+    height:10px;
+    display:block;
+}
+
+.navbar .dropdown > a{
+    display:flex;
+    align-items:center;
+    gap:5px;
+    cursor:pointer;
+}
+
+.navbar .sub-menu{
+    display:none;
+    position:absolute;
+    top:100%;
+    left:0;
+    background:#2e2c6a;
+    list-style:none;
+    padding:10px 0;
+    margin:0;
+    min-width:230px;
+    border-radius:0 0 5px 5px;
+    z-index:9999;
+    box-shadow:0 8px 18px rgba(0,0,0,0.2);
+}
+
+.navbar .sub-menu li{
+    margin:0;
+    padding:0;
+}
+
+.navbar .sub-menu li a{
+    padding:10px 15px;
+    color:white;
+    display:block;
+    font-size:14px;
+    text-decoration:none;
+    white-space:normal;
+}
+
+.navbar .sub-menu li a:hover{
+    background:#242253;
+    color:#f5a623;
+}
+
+/* Desktop hover */
+@media(min-width:768px){
+    .navbar .dropdown:hover > .sub-menu{
+        display:block;
+    }
+}
+
+/* Hamburger */
+.menu-toggle{
+    display:none;
+    width:44px;
+    height:44px;
+    align-items:center;
+    justify-content:center;
+    color:white;
+    font-size:25px;
+    cursor:pointer;
+    border:1px solid rgba(255,255,255,0.4);
+    border-radius:5px;
+}
+
+/* ================= HERO ================= */
+
+.hero{
+    width:100%;
+    height:80vh;
+    min-height:400px;
+    position:relative;
+    overflow:hidden;
+    z-index:1;
+}
+
+.slider{
+    width:100%;
+    height:100%;
+    position:relative;
+}
+
+.slide{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    position:absolute;
+    inset:0;
+    opacity:0;
+    transition:opacity 1s ease-in-out;
+}
+
+.slide.active{
+    opacity:1;
+}
+
+/* ================= ABOUT ================= */
+
+.about{
+    padding:80px 8%;
+    background:#f4f6f9;
+    text-align:center;
+}
+
+.about-title{
+    font-size:38px;
+    margin-top:5px;
+    margin-bottom:30px;
+    font-weight:bold;
+    position:relative;
+    display:inline-block;
+    color:#E13B28;
+}
+
+.about-title::after{
+    content:"";
+    width:120px;
+    height:4px;
+    background:#2e2c6a;
+    display:block;
+    margin:10px auto 0;
+    border-radius:5px;
+}
+
+.about-container{
+    display:flex;
+    justify-content:space-between;
+    gap:30px;
+}
+
+.about-card{
+    background:#fff;
+    width:33.333%;
+    border-radius:8px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.1);
+    overflow:hidden;
+    position:relative;
+}
+
+.img-box{
+    width:100%;
+    overflow:hidden;
+}
+
+.img-box img{
+    width:100%;
+    height:auto;
+    min-height:200px;
+    max-height:300px;
+    object-fit:cover;
+    display:block;
+}
+
+.icon{
+    width:65px;
+    height:65px;
+    background:#E13B28;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    font-size:22px;
+    position:absolute;
+    top:165px;
+    left:50%;
+    transform:translateX(-50%);
+    border:6px solid #fff;
+}
+
+.content{
+    padding:50px 25px 30px;
+    background:white;
+}
+
+.content h3{
+    font-size:22px;
+    margin-bottom:10px;
+    color:#2e2c6a;
+}
+
+.content p{
+    color:#555;
+    font-size:15px;
+    line-height:1.6;
+}
+
+.reveal{
+    opacity:0;
+    transform:translateY(100px);
+    transition:1s;
+}
+
+.reveal.active{
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* ================= STATS ================= */
+
+.stats-section{
+    padding:80px 10%;
+    text-align:center;
+    background:url("/static/images/ctnsci build.jpg") center center / cover no-repeat;
+    position:relative;
+}
+
+.stats-section::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(255,255,255,0.85);
+}
+
+.stats-container{
+    position:relative;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:40px;
+    margin-top:60px;
+}
+
+.stat-box{
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.stat-box h1{
+    color:#E13B28;
+    font-size:55px;
+    font-weight:bold;
+    margin:10px 0;
+}
+
+.stat-box p{
+    font-size:16px;
+    color:#333;
+    margin:0;
+}
+
+.stat-box:hover h1,
+.stat-box:hover p{
+    color:#2e2c6a;
+}
+
+.stats-title{
+    font-size:16px;
+    font-weight:bold;
+    margin-top:1%;
+    position:relative;
+    text-align:center;
+}
+
+/* ================= DEGREE ================= */
+
+.degree-section{
+    text-align:center;
+    padding:50px 6%;
+    background:#f5f5f5;
+}
+
+.title{
+    text-align:center;
+    font-size:50px;
+    font-weight:bold;
+    color:#E13B28;
+    margin-top:40px;
+    margin-bottom:25px;
+}
+
+.title::after{
+    content:"";
+    display:block;
+    width:200px;
+    height:6px;
+    background:#2e2c6a;
+    margin:10px auto;
+}
+
+.buttons{
+    margin-bottom:40px;
+}
+
+.btn{
+    display:inline-block;
+    background:#2e2c6a;
+    color:white;
+    padding:12px 25px;
+    margin:10px;
+    text-decoration:none;
+    font-weight:bold;
+    transition:0.3s;
+    border-radius:4px;
+}
+
+.btn:hover{
+    background:#E13B28;
+}
+
+.info-container{
+    display:flex;
+    justify-content:center;
+    gap:40px;
+    flex-wrap:wrap;
+}
+
+.info-box{
+    display:flex;
+    align-items:center;
+    background:white;
+    width:min(900px,100%);
+    min-height:180px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+    overflow:hidden;
+}
+
+.degree-img{
+    width:45%;
+    min-height:180px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:white;
+    font-weight:bold;
+    font-size:42px;
+    overflow:hidden;
+    flex-shrink:0;
+}
+
+.apply-img{
+    background:linear-gradient(135deg,#2e2c6a 40%,#E13B28 40%);
+}
+
+.roar-img{
+    background:linear-gradient(135deg,#E13B28 40%,#ffc400 40%);
+}
+
+.info-text{
+    padding:25px;
+    text-align:left;
+    flex:1;
+}
+
+.info-text h3{
+    color:#2e2c6a;
+    margin-top:0;
+}
+
+.info-text p{
+    line-height:1.6;
+    color:#555;
+}
+
+.link{
+    text-decoration:none;
+    color:#E13B28;
+    font-weight:bold;
+}
+
+.link span{
+    margin-left:8px;
+}
+
+.link:hover{
+    color:#2e2c6a;
+}
+
+.link i{
+    margin-left:8px;
+    transition:0.3s;
+}
+
+.link:hover i{
+    margin-left:12px;
+    color:#2e2c6a;
+}
+
+/* ================= EVENTS ================= */
+
+.events-section{
+    padding:80px 60px;
+    background:#f8f9fa;
+}
+
+.events-heading{
+    text-align:center;
+    font-size:32px;
+    margin-top:2%;
+    margin-bottom:50px;
+    color:#E13B28;
+    font-weight:bold;
+    position:relative;
+}
+
+.events-heading::after{
+    content:"";
+    width:120px;
+    height:4px;
+    background:#2e2c6a;
+    display:block;
+    margin:10px auto 0;
+    border-radius:5px;
+}
+
+.events-container{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:30px;
+}
+
+.event-card{
+    cursor:pointer;
+    transition:0.4s ease;
+    min-width:0;
+}
+
+.event-img{
+    overflow:hidden;
+    border-radius:10px;
+}
+
+.event-img img{
+    width:100%;
+    height:250px;
+    object-fit:cover;
+    display:block;
+    transition:0.4s ease;
+}
+
+.event-card:hover img{
+    transform:scale(1.1);
+}
+
+.event-title{
+    margin-top:15px;
+    font-size:16px;
+    transition:0.3s ease;
+    color:#2e2c6a;
+    line-height:1.5;
+}
+
+.event-card:hover .event-title{
+    color:#E13B28;
+}
+
+.hidden{
+    display:none;
+}
+
+.more-btn-box{
+    text-align:center;
+    margin-top:50px;
+}
+
+#moreBtn{
+    padding:12px 35px;
+    font-size:16px;
+    background:#2e2c6a;
+    color:white;
+    border:none;
+    cursor:pointer;
+    border-radius:5px;
+    transition:0.3s ease;
+}
+
+#moreBtn:hover{
+    background:#E13B28;
+}
+
+/* ================= CAMPUS LIFE ================= */
+
+.campus-life-section{
+    padding:50px 6%;
+    background:#f5f5f5;
+}
+
+.container{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    justify-content:center;
+    gap:30px;
+    padding:40px 0;
+}
+
+.card{
+    width:100%;
+    min-height:420px;
+    color:white;
+    padding:25px;
+    position:relative;
+    background-size:cover;
+    background-position:center;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-start;
+    border-radius:4px;
+    overflow:hidden;
+}
+
+.card::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,0.35);
+}
+
+.card h3,
+.card p{
+    position:relative;
+    z-index:1;
+}
+
+.card h3{
+    margin-bottom:15px;
+    font-size:20px;
+}
+
+.card p{
+    font-size:14px;
+    line-height:1.6;
+}
+
+.card1{
+    background-image:url("{% static 'images/club.png' %}");
+}
+
+.card2{
+    background-image:url("{% static 'images/sportpgc.png' %}");
+}
+
+.card3{
+    background-image:url("{% static 'images/studypgc.png' %}");
+}
+
+.card4{
+    background-image:url("{% static 'images/welcomepgc.png' %}");
+}
+
+/* ================= FOOTER ================= */
+
+.footer{
+    background:#2e2c6a;
+    color:white;
+    width:100%;
+    padding:80px 8% 120px;
+    position:relative;
+}
+
+.footer-container{
+    display:flex;
+    flex-direction:row;
+    gap:40px;
+    justify-content:space-between;
+    align-items:flex-start;
+    width:100%;
+    max-width:1200px;
+    margin:auto;
+}
+
+.footer-left{
+    max-width:800px;
+}
+
+.footer-left h2{
+    margin-top:0;
+    margin-bottom:20px;
+    line-height:1.5;
+}
+
+.footer-left p{
+    margin:8px 0;
+    line-height:1.5;
+}
+
+.social-icons{
+    margin-top:20px;
+}
+
+.social-icons a{
+    color:white;
+    font-size:20px;
+    margin-right:15px;
+    text-decoration:none;
+}
+
+.social-icons a:hover{
+    color:#E13B28;
+    transition:0.3s;
+}
+
+.footer-right{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding-top:20px;
+}
+
+.apply-btn{
+    display:inline-block;
+    background:#E13B28;
+    padding:15px 30px;
+    color:white;
+    font-weight:bold;
+    text-decoration:none;
+    border-radius:6px;
+}
+
+.apply-btn:hover{
+    background:#c92d1d;
+}
+
+.copyright{
+    margin-top:25px !important;
+}
+
+/* ================= BACK TO TOP ================= */
+
+#back-to-top{
+    display:none;
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    background:#E13B28;
+    color:white;
+    text-decoration:none;
+    align-items:center;
+    justify-content:center;
+    z-index:9999;
+    box-shadow:0 4px 12px rgba(0,0,0,0.25);
+}
+
+#back-to-top i{
+    margin-left:0;
+}
+
+/* ================= TABLET ================= */
+
+@media(max-width:1100px){
+
+    .navbar{
+        gap:12px;
+    }
+
+    .navbar > a,
+    .navbar .dropdown > a{
+        font-size:13px;
+    }
+
+    .about-container{
+        flex-wrap:wrap;
+        justify-content:center;
+    }
+
+    .about-card{
+        width:calc(50% - 15px);
+    }
+
+    .events-container{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .container{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:767px){
+
+    header{
+        padding:10px 15px;
+        flex-wrap:wrap;
+        gap:10px;
+    }
+
+    .logo-section{
+        flex:1;
+        min-width:0;
+    }
+
+    .logo-container{
+        width:58px;
+        height:58px;
+    }
+
+    .college-text{
+        font-size:15px;
+    }
+
+    .menu-toggle{
+        display:flex;
+        flex-shrink:0;
+    }
+
+    .navbar{
+        display:none;
+        width:100%;
+        flex-direction:column;
+        align-items:stretch;
+        gap:0;
+        background:#2e2c6a;
+        padding:5px 0 10px;
+    }
+
+    .navbar.active{
+        display:flex;
+    }
+
+    .navbar > a,
+    .navbar .dropdown > a{
+        width:100%;
+        padding:13px 10px;
+        font-size:14px;
+        border-bottom:1px solid rgba(255,255,255,0.12);
+    }
+
+    .navbar .dropdown{
+        display:block;
+        width:100%;
+    }
+
+    .navbar .dropdown::after{
+        display:none;
+    }
+
+    .navbar .sub-menu{
+        position:static;
+        width:100%;
+        min-width:0;
+        display:none;
+        padding:0;
+        margin:0;
+        border-radius:0;
+        box-shadow:none;
+        background:#242253;
+    }
+
+    .navbar .dropdown.open > .sub-menu{
+        display:block;
+    }
+
+    .navbar .sub-menu li a{
+        padding:11px 25px;
+        font-size:13px;
+        border-bottom:1px solid rgba(255,255,255,0.08);
+    }
+
+    /* Hero */
+    .hero{
+        height:45vh;
+        min-height:230px;
+    }
+
+    .slide{
+        object-fit:cover;
+    }
+
+    /* About */
+    .about{
+        padding:50px 18px;
+    }
+
+    .about-title{
+        font-size:28px;
+        margin-bottom:25px;
+    }
+
+    .about-title::after{
+        width:90px;
+        height:3px;
+    }
+
+    .about-container{
+        display:flex;
+        flex-direction:column;
+        gap:25px;
+    }
+
+    .about-card{
+        width:100%;
+    }
+
+    .img-box{
+        width:100%;
+    }
+
+    /*
+       Content images are allowed to show their complete
+       image on mobile instead of being cropped.
+    */
+    .img-box img{
+        width:100%;
+        height:auto;
+        max-height:none;
+        min-height:0;
+        object-fit:contain;
+    }
+
+    .icon{
+        width:58px;
+        height:58px;
+        top:auto;
+        margin-top:-29px;
+    }
+
+    .content{
+        padding:45px 20px 25px;
+    }
+
+    .content h3{
+        font-size:20px;
+    }
+
+    .content p{
+        font-size:14px;
+    }
+
+    /* Stats */
+    .stats-section{
+        padding:55px 18px;
+    }
+
+    .stats-container{
+        grid-template-columns:repeat(2,1fr);
+        gap:30px 15px;
+        margin-top:40px;
+    }
+
+    .stat-box h1{
+        font-size:38px;
+    }
+
+    .stat-box p{
+        font-size:13px;
+        line-height:1.4;
+    }
+
+    .stats-title{
+        font-size:14px;
+        line-height:1.5;
+    }
+
+    /* Degree */
+    .degree-section{
+        padding:35px 18px;
+    }
+
+    .title{
+        font-size:30px;
+        margin-top:20px;
+    }
+
+    .title::after{
+        width:120px;
+        height:4px;
+    }
+
+    .buttons{
+        margin-bottom:20px;
+    }
+
+    .btn{
+        display:block;
+        width:100%;
+        margin:10px 0;
+        padding:12px 15px;
+    }
+
+    .info-container{
+        gap:20px;
+    }
+
+    .info-box{
+        width:100%;
+        min-height:0;
+        flex-direction:column;
+    }
+
+    .degree-img{
+        width:100%;
+        min-height:150px;
+        height:150px;
+        font-size:35px;
+    }
+
+    .info-text{
+        padding:20px;
+        width:100%;
+    }
+
+    /* Events */
+    .events-section{
+        padding:55px 18px;
+    }
+
+    .events-heading{
+        font-size:27px;
+        margin-bottom:35px;
+    }
+
+    .events-container{
+        grid-template-columns:1fr;
+        gap:30px;
+    }
+
+    .event-img img{
+        width:100%;
+        height:auto;
+        max-height:none;
+        object-fit:contain;
+    }
+
+    .event-title{
+        font-size:15px;
+    }
+
+    .more-btn-box{
+        margin-top:35px;
+    }
+
+    /* Campus */
+    .campus-life-section{
+        padding:35px 18px;
+    }
+
+    .container{
+        grid-template-columns:1fr;
+        gap:25px;
+        padding:30px 0;
+    }
+
+    .card{
+        width:100%;
+        min-height:360px;
+        height:auto;
+    }
+
+    /* Footer */
+    .footer{
+        width:100%;
+        padding:55px 20px 100px;
+    }
+
+    .footer-container{
+        flex-direction:column;
+        gap:35px;
+    }
+
+    .footer-left{
+        width:100%;
+    }
+
+    .footer-left h2{
+        font-size:23px;
+    }
+
+    .footer-left p{
+        font-size:14px;
+        word-break:break-word;
+    }
+
+    .footer-right{
+        width:100%;
+        padding-top:0;
+        justify-content:flex-start;
+    }
+
+    .apply-btn{
+        padding:13px 25px;
+    }
+
+    #back-to-top{
+        display:none;
+        width:42px;
+        height:42px;
+        right:15px;
+        bottom:15px;
+    }
+}
+
+/* ================= SMALL MOBILE ================= */
+
+@media(max-width:420px){
+
+    .college-text{
+        font-size:13px;
+    }
+
+    .logo-container{
+        width:52px;
+        height:52px;
+    }
+
+    .hero{
+        height:38vh;
+        min-height:210px;
+    }
+
+    .stats-container{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .stat-box h1{
+        font-size:32px;
+    }
+
+    .about-title{
+        font-size:25px;
+    }
+
+    .title{
+        font-size:26px;
+    }
+
+    .card{
+        min-height:330px;
+        padding:20px;
+    }
+}
+</style>
+</head>
+
+<body id="top">
+
+<!-- ================= HEADER ================= -->
+
+<header>
+
+    <div class="logo-section">
+
+        <div class="logo-container">
+            <img src="{% static 'images/csc logo.png' %}" alt="Chishtian Science College Logo">
+        </div>
+
+        <div class="college-text">
+            <span>CHISHTIAN</span>
+            <span>COLLEGE</span>
+            <span>COLLEGE</span>
+        </div>
+
+    </div>
+
+    <div class="menu-toggle" id="menu-toggle">
+        <i class="fas fa-bars"></i>
+    </div>
+
+    <nav class="navbar" id="navbar">
+
+        <a href="{% url 'index' %}">Home</a>
+
+        <div class="dropdown">
+
+            <a href="#">
+                ABOUT US
+                <i class="fa fa-caret-down"></i>
+            </a>
+
+            <ul class="sub-menu">
+                <li>
+                    <a href="{% url 'historycsc' %}">
+                        About CSC
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'uniquelycsc' %}">
+                        Uniquely CSC
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'missioncsc' %}">
+                        Mission,Vision,Goals CSC
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+
+        <div class="dropdown">
+
+            <a href="#">
+                ADDMISSIONS
+                <i class="fa fa-caret-down"></i>
+            </a>
+
+            <ul class="sub-menu">
+
+                <li>
+                    <a href="{% url 'undergraduatecsc' %}">
+                        UnderGraduates Programmes
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'feecsc' %}">
+                        Scholarship & Fee Consection
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'applycsc' %}">
+                        Apply
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+        <a href="{% url 'activitycsc' %}">
+            Activities
+        </a>
+
+        <div class="dropdown">
+
+            <a href="#">
+                LEARNING AT CHISHTIAN SCIENCE
+                <i class="fa fa-caret-down"></i>
+            </a>
+
+            <ul class="sub-menu">
+
+                <li>
+                    <a href="{% url 'careercsc' %}">
+                        Careers
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'affiliatecsc' %}">
+                        AFFILIATE
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+        <a href="{% url 'contactcsc' %}">
+            CONTACT US
+        </a>
+
+    </nav>
+
+</header>
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+    <div class="slider">
+
+        <img src="{% static 'images/ctnsci build.jpg' %}" class="slide active" alt="Chishtian Science College">
+
+        <img src="{% static 'images/ctn science2.jfif' %}" class="slide" alt="Chishtian Science College">
+
+        <img src="{% static 'images/ctn sci.png' %}" class="slide" alt="Chishtian Science College">
+
+        <img src="{% static 'images/heroctnn.jpg' %}" class="slide" alt="Chishtian Science College">
+
+    </div>
+
+</section>
+
+<!-- ================= ABOUT ================= -->
+
+<section class="about">
+
+    <h2 class="about-title">
+        ABOUT US
+    </h2>
+
+    <div class="about-container">
+
+        <!-- CARD 1 -->
+
+        <div class="about-card reveal">
+
+            <div class="img-box">
+                <img src="{% static 'images/know pgc.jpg' %}" alt="Know Us">
+            </div>
+
+            <div class="icon">
+                <i class="fa fa-gauge"></i>
+            </div>
+
+            <div class="content">
+
+                <h3>
+                    Know Us
+                </h3>
+
+                <p>
+                    Chishtian Science College is a well-known institution recognized for its excellence in intermediate science education. The college has built a strong reputation in the Bahawalpur division, where its students consistently secure top positions. Focused on preparing students for professional fields like engineering and medicine, the college continues to achieve outstanding academic success, including securing 43 board positions in November 2025.
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- CARD 2 -->
+
+        <div class="about-card reveal">
+
+            <div class="img-box">
+                <img src="{% static 'images/missionpgc.jpg' %}" alt="Mission Statement">
+            </div>
+
+            <div class="icon">
+                <i class="fa fa-list"></i>
+            </div>
+
+            <div class="content">
+
+                <h3>
+                    Mission Statement
+                </h3>
+
+                <p>
+                    Our mission is to deliver quality education that nurtures students into responsible, tolerant, and compassionate individuals. We aim to develop their abilities so they can confidently take on leadership roles across various fields of society.
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- CARD 3 -->
+
+        <div class="about-card reveal">
+
+            <div class="img-box">
+                <img src="{% static 'images/vision pgc.jpg' %}" alt="Our Vision">
+            </div>
+
+            <div class="icon">
+                <i class="fa fa-eye"></i>
+            </div>
+
+            <div class="content">
+
+                <h3>
+                    Our Vision
+                </h3>
+
+                <p>
+                    Develop scientific, socio-cultural, economic and political leadership, through learner-centred teaching and research among the graduates in order to promote national cohesion and stability through providing quality education at par with international standards.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= QUICK FACTS ================= -->
+
+<section class="stats-section">
+
+    <h2 class="about-title">
+        QUICK FACTS
+    </h2>
+
+    <br>
+
+    <h4 class="stats-title" style="color:#2e2c6a;">
+        Some statistics about Chishtian Science College
+    </h4>
+
+    <div class="stats-container">
+
+        <div class="stat-box">
+            <h1 class="counter" data-target="10">0</h1>
+            <p>Our Programs</p>
+        </div>
+
+        <div class="stat-box">
+            <h1 class="counter" data-target="800">0</h1>
+            <p>On Campus Enrolled Student</p>
+        </div>
+
+        <div class="stat-box">
+            <h1 class="counter" data-target="3000">0</h1>
+            <p>Alumni</p>
+        </div>
+
+        <div class="stat-box">
+            <h1 class="counter" data-target="25">0</h1>
+            <p>Full Time Faculty Members</p>
+        </div>
+
+        <div class="stat-box">
+            <h1 class="counter" data-target="12">0</h1>
+            <p>Departments</p>
+        </div>
+
+        <div class="stat-box">
+            <h1 class="counter" data-target="2">0</h1>
+            <p>Affiliated Colleges</p>
+        </div>
+
+        <div class="stat-box">
+            <h1 class="counter" data-target="5">0</h1>
+            <p>Campuses</p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= DEGREE PROGRAMS ================= -->
+
+<section class="degree-section">
+
+    <h2 class="title">
+        Explore Our Degree Programs
+    </h2>
+
+    <div class="buttons">
+
+        <a href="{% url 'undergraduatecsc' %}" class="btn">
+            UnderGraduates Programs
+        </a>
+
+    </div>
+
+    <div class="info-container">
+
+        <!-- APPLY BOX -->
+
+        <div class="info-box">
+
+            <div class="degree-img apply-img">
+                <h1>apply</h1>
+            </div>
+
+            <div class="info-text">
+
+                <h3>
+                    Join us for Fall 2026
+                </h3>
+
+                <p>
+                    There's still time to apply. For some programs,
+                    applications will be reviewed on a rolling,
+                    space-available basis.
+                </p>
+
+                <a href="{% url 'applycsc' %}" class="link">
+                    Apply
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= LATEST NEWS ================= -->
+
+<section class="events-section">
+
+    <h2 class="events-heading">
+        LATEST NEWS
+    </h2>
+
+    <div class="events-container">
+
+        <!-- Event 1 -->
+
+        <div class="event-card">
+
+            <div class="event-img">
+                <img src="{% static 'images/campionpgc.jfif' %}" alt="">
+            </div>
+
+            <h3 class="event-title">
+                Autism Awareness: Early Identification for Better Outcomes
+            </h3>
+
+        </div>
+
+        <!-- Event 2 -->
+
+        <div class="event-card">
+
+            <div class="event-img">
+                <img src="{% static 'images/tripctn.jpg' %}" alt="">
+            </div>
+
+            <h3 class="event-title">
+                Educational Field Trip: Expanding Horizons Beyond Classroom
+            </h3>
+
+        </div>
+
+        <!-- Event 3 -->
+
+        <div class="event-card">
+
+            <div class="event-img">
+                <img src="{% static 'images/evectn.jpg' %}" alt="">
+            </div>
+
+            <h3 class="event-title">
+                Pakistan Resolution Day: From Vision to Reality
+            </h3>
+
+        </div>
+
+        <!-- Event 4 -->
+
+        <div class="event-card">
+
+            <div class="event-img">
+                <img src="{% static 'images/sportctn.jpg' %}" alt="">
+            </div>
+
+            <h3 class="event-title">
+                Inter-College Sports Meet: Celebrating Talent and Team Spirit
+            </h3>
+
+        </div>
+
+        <!-- Hidden Event 5 -->
+
+        <div class="event-card hidden">
+
+            <div class="event-img">
+                <img src="{% static 'images/evctnn.jpg' %}" alt="">
+            </div>
+
+            <h3 class="event-title">
+                Freshers’ Welcome Party: A Warm Start to a New Journey
+            </h3>
+
+        </div>
+
+        <!-- Hidden Event 6 -->
+
+        <div class="event-card hidden">
+
+            <div class="event-img">
+                <img src="{% static 'images/depnd day ctn.jpg' %}" alt="">
+            </div>
+
+            <h3 class="event-title">
+                Celebrating Pakistan Independence Day: Unity and Freedom
+            </h3>
+
+        </div>
+
+        <!-- Hidden Event 7 -->
+
+        <div class="event-card hidden">
+
+            <div class="event-img">
+                <img src="{% static 'images/testctn.jpg' %}" alt="">
+            </div>
+
+            <h3 class="event-title">
+                Wisdom Test: Unlocking Minds and Abilities
+            </h3>
+
+        </div>
+
+        <!-- Hidden Event 8 -->
+
+        <div class="event-card hidden">
+
+            <div class="event-img">
+                <img src="{% static 'images/plantpgc.jpg' %}" alt="">
+            </div>
+
+            <h3 class="event-title">
+                Plantation Day: Growing a Greener Future
+            </h3>
+
+        </div>
+
+    </div>
+
+    <div class="more-btn-box">
+
+        <button id="moreBtn">
+            More News
+        </button>
+
+    </div>
+
+</section>
+
+<!-- ================= CAMPUS LIFE ================= -->
+
+<section class="campus-life-section">
+
+    <div class="title">
+        CAMPUS LIFE
+    </div>
+
+    <div class="container">
+
+        <!-- Card 1 -->
+
+        <div class="card card1">
+
+            <h3>
+                Clubs *&* Societies:
+            </h3>
+
+            <p>
+                Apart from academics,Chishtian Science Colleges provide extra classroom
+                activities to their students in the form of societies *&* clubs
+                for Dramatics, Music, Debating, literary, IT, sports and more.
+            </p>
+
+        </div>
+
+        <!-- Card 2 -->
+
+        <div class="card card2">
+
+            <h3>
+                Annual Sports Gala:
+            </h3>
+
+            <p>
+                At Chishtian Science Colleges, a mega sports event is organized annually
+                to encourage extra-curricular and sports activities. Our students
+                participate in local, regional and nation-wide competitions.
+            </p>
+
+        </div>
+
+        <!-- Card 3 -->
+
+        <div class="card card3">
+
+            <h3>
+                Study *&* Recreational Trips:
+            </h3>
+
+            <p>
+                Chishtian Science offer vibrant student life with its recreational
+                activities through trips to movie cinemas, seminars and
+                adventure tours.
+            </p>
+
+        </div>
+
+        <!-- Card 4 -->
+
+        <div class="card card4">
+
+            <h3>
+                Welcome *&* Farewell Events:
+            </h3>
+
+            <p>
+                From the time our students join us till the time they leave,
+                Chishtian Science arrange a celebration of the memorable moments
+                of fun and joy with their students each year.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= FOOTER ================= -->
+
+<footer class="footer">
+
+    <div class="footer-container">
+
+        <div class="footer-left">
+
+            <h2>
+                CHISHTIAN SCIENCE COLLEGES
+            </h2>
+
+            <p>
+                <strong>ADDRESS:</strong>
+                G-Block Baldia Colony, Chishtian Mandi, Pakistan
+            </p>
+
+            <p>
+                <strong>Phone no:</strong>
+                0305 7367771
+            </p>
+
+            <p>
+                <strong>EMAIL:</strong>
+                chishtiansciencecollege@gmail.com
+            </p>
+
+            <div class="social-icons">
+
+                <a href="https://www.facebook.com/CSCgirls.chishtian/" target="_blank" rel="noopener noreferrer">
+                    <i class="fa-brands fa-facebook"></i>
+                </a>
+
+                <a href="https://www.instagram.com/csc_girls_official/" target="_blank" rel="noopener noreferrer">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+
+                <a href="https://www.youtube.com/channel/UCUe6DD33vb_D4pDWMF60_jg" target="_blank" rel="noopener noreferrer">
+                    <i class="fa-brands fa-youtube"></i>
+                </a>
+
+            </div>
+
+            <p class="copyright">
+                2020 Chishtian Science Colleges. All Rights Reserved.
+            </p>
+
+        </div>
+
+        <div class="footer-right">
+
+            <a href="{% url 'applycsc' %}" class="apply-btn">
+                APPLY NOW
+            </a>
+
+        </div>
+
+    </div>
+
+</footer>
+
+<!-- BACK TO TOP -->
+
+<a href="#top" id="back-to-top" aria-label="Back to top">
+    <i class="fas fa-chevron-up"></i>
+</a>
+
+<script>
+
+/* ================= MOBILE MENU ================= */
+
+const menuToggle = document.getElementById("menu-toggle");
+const navbar = document.getElementById("navbar");
+
+menuToggle.addEventListener("click", function(){
+
+    navbar.classList.toggle("active");
+
+    const icon = menuToggle.querySelector("i");
+
+    if(navbar.classList.contains("active")){
+        icon.classList.remove("fa-bars");
+        icon.classList.add("fa-xmark");
+    }else{
+        icon.classList.remove("fa-xmark");
+        icon.classList.add("fa-bars");
+    }
+
+});
+
+
+/* ================= MOBILE DROPDOWNS ================= */
+
+const dropdownLinks = document.querySelectorAll(".dropdown > a");
+
+dropdownLinks.forEach(function(link){
+
+    link.addEventListener("click", function(e){
+
+        if(window.innerWidth <= 767){
+
+            e.preventDefault();
+
+            const dropdown = this.parentElement;
+
+            document.querySelectorAll(".dropdown").forEach(function(item){
+
+                if(item !== dropdown){
+                    item.classList.remove("open");
+                }
+
+            });
+
+            dropdown.classList.toggle("open");
+
+        }
+
+    });
+
+});
+
+
+/* ================= CLOSE MOBILE MENU AFTER LINK ================= */
+
+document.querySelectorAll(".navbar a:not(.dropdown > a)").forEach(function(link){
+
+    link.addEventListener("click", function(){
+
+        if(window.innerWidth <= 767){
+
+            navbar.classList.remove("active");
+
+            document.querySelectorAll(".dropdown").forEach(function(dropdown){
+                dropdown.classList.remove("open");
+            });
+
+            const icon = menuToggle.querySelector("i");
+
+            icon.classList.remove("fa-xmark");
+            icon.classList.add("fa-bars");
+
+        }
+
+    });
+
+});
+
+
+/* ================= RESET MOBILE MENU ON DESKTOP ================= */
+
+window.addEventListener("resize", function(){
+
+    if(window.innerWidth > 767){
+
+        navbar.classList.remove("active");
+
+        document.querySelectorAll(".dropdown").forEach(function(dropdown){
+            dropdown.classList.remove("open");
+        });
+
+        const icon = menuToggle.querySelector("i");
+
+        icon.classList.remove("fa-xmark");
+        icon.classList.add("fa-bars");
+
+    }
+
+});
+
+
+/* ================= AUTO IMAGE SLIDER ================= */
+
+let slides = document.querySelectorAll(".slide");
+let slideIndex = 0;
+
+function showSlides(){
+
+    slides.forEach(function(slide){
+        slide.classList.remove("active");
+    });
+
+    slides[slideIndex].classList.add("active");
+
+    slideIndex++;
+
+    if(slideIndex >= slides.length){
+        slideIndex = 0;
+    }
+
+}
+
+setInterval(showSlides,3000);
+
+
+/* ================= REVEAL ANIMATION ================= */
+
+function revealElements(){
+
+    const reveals = document.querySelectorAll(".reveal");
+
+    reveals.forEach(function(element){
+
+        const windowHeight = window.innerHeight;
+        const elementTop = element.getBoundingClientRect().top;
+        const visible = 150;
+
+        if(elementTop < windowHeight - visible){
+            element.classList.add("active");
+        }
+
+    });
+
+}
+
+window.addEventListener("scroll",revealElements);
+
+window.addEventListener("load",revealElements);
+
+
+/* ================= STATS COUNTERS ================= */
+
+const counters = document.querySelectorAll(".counter");
+
+let counterStarted = false;
+
+function startCounters(){
+
+    if(counterStarted){
+        return;
+    }
+
+    const statsSection = document.querySelector(".stats-section");
+
+    if(!statsSection){
+        return;
+    }
+
+    const sectionTop = statsSection.getBoundingClientRect().top;
+
+    if(sectionTop < window.innerHeight - 100){
+
+        counterStarted = true;
+
+        counters.forEach(function(counter){
+
+            counter.innerText = "0";
+
+            const target = Number(counter.getAttribute("data-target"));
+
+            const duration = 1800;
+            const startTime = performance.now();
+
+            function updateCounter(currentTime){
+
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration,1);
+
+                const currentValue = Math.floor(progress * target);
+
+                counter.innerText = currentValue;
+
+                if(progress < 1){
+                    requestAnimationFrame(updateCounter);
+                }else{
+                    counter.innerText = target;
+                }
+
+            }
+
+            requestAnimationFrame(updateCounter);
+
+        });
+
+    }
+
+}
+
+window.addEventListener("scroll",startCounters);
+window.addEventListener("load",startCounters);
+
+
+/* ================= SHOW MORE EVENTS ================= */
+
+const moreBtn = document.getElementById("moreBtn");
+const hiddenEvents = document.querySelectorAll(".hidden");
+
+moreBtn.addEventListener("click",function(){
+
+    hiddenEvents.forEach(function(event){
+
+        event.style.display = "block";
+
+    });
+
+    moreBtn.style.display = "none";
+
+});
+
+
+/* ================= BACK TO TOP ================= */
+
+const backToTop = document.getElementById("back-to-top");
+
+window.addEventListener("scroll",function(){
+
+    if(
+        document.body.scrollTop > 200 ||
+        document.documentElement.scrollTop > 200
+    ){
+
+        backToTop.style.display = "flex";
+
+    }else{
+
+        backToTop.style.display = "none";
+
+    }
+
+});
+
+backToTop.addEventListener("click",function(e){
+
+    e.preventDefault();
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+});
+
+</script>
+
+</body>
+</html>

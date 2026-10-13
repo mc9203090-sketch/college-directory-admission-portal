@@ -1,0 +1,1285 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Contact Us - Punjab College</title>
+
+<!-- Font Awesome -->
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+
+    /* =========================
+       GENERAL
+    ========================= */
+
+    *{
+        box-sizing:border-box;
+    }
+
+    html{
+        scroll-behavior:smooth;
+    }
+
+    body{
+        margin:0;
+        padding:0;
+        overflow-x:hidden;
+        font-family:Arial, sans-serif;
+        background-color:#f5f5f5;
+        color:#333;
+    }
+
+
+    /* =========================
+       HEADER
+    ========================= */
+
+    header{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        padding:10px 20px;
+        background:#2e2c6a;
+        color:white;
+        position:relative;
+        z-index:1000;
+    }
+
+    .logo-section{
+        display:flex;
+        align-items:center;
+        gap:12px;
+    }
+
+    .logo-container{
+        width:70px;
+        height:70px;
+        border-radius:50%;
+        overflow:hidden;
+        border:3px solid white;
+        flex-shrink:0;
+    }
+
+    .logo-container img{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+        display:block;
+    }
+
+    .college-text{
+        display:flex;
+        flex-direction:column;
+        color:white;
+        font-weight:bold;
+        line-height:1.2;
+        font-size:18px;
+    }
+
+
+    /* =========================
+       NAVBAR
+    ========================= */
+
+    .navbar{
+        display:flex;
+        align-items:center;
+        gap:20px;
+    }
+
+    .navbar > a,
+    .navbar .dropdown > a{
+        color:white;
+        text-decoration:none;
+        font-size:15px;
+        font-weight:500;
+        white-space:nowrap;
+    }
+
+    .navbar a:hover{
+        color:#F5E547;
+    }
+
+    .navbar .dropdown{
+        position:relative;
+        display:inline-block;
+    }
+
+    .navbar .dropdown > a{
+        display:flex;
+        align-items:center;
+        gap:5px;
+        cursor:pointer;
+    }
+
+
+    /* =========================
+       DESKTOP DROPDOWN
+    ========================= */
+
+    .navbar .sub-menu{
+        display:none;
+        position:absolute;
+        top:100%;
+        left:0;
+        background:#2e2c6a;
+        list-style:none;
+        margin:0;
+        padding:10px 0;
+        min-width:220px;
+        border-radius:0 0 5px 5px;
+        z-index:2000;
+    }
+
+    /* Invisible bridge */
+    .navbar .dropdown::after{
+        content:"";
+        position:absolute;
+        left:0;
+        right:0;
+        top:100%;
+        height:8px;
+        background:transparent;
+    }
+
+    .navbar .dropdown:hover .sub-menu{
+        display:block;
+    }
+
+    .navbar .sub-menu li{
+        margin:0;
+        padding:0;
+    }
+
+    .navbar .sub-menu li a{
+        display:block;
+        padding:9px 15px;
+        color:white;
+        font-size:14px;
+        text-decoration:none;
+        white-space:nowrap;
+    }
+
+    .navbar .sub-menu li a:hover{
+        background:#3c3980;
+        color:#f5a623;
+    }
+
+
+    /* =========================
+       MOBILE MENU BUTTON
+    ========================= */
+
+    .menu-toggle{
+        display:none;
+        color:white;
+        font-size:28px;
+        cursor:pointer;
+    }
+
+
+    /* =========================
+       HERO
+    ========================= */
+
+    .rit-hero{
+        background:#eee;
+        padding:120px 0;
+        position:relative;
+    }
+
+    .orange-strip{
+        background:#E13B23;
+        min-height:220px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        padding:30px 20px;
+    }
+
+    .orange-strip h1{
+        color:white;
+        font-size:45px;
+        font-weight:bold;
+        text-align:center;
+        margin:0;
+    }
+
+
+    /* =========================
+       MAIN CONTENT
+    ========================= */
+
+    .principal-section{
+        width:100%;
+        padding:50px 40px;
+    }
+
+    .principal-container{
+        width:100%;
+        max-width:1100px;
+        margin:auto;
+    }
+
+    .location-title{
+        text-align:center;
+        color:#31A943;
+        font-size:30px;
+        margin:0 0 25px;
+    }
+
+
+    /* =========================
+       MAP
+    ========================= */
+
+    .map-container{
+        width:100%;
+        height:450px;
+        border-radius:8px;
+        overflow:hidden;
+        box-shadow:0 4px 12px rgba(0,0,0,0.15);
+        margin-top:20px;
+        background:#ddd;
+    }
+
+    .map-container iframe{
+        width:100%;
+        height:100%;
+        border:0;
+        display:block;
+    }
+
+    .note{
+        margin-top:15px;
+        text-align:center;
+        color:#555;
+        font-size:15px;
+        line-height:1.6;
+    }
+
+
+    /* =========================
+       CONTACT SECTION
+    ========================= */
+
+    .contact-container{
+        display:flex;
+        gap:40px;
+        margin-top:50px;
+        flex-wrap:wrap;
+        align-items:stretch;
+    }
+
+    .form-section{
+        flex:1 1 500px;
+        min-width:0;
+    }
+
+    .form-section input,
+    .form-section select,
+    .form-section textarea{
+        width:100%;
+        padding:12px;
+        margin:8px 0;
+        border:1px solid #ccc;
+        border-radius:5px;
+        font-family:Arial, sans-serif;
+        font-size:15px;
+        outline:none;
+    }
+
+    .form-section input:focus,
+    .form-section select:focus,
+    .form-section textarea:focus{
+        border-color:#2e2c6a;
+    }
+
+    .row{
+        display:flex;
+        gap:10px;
+    }
+
+    .row > *{
+        flex:1;
+        min-width:0;
+    }
+
+    textarea{
+        height:120px;
+        resize:vertical;
+    }
+
+    button{
+        background:#2e2c6a;
+        color:white;
+        padding:12px 25px;
+        border:none;
+        border-radius:5px;
+        cursor:pointer;
+        font-size:15px;
+        font-weight:bold;
+        transition:0.3s;
+    }
+
+    button:hover{
+        background:#E13B23;
+    }
+
+    #successMsg{
+        color:#31A943;
+        margin-top:10px;
+        display:none;
+        font-weight:bold;
+    }
+
+
+    /* =========================
+       CONTACT DETAILS
+    ========================= */
+
+    .contact-details{
+        flex:1 1 400px;
+        min-width:0;
+        background:#e6efe6;
+        padding:25px;
+        border:1px solid #d6e4d6;
+        border-radius:10px;
+    }
+
+    .contact-details h2{
+        color:#E13B23;
+        margin:0 0 20px;
+        text-align:center;
+    }
+
+    .contact-details p{
+        line-height:1.7;
+        margin:0;
+    }
+
+    .contact-details a{
+        color:#E13B23;
+        text-decoration:none;
+        word-break:break-word;
+    }
+
+    .contact-details a:hover{
+        text-decoration:underline;
+    }
+
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    .footer{
+        background:#2e2c6a;
+        color:white;
+        width:100%;
+        padding:80px 80px 120px;
+        position:relative;
+    }
+
+    .footer-container{
+        display:flex;
+        justify-content:space-between;
+        align-items:flex-start;
+        width:100%;
+        max-width:1100px;
+        margin:auto;
+        position:relative;
+    }
+
+    .footer-left h2{
+        margin:0 0 20px;
+        line-height:1.8;
+    }
+
+    .footer-left p{
+        margin:8px 0;
+        line-height:1.5;
+    }
+
+    .social-icons{
+        margin-top:20px;
+        display:flex;
+        flex-wrap:wrap;
+        gap:15px;
+    }
+
+    .social-icons a{
+        color:white;
+        font-size:20px;
+        text-decoration:none;
+        transition:0.3s;
+    }
+
+    .social-icons a:hover{
+        color:#E13B23;
+    }
+
+    .copyright{
+        margin-top:25px !important;
+    }
+
+    .footer-right{
+        margin-top:10px;
+    }
+
+    .apply-btn{
+        display:inline-block;
+        background:#E13B23;
+        padding:15px 30px;
+        color:white;
+        font-weight:bold;
+        text-decoration:none;
+        border-radius:6px;
+        transition:0.3s;
+    }
+
+    .apply-btn:hover{
+        background:#c92f20;
+    }
+
+
+    /* =========================
+       BACK TO TOP
+    ========================= */
+
+    #back-to-top{
+        display:none;
+        position:fixed;
+        bottom:20px;
+        right:20px;
+        width:45px;
+        height:45px;
+        background:#E13B23;
+        color:white;
+        border-radius:50%;
+        text-decoration:none;
+        align-items:center;
+        justify-content:center;
+        z-index:9999;
+        box-shadow:0 3px 10px rgba(0,0,0,0.25);
+    }
+
+
+    /* =========================
+       TABLET
+    ========================= */
+
+    @media(max-width:1000px){
+
+        .navbar{
+            gap:12px;
+        }
+
+        .navbar > a,
+        .navbar .dropdown > a{
+            font-size:13px;
+        }
+
+        .principal-section{
+            padding:40px 25px;
+        }
+
+        .footer{
+            padding:70px 40px 100px;
+        }
+
+    }
+
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media(max-width:768px){
+
+        /* Header */
+
+        header{
+            padding:10px 15px;
+            min-height:80px;
+        }
+
+        .logo-container{
+            width:55px;
+            height:55px;
+        }
+
+        .college-text{
+            font-size:15px;
+        }
+
+        .menu-toggle{
+            display:block;
+        }
+
+
+        /* Mobile Navbar */
+
+        .navbar{
+            display:none;
+            position:absolute;
+            top:100%;
+            left:0;
+            width:100%;
+            background:#2e2c6a;
+            flex-direction:column;
+            align-items:stretch;
+            gap:0;
+            padding:10px 0;
+            box-shadow:0 5px 10px rgba(0,0,0,0.2);
+        }
+
+        .navbar.show{
+            display:flex;
+        }
+
+        .navbar > a,
+        .navbar .dropdown > a{
+            width:100%;
+            padding:13px 20px;
+            font-size:14px;
+        }
+
+        .navbar > a:hover,
+        .navbar .dropdown > a:hover{
+            background:#3c3980;
+        }
+
+        .navbar .dropdown{
+            width:100%;
+        }
+
+
+        /* Disable desktop hover on mobile */
+
+        .navbar .dropdown:hover .sub-menu{
+            display:none;
+        }
+
+        .navbar .dropdown.open .sub-menu{
+            display:block;
+        }
+
+        .navbar .dropdown::after{
+            display:none;
+        }
+
+        .navbar .sub-menu{
+            position:static;
+            width:100%;
+            min-width:100%;
+            padding:0;
+            border-radius:0;
+            background:#252354;
+        }
+
+        .navbar .sub-menu li a{
+            padding:11px 35px;
+            font-size:13px;
+            white-space:normal;
+        }
+
+
+        /* Hero */
+
+        .rit-hero{
+            padding:40px 15px;
+        }
+
+        .orange-strip{
+            min-height:150px;
+            padding:30px 20px;
+        }
+
+        .orange-strip h1{
+            font-size:35px;
+        }
+
+
+        /* Main */
+
+        .principal-section{
+            padding:35px 15px;
+        }
+
+        .location-title{
+            font-size:24px;
+            line-height:1.4;
+        }
+
+
+        /* Map */
+
+        .map-container{
+            height:350px;
+            border-radius:6px;
+        }
+
+        .note{
+            font-size:14px;
+        }
+
+
+        /* Contact */
+
+        .contact-container{
+            flex-direction:column;
+            gap:25px;
+            margin-top:40px;
+        }
+
+        .form-section,
+        .contact-details{
+            width:100%;
+            flex:none;
+        }
+
+        .row{
+            flex-direction:column;
+            gap:0;
+        }
+
+        .form-section input,
+        .form-section select,
+        .form-section textarea{
+            font-size:14px;
+            padding:12px;
+        }
+
+        button{
+            width:100%;
+        }
+
+        .contact-details{
+            padding:22px;
+        }
+
+
+        /* Footer */
+
+        .footer{
+            padding:55px 25px 90px;
+        }
+
+        .footer-container{
+            flex-direction:column;
+            align-items:center;
+            text-align:center;
+            gap:30px;
+        }
+
+        .footer-left{
+            width:100%;
+        }
+
+        .footer-left h2{
+            font-size:24px;
+        }
+
+        .footer-left p{
+            font-size:14px;
+            word-break:break-word;
+        }
+
+        .social-icons{
+            justify-content:center;
+        }
+
+        .footer-right{
+            margin-top:0;
+        }
+
+        .apply-btn{
+            padding:13px 25px;
+        }
+
+    }
+
+
+    /* =========================
+       SMALL MOBILE
+    ========================= */
+
+    @media(max-width:480px){
+
+        .logo-container{
+            width:50px;
+            height:50px;
+        }
+
+        .college-text{
+            font-size:13px;
+        }
+
+        .menu-toggle{
+            font-size:25px;
+        }
+
+        .rit-hero{
+            padding:25px 12px;
+        }
+
+        .orange-strip{
+            min-height:120px;
+        }
+
+        .orange-strip h1{
+            font-size:30px;
+        }
+
+        .map-container{
+            height:300px;
+        }
+
+        .principal-section{
+            padding:30px 12px;
+        }
+
+        .location-title{
+            font-size:21px;
+        }
+
+        .footer{
+            padding-left:20px;
+            padding-right:20px;
+        }
+
+        .footer-left h2{
+            font-size:21px;
+        }
+
+    }
+
+</style>
+
+</head>
+
+<body>
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header>
+<div class="logo-section">
+
+    <div class="logo-container">
+
+        <img src="{% static 'images/pgc logo.png' %}"
+             alt="Punjab College Logo">
+
+    </div>
+
+    <div class="college-text">
+
+        <span>Punjab</span>
+        <span>College</span>
+        <span>Chishtian</span>
+
+    </div>
+
+</div>
+
+
+<!-- Mobile Menu Button -->
+
+<div class="menu-toggle" id="menu-toggle">
+
+    <i class="fas fa-bars"></i>
+
+</div>
+
+
+<!-- Navbar -->
+
+<nav class="navbar" id="navbar">
+
+    <a href="{% url 'index' %}">
+        Home
+    </a>
+
+
+    <!-- ABOUT US -->
+
+    <div class="dropdown">
+
+        <a href="#">
+            ABOUT US
+            <i class="fa fa-caret-down"></i>
+        </a>
+
+        <ul class="sub-menu">
+
+            <li>
+                <a href="{% url 'historypgc' %}">
+                    About PGC
+                </a>
+            </li>
+
+            <li>
+                <a href="{% url 'uniquelypgc' %}">
+                    Uniquely PGC
+                </a>
+            </li>
+
+            <li>
+                <a href="{% url 'missionpgc' %}">
+                    Mission,Vision,Goals PGC
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+
+
+    <!-- ADMISSIONS -->
+
+    <div class="dropdown">
+
+        <a href="#">
+            ADDMISSIONS
+            <i class="fa fa-caret-down"></i>
+        </a>
+
+        <ul class="sub-menu">
+
+            <li>
+                <a href="{% url 'undergraduatepgc' %}">
+                    UnderGraduates Programmes
+                </a>
+            </li>
+
+            <li>
+                <a href="{% url 'feepgc' %}">
+                    Scholarship *&* Fee Consection
+                </a>
+            </li>
+
+            <li>
+                <a href="{% url 'applypgc' %}">
+                    Apply
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+
+
+    <!-- ACTIVITIES -->
+
+    <a href="{% url 'activitypgc' %}">
+        Activities
+    </a>
+
+
+    <!-- LEARNING AT PUNJAB -->
+
+    <div class="dropdown">
+
+        <a href="#">
+            LEARNING AT PUNJAB
+            <i class="fa fa-caret-down"></i>
+        </a>
+
+        <ul class="sub-menu">
+
+            <li>
+                <a href="{% url 'blogpgc' %}">
+                    Blogs PGC
+                </a>
+            </li>
+
+            <li>
+                <a href="{% url 'careerpgc' %}">
+                    Careers
+                </a>
+            </li>
+
+            <li>
+                <a href="{% url 'affiliatepgc' %}">
+                    AFFILIATE
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+
+
+    <!-- CONTACT US -->
+
+    <a href="{% url 'contactpgc' %}">
+        CONTACT US
+    </a>
+</nav>
+</header>
+<!-- =========================
+     HERO
+========================= -->
+<section class="rit-hero">
+<div class="orange-strip">
+    <h1>Contact Us</h1>
+</div>
+</section>
+
+<!-- =========================
+     MAIN CONTENT
+========================= -->
+
+<section class="principal-section">
+<div class="principal-container">
+
+    <h2 class="location-title">
+        Location of Punjab College Chishtian
+    </h2>
+
+
+    <!-- MAP -->
+
+    <div class="map-container">
+
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3370.829112464523!2d74.91666407627223!3d32.343296906023596!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391ea8800d014997%3A0xe8a1670aa6fdadee!2sPunjab%20Group%20Of%20Colleges%20Zafarwal%20Campus!5e0!3m2!1sen!2s!4v1694601853992!5m2!1sen!2s"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+
+    </div>
+
+
+    <div class="note">
+
+        Click the arrows or icons on the map to open Punjab College Chishtian in Google Maps.
+
+    </div>
+
+
+    <!-- =========================
+         CONTACT FORM
+    ========================= -->
+
+    <div class="contact-container">
+
+        <div class="form-section">
+
+            <select>
+
+                <option>* Who do you wish to contact?</option>
+                <option>Principal</option>
+                <option>Admin</option>
+                <option>Admissions</option>
+
+            </select>
+
+
+            <div class="row">
+
+                <select>
+
+                    <option>* Title</option>
+                    <option>Sir</option>
+                    <option>Ms</option>
+                    <option>Mam</option>
+
+                </select>
+
+                <input
+                    type="text"
+                    placeholder="* First Name(s)">
+
+            </div>
+
+
+            <div class="row">
+
+                <input
+                    type="text"
+                    placeholder="* Surname">
+
+                <input
+                    type="text"
+                    placeholder="* Contact Number">
+
+            </div>
+
+
+            <div class="row">
+
+                <input
+                    type="email"
+                    placeholder="* Email">
+
+                <input
+                    type="text"
+                    placeholder="* Subject">
+
+            </div>
+
+
+            <textarea
+                placeholder="* Message">
+            </textarea>
+
+
+            <button onclick="showMessage()">
+                Send Message
+            </button>
+
+
+            <p id="successMsg">
+                Message Sent Successfully ✅
+            </p>
+
+        </div>
+
+
+        <!-- CONTACT DETAILS -->
+
+        <div class="contact-details">
+
+            <h2>
+                Contact Details
+            </h2>
+
+
+            <p>
+                <strong>Address:</strong>
+                Bahawalnagar Road, Near Sadar Police Station,
+                Chishtian, Punjab, Pakistan.
+            </p>
+
+            <br>
+
+
+            <p>
+
+                <strong>College Email:</strong>
+
+                <a href="mailto:pcchishitan@pgc.edu">
+                    pcchishitan@pgc.edu
+                </a>
+
+            </p>
+
+            <br>
+
+
+            <p>
+
+                <strong>Main Office Telephone:</strong>
+                0312 2026500
+            </p>
+        </div>
+    </div>
+</div>
+</section>
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer class="footer">
+<div class="footer-container">
+
+    <div class="footer-left">
+
+        <h2>
+            PUNJAB COLLEGES
+        </h2>
+
+
+        <p>
+            <strong>WhatsApp</strong>
+            0312 2026500
+        </p>
+
+
+        <p>
+            <strong>EMAIL</strong>
+            pcchishitan@pgc.edu
+        </p>
+
+
+        <p>
+            <strong>COMPLAINT PORTAL</strong>
+            complaint.pgc.edu
+        </p>
+
+
+        <div class="social-icons">
+
+            <a href="https://www.facebook.com/PGCWorld/"
+               target="_blank">
+                <i class="fa-brands fa-facebook"></i>
+            </a>
+
+            <a href="https://twitter.com/pgcworld"
+               target="_blank">
+                <i class="fa-brands fa-twitter"></i>
+            </a>
+
+            <a href="https://www.instagram.com/pgcworld/"
+               target="_blank">
+                <i class="fa-brands fa-instagram"></i>
+            </a>
+
+            <a href="https://www.youtube.com/user/pgcworld"
+               target="_blank">
+                <i class="fa-brands fa-youtube"></i>
+            </a>
+
+            <a href="https://www.linkedin.com/company/pgcworld/"
+               target="_blank">
+                <i class="fa-brands fa-linkedin"></i>
+            </a>
+
+        </div>
+
+
+        <p class="copyright">
+            2020 Punjab Colleges. All Rights Reserved.
+        </p>
+    </div>
+    <div class="footer-right">
+        <a href="{% url 'applypgc' %}"
+           class="apply-btn">
+            APPLY NOW
+        </a>
+    </div>
+</div>
+</footer>
+
+<!-- =========================
+     BACK TO TOP
+========================= -->
+
+<a href="#"
+id="back-to-top"
+aria-label="Back to top">
+<i class="fas fa-chevron-up"></i>
+</a>
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
+<script>
+
+/* =========================
+   MOBILE MENU
+========================= */
+
+const menuToggle = document.getElementById("menu-toggle");
+const navbar = document.getElementById("navbar");
+
+menuToggle.addEventListener("click", function(){
+
+    navbar.classList.toggle("show");
+
+});
+
+
+/* =========================
+   MOBILE DROPDOWNS
+========================= */
+
+document.querySelectorAll(".dropdown > a").forEach(function(dropdownLink){
+
+    dropdownLink.addEventListener("click", function(e){
+
+        if(window.innerWidth <= 768){
+
+            e.preventDefault();
+
+            const dropdown = this.parentElement;
+
+            dropdown.classList.toggle("open");
+
+        }
+
+    });
+
+});
+
+
+/* =========================
+   CLOSE MENU ON NORMAL LINK
+========================= */
+
+document.querySelectorAll(".navbar > a").forEach(function(link){
+
+    link.addEventListener("click", function(){
+
+        if(window.innerWidth <= 768){
+
+            navbar.classList.remove("show");
+
+        }
+
+    });
+
+});
+
+
+/* =========================
+   CONTACT SUCCESS MESSAGE
+========================= */
+
+function showMessage(){
+
+    document.getElementById("successMsg").style.display = "block";
+
+}
+
+
+/* =========================
+   BACK TO TOP
+========================= */
+
+const backToTop = document.getElementById("back-to-top");
+
+window.addEventListener("scroll", function(){
+
+    if(window.scrollY > 200){
+
+        backToTop.style.display = "flex";
+
+    }else{
+
+        backToTop.style.display = "none";
+
+    }
+
+});
+
+
+backToTop.addEventListener("click", function(e){
+
+    e.preventDefault();
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+});
+
+</script>
+
+</body>
+
+</html>

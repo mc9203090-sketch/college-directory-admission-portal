@@ -1,3 +1,4 @@
+
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -10,213 +11,8 @@
 
 <link rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
+<link rel="stylesheet" href="{% static 'css/superior-common.css' %}">
 <style>
-
-/* =========================================================
-   GLOBAL
-========================================================= */
-
-:root{
-    --teal:#176963;
-    --teal-dark:#0d4845;
-    --navy:#073d4a;
-    --cream:#fbfaf7;
-    --soft:#f5f6fb;
-    --gold:#f4b41a;
-    --orange:#f59e0b;
-    --text:#18262b;
-    --muted:#69777b;
-    --white:#fff;
-    --shadow:0 12px 35px rgba(15,45,50,.10);
-}
-
-*{
-    box-sizing:border-box;
-}
-
-html{
-    scroll-behavior:smooth;
-    scroll-padding-top:90px;
-}
-
-body{
-    margin:0;
-    font-family:Arial,Helvetica,sans-serif;
-    color:var(--text);
-    background:#fff;
-    overflow-x:hidden;
-}
-
-img{
-    max-width:100%;
-}
-
-button,
-input{
-    font:inherit;
-}
-
-a{
-    text-decoration:none;
-}
-
-
-/* =========================================================
-   NAVBAR
-========================================================= */
-
-header{
-    width:100%;
-    min-height:90px;
-
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-
-    padding:10px 30px;
-
-    background:#1a6260;
-    color:white;
-
-    position:sticky;
-    top:0;
-
-    z-index:5000;
-
-    box-shadow:0 4px 18px rgba(0,0,0,.12);
-}
-
-.logo-section{
-    display:flex;
-    align-items:center;
-    gap:12px;
-}
-
-.logo-container{
-    width:70px;
-    height:70px;
-
-    border-radius:50%;
-    overflow:hidden;
-
-    border:3px solid white;
-
-    flex-shrink:0;
-}
-
-.logo-container img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-}
-
-.college-text{
-    display:flex;
-    flex-direction:column;
-
-    color:white;
-
-    font-weight:bold;
-    line-height:1.2;
-
-    font-size:18px;
-}
-
-.navbar{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    gap:20px;
-}
-
-.navbar>a,
-.navbar .dropdown>a{
-    color:white;
-    text-decoration:none;
-
-    font-size:15px;
-    font-weight:500;
-
-    white-space:nowrap;
-}
-
-.navbar a:hover{
-    color:#F5E547;
-}
-
-.dropdown{
-    position:relative;
-    display:inline-block;
-}
-
-.dropdown>a{
-    display:flex;
-    align-items:center;
-    gap:5px;
-    cursor:pointer;
-}
-
-.sub-menu{
-    display:none;
-
-    position:absolute;
-
-    top:100%;
-    left:0;
-
-    background:#0d3b3a;
-
-    list-style:none;
-
-    padding:10px 0;
-    margin:0;
-
-    min-width:220px;
-
-    border-radius:5px;
-
-    z-index:1100;
-
-    box-shadow:0 5px 15px rgba(0,0,0,.2);
-}
-
-.sub-menu li{
-    margin:0;
-    padding:0;
-}
-
-.sub-menu li a{
-    padding:9px 15px;
-
-    color:white;
-
-    display:block;
-
-    font-size:14px;
-
-    text-decoration:none;
-
-    white-space:normal;
-}
-
-.sub-menu li a:hover{
-    background:#1a6260;
-    color:#f5a623;
-}
-
-@media(min-width:769px){
-
-    .dropdown:hover .sub-menu{
-        display:block;
-    }
-
-}
-
-.menu-toggle{
-    display:none;
-}
 
 
 /* =========================================================
@@ -1591,199 +1387,6 @@ header{
 }
 
 
-/* =========================================================
-   FOOTER
-========================================================= */
-
-.custom-footer{
-    background:
-    url("{% static 'images/footer hero.png' %}")
-    center/cover no-repeat;
-
-    color:#9ec0a8;
-}
-
-.footer-overlay{
-    background:rgba(4,25,27,.92);
-
-    padding:55px 7vw 25px;
-}
-
-.footer-container{
-    max-width:1180px;
-
-    margin:auto;
-
-    display:grid;
-
-    grid-template-columns:.8fr 1.2fr;
-
-    gap:50px;
-}
-
-.footer-left ul{
-    list-style:none;
-
-    padding:0;
-
-    margin:0;
-}
-
-.footer-left li{
-    margin-bottom:12px;
-}
-
-.footer-left a{
-    color:#a7c4ad;
-
-    font-size:12px;
-
-    letter-spacing:.5px;
-}
-
-.footer-left a:hover{
-    color:#fff;
-}
-
-.footer-right h3{
-    margin:0 0 16px;
-
-    color:#fff;
-
-    font-size:16px;
-
-    letter-spacing:1.5px;
-}
-
-.footer-right p{
-    font-size:11px;
-
-    line-height:1.6;
-
-    margin:7px 0;
-
-    color:#b7c5c2;
-}
-
-.footer-right a{
-    color:#a7c4ad;
-}
-
-.social-icons{
-    max-width:1180px;
-
-    margin:28px auto 0;
-
-    display:flex;
-
-    gap:10px;
-
-    align-items:center;
-}
-
-.social-icons a{
-    width:35px;
-
-    height:35px;
-
-    border:1px solid rgba(255,255,255,.25);
-
-    border-radius:50%;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    color:#fff;
-
-    font-size:15px;
-
-    transition:.25s;
-}
-
-.social-icons a:hover{
-    background:var(--teal);
-
-    border-color:var(--teal);
-
-    transform:translateY(-2px);
-}
-
-.share-btn{
-    border:0;
-
-    background:transparent;
-
-    color:#a7c4ad;
-
-    font-size:10px;
-
-    cursor:pointer;
-}
-
-.share-btn:hover{
-    color:#fff;
-}
-
-.footer-bottom{
-    max-width:1180px;
-
-    margin:25px auto 0;
-
-    padding-top:16px;
-
-    border-top:1px solid rgba(158,192,168,.35);
-
-    display:flex;
-
-    justify-content:space-between;
-
-    gap:20px;
-}
-
-.footer-bottom p{
-    font-size:10px;
-
-    color:#a9b8b5;
-
-    margin:0;
-}
-
-
-/* =========================================================
-   BACK TO TOP
-========================================================= */
-
-#back-to-top{
-    display:none;
-
-    position:fixed;
-
-    right:20px;
-
-    bottom:20px;
-
-    width:42px;
-
-    height:42px;
-
-    border-radius:50%;
-
-    align-items:center;
-
-    justify-content:center;
-
-    background:var(--teal);
-
-    color:#fff;
-
-    z-index:6000;
-
-    box-shadow:0 7px 20px rgba(0,0,0,.2);
-}
-
 
 /* =========================================================
    RESPONSIVE
@@ -1791,14 +1394,6 @@ header{
 
 @media(max-width:1100px){
 
-    .navbar{
-        gap:11px;
-    }
-
-    .navbar>a,
-    .navbar .dropdown>a{
-        font-size:11px;
-    }
 
     .hero-content{
         padding:50px 35px;
@@ -1820,110 +1415,6 @@ header{
 
 @media(max-width:768px){
 
-    header{
-        min-height:70px;
-
-        padding:10px 20px;
-    }
-
-    .logo-container{
-        width:55px;
-        height:55px;
-    }
-
-    .college-text{
-        font-size:15px;
-    }
-
-    .menu-toggle{
-        display:flex;
-
-        width:42px;
-        height:42px;
-
-        align-items:center;
-        justify-content:center;
-
-        border:0;
-
-        background:none;
-
-        color:#fff;
-
-        font-size:25px;
-
-        cursor:pointer;
-    }
-
-    .navbar{
-
-        display:none;
-
-        position:absolute;
-
-        top:70px;
-
-        left:0;
-
-        width:100%;
-
-        padding:15px 20px 20px;
-
-        background:#0d3b3a;
-
-        flex-direction:column;
-
-        align-items:stretch;
-
-        gap:0;
-    }
-
-    .navbar.active{
-        display:flex;
-    }
-
-    .navbar>a,
-    .navbar .dropdown>a{
-
-        padding:12px 8px;
-
-        border-bottom:1px solid rgba(255,255,255,.12);
-
-        font-size:13px;
-    }
-
-    .navbar .dropdown>a{
-        justify-content:space-between;
-    }
-
-    .sub-menu{
-
-        position:static;
-
-        display:none;
-
-        width:100%;
-
-        min-width:0;
-
-        box-shadow:none;
-
-        border-radius:0;
-
-        background:#082c2b;
-
-        padding:0;
-    }
-
-    .dropdown:hover .sub-menu{
-        display:none;
-    }
-
-    .sub-menu li a{
-        padding:10px 20px;
-
-        border-bottom:1px solid rgba(255,255,255,.07);
-    }
 
     .hero{
 
@@ -2073,19 +1564,6 @@ header{
         padding:20px;
     }
 
-    .footer-container{
-
-        grid-template-columns:1fr;
-
-        gap:25px;
-    }
-
-    .footer-bottom{
-
-        flex-direction:column;
-
-        text-align:center;
-    }
 
 }
 
@@ -2142,179 +1620,25 @@ header{
 ===================================================== -->
 
 <header id="top">
-
     <div class="logo-section">
-
         <div class="logo-container">
-
             <img src="{% static 'images/sup logo.png' %}"
                  alt="Superior College Logo">
-
         </div>
 
         <div class="college-text">
-
             <span>Superior</span>
             <span>College</span>
             <span>Chishtian</span>
-
         </div>
-
     </div>
 
-
-    <button class="menu-toggle"
-            id="menu-toggle"
+    <button class="menu-toggle" id="menu-toggle"
             aria-label="Open Menu">
-
         <i class="fas fa-bars"></i>
-
     </button>
 
-
-    <nav class="navbar" id="navbar">
-
-        <a href="{% url 'index' %}">
-            Home
-        </a>
-
-
-        <!-- ABOUT US -->
-
-        <div class="dropdown">
-
-            <a href="#">
-                ABOUT US
-                <i class="fa fa-caret-down"></i>
-            </a>
-
-            <ul class="sub-menu">
-
-                <li>
-                    <a href="{% url 'aboutsup' %}">
-                        Welcome Message From the Principal
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{% url 'historysup' %}">
-                        About Superior
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{% url 'missionsup' %}">
-                        Mission Vision and Values
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{% url 'results' %}">
-                        Results
-                    </a>
-                </li>
-
-            </ul>
-
-        </div>
-
-
-        <!-- ADMISSIONS -->
-
-        <div class="dropdown">
-
-            <a href="#">
-                ADMISSIONS
-                <i class="fa fa-caret-down"></i>
-            </a>
-
-            <ul class="sub-menu">
-
-                <li>
-                    <a href="{% url 'addmission' %}">
-                        Admissions
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{% url 'fee' %}">
-                        Fees Structure
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{% url 'apply' %}">
-                        Apply
-                    </a>
-                </li>
-
-            </ul>
-
-        </div>
-
-
-        <!-- FACILITIES -->
-
-        <div class="dropdown">
-
-            <a href="#">
-                FACILITIES
-                <i class="fa fa-caret-down"></i>
-            </a>
-
-            <ul class="sub-menu">
-
-                <li>
-                    <a href="{% url 'class' %}">
-                        Living Classrooms
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{% url 'spaces' %}">
-                        Unique College Learning Spaces
-                    </a>
-                </li>
-
-            </ul>
-
-        </div>
-
-
-        <!-- LEARNING AT SUPERIOR -->
-
-        <div class="dropdown">
-
-            <a href="#">
-                LEARNING AT SUPERIOR
-                <i class="fa fa-caret-down"></i>
-            </a>
-
-            <ul class="sub-menu">
-
-                <li>
-                    <a href="{% url 'spaces' %}">
-                        LEARNING AT SUPERIOR
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{% url 'affiliate' %}">
-                        AFFILIATE
-                    </a>
-                </li>
-
-            </ul>
-
-        </div>
-
-
-        <a href="{% url 'contact' %}">
-            CONTACT US
-        </a>
-
-    </nav>
-
+    {% include "superior/components/navbar.html" %}
 </header>
 
 
@@ -3735,192 +3059,7 @@ header{
      FOOTER
 ===================================================== -->
 
-<footer class="custom-footer">
-
-    <div class="footer-overlay">
-
-
-        <div class="footer-container">
-
-
-            <!-- FOOTER MENU -->
-
-            <div class="footer-left">
-
-                <ul>
-
-                    <li>
-
-                        <a href="{% url 'superior' %}">
-                            HOME
-                        </a>
-
-                    </li>
-
-
-                    <li>
-
-                        <a href="{% url 'aboutsup' %}">
-                            ABOUT US
-                        </a>
-
-                    </li>
-
-
-                    <li>
-
-                        <a href="{% url 'addmission' %}">
-                            ADMISSIONS
-                        </a>
-
-                    </li>
-
-
-                    <li>
-
-                        <a href="{% url 'spaces' %}">
-                            LEARNING AT SUPERIOR
-                        </a>
-
-                    </li>
-
-
-                    <li>
-
-                        <a href="{% url 'fee' %}">
-                            FEE STRUCTURE
-                        </a>
-
-                    </li>
-
-
-                    <li>
-
-                        <a href="{% url 'contact' %}">
-                            CONTACT US
-                        </a>
-
-                    </li>
-
-                </ul>
-
-            </div>
-
-
-            <!-- CONTACT -->
-
-            <div class="footer-right">
-
-                <h3>
-                    GET IN TOUCH
-                </h3>
-
-
-                <p>
-
-                    <i class="fa-solid fa-location-dot"></i>
-
-                    The Superior College, Chishtian
-
-                </p>
-
-
-                <p>
-
-                    <i class="fa-solid fa-phone"></i>
-
-                    Main Office Telephone:
-                    +92 300 6989030 or
-                    +92 308 6985000.
-
-                </p>
-
-
-                <p>
-
-                    <i class="fa-solid fa-envelope"></i>
-
-                    Email:
-
-                    <a href="mailto:superiorctn@gmail.com">
-                        superiorctn@gmail.com
-                    </a>
-
-                </p>
-
-            </div>
-
-
-        </div>
-
-
-        <!-- SOCIAL -->
-
-        <div class="social-icons">
-
-
-            <a href="https://www.facebook.com/superiorctn/"
-               target="_blank"
-               rel="noopener noreferrer"
-               aria-label="Superior College Facebook">
-
-                <i class="fa-brands fa-facebook-f"></i>
-
-            </a>
-
-
-            <a href="https://www.instagram.com/superior_ctn/"
-               target="_blank"
-               rel="noopener noreferrer"
-               aria-label="Superior College Instagram">
-
-                <i class="fa-brands fa-instagram"></i>
-
-            </a>
-
-
-            <a href="https://www.linkedin.com/company/superior-college-of-law/"
-               target="_blank"
-               rel="noopener noreferrer"
-               aria-label="Superior College LinkedIn">
-
-                <i class="fa-brands fa-linkedin-in"></i>
-
-            </a>
-
-
-            <button class="share-btn"
-                    id="shareBtn">
-
-                <i class="fa-solid fa-share-nodes"></i>
-
-                Share
-
-            </button>
-
-
-        </div>
-
-
-        <!-- FOOTER BOTTOM -->
-
-        <div class="footer-bottom">
-
-            <p>
-                Legal &amp; Privacy Policy |
-                Copyright © 2023 - All Rights Reserved
-            </p>
-
-            <p>
-                Superior College Chishtian
-            </p>
-
-        </div>
-
-
-    </div>
-
-</footer>
+{% include "superior/components/footer.html" %}
 
 
 <!-- BACK TO TOP -->
@@ -4811,69 +3950,51 @@ document
    SHARE BUTTON
 ===================================================== */
 
-document
-.getElementById("shareBtn")
-.addEventListener(
-    "click",
-    async ()=>{
 
-        const data={
+/* =====================================================
+   SHARE BUTTON
+===================================================== */
 
-            title:document.title,
+const shareBtn = document.getElementById("shareBtn");
 
-            text:"Superior College Chishtian",
+if (shareBtn) {
+    shareBtn.addEventListener("click", async () => {
 
-            url:window.location.href
-
+        const data = {
+            title: document.title,
+            text: "Superior College Chishtian",
+            url: window.location.href
         };
 
-
-        try{
-
-            if(navigator.share){
-
-                await navigator.share(
-                    data
-                );
-
+        try {
+            if (navigator.share) {
+                await navigator.share(data);
             }
 
-            else if(
-                navigator.clipboard
-            ){
-
-                await navigator
-                    .clipboard
-                    .writeText(
-                        window.location.href
-                    );
-
+            else if (navigator.clipboard) {
+                await navigator.clipboard.writeText(
+                    window.location.href
+                );
 
                 alert(
                     "Page link copied. You can now share it anywhere."
                 );
-
             }
 
-            else{
-
+            else {
                 prompt(
                     "Copy this page link:",
                     window.location.href
                 );
-
             }
-
         }
 
-        catch(err){
-
-            /* User cancelled share */
-
+        catch (err) {
+            // User cancelled sharing.
         }
 
-    }
-);
+    });
+}
 
 
 /* =====================================================
@@ -4899,7 +4020,6 @@ window.addEventListener(
 );
 
 </script>
-
 
 </body>
 </html>

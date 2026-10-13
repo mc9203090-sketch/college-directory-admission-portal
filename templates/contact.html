@@ -1,1145 +1,469 @@
+
+{% extends "superior/base.html" %}
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
+{% block title %}Contact Us | Superior College Chishtian{% endblock %}
 
-<head>
+{% block extra_css %}
+<style>
+    /* Contact page hero */
+    .page-hero {
+        background-image: url("{% static 'images/hero (5).png' %}");
+    }
 
-    <meta charset="UTF-8">
+    /* Main section */
+    .contact-page-section {
+        background: url("{% static 'images/hero (5).png' %}") center/cover no-repeat;
+        padding: 50px 20px;
+    }
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    .contact-page-container {
+        width: 85%;
+        max-width: 1200px;
+        margin: auto;
+        padding: 45px;
+        background: #fff;
+        border-radius: 0 0 0 60px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
 
-    <title>Superior College Chishtian Location</title>
+    .contact-page-title {
+        text-align: center;
+        color: #31A943;
+        font-size: 28px;
+        line-height: 1.4;
+        margin-bottom: 15px;
+    }
 
-    <style>
+    .contact-page-intro {
+        text-align: center;
+        color: #5D5D5D;
+        line-height: 1.7;
+        margin-bottom: 25px;
+    }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
+    /* Map */
+    .map-container {
+        width: 100%;
+        height: 450px;
+        margin: 20px 0;
+        overflow: hidden;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .map-container iframe {
+        width: 100%;
+        height: 100%;
+        border: 0;
+    }
+
+    .map-note {
+        margin-top: 12px;
+        text-align: center;
+        color: #555;
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    /* Contact form and details */
+    .contact-container {
+        display: flex;
+        align-items: flex-start;
+        gap: 35px;
+        margin-top: 45px;
+    }
+
+    .form-section,
+    .contact-details {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .contact-section-title {
+        color: #1a6260;
+        font-size: 22px;
+        margin-bottom: 20px;
+    }
+
+    .form-section label {
+        display: block;
+        color: #444;
+        font-size: 14px;
+        margin: 12px 0 6px;
+    }
+
+    .form-section input,
+    .form-section select,
+    .form-section textarea {
+        display: block;
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 12px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        outline: none;
+        font: inherit;
+        font-size: 14px;
+        background: #fff;
+    }
+
+    .form-section input:focus,
+    .form-section select:focus,
+    .form-section textarea:focus {
+        border-color: #31A943;
+        box-shadow: 0 0 0 2px rgba(49, 169, 67, 0.12);
+    }
+
+    .contact-form-row {
+        display: flex;
+        gap: 12px;
+    }
+
+    .contact-form-row > div {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .form-section textarea {
+        min-height: 130px;
+        resize: vertical;
+    }
+
+    .contact-submit {
+        background: #1a6260;
+        color: #fff;
+        border: 0;
+        border-radius: 5px;
+        padding: 12px 25px;
+        font-size: 15px;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    .contact-submit:hover {
+        background: #31A943;
+    }
+
+    .form-note {
+        color: #666;
+        font-size: 12px;
+        margin-top: 10px;
+        line-height: 1.5;
+    }
+
+    .contact-details {
+        background: #e6efe6;
+        padding: 28px;
+        border: 1px solid #d6e4d6;
+        border-radius: 10px;
+    }
+
+    .contact-details p {
+        margin-bottom: 18px;
+        line-height: 1.7;
+        color: #444;
+        overflow-wrap: anywhere;
+    }
+
+    .contact-details a {
+        color: #1a6260;
+        text-decoration: none;
+    }
+
+    .contact-details a:hover {
+        text-decoration: underline;
+    }
+
+    .contact-details .detail-label {
+        color: #2e8b57;
+        font-weight: bold;
+    }
+
+    /* Responsive layout */
+    @media (max-width: 900px) {
+        .contact-page-container {
+            width: 95%;
+            padding: 35px;
         }
-
-        body {
-            background: #f5f7f5;
-            color: #333;
-        }
-
-        /* ================= HEADER ================= */
-
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 5%;
-            background: #1a6260;
-            color: white;
-            min-height: 90px;
-        }
-
-        .logo-section {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .logo-container {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 3px solid white;
-            flex-shrink: 0;
-        }
-
-        .logo-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .college-text {
-            display: flex;
-            flex-direction: column;
-            color: white;
-            font-weight: bold;
-            line-height: 1.2;
-            font-size: 18px;
-        }
-
-         /* =========================
-           NAVBAR
-        ========================= */
-
-        .navbar {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .navbar > a,
-        .navbar .dropdown > a {
-            color: white;
-            text-decoration: none;
-            font-size: 15px;
-            font-weight: 500;
-        }
-
-        .navbar > a:hover,
-        .navbar .dropdown > a:hover {
-            color: #f5a623;
-        }
-
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
-        .dropdown > a {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            cursor: pointer;
-        }
-
-        .sub-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background: #0d3b3a;
-            list-style: none;
-            padding: 10px 0;
-            min-width: 230px;
-            border-radius: 5px;
-            z-index: 9999;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-        }
-
-        .sub-menu li {
-            margin: 0;
-        }
-
-        .sub-menu li a {
-            padding: 10px 15px;
-            color: white;
-            display: block;
-            font-size: 14px;
-            text-decoration: none;
-            white-space: normal;
-        }
-
-        .sub-menu li a:hover {
-            background: #1a6260;
-            color: #f5a623;
-        }
-
-        /* Desktop dropdown */
-        .dropdown:hover .sub-menu {
-            display: block;
-        }
-
-        /* =========================
-           MOBILE MENU BUTTON
-        ========================= */
-
-        .menu-toggle {
-            display: none;
-            font-size: 28px;
-            cursor: pointer;
-            color: white;
-            user-select: none;
-        }
-
-        /* ================= HERO ================= */
-
-        .hero-banner {
-            width: 100%;
-            height: 60vh;
-            min-height: 350px;
-            background: url("/static/images/hero (5).png")
-                        center center / cover no-repeat;
-        }
-
-        /* ================= MAIN SECTION ================= */
-
-        .principal-section {
-            background: url("/static/images/hero (5).png")
-                        center center / cover no-repeat;
-            padding: 50px 20px;
-        }
-
-        .principal-container {
-            width: 85%;
-            max-width: 1200px;
-            margin: auto;
-            background: #fff;
-            border-radius: 0 0 0 60px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            padding: 50px;
-        }
-
-        .principal-container h2 {
-            text-align: center;
-            color: #31A943;
-            font-size: 28px;
-            margin-bottom: 25px;
-        }
-
-        /* ================= MAP ================= */
-
-        .map-container {
-            width: 100%;
-            height: 450px;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            margin-top: 20px;
-        }
-
-        .map-container iframe {
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-
-        .note {
-            margin-top: 15px;
-            text-align: center;
-            color: #555;
-            font-size: 14px;
-        }
-
-        /* ================= CONTACT SECTION ================= */
 
         .contact-container {
-            display: flex;
-            gap: 40px;
-            margin-top: 50px;
-            flex-wrap: wrap;
+            gap: 25px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .contact-page-section {
+            padding: 30px 12px;
         }
 
-        .form-section {
-            flex: 1;
-            min-width: 300px;
-        }
-
-        .form-section input,
-        .form-section select,
-        .form-section textarea {
+        .contact-page-container {
             width: 100%;
-            padding: 12px;
-            margin: 8px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            outline: none;
-            font-size: 14px;
+            padding: 28px 20px;
+            border-radius: 0 0 0 30px;
         }
 
-        .form-section input:focus,
-        .form-section select:focus,
-        .form-section textarea:focus {
-            border-color: #31A943;
+        .contact-page-title {
+            font-size: 23px;
         }
 
-        .row {
-            display: flex;
-            gap: 10px;
+        .map-container {
+            height: 350px;
         }
 
-        .row > * {
-            flex: 1;
+        .contact-container {
+            flex-direction: column;
+            gap: 30px;
+            margin-top: 35px;
         }
 
-        textarea {
-            height: 120px;
-            resize: vertical;
+        .form-section,
+        .contact-details {
+            width: 100%;
         }
-
-        button {
-            background: #2e8b57;
-            color: white;
-            padding: 12px 25px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 15px;
-            transition: 0.3s;
-        }
-
-        button:hover {
-            background: #1f6f45;
-        }
-
-        #successMsg {
-            color: #31A943;
-            margin-top: 10px;
-            display: none;
-        }
-
-        /* ================= CONTACT DETAILS ================= */
 
         .contact-details {
-            flex: 1;
-            min-width: 300px;
-            background: #e6efe6;
-            padding: 25px;
-            border: 1px solid #d6e4d6;
-            border-radius: 10px;
-            height: fit-content;
+            padding: 22px;
         }
 
-        .contact-details h2 {
-            color: #2e8b57;
-            margin-bottom: 15px;
-            text-align: center;
+        .contact-submit {
+            width: 100%;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .contact-page-section {
+            padding: 20px 8px;
         }
 
-        .contact-details p {
-            margin-bottom: 18px;
-            line-height: 1.6;
+        .contact-page-container {
+            padding: 24px 14px;
         }
 
-        .contact-details a {
-            color: #31A943;
-            text-decoration: none;
-            word-break: break-word;
+        .contact-page-title {
+            font-size: 20px;
         }
 
-        .contact-details a:hover {
-            text-decoration: underline;
+        .map-container {
+            height: 280px;
         }
 
-        /* ================= FOOTER ================= */
-
-        .custom-footer {
-            position: relative;
-            background: url("/static/images/footer hero.png")
-                        center center / cover no-repeat;
-            color: #7BA388;
-            font-family: Arial, sans-serif;
+        .contact-form-row {
+            display: block;
         }
 
-        .footer-overlay {
-            background: rgba(0, 0, 0, 0.75);
-            padding: 60px 8%;
+        .contact-details {
+            padding: 18px;
         }
 
-        .footer-container {
-            display: flex;
-            justify-content: space-between;
-            gap: 50px;
-            flex-wrap: wrap;
+        .contact-section-title {
+            font-size: 20px;
         }
-
-        .footer-left {
-            min-width: 180px;
-        }
-
-        .footer-left ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .footer-left ul li {
-            margin-bottom: 14px;
-        }
-
-        .footer-left ul li a {
-            color: #7BA388;
-            text-decoration: none;
-            font-size: 14px;
-            letter-spacing: 1px;
-            transition: 0.3s;
-        }
-
-        .footer-left ul li a:hover {
-            color: #ffffff;
-        }
-
-        .footer-right {
-            max-width: 700px;
-        }
-
-        .footer-right h3 {
-            margin-bottom: 20px;
-            font-size: 18px;
-            letter-spacing: 2px;
-        }
-
-        .footer-right p {
-            margin-bottom: 10px;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-
-        .footer-right a {
-            color: #7BA388;
-            text-decoration: none;
-            word-break: break-word;
-        }
-
-        .footer-bottom {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #7BA388;
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            font-size: 14px;
-        }
-
-        .footer-bottom p {
-            color: #d0d0d0;
-        }
-
-        /* ================= BACK TO TOP ================= */
-
-        #back-to-top {
-            display: none;
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #31A943;
-            color: white;
-            text-decoration: none;
-            padding: 10px 15px;
-            border-radius: 5px;
-            z-index: 999;
-        }
-
-        /* ================= TABLET ================= */
-
-        @media (max-width: 1000px) {
-
-            header {
-                padding: 10px 4%;
-            }
-
-            .navbar {
-                gap: 12px;
-            }
-
-            .navbar a {
-                font-size: 12px;
-            }
-
-            .principal-container {
-                width: 92%;
-                padding: 40px;
-            }
-
-            .contact-container {
-                gap: 25px;
-            }
-
-        }
-
-        /* ================= MOBILE ================= */
-
-        @media (max-width: 768px) {
-
-            header {
-                flex-direction: column;
-                gap: 15px;
-                padding: 15px 20px;
-                text-align: center;
-            }
-
-            .logo-section {
-                justify-content: center;
-            }
-
-            .logo-container {
-                width: 60px;
-                height: 60px;
-            }
-
-            .college-text {
-                font-size: 16px;
-            }
-
-            .menu-toggle {
-                display: block;
-                background: transparent;
-                color: white;
-                border: 0;
-                padding: 5px 10px;
-                font-size: 30px;
-                line-height: 1;
-                cursor: pointer;
-            }
-
-            .navbar {
-                display: none;
-                width: 100%;
-                flex-direction: column;
-                align-items: stretch;
-                gap: 0;
-                background: #0d3b3a;
-                border-radius: 8px;
-                padding: 8px 0;
-            }
-
-            .navbar.active {
-                display: flex;
-            }
-
-            .navbar > a,
-            .navbar .dropdown > a {
-                width: 100%;
-                justify-content: space-between;
-                padding: 12px 18px;
-                font-size: 14px;
-            }
-
-            .dropdown {
-                width: 100%;
-            }
-
-            .sub-menu {
-                position: static;
-                display: none;
-                width: 100%;
-                min-width: 0;
-                border-radius: 0;
-                box-shadow: none;
-                padding: 0;
-                background: #082d2c;
-            }
-
-            .dropdown.active .sub-menu {
-                display: block;
-            }
-
-            .sub-menu li a {
-                padding: 11px 30px;
-                font-size: 13px;
-            }
-
-            .hero-banner {
-                height: 35vh;
-                min-height: 220px;
-            }
-
-            .principal-section {
-                padding: 30px 15px;
-            }
-
-            .principal-container {
-                width: 100%;
-                padding: 30px 20px;
-                border-radius: 0 0 0 30px;
-            }
-
-            .principal-container h2 {
-                font-size: 23px;
-                line-height: 1.4;
-            }
-
-            .map-container {
-                height: 350px;
-            }
-
-            .contact-container {
-                flex-direction: column;
-                gap: 30px;
-                margin-top: 35px;
-            }
-
-            .form-section,
-            .contact-details {
-                width: 100%;
-                min-width: 0;
-            }
-
-            .row {
-                flex-direction: column;
-                gap: 0;
-            }
-
-            .footer-overlay {
-                padding: 45px 25px;
-            }
-
-            .footer-container {
-                flex-direction: column;
-                gap: 35px;
-            }
-
-            .footer-right {
-                max-width: 100%;
-            }
-
-            .footer-bottom {
-                margin-top: 30px;
-                text-align: center;
-                justify-content: center;
-            }
-
-            #back-to-top {
-                display: block;
-            }
-
-        }
-
-        /* ================= SMALL MOBILE ================= */
-
-        @media (max-width: 480px) {
-
-            .logo-container {
-                width: 55px;
-                height: 55px;
-            }
-
-            .college-text {
-                font-size: 15px;
-            }
-
-            .navbar {
-                gap: 10px 14px;
-            }
-
-            .navbar a {
-                font-size: 12px;
-            }
-
-            .hero-banner {
-                height: 28vh;
-                min-height: 180px;
-            }
-
-            .principal-section {
-                padding: 20px 10px;
-            }
-
-            .principal-container {
-                padding: 25px 15px;
-                border-radius: 0 0 0 20px;
-            }
-
-            .principal-container h2 {
-                font-size: 20px;
-            }
-
-            .map-container {
-                height: 280px;
-            }
-
-            .note {
-                font-size: 13px;
-            }
-
-            .form-section input,
-            .form-section select,
-            .form-section textarea {
-                font-size: 13px;
-                padding: 10px;
-            }
-
-            button {
-                width: 100%;
-            }
-
-            .contact-details {
-                padding: 20px;
-            }
-
-            .footer-overlay {
-                padding: 40px 20px;
-            }
-
-            .footer-left ul li a,
-            .footer-right p,
-            .footer-bottom {
-                font-size: 12px;
-            }
-
-        }
-
-    </style>
-
-</head>
-
-
-<body id="top">
-
-
-    <!-- ================= HEADER ================= -->
-
-    <header>
-
-        <div class="logo-section">
-
-            <div class="logo-container">
-
-                <img src="{% static 'images/sup logo.png' %}"
-                     alt="Superior College Chishtian Logo">
-
-            </div>
-
-            <div class="college-text">
-
-                <span>Superior</span>
-                <span>College</span>
-                <span>Chishtian</span>
-
-            </div>
-
+    }
+</style>
+{% endblock %}
+
+{% block hero %}
+<section class="page-hero">
+    <div class="hero-overlay">
+        <h1>CONTACT US | SUPERIOR COLLEGE CTN</h1>
+
+        <div class="breadcrumb">
+            <a href="{% url 'index' %}">Home</a>
+            &nbsp; | &nbsp;
+            <a href="{% url 'contact' %}">Contact Us</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block content %}
+<section class="contact-page-section">
+    <div class="contact-page-container">
+
+        <h2 class="contact-page-title">
+            Location of Superior College Chishtian
+        </h2>
+
+        <p class="contact-page-intro">
+            Find our college on the map or use the contact details below
+            to get in touch with Superior College Chishtian.
+        </p>
+
+        <!-- College location map -->
+        <div class="map-container">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m12!1m8!1m3!1d110798.50356821335!2d72.8873028!3d29.7934477!3m2!1i1024!2i768!4f13.1!2m1!1ssuperior%20college%20chishtian%20location!5e0!3m2!1sen!2s!4v1773016835924!5m2!1sen!2s"
+                title="Map showing Superior College Chishtian"
+                loading="lazy"
+                allowfullscreen>
+            </iframe>
         </div>
 
-
-        <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">☰</button>
-
-        <nav class="navbar" id="navbar">
-
-        <a href="{% url 'index' %}">Home</a>
-
-        <!-- ABOUT US -->
-        <div class="dropdown">
-
-            <a href="#">
-                ABOUT US
-                <span>▾</span>
-            </a>
-
-            <ul class="sub-menu">
-
-                <li>
-                    <a href="{% url 'aboutsup' %}">
-                        Welcome Message From the Principal
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{% url 'historysup' %}">
-                        About Superior
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{% url 'missionsup' %}">
-                        Mission Vision and Values
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{% url 'results' %}">
-                        Results
-                    </a>
-                </li>
-
-            </ul>
-
-        </div>
-
-        <!-- ADMISSIONS -->
-        <div class="dropdown">
-
-            <a href="#">
-                ADMISSIONS
-                <span>▾</span>
-            </a>
-
-            <ul class="sub-menu">
-
-                <li>
-                    <a href="{% url 'addmission' %}">
-                        Admissions
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{% url 'fee' %}">
-                        Fees Structure
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{% url 'apply' %}">
-                        Apply
-                    </a>
-                </li>
-
-            </ul>
-
-        </div>
-
-        <!-- FACILITIES -->
-        <div class="dropdown">
-
-            <a href="#">
-                FACILITIES
-                <span>▾</span>
-            </a>
-
-            <ul class="sub-menu">
-
-                <li>
-                    <a href="{% url 'class' %}">
-                        Living Classrooms
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{% url 'spaces' %}">
-                        Unique College Learning Spaces
-                    </a>
-                </li>
-
-            </ul>
-
-        </div>
-
-        <!-- LEARNING AT SUPERIOR -->
-        <div class="dropdown">
-
-            <a href="#">
-                LEARNING AT SUPERIOR
-                <span>▾</span>
-            </a>
-
-            <ul class="sub-menu">
-
-                <li>
-                    <a href="{% url 'spaces' %}">
-                        LEARNING AT SUPERIOR
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{% url 'affiliate' %}">
-                        AFFILIATE
-                    </a>
-                </li>
-
-            </ul>
-
-        </div>
-
-        <a href="{% url 'contact' %}">
-            CONTACT US
-        </a>
-
-    </nav>
-
-    </header>
-
-
-    <!-- ================= HERO ================= -->
-
-    <section class="hero-banner">
-    </section>
-
-
-    <!-- ================= MAIN SECTION ================= -->
-
-    <section class="principal-section">
-
-        <div class="principal-container">
-
-            <h2>
-                Location of Superior College Chishtian
-            </h2>
-
-
-            <!-- ================= MAP ================= -->
-
-            <div class="map-container">
-
-                <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m12!1m8!1m3!1d110798.50356821335!2d72.8873028!3d29.7934477!3m2!1i1024!2i768!4f13.1!2m1!1ssuperior%20college%20chishtian%20location!5e0!3m2!1sen!2s!4v1773016835924!5m2!1sen!2s"
-                    allowfullscreen=""
-                    loading="lazy">
-                </iframe>
-
-            </div>
-
-
-            <div class="note">
-
-                Click the arrows or icons on the map to open
-                Superior College Chishtian in Google Maps.
-
-            </div>
-
-
-            <!-- ================= CONTACT SECTION ================= -->
-
-            <div class="contact-container">
-
-
-                <!-- CONTACT FORM -->
-
-                <div class="form-section">
-
-                    <select>
-
-                        <option>
-                            * Who do you wish to contact?
-                        </option>
-
-                        <option>Principal</option>
-                        <option>Admin</option>
-                        <option>Admissions</option>
-
+        <p class="map-note">
+            Use the map controls to explore the college location.
+        </p>
+
+        <div class="contact-container">
+
+            <!-- Contact form -->
+            <div class="form-section">
+                <h3 class="contact-section-title">Send Us a Message</h3>
+
+                <form id="contactForm">
+                    <label for="contactPerson">Who do you wish to contact?</label>
+                    <select id="contactPerson" name="contact_person" required>
+                        <option value="">Select a department</option>
+                        <option value="Principal">Principal</option>
+                        <option value="Admin">Admin</option>
+                        <option value="Admissions">Admissions</option>
                     </select>
 
+                    <label for="title">Title</label>
+                    <select id="title" name="title" required>
+                        <option value="">Select title</option>
+                        <option value="Sir">Sir</option>
+                        <option value="Ms">Ms</option>
+                        <option value="Madam">Madam</option>
+                    </select>
 
-                    <div class="row">
+                    <div class="contact-form-row">
+                        <div>
+                            <label for="firstName">First name</label>
+                            <input
+                                type="text"
+                                id="firstName"
+                                name="first_name"
+                                placeholder="First name"
+                                autocomplete="given-name"
+                                required>
+                        </div>
 
-                        <select>
-
-                            <option>* Title</option>
-                            <option>Sir</option>
-                            <option>Ms</option>
-                            <option>Mam</option>
-
-                        </select>
-
-
-                        <input
-                            type="text"
-                            placeholder="* First Name(s)">
-
+                        <div>
+                            <label for="surname">Surname</label>
+                            <input
+                                type="text"
+                                id="surname"
+                                name="surname"
+                                placeholder="Surname"
+                                autocomplete="family-name"
+                                required>
+                        </div>
                     </div>
 
+                    <div class="contact-form-row">
+                        <div>
+                            <label for="phone">Contact number</label>
+                            <input
+                                type="tel"
+                                id="phone"
+                                name="phone"
+                                placeholder="Contact number"
+                                autocomplete="tel"
+                                required>
+                        </div>
 
-                    <div class="row">
-
-                        <input
-                            type="text"
-                            placeholder="* Surname">
-
-
-                        <input
-                            type="text"
-                            placeholder="* Contact Number">
-
+                        <div>
+                            <label for="email">Email address</label>
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="Email address"
+                                autocomplete="email"
+                                required>
+                        </div>
                     </div>
 
+                    <label for="subject">Subject</label>
+                    <input
+                        type="text"
+                        id="subject"
+                        name="subject"
+                        placeholder="Message subject"
+                        required>
 
-                    <div class="row">
-
-                        <input
-                            type="email"
-                            placeholder="* Email">
-
-
-                        <input
-                            type="text"
-                            placeholder="* Subject">
-
-                    </div>
-
-
+                    <label for="message">Message</label>
                     <textarea
-                        placeholder="* Message"></textarea>
+                        id="message"
+                        name="message"
+                        placeholder="Write your message here"
+                        required></textarea>
 
-
-                    <button onclick="showMessage()">
+                    <button type="submit" class="contact-submit">
                         Send Message
                     </button>
 
-
-                    <p id="successMsg">
-
-                        Message Sent Successfully ✅
-
+                    <p class="form-note">
+                        This form currently demonstrates the front-end interface.
+                        It will not deliver messages until connected to a Django
+                        form handler or email service.
                     </p>
 
-                </div>
-
-
-                <!-- CONTACT DETAILS -->
-
-                <div class="contact-details">
-
-                    <h2>
-                        Contact Details
-                    </h2>
-
-
-                    <p>
-                        <strong>Principal:</strong>
-                        Sir Faisal
+                    <p id="successMsg" role="status" hidden>
+                        Your form has been checked, but no message has been sent.
+                        Please contact the college using the details beside this form.
                     </p>
-
-
-                    <p>
-                        <strong>College Email:</strong>
-
-                        <a href="mailto:superiorctn@gmail.com">
-
-                            superiorctn@gmail.com
-
-                        </a>
-
-                    </p>
-
-
-                    <p>
-                        <strong>Main Office Telephone:</strong>
-                        +92 300 6989030
-                    </p>
-
-                </div>
-
+                </form>
             </div>
 
-        </div>
-
-    </section>
-
-
-    <!-- ================= FOOTER ================= -->
-
-    <footer class="custom-footer">
-
-        <div class="footer-overlay">
-
-            <div class="footer-container">
-
-
-                <!-- LEFT MENU -->
-
-                <div class="footer-left">
-
-                    <ul>
-
-                        <li>
-                            <a href="{% url 'superior' %}">
-                                HOME
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="{% url 'historysup' %}">
-                                ABOUT US
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="{% url 'addmission' %}">
-                                ADMISSIONS
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="{% url 'results' %}">
-                                LEARNING AT SUPERIOR
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="{% url 'contact' %}">
-                                CONTACT US
-                            </a>
-                        </li>
-
-                    </ul>
-
-                </div>
-
-
-                <!-- RIGHT CONTACT INFO -->
-
-                <div class="footer-right">
-
-                    <h3>
-                        GET IN TOUCH
-                    </h3>
-
-
-                    <p>
-                        THE Superior College, Chishtian,
-                    </p>
-
-
-                    <p>
-                        MAIN OFFICE TELEPHONE:
-                        +92 300 6989030 or +92 308 6985000.
-                    </p>
-
-
-                    <p>
-
-                        EMAIL:
-
-                        <a href="mailto:superiorctn@gmail.com">
-
-                            superiorctn@gmail.com
-
-                        </a>
-
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <!-- BOTTOM BAR -->
-
-            <div class="footer-bottom">
+            <!-- Contact information -->
+            <div class="contact-details">
+                <h3 class="contact-section-title">Contact Details</h3>
 
                 <p>
-                    Legal &amp; Privacy Policy |
-                    Copyright © 2023 - All Rights Reserved
+                    <span class="detail-label">Address:</span><br>
+                    Zain City, Chishtian
                 </p>
 
-            </div>
+                <p>
+                    <span class="detail-label">Developer</span><br>
+                    Maryam Afzaal
+                </p>
 
+                <p>
+                    <span class="detail-label">Email:</span><br>
+                    <a href="mailto:mc9203090@gmail.com">
+                        mc9203090@gmail.com
+                    </a>
+                </p>
 
-            <!-- BACK TO TOP -->
+                <p>
+                    <span class="detail-label">Main Office Telephone:</span><br>
+                    <a href="tel:+923006989030">+92 332 4031050</a>
+                </p>
 
-            <div class="arrow-box">
-
-                <a href="#top" id="back-to-top">
-
-                    Back to Top ↑
-
-                </a>
-
+                <p>
+                    <span class="detail-label">Additional Telephone:</span><br>
+                    <a href="tel:+923086985000">+92 302 6980189</a>
+                </p>
             </div>
 
         </div>
+    </div>
+</section>
+{% endblock %}
 
-    </footer>
+{% block extra_js %}
+<script>
+    /*
+      Front-end demonstration only.
+      This does not send an email or save the form to the database.
+    */
+    const contactForm = document.getElementById("contactForm");
+    const successMsg = document.getElementById("successMsg");
 
+    if (contactForm && successMsg) {
+        contactForm.addEventListener("submit", function (event) {
+            event.preventDefault();
 
-    <script>
+            if (!contactForm.checkValidity()) {
+                contactForm.reportValidity();
+                return;
+            }
 
-        function showMessage() {
-            document.getElementById("successMsg").style.display = "block";
-        }
-
-        const menuToggle = document.getElementById("menuToggle");
-        const navbar = document.getElementById("navbar");
-
-        menuToggle.addEventListener("click", function () {
-            navbar.classList.toggle("active");
-
-            const isOpen = navbar.classList.contains("active");
-            menuToggle.setAttribute("aria-expanded", isOpen);
-            menuToggle.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
-            menuToggle.textContent = isOpen ? "✕" : "☰";
+            successMsg.hidden = false;
         });
-
-        document.querySelectorAll(".dropdown > a").forEach(function (dropdownLink) {
-            dropdownLink.addEventListener("click", function (event) {
-                if (window.innerWidth <= 768) {
-                    event.preventDefault();
-                    this.parentElement.classList.toggle("active");
-                }
-            });
-        });
-
-    </script>
-
-
-</body>
-
-</html>
-
+    }
+</script>
+{% endblock %}

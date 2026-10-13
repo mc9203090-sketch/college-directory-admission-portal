@@ -1,0 +1,1613 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Welcome Message From The Principal</title>
+
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    overflow-x:hidden;
+    background:#fff;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+header{
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:12px 40px;
+    background:#1a6260;
+    color:#fff;
+    position:relative;
+    z-index:1000;
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.logo-section{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.logo-container{
+    width:70px;
+    height:70px;
+    border-radius:50%;
+    overflow:hidden;
+    border:3px solid #fff;
+    flex-shrink:0;
+}
+
+.logo-container img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.college-text{
+    display:flex;
+    flex-direction:column;
+    color:#fff;
+    font-size:18px;
+    font-weight:bold;
+    line-height:1.3;
+}
+
+
+/* =========================================================
+   MENU TOGGLE
+========================================================= */
+
+.menu-toggle{
+    display:none;
+    background:transparent;
+    border:none;
+    color:#fff;
+    font-size:28px;
+    cursor:pointer;
+    z-index:1002;
+}
+
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+.navbar{
+    display:flex;
+    align-items:center;
+    gap:22px;
+}
+
+.navbar>a{
+    color:#fff;
+    text-decoration:none;
+    font-size:15px;
+    font-weight:500;
+    transition:.3s;
+}
+
+.navbar>a:hover{
+    color:#f5a623;
+}
+
+
+/* =========================================================
+   DROPDOWN
+========================================================= */
+
+.dropdown{
+    position:relative;
+}
+
+.dropdown>a{
+    display:flex;
+    align-items:center;
+    gap:5px;
+    color:#fff;
+    text-decoration:none;
+    font-size:15px;
+    transition:.3s;
+}
+
+.dropdown>a:hover{
+    color:#f5a623;
+}
+
+.sub-menu{
+    list-style:none;
+    position:absolute;
+    left:0;
+    top:100%;
+    min-width:230px;
+    background:#0d3b3a;
+    display:none;
+    border-radius:6px;
+    overflow:hidden;
+    box-shadow:0 8px 20px rgba(0,0,0,.25);
+}
+
+.sub-menu li{
+    width:100%;
+}
+
+.sub-menu li a{
+    display:block;
+    padding:12px 16px;
+    color:#fff;
+    text-decoration:none;
+    font-size:14px;
+    transition:.3s;
+}
+
+.sub-menu li a:hover{
+    background:#1a6260;
+    color:#f5a623;
+}
+
+
+/* Desktop hover dropdown */
+
+@media (min-width:769px){
+
+    .dropdown:hover .sub-menu{
+        display:block;
+    }
+
+}
+
+
+/* =========================================================
+   HERO SECTION
+========================================================= */
+
+.hero-banner{
+    width:100%;
+    min-height:60vh;
+    background:url("/static/images/hero (5).png") center center/cover no-repeat;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    position:relative;
+}
+
+.hero-banner::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,.45);
+}
+
+.hero-overlay{
+    position:relative;
+    z-index:2;
+    text-align:center;
+    color:#fff;
+    width:90%;
+}
+
+.hero-overlay h1{
+    font-size:34px;
+    letter-spacing:2px;
+    margin-bottom:18px;
+}
+
+.hero-overlay p{
+    font-size:15px;
+}
+
+.breadcrumb{
+    font-size:14px;
+    line-height:1.8;
+}
+
+.breadcrumb a{
+    color:#fff;
+    text-decoration:none;
+    position:relative;
+}
+
+.breadcrumb a::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:-4px;
+    width:0;
+    height:2px;
+    background:#fff;
+    transition:.3s;
+}
+
+.breadcrumb a:hover::after{
+    width:100%;
+}
+
+.breadcrumb span{
+    color:#fff;
+}
+
+
+/* =========================================================
+   PRINCIPAL SECTION
+========================================================= */
+
+.principal-section{
+    background:url("/static/images/hero (5).png") center center/cover no-repeat;
+    padding:40px 20px 60px;
+}
+
+.principal-container{
+    width:85%;
+    margin:auto;
+    background:#fff;
+    display:flex;
+    border-radius:0 0 0 60px;
+    overflow:hidden;
+    box-shadow:0 10px 30px rgba(0,0,0,.20);
+}
+
+
+/* =========================================================
+   LEFT SIDEBAR
+========================================================= */
+
+.left-side{
+    width:30%;
+    background:#f3f3f3;
+    padding:40px;
+}
+
+.left-side h3{
+    color:#31A943;
+    letter-spacing:4px;
+    margin-bottom:15px;
+}
+
+.left-side p{
+    color:#5D5D5D;
+    font-size:15px;
+    margin-bottom:15px;
+}
+
+.left-side hr{
+    border:1px solid #F5E547;
+    margin-bottom:20px;
+}
+
+.sidebar-link{
+    display:block;
+    margin:12px 0;
+    color:#5D5D5D;
+    text-decoration:none;
+    border-bottom:2px solid transparent;
+    transition:.3s;
+    padding-bottom:4px;
+}
+
+.sidebar-link:hover{
+    color:#31A943;
+    border-color:#F5E547;
+}
+
+.sidebar-link.active{
+    color:#31A943;
+    border-color:#F5E547;
+}
+
+
+/* =========================================================
+   RIGHT SIDE
+========================================================= */
+
+.right-side{
+    width:70%;
+    padding:50px;
+}
+
+.principal-heading{
+    text-align:center;
+    color:#31A943;
+    margin-bottom:40px;
+    font-size:30px;
+}
+
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.principal-content{
+    display:flex;
+    gap:40px;
+    align-items:flex-start;
+}
+
+
+/* =========================================================
+   IMAGE
+========================================================= */
+
+.principal-image{
+    flex:0 0 250px;
+}
+
+.principal-image img{
+    width:100%;
+    height:auto;
+    display:block;
+    border-radius:10px;
+}
+
+
+/* =========================================================
+   TEXT
+========================================================= */
+
+.principal-text{
+    flex:1;
+}
+
+.principal-text h3{
+    color:#5D5D5D;
+    margin-bottom:15px;
+    font-size:20px;
+}
+
+.principal-text p{
+    color:#5D5D5D;
+    font-size:16px;
+    line-height:1.9;
+    text-align:justify;
+}
+
+.principal-text big{
+    font-size:22px;
+}
+
+.principal-text small{
+    font-size:14px;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.custom-footer{
+    position:relative;
+    background:url("/static/images/hero (5).png") center center/cover no-repeat;
+    color:#7BA388;
+}
+
+.footer-overlay{
+    background:rgba(0,0,0,.75);
+    padding:60px 80px;
+}
+
+.footer-container{
+    display:flex;
+    justify-content:space-between;
+    gap:60px;
+    flex-wrap:wrap;
+}
+
+.footer-left{
+    flex:1;
+    min-width:220px;
+}
+
+.footer-left ul{
+    list-style:none;
+}
+
+.footer-left li{
+    margin-bottom:14px;
+}
+
+.footer-left a{
+    color:#7BA388;
+    text-decoration:none;
+    font-size:14px;
+    letter-spacing:1px;
+    transition:.3s;
+}
+
+.footer-left a:hover{
+    color:#ffffff;
+}
+
+.footer-right{
+    flex:2;
+    min-width:280px;
+}
+
+.footer-right h3{
+    color:#ffffff;
+    margin-bottom:20px;
+    letter-spacing:2px;
+    font-size:20px;
+}
+
+.footer-right p{
+    color:#7BA388;
+    margin-bottom:12px;
+    line-height:1.8;
+}
+
+.footer-right a{
+    color:#7BA388;
+    text-decoration:none;
+}
+
+.footer-right a:hover{
+    color:#ffffff;
+}
+
+.footer-bottom{
+    margin-top:40px;
+    padding-top:20px;
+    border-top:1px solid rgba(255,255,255,.2);
+    text-align:center;
+}
+
+.footer-bottom p{
+    color:#7BA388;
+    font-size:14px;
+}
+
+
+/* =========================================================
+   BACK TO TOP
+========================================================= */
+
+#back-to-top{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    display:none;
+    background:#31A943;
+    color:#fff;
+    padding:12px 18px;
+    border-radius:8px;
+    text-decoration:none;
+    font-size:14px;
+    z-index:999;
+    transition:.3s;
+}
+
+#back-to-top:hover{
+    background:#1a6260;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width:1200px){
+
+    header{
+        padding:15px 25px;
+    }
+
+    .navbar{
+        gap:15px;
+    }
+
+    .principal-container{
+        width:95%;
+    }
+
+    .right-side{
+        padding:40px;
+    }
+
+    .hero-overlay h1{
+        font-size:30px;
+    }
+
+}
+
+
+/* =========================================================
+   TABLET / SMALL LAPTOP
+========================================================= */
+
+@media (max-width:992px){
+
+    header{
+        padding:15px 25px;
+    }
+
+    .navbar{
+        gap:12px;
+    }
+
+    .navbar>a,
+    .dropdown>a{
+        font-size:13px;
+    }
+
+    .hero-banner{
+        min-height:45vh;
+    }
+
+    .hero-overlay h1{
+        font-size:26px;
+    }
+
+    .principal-container{
+        width:95%;
+    }
+
+    .left-side{
+        width:32%;
+        padding:30px;
+    }
+
+    .right-side{
+        width:68%;
+        padding:35px;
+    }
+
+    .principal-content{
+        gap:25px;
+    }
+
+    .principal-image{
+        flex:0 0 210px;
+    }
+
+    .footer-overlay{
+        padding:45px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width:768px){
+
+    /* HEADER */
+
+    header{
+        min-height:70px;
+        padding:12px 18px;
+        display:flex;
+        flex-direction:row;
+        justify-content:center;
+        align-items:center;
+        position:relative;
+    }
+
+    .logo-section{
+        justify-content:center;
+        align-items:center;
+    }
+
+    .logo-container{
+        width:60px;
+        height:60px;
+    }
+
+    .college-text{
+        font-size:16px;
+    }
+
+
+    /* HAMBURGER */
+
+    .menu-toggle{
+        display:block;
+        position:absolute;
+        right:18px;
+        top:50%;
+        transform:translateY(-50%);
+    }
+
+
+    /* NAVBAR */
+
+    .navbar{
+        display:none;
+        position:absolute;
+        top:100%;
+        left:0;
+        width:100%;
+        background:#0d3b3a;
+        padding:15px 20px 20px;
+        flex-direction:column;
+        align-items:stretch;
+        gap:0;
+        box-shadow:0 8px 15px rgba(0,0,0,.25);
+    }
+
+    .navbar.active{
+        display:flex;
+    }
+
+    .navbar>a{
+        width:100%;
+        text-align:center;
+        padding:13px 5px;
+        font-size:15px;
+        border-bottom:1px solid rgba(255,255,255,.12);
+    }
+
+
+    /* DROPDOWNS */
+
+    .dropdown{
+        width:100%;
+        text-align:center;
+    }
+
+    .dropdown>a{
+        justify-content:center;
+        width:100%;
+        padding:13px 5px;
+        font-size:15px;
+        cursor:pointer;
+        border-bottom:1px solid rgba(255,255,255,.12);
+    }
+
+    .sub-menu{
+        position:static;
+        width:100%;
+        min-width:0;
+        box-shadow:none;
+        border-radius:0;
+        background:#082f2e;
+    }
+
+    .sub-menu li a{
+        text-align:center;
+        padding:12px 10px;
+        font-size:14px;
+    }
+
+
+    /* HERO */
+
+    .hero-banner{
+        min-height:35vh;
+    }
+
+    .hero-overlay{
+        width:95%;
+        padding:20px 10px;
+    }
+
+    .hero-overlay h1{
+        font-size:22px;
+        line-height:1.4;
+        letter-spacing:1px;
+        margin-bottom:15px;
+    }
+
+    .breadcrumb{
+        font-size:13px;
+        line-height:2;
+    }
+
+
+    /* PRINCIPAL */
+
+    .principal-section{
+        padding:20px 10px 40px;
+    }
+
+    .principal-container{
+        width:100%;
+        flex-direction:column;
+        border-radius:0 0 0 30px;
+    }
+
+    .left-side{
+        width:100%;
+        padding:25px;
+    }
+
+    .right-side{
+        width:100%;
+        padding:25px 20px 35px;
+    }
+
+    .principal-heading{
+        font-size:24px;
+        line-height:1.4;
+        margin-bottom:30px;
+    }
+
+    .principal-content{
+        flex-direction:column;
+        align-items:center;
+        gap:25px;
+    }
+
+    .principal-image{
+        width:200px;
+        flex:0 0 auto;
+    }
+
+    .principal-text{
+        width:100%;
+    }
+
+    .principal-text h3{
+        text-align:center;
+        font-size:19px;
+    }
+
+    .principal-text p{
+        font-size:15px;
+        line-height:1.8;
+        text-align:justify;
+    }
+
+    .principal-text big{
+        font-size:20px;
+    }
+
+
+    /* FOOTER */
+
+    .footer-overlay{
+        padding:35px 20px;
+    }
+
+    .footer-container{
+        flex-direction:column;
+        gap:35px;
+    }
+
+    .footer-left,
+    .footer-right{
+        width:100%;
+        min-width:0;
+    }
+
+    .footer-left{
+        text-align:center;
+    }
+
+    .footer-left li{
+        margin-bottom:12px;
+    }
+
+    .footer-right{
+        text-align:center;
+    }
+
+    .footer-right h3{
+        font-size:18px;
+    }
+
+    .footer-right p{
+        font-size:14px;
+    }
+
+    .footer-bottom{
+        margin-top:30px;
+    }
+
+    .footer-bottom p{
+        font-size:13px;
+        line-height:1.7;
+    }
+
+    #back-to-top{
+        right:15px;
+        bottom:15px;
+        padding:10px 14px;
+        font-size:13px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width:480px){
+
+    header{
+        min-height:65px;
+        padding:10px 15px;
+    }
+
+    .logo-container{
+        width:55px;
+        height:55px;
+    }
+
+    .college-text{
+        font-size:14px;
+    }
+
+    .menu-toggle{
+        right:15px;
+        font-size:25px;
+    }
+
+    .navbar{
+        padding:10px 15px 15px;
+    }
+
+    .navbar>a{
+        font-size:14px;
+        padding:11px 5px;
+    }
+
+    .dropdown>a{
+        font-size:14px;
+        padding:11px 5px;
+    }
+
+    .sub-menu li a{
+        font-size:13px;
+        padding:11px 8px;
+    }
+
+    .hero-banner{
+        min-height:30vh;
+    }
+
+    .hero-overlay h1{
+        font-size:18px;
+        line-height:1.5;
+    }
+
+    .breadcrumb{
+        font-size:12px;
+    }
+
+    .principal-section{
+        padding:15px 8px 30px;
+    }
+
+    .principal-container{
+        border-radius:0 0 0 20px;
+    }
+
+    .left-side{
+        padding:20px;
+    }
+
+    .left-side h3{
+        font-size:18px;
+        letter-spacing:3px;
+    }
+
+    .left-side p{
+        font-size:14px;
+    }
+
+    .sidebar-link{
+        font-size:14px;
+        line-height:1.5;
+    }
+
+    .right-side{
+        padding:25px 15px 30px;
+    }
+
+    .principal-heading{
+        font-size:20px;
+    }
+
+    .principal-image{
+        width:170px;
+    }
+
+    .principal-text h3{
+        font-size:18px;
+    }
+
+    .principal-text p{
+        font-size:14px;
+        line-height:1.8;
+    }
+
+    .principal-text big{
+        font-size:19px;
+    }
+
+    .footer-overlay{
+        padding:25px 15px;
+    }
+
+    .footer-left a,
+    .footer-right p,
+    .footer-bottom p{
+        font-size:13px;
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL DEVICES
+========================================================= */
+
+@media (max-width:360px){
+
+    .college-text{
+        font-size:13px;
+    }
+
+    .logo-container{
+        width:50px;
+        height:50px;
+    }
+
+    .hero-overlay h1{
+        font-size:17px;
+    }
+
+    .principal-heading{
+        font-size:19px;
+    }
+
+    .principal-image{
+        width:150px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header>
+
+    <!-- LEFT LOGO -->
+
+    <div class="logo-section">
+
+        <div class="logo-container">
+            <img src="{% static 'images/sup logo.png' %}" alt="Superior College Logo">
+        </div>
+
+        <div class="college-text">
+            <span>Superior</span>
+            <span>College</span>
+            <span>Chishtian</span>
+        </div>
+
+    </div>
+
+
+    <!-- MOBILE MENU BUTTON -->
+
+    <button class="menu-toggle" id="menu-toggle" aria-label="Open Menu">
+        <i class="fas fa-bars"></i>
+    </button>
+
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar" id="navbar">
+
+        <a href="{% url 'index' %}">Home</a>
+
+
+        <!-- ABOUT US -->
+
+        <div class="dropdown">
+
+            <a href="#">
+                ABOUT US
+                <i class="fa fa-caret-down"></i>
+            </a>
+
+            <ul class="sub-menu">
+
+                <li>
+                    <a href="{% url 'aboutsup' %}">
+                        Welcome Message From the Principal
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'historysup' %}">
+                        About Superior
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'missionsup' %}">
+                        Mission Vision and Values
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'results' %}">
+                        Results
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <!-- ADMISSIONS -->
+
+        <div class="dropdown">
+
+            <a href="#">
+                ADDMISSIONS
+                <i class="fa fa-caret-down"></i>
+            </a>
+
+            <ul class="sub-menu">
+
+                <li>
+                    <a href="{% url 'addmission' %}">
+                        Addmissions
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'fee' %}">
+                        Fees Structure
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'apply' %}">
+                        Apply
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <!-- FACILITIES -->
+
+        <div class="dropdown">
+
+            <a href="#">
+                FACILITIES
+                <i class="fa fa-caret-down"></i>
+            </a>
+
+            <ul class="sub-menu">
+
+                <li>
+                    <a href="{% url 'class' %}">
+                        Living Classrooms
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'spaces' %}">
+                        Unique College Learning Spaces
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <!-- LEARNING AT SUPERIOR -->
+
+        <div class="dropdown">
+
+            <a href="#">
+                LEARNING AT SUPERIOR
+                <i class="fa fa-caret-down"></i>
+            </a>
+
+            <ul class="sub-menu">
+
+                <li>
+                    <a href="{% url 'spaces' %}">
+                        LEARNING AT SUPERIOR
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'affiliate' %}">
+                        AFFILIATE
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <a href="{% url 'contact' %}">
+            CONTACT US
+        </a>
+
+    </nav>
+
+</header>
+
+
+<!-- =====================================================
+     HERO SECTION
+===================================================== -->
+
+<section class="hero-banner">
+
+    <div class="hero-overlay">
+
+        <h1>
+            WELCOME MESSAGE FROM THE PRINCIPAL
+        </h1>
+
+        <div class="breadcrumb">
+
+            <a href="{% url 'superior' %}" class="home-link">
+                Home
+            </a>
+
+            |
+
+            <a href="{% url 'aboutsup' %}" class="home-link">
+                About Us
+            </a>
+
+            |
+
+            <span class="active">
+                Welcome From the Principal
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     PRINCIPAL SECTION
+===================================================== -->
+
+<section class="principal-section">
+
+    <div class="principal-container">
+
+
+        <!-- LEFT SIDEBAR -->
+
+        <div class="left-side">
+
+            <h3>
+                ABOUT US
+            </h3>
+
+            <p>
+                In this Section
+            </p>
+
+            <hr>
+
+
+            <a href="{% url 'aboutsup' %}" class="sidebar-link">
+                Welcome Message From the Principal
+            </a>
+
+            <a href="{% url 'historysup' %}" class="sidebar-link">
+                About Superior
+            </a>
+
+            <a href="{% url 'missionsup' %}" class="sidebar-link">
+                Mission, Vision & Values
+            </a>
+
+            <a href="{% url 'results' %}" class="sidebar-link">
+                Results
+            </a>
+
+        </div>
+
+
+        <!-- RIGHT CONTENT -->
+
+        <div class="right-side">
+
+            <h2 class="principal-heading">
+                Welcome Message From The Principal
+            </h2>
+
+
+            <div class="principal-content">
+
+
+                <!-- PRINCIPAL IMAGE -->
+
+                <div class="principal-image">
+
+                    <img
+                        src="{% static 'images/principle1.PNG' %}"
+                        alt="Principal"
+                    >
+
+                </div>
+
+
+                <!-- PRINCIPAL TEXT -->
+
+                <div class="principal-text">
+
+                    <h3>
+                        Welcome to Superior College!
+                    </h3>
+
+                    <p>
+
+                        At Superior, we believe in the transformative power of education
+                        that nurtures both the mind and the spirit. Our college is more
+                        than just a place to learn, it’s a vibrant community where
+                        students, educators, and families unite in a shared journey
+                        of growth, discovery, and purpose.
+
+                        <br><br>
+
+                        In today’s changing world, education goes beyond traditional
+                        subjects. We empower students to lead, innovate, and create
+                        positive change while living in harmony with the world around them.
+
+                        <br><br>
+
+                        At Superior, we pursue excellence, combining high academic
+                        standards with nurturing compassionate, forward-thinking leaders.
+                        Together, let’s inspire our students to dream big, embrace
+                        challenges, and build a sustainable future where there is truly
+
+                        <small>
+                            <b>
+                                <i>
+                                    ‘enough for all, forever.’
+                                </i>
+                            </b>
+                        </small>
+
+                        <br><br>
+
+                        <big>
+                            <b style="color:#444343;">
+                                Fasial
+                            </b>
+                        </big>
+
+                        <br><br>
+
+                        <big>
+                            Principal
+                        </big>
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="custom-footer">
+
+    <div class="footer-overlay">
+
+        <div class="footer-container">
+
+
+            <!-- LEFT MENU -->
+
+            <div class="footer-left">
+
+                <ul>
+
+                    <li>
+                        <a href="{% url 'superior' %}">
+                            HOME
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'historysup' %}">
+                            ABOUT US
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'addmission' %}">
+                            ADMISSIONS
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'results' %}">
+                            LEARNING AT Superior
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'contact' %}">
+                            CONTACT US
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <!-- RIGHT CONTACT INFO -->
+
+            <div class="footer-right">
+
+                <h3>
+                    GET IN TOUCH
+                </h3>
+
+                <p>
+                    THE Superior College, Chishtian,
+                </p>
+
+                <p>
+                    MAIN OFFICE TELEPHONE:
+                    +92 300 6989030 or +92 308 6985000.
+                </p>
+
+                <p>
+
+                    EMAIL:
+
+                    <a
+                        href="mailto:superiorctn@gmail.com"
+                    >
+                        superiorctn@gmail.com
+                    </a>
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- BOTTOM BAR -->
+
+        <div class="footer-bottom">
+
+            <p>
+                Legal & Privacy Policy |
+                Copyright © 2023 - All Rights Reserved
+            </p>
+
+        </div>
+
+
+        <!-- BACK TO TOP -->
+
+        <div class="arrow-box">
+
+            <a href="#top" id="back-to-top">
+
+                Back to Top
+
+                <i class="fas fa-chevron-up"></i>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+/* =====================================================
+   MOBILE MENU
+===================================================== */
+
+const menu = document.getElementById("menu-toggle");
+const navbar = document.getElementById("navbar");
+
+if(menu && navbar){
+
+    menu.addEventListener("click", function(){
+
+        navbar.classList.toggle("active");
+
+    });
+
+}
+
+
+/* =====================================================
+   MOBILE DROPDOWN
+===================================================== */
+
+document.querySelectorAll(".dropdown > a").forEach(function(item){
+
+    item.addEventListener("click", function(e){
+
+        e.preventDefault();
+
+        const dropdown = this.parentElement;
+        const submenu = dropdown.querySelector(".sub-menu");
+
+        if(window.innerWidth <= 768){
+
+            document.querySelectorAll(".dropdown .sub-menu").forEach(function(otherMenu){
+
+                if(otherMenu !== submenu){
+                    otherMenu.style.display = "none";
+                }
+
+            });
+
+            if(submenu.style.display === "block"){
+
+                submenu.style.display = "none";
+
+            }else{
+
+                submenu.style.display = "block";
+
+            }
+
+        }
+
+    });
+
+});
+
+
+/* =====================================================
+   CLOSE MOBILE MENU AFTER CLICKING NORMAL LINK
+===================================================== */
+
+document.querySelectorAll(".navbar > a").forEach(function(link){
+
+    link.addEventListener("click", function(){
+
+        if(window.innerWidth <= 768){
+
+            navbar.classList.remove("active");
+
+        }
+
+    });
+
+});
+
+
+/* =====================================================
+   CLOSE MENU WHEN SCREEN BECOMES DESKTOP
+===================================================== */
+
+window.addEventListener("resize", function(){
+
+    if(window.innerWidth > 768){
+
+        navbar.classList.remove("active");
+
+        document.querySelectorAll(".sub-menu").forEach(function(menu){
+
+            menu.style.display = "";
+
+        });
+
+    }
+
+});
+
+
+/* =====================================================
+   CLOSE MENU WHEN CLICKING OUTSIDE
+===================================================== */
+
+document.addEventListener("click", function(e){
+
+    if(
+        window.innerWidth <= 768 &&
+        !navbar.contains(e.target) &&
+        !menu.contains(e.target)
+    ){
+
+        navbar.classList.remove("active");
+
+    }
+
+});
+
+
+/* =====================================================
+   BACK TO TOP
+===================================================== */
+
+window.onscroll = function(){
+
+    const button = document.getElementById("back-to-top");
+
+    if(
+        document.body.scrollTop > 200 ||
+        document.documentElement.scrollTop > 200
+    ){
+
+        button.style.display = "block";
+
+    }else{
+
+        button.style.display = "none";
+
+    }
+
+};
+
+</script>
+
+
+</body>
+</html>
+    

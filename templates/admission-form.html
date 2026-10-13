@@ -1,391 +1,477 @@
+
 {% load static %}
-
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>College Admission Form</title>
 
-<title>Admission Application | College Directory</title>
-
-<style>
-    * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-    }
-
-    body {
-        font-family: Arial, sans-serif;
-        background: #f2f2f2;
-        min-height: 100vh;
-        padding: 40px 15px;
-        color: #333;
-    }
-
-    .container {
-        width: 500px;
-        max-width: 100%;
-        margin: 0 auto;
-        background: white;
-        padding: 35px;
-        border-radius: 10px;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.12);
-    }
-
-    .logo {
-        text-align: center;
-        margin-bottom: 10px;
-    }
-
-    .logo span {
-        font-size: 32px;
-    }
-
-    h2 {
-        text-align: center;
-        color: #2e2c6a;
-        margin-bottom: 8px;
-        font-size: 28px;
-    }
-
-    .subtitle {
-        text-align: center;
-        color: #777;
-        font-size: 14px;
-        margin-bottom: 25px;
-    }
-
-    .message {
-        text-align: center;
-        margin-bottom: 18px;
-        padding: 10px;
-        border-radius: 5px;
-        background: #fff1ee;
-        color: #E13B23;
-        font-size: 14px;
-    }
-
-    .form-group {
-        margin-bottom: 15px;
-    }
-
-    label {
-        display: block;
-        font-weight: bold;
-        color: #333;
-        margin-bottom: 7px;
-        font-size: 14px;
-    }
-
-    input,
-    select,
-    textarea {
-        width: 100%;
-        padding: 12px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        font-size: 14px;
-        font-family: Arial, sans-serif;
-        outline: none;
-        transition: 0.2s;
-    }
-
-    input:focus,
-    select:focus,
-    textarea:focus {
-        border-color: #2e2c6a;
-        box-shadow: 0 0 0 2px rgba(46, 44, 106, 0.08);
-    }
-
-    textarea {
-        height: 100px;
-        resize: vertical;
-        min-height: 80px;
-    }
-
-    button {
-        width: 100%;
-        padding: 13px;
-        margin-top: 8px;
-        background: #E13B23;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        font-size: 16px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: 0.3s;
-    }
-
-    button:hover {
-        background: #2e2c6a;
-    }
-
-    .back {
-        display: block;
-        text-align: center;
-        margin-top: 18px;
-        color: #2e2c6a;
-        text-decoration: none;
-        font-size: 14px;
-        font-weight: bold;
-    }
-
-    .back:hover {
-        color: #E13B23;
-    }
-
-    /* ================= TABLET ================= */
-
-    @media (max-width: 600px) {
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
         body {
+            margin: 0;
             padding: 25px 15px;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f3f6fb;
+            color: #243047;
         }
 
         .container {
-            padding: 28px 22px;
+            max-width: 950px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
         }
 
-        h2 {
-            font-size: 25px;
-        }
-    }
-
-    /* ================= MOBILE ================= */
-
-    @media (max-width: 400px) {
-
-        body {
-            padding: 15px 10px;
+        .header {
+            text-align: center;
+            margin-bottom: 28px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e3e8f0;
         }
 
-        .container {
-            padding: 25px 18px;
-            border-radius: 8px;
+        .header h1 {
+            margin: 0 0 10px;
+            color: #1c3c6b;
+            font-size: 30px;
         }
 
-        .logo span {
-            font-size: 28px;
+        .header p {
+            margin: 8px 0;
+            color: #667085;
+            line-height: 1.6;
         }
 
-        h2 {
-            font-size: 22px;
+        .college-list {
+            list-style: none;
+            padding: 0;
+            margin: 15px 0 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px;
         }
 
-        .subtitle {
-            font-size: 13px;
+        .college-list li {
+            padding: 8px 13px;
+            background: #eaf1fb;
+            color: #1c3c6b;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .section {
+            margin-top: 28px;
+        }
+
+        .section h2 {
+            font-size: 19px;
+            color: #1c3c6b;
+            border-bottom: 2px solid #e6edf7;
+            padding-bottom: 10px;
+            margin-bottom: 18px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            margin-bottom: 7px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #344054;
         }
 
         input,
         select,
         textarea {
-            padding: 11px;
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cfd6e2;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+            background: #fff;
+            color: #243047;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #1c3c6b;
+            box-shadow: 0 0 0 3px rgba(28, 60, 107, 0.1);
+        }
+
+        textarea {
+            min-height: 95px;
+            resize: vertical;
+        }
+
+        .hint {
+            color: #667085;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .terms {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-top: 28px;
+            line-height: 1.5;
             font-size: 14px;
         }
 
-        button {
-            font-size: 15px;
+        .terms input {
+            width: auto;
+            margin-top: 3px;
         }
-    }
-</style>
 
+        .terms label {
+            margin: 0;
+            font-weight: normal;
+        }
 
+        .submit-btn {
+            display: block;
+            width: 100%;
+            margin-top: 25px;
+            padding: 14px;
+            border: none;
+            border-radius: 7px;
+            background: #1c3c6b;
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .submit-btn:hover {
+            background: #142c50;
+        }
+
+        .messages {
+            margin-bottom: 20px;
+        }
+
+        .message {
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            background: #fff3cd;
+            color: #664d03;
+        }
+
+        .error {
+            color: #b42318;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        @media (max-width: 650px) {
+            body {
+                padding: 12px 8px;
+            }
+
+            .container {
+                padding: 20px 15px;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full-width {
+                grid-column: auto;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
 <div class="container">
 
-<div class="logo">
-    <span>🎓</span>
-</div>
+    <div class="header">
+        <h1>College Admission Form</h1>
+        <p>Complete the form below to submit your admission application.</p>
+        <p><strong>You are applying to:</strong></p>
 
-<h2>Admission Application</h2>
+        <ul class="college-list">
+            {% for college in colleges %}
+                <li>{{ college.name }}</li>
+            {% empty %}
+                {% if college %}
+                    <li>{{ college.name }}</li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
 
-<p class="subtitle">
-    Fill in the following information to submit your application.
-</p>
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="message">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
 
-{% if messages %}
+    {% if form_errors %}
+        <div class="messages">
+            {% for error in form_errors %}
+                <div class="error">{{ error }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
 
-    {% for message in messages %}
+    <form method="POST"
+          id="admissionForm"
+          action="{% url 'admission-form-multiple' %}">
 
-        <div class="message">
-            {{ message }}
+        {% csrf_token %}
+
+        <!-- Submission stage -->
+        <input type="hidden" name="submission_stage" value="admission_form">
+
+        <!-- Preserve all selected colleges -->
+        {% for slug in selected_slugs %}
+            <input type="hidden" name="selected_college_slugs" value="{{ slug }}">
+        {% endfor %}
+
+        {% if not selected_slugs and college %}
+            <input type="hidden" name="selected_college_slugs" value="{{ college.slug }}">
+        {% endif %}
+
+        <!-- 1. Personal Information -->
+        <div class="section">
+            <h2>1. Personal Information</h2>
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label for="full_name">Student Full Name *</label>
+                    <input type="text" id="full_name" name="full_name"
+                           value="{{ request.POST.full_name|default:'' }}"
+                           autocomplete="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="father_name">Father's Name *</label>
+                    <input type="text" id="father_name" name="father_name"
+                           value="{{ request.POST.father_name|default:'' }}"
+                           required>
+                </div>
+
+                <div class="form-group">
+                    <label for="gender">Gender *</label>
+                    <select id="gender" name="gender" required>
+                        <option value="">Select Gender</option>
+                        <option value="Male" {% if request.POST.gender == "Male" %}selected{% endif %}>Male</option>
+                        <option value="Female" {% if request.POST.gender == "Female" %}selected{% endif %}>Female</option>
+                        <option value="Other" {% if request.POST.gender == "Other" %}selected{% endif %}>Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="date_of_birth">Date of Birth *</label>
+                    <input type="date" id="date_of_birth" name="date_of_birth"
+                           value="{{ request.POST.date_of_birth|default:'' }}"
+                           required>
+                </div>
+
+                <div class="form-group">
+                    <label for="relationship">Relationship with Guardian</label>
+                    <input type="text" id="relationship" name="relationship"
+                           value="{{ request.POST.relationship|default:'' }}"
+                           placeholder="e.g. Father, Mother">
+                </div>
+
+                <div class="form-group">
+                    <label for="student_cnic">Student CNIC / B-Form</label>
+                    <input type="text" id="student_cnic" name="student_cnic"
+                           value="{{ request.POST.student_cnic|default:'' }}"
+                           maxlength="15" placeholder="XXXXX-XXXXXXX-X">
+                    <span class="hint">Enter 13 digits if available.</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="guardian_cnic">Guardian CNIC</label>
+                    <input type="text" id="guardian_cnic" name="guardian_cnic"
+                           value="{{ request.POST.guardian_cnic|default:'' }}"
+                           maxlength="15" placeholder="XXXXX-XXXXXXX-X">
+                    <span class="hint">Optional.</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="student_contact">Student Contact</label>
+                    <input type="tel" id="student_contact" name="student_contact"
+                           value="{{ request.POST.student_contact|default:'' }}"
+                           placeholder="03XXXXXXXXX">
+                </div>
+
+            </div>
         </div>
 
-    {% endfor %}
+        <!-- 2. Contact Information -->
+        <div class="section">
+            <h2>2. Contact Information</h2>
 
-{% endif %}
+            <div class="form-grid">
 
+                <div class="form-group">
+                    <label for="guardian_contact">Guardian Contact *</label>
+                    <input type="tel" id="guardian_contact" name="guardian_contact"
+                           value="{{ request.POST.guardian_contact|default:'' }}"
+                           placeholder="03XXXXXXXXX" required>
+                </div>
 
-<form method="POST">
+                <div class="form-group">
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" name="email"
+                           value="{{ request.POST.email|default:request.user.email }}"
+                           autocomplete="email" required>
+                </div>
 
-    {% csrf_token %}
+                <div class="form-group">
+                    <label for="location">City / Location</label>
+                    <input type="text" id="location" name="location"
+                           value="{{ request.POST.location|default:'' }}"
+                           placeholder="Enter your city">
+                </div>
 
+                <div class="form-group">
+                    <label for="heard_about_us">How did you hear about us?</label>
+                    <select id="heard_about_us" name="heard_about_us">
+                        <option value="">Select an option</option>
+                        <option value="Social Media" {% if request.POST.heard_about_us == "Social Media" %}selected{% endif %}>Social Media</option>
+                        <option value="Friends or Family" {% if request.POST.heard_about_us == "Friends or Family" %}selected{% endif %}>Friends or Family</option>
+                        <option value="Website" {% if request.POST.heard_about_us == "Website" %}selected{% endif %}>Website</option>
+                        <option value="Advertisement" {% if request.POST.heard_about_us == "Advertisement" %}selected{% endif %}>Advertisement</option>
+                        <option value="Other" {% if request.POST.heard_about_us == "Other" %}selected{% endif %}>Other</option>
+                    </select>
+                </div>
 
-    <div class="form-group">
+                <div class="form-group full-width">
+                    <label for="address">Complete Address *</label>
+                    <textarea id="address" name="address"
+                              autocomplete="street-address"
+                              required>{{ request.POST.address|default:'' }}</textarea>
+                </div>
 
-        <label for="full_name">
-            Full Name
-        </label>
+            </div>
+        </div>
 
-        <input
-            type="text"
-            id="full_name"
-            name="full_name"
-            value="{{ user.first_name }}"
-            required
-        >
+        <!-- 3. Academic Information -->
+        <div class="section">
+            <h2>3. Academic Information</h2>
 
-    </div>
+            <div class="form-grid">
 
+                <div class="form-group">
+                    <label for="course">Course / Program *</label>
+                    <input type="text" id="course" name="course"
+                           value="{{ request.POST.course|default:'' }}"
+                           placeholder="e.g. BS Computer Science" required>
+                </div>
 
-    <div class="form-group">
+                <div class="form-group">
+                    <label for="degree">Previous Degree</label>
+                    <input type="text" id="degree" name="degree"
+                           value="{{ request.POST.degree|default:'' }}"
+                           placeholder="e.g. Matric, Intermediate">
+                </div>
 
-        <label for="email">
-            Email
-        </label>
+                <div class="form-group">
+                    <label for="passing_year">Passing Year</label>
+                    <input type="number" id="passing_year" name="passing_year"
+                           value="{{ request.POST.passing_year|default:'' }}"
+                           min="1950" max="2100">
+                </div>
 
-        <input
-            type="email"
-            id="email"
-            name="email"
-            value="{{ user.email }}"
-            required
-        >
+                <div class="form-group">
+                    <label for="board">Board / University</label>
+                    <input type="text" id="board" name="board"
+                           value="{{ request.POST.board|default:'' }}">
+                </div>
 
-    </div>
+                <div class="form-group">
+                    <label for="group">Group / Major Subject</label>
+                    <input type="text" id="group" name="group"
+                           value="{{ request.POST.group|default:'' }}"
+                           placeholder="e.g. ICS, Pre-Medical">
+                </div>
 
+                <div class="form-group">
+                    <label for="board_roll_no">Board Roll Number</label>
+                    <input type="text" id="board_roll_no" name="board_roll_no"
+                           value="{{ request.POST.board_roll_no|default:'' }}">
+                </div>
 
-    <div class="form-group">
+                <div class="form-group">
+                    <label for="obtained_marks">Obtained Marks</label>
+                    <input type="number" id="obtained_marks" name="obtained_marks"
+                           value="{{ request.POST.obtained_marks|default:'' }}"
+                           min="0">
+                </div>
 
-        <label for="mobile">
-            Mobile
-        </label>
+                <div class="form-group">
+                    <label for="total_marks">Total Marks</label>
+                    <input type="number" id="total_marks" name="total_marks"
+                           value="{{ request.POST.total_marks|default:'' }}"
+                           min="0">
+                </div>
 
-        <input
-            type="text"
-            id="mobile"
-            name="mobile"
-            placeholder="Enter mobile number"
-            required
-        >
+                <div class="form-group full-width">
+                    <label for="previous_school">Previous School / College</label>
+                    <input type="text" id="previous_school" name="previous_school"
+                           value="{{ request.POST.previous_school|default:'' }}">
+                </div>
 
-    </div>
+            </div>
+        </div>
 
+        <!-- Terms and Conditions -->
+        <div class="terms">
+            <input type="checkbox" id="confirm_terms" name="confirm_terms"
+                   value="yes" required>
+            <label for="confirm_terms">
+                I confirm that the information provided in this application is accurate
+                to the best of my knowledge. *
+            </label>
+        </div>
 
-    <div class="form-group">
+        <button type="submit" class="submit-btn">
+            Submit Admission Application
+        </button>
 
-        <label for="college">
-            Select College
-        </label>
-
-        <select
-            id="college"
-            name="college"
-            required
-        >
-
-            <option value="">
-                Select College
-            </option>
-
-            {% for college in colleges %}
-
-                <option value="{{ college.id }}">
-                    {{ college.name }}
-                </option>
-
-            {% endfor %}
-
-        </select>
-
-    </div>
-
-
-    <div class="form-group">
-
-        <label for="program">
-            Program / Course
-        </label>
-
-        <input
-            type="text"
-            id="program"
-            name="program"
-            placeholder="Example: BS Computer Science"
-            required
-        >
-
-    </div>
-
-
-    <div class="form-group">
-
-        <label for="previous_qualification">
-            Previous Qualification
-        </label>
-
-        <input
-            type="text"
-            id="previous_qualification"
-            name="previous_qualification"
-            placeholder="Example: Intermediate"
-            required
-        >
-
-    </div>
-
-
-    <div class="form-group">
-
-        <label for="date_of_birth">
-            Date of Birth
-        </label>
-
-        <input
-            type="date"
-            id="date_of_birth"
-            name="date_of_birth"
-            required
-        >
-
-    </div>
-
-
-    <div class="form-group">
-
-        <label for="address">
-            Address
-        </label>
-
-        <textarea
-            id="address"
-            name="address"
-            placeholder="Enter your address"
-            required
-        ></textarea>
-
-    </div>
-
-
-    <button type="submit">
-        Submit Application
-    </button>
-
-</form>
-
-
-<a href="{% url 'dashboard' %}" class="back">
-    ← Back to Dashboard
-</a>
-
+    </form>
 
 </div>
 

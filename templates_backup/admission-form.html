@@ -1,0 +1,393 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<title>Admission Application | College Directory</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background: #f2f2f2;
+        min-height: 100vh;
+        padding: 40px 15px;
+        color: #333;
+    }
+
+    .container {
+        width: 500px;
+        max-width: 100%;
+        margin: 0 auto;
+        background: white;
+        padding: 35px;
+        border-radius: 10px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.12);
+    }
+
+    .logo {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .logo span {
+        font-size: 32px;
+    }
+
+    h2 {
+        text-align: center;
+        color: #2e2c6a;
+        margin-bottom: 8px;
+        font-size: 28px;
+    }
+
+    .subtitle {
+        text-align: center;
+        color: #777;
+        font-size: 14px;
+        margin-bottom: 25px;
+    }
+
+    .message {
+        text-align: center;
+        margin-bottom: 18px;
+        padding: 10px;
+        border-radius: 5px;
+        background: #fff1ee;
+        color: #E13B23;
+        font-size: 14px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    label {
+        display: block;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 7px;
+        font-size: 14px;
+    }
+
+    input,
+    select,
+    textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 14px;
+        font-family: Arial, sans-serif;
+        outline: none;
+        transition: 0.2s;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+        border-color: #2e2c6a;
+        box-shadow: 0 0 0 2px rgba(46, 44, 106, 0.08);
+    }
+
+    textarea {
+        height: 100px;
+        resize: vertical;
+        min-height: 80px;
+    }
+
+    button {
+        width: 100%;
+        padding: 13px;
+        margin-top: 8px;
+        background: #E13B23;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        background: #2e2c6a;
+    }
+
+    .back {
+        display: block;
+        text-align: center;
+        margin-top: 18px;
+        color: #2e2c6a;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .back:hover {
+        color: #E13B23;
+    }
+
+    /* ================= TABLET ================= */
+
+    @media (max-width: 600px) {
+
+        body {
+            padding: 25px 15px;
+        }
+
+        .container {
+            padding: 28px 22px;
+        }
+
+        h2 {
+            font-size: 25px;
+        }
+    }
+
+    /* ================= MOBILE ================= */
+
+    @media (max-width: 400px) {
+
+        body {
+            padding: 15px 10px;
+        }
+
+        .container {
+            padding: 25px 18px;
+            border-radius: 8px;
+        }
+
+        .logo span {
+            font-size: 28px;
+        }
+
+        h2 {
+            font-size: 22px;
+        }
+
+        .subtitle {
+            font-size: 13px;
+        }
+
+        input,
+        select,
+        textarea {
+            padding: 11px;
+            font-size: 14px;
+        }
+
+        button {
+            font-size: 15px;
+        }
+    }
+</style>
+
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="logo">
+    <span>🎓</span>
+</div>
+
+<h2>Admission Application</h2>
+
+<p class="subtitle">
+    Fill in the following information to submit your application.
+</p>
+
+{% if messages %}
+
+    {% for message in messages %}
+
+        <div class="message">
+            {{ message }}
+        </div>
+
+    {% endfor %}
+
+{% endif %}
+
+
+<form method="POST">
+
+    {% csrf_token %}
+
+
+    <div class="form-group">
+
+        <label for="full_name">
+            Full Name
+        </label>
+
+        <input
+            type="text"
+            id="full_name"
+            name="full_name"
+            value="{{ user.first_name }}"
+            required
+        >
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label for="email">
+            Email
+        </label>
+
+        <input
+            type="email"
+            id="email"
+            name="email"
+            value="{{ user.email }}"
+            required
+        >
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label for="mobile">
+            Mobile
+        </label>
+
+        <input
+            type="text"
+            id="mobile"
+            name="mobile"
+            placeholder="Enter mobile number"
+            required
+        >
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label for="college">
+            Select College
+        </label>
+
+        <select
+            id="college"
+            name="college"
+            required
+        >
+
+            <option value="">
+                Select College
+            </option>
+
+            {% for college in colleges %}
+
+                <option value="{{ college.id }}">
+                    {{ college.name }}
+                </option>
+
+            {% endfor %}
+
+        </select>
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label for="program">
+            Program / Course
+        </label>
+
+        <input
+            type="text"
+            id="program"
+            name="program"
+            placeholder="Example: BS Computer Science"
+            required
+        >
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label for="previous_qualification">
+            Previous Qualification
+        </label>
+
+        <input
+            type="text"
+            id="previous_qualification"
+            name="previous_qualification"
+            placeholder="Example: Intermediate"
+            required
+        >
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label for="date_of_birth">
+            Date of Birth
+        </label>
+
+        <input
+            type="date"
+            id="date_of_birth"
+            name="date_of_birth"
+            required
+        >
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label for="address">
+            Address
+        </label>
+
+        <textarea
+            id="address"
+            name="address"
+            placeholder="Enter your address"
+            required
+        ></textarea>
+
+    </div>
+
+
+    <button type="submit">
+        Submit Application
+    </button>
+
+</form>
+
+
+<a href="{% url 'dashboard' %}" class="back">
+    ← Back to Dashboard
+</a>
+
+
+</div>
+
+</body>
+</html>

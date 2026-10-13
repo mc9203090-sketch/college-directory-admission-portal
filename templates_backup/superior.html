@@ -1,0 +1,4905 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Superior College Chishtian</title>
+
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+:root{
+    --teal:#176963;
+    --teal-dark:#0d4845;
+    --navy:#073d4a;
+    --cream:#fbfaf7;
+    --soft:#f5f6fb;
+    --gold:#f4b41a;
+    --orange:#f59e0b;
+    --text:#18262b;
+    --muted:#69777b;
+    --white:#fff;
+    --shadow:0 12px 35px rgba(15,45,50,.10);
+}
+
+*{
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+    scroll-padding-top:90px;
+}
+
+body{
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    color:var(--text);
+    background:#fff;
+    overflow-x:hidden;
+}
+
+img{
+    max-width:100%;
+}
+
+button,
+input{
+    font:inherit;
+}
+
+a{
+    text-decoration:none;
+}
+
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+header{
+    width:100%;
+    min-height:90px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:10px 30px;
+
+    background:#1a6260;
+    color:white;
+
+    position:sticky;
+    top:0;
+
+    z-index:5000;
+
+    box-shadow:0 4px 18px rgba(0,0,0,.12);
+}
+
+.logo-section{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.logo-container{
+    width:70px;
+    height:70px;
+
+    border-radius:50%;
+    overflow:hidden;
+
+    border:3px solid white;
+
+    flex-shrink:0;
+}
+
+.logo-container img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.college-text{
+    display:flex;
+    flex-direction:column;
+
+    color:white;
+
+    font-weight:bold;
+    line-height:1.2;
+
+    font-size:18px;
+}
+
+.navbar{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    gap:20px;
+}
+
+.navbar>a,
+.navbar .dropdown>a{
+    color:white;
+    text-decoration:none;
+
+    font-size:15px;
+    font-weight:500;
+
+    white-space:nowrap;
+}
+
+.navbar a:hover{
+    color:#F5E547;
+}
+
+.dropdown{
+    position:relative;
+    display:inline-block;
+}
+
+.dropdown>a{
+    display:flex;
+    align-items:center;
+    gap:5px;
+    cursor:pointer;
+}
+
+.sub-menu{
+    display:none;
+
+    position:absolute;
+
+    top:100%;
+    left:0;
+
+    background:#0d3b3a;
+
+    list-style:none;
+
+    padding:10px 0;
+    margin:0;
+
+    min-width:220px;
+
+    border-radius:5px;
+
+    z-index:1100;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.2);
+}
+
+.sub-menu li{
+    margin:0;
+    padding:0;
+}
+
+.sub-menu li a{
+    padding:9px 15px;
+
+    color:white;
+
+    display:block;
+
+    font-size:14px;
+
+    text-decoration:none;
+
+    white-space:normal;
+}
+
+.sub-menu li a:hover{
+    background:#1a6260;
+    color:#f5a623;
+}
+
+@media(min-width:769px){
+
+    .dropdown:hover .sub-menu{
+        display:block;
+    }
+
+}
+
+.menu-toggle{
+    display:none;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+    height:min(650px,calc(100vh - 78px));
+
+    min-height:520px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:#0c5653;
+}
+
+.slider,
+.slide{
+    position:absolute;
+
+    inset:0;
+
+    width:100%;
+    height:100%;
+}
+
+.slide{
+    object-fit:cover;
+
+    opacity:0;
+
+    transition:opacity 1s ease-in-out;
+
+    filter:saturate(.92);
+}
+
+.slide.active{
+    opacity:1;
+}
+
+.hero::after{
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+    linear-gradient(
+        90deg,
+        rgba(4,56,53,.93) 0%,
+        rgba(8,77,72,.77) 40%,
+        rgba(0,0,0,.05) 78%
+    );
+
+    z-index:1;
+}
+
+.hero-content{
+    position:relative;
+
+    z-index:2;
+
+    height:100%;
+
+    max-width:1250px;
+
+    margin:auto;
+
+    padding:70px 55px;
+
+    display:grid;
+
+    grid-template-columns:1.05fr .95fr;
+
+    align-items:center;
+
+    gap:45px;
+
+    color:#fff;
+}
+
+.hero-copy{
+    max-width:620px;
+}
+
+.hero-kicker{
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    background:rgba(255,255,255,.13);
+
+    border:1px solid rgba(255,255,255,.25);
+
+    border-radius:20px;
+
+    padding:7px 12px;
+
+    font-size:11px;
+
+    font-weight:700;
+
+    letter-spacing:.7px;
+
+    text-transform:uppercase;
+}
+
+.hero-copy h1{
+    font-size:clamp(38px,5vw,67px);
+
+    line-height:.98;
+
+    margin:17px 0 18px;
+
+    font-weight:900;
+
+    letter-spacing:-1.7px;
+}
+
+.hero-copy h1 span{
+    color:#f7c83c;
+}
+
+.hero-copy p{
+    font-size:15px;
+
+    line-height:1.7;
+
+    max-width:590px;
+
+    color:rgba(255,255,255,.9);
+
+    margin:0 0 25px;
+}
+
+.hero-actions{
+    display:flex;
+
+    gap:11px;
+
+    flex-wrap:wrap;
+}
+
+.hero-btn{
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:12px 19px;
+
+    border-radius:8px;
+
+    font-size:13px;
+
+    font-weight:800;
+
+    background:#f4ae13;
+
+    color:#153d3b;
+
+    transition:.25s;
+}
+
+.hero-btn:hover{
+    transform:translateY(-2px);
+
+    background:#ffd15a;
+}
+
+.hero-mini{
+    margin-top:30px;
+
+    display:flex;
+
+    gap:28px;
+
+    flex-wrap:wrap;
+}
+
+.hero-mini div{
+    border-left:2px solid rgba(255,255,255,.4);
+
+    padding-left:12px;
+}
+
+.hero-mini strong{
+    display:block;
+
+    font-size:18px;
+}
+
+.hero-mini span{
+    font-size:10px;
+
+    color:#d7eeee;
+}
+
+.hero-visual{
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+}
+
+.hero-photo-card{
+    width:min(520px,100%);
+
+    background:#fff;
+
+    border-radius:14px;
+
+    padding:9px;
+
+    box-shadow:0 25px 55px rgba(0,0,0,.3);
+
+    transform:rotate(1deg);
+}
+
+.hero-photo-card img{
+    width:100%;
+
+    height:330px;
+
+    object-fit:cover;
+
+    border-radius:9px;
+
+    display:block;
+}
+
+.hero-photo-label{
+    padding:10px 8px 5px;
+
+    color:#183f40;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:9px;
+
+    font-size:11px;
+}
+
+.hero-photo-label i{
+    color:var(--teal);
+
+    font-size:17px;
+}
+
+
+/* =========================================================
+   COMMON SECTION
+========================================================= */
+
+.section{
+    padding:78px 6vw;
+}
+
+.section-heading{
+    text-align:center;
+
+    max-width:760px;
+
+    margin:0 auto 38px;
+}
+
+.eyebrow{
+    font-size:10px;
+
+    text-transform:uppercase;
+
+    letter-spacing:1.5px;
+
+    color:var(--teal);
+
+    font-weight:800;
+}
+
+.section-heading h2{
+    font-size:32px;
+
+    line-height:1.15;
+
+    margin:8px 0 10px;
+
+    color:#172d31;
+}
+
+.section-heading p{
+    color:var(--muted);
+
+    font-size:13px;
+
+    line-height:1.7;
+
+    margin:0;
+}
+
+
+/* =========================================================
+   STATS
+========================================================= */
+
+.stats-section{
+    background:#f4f5fb;
+
+    padding:72px 6vw;
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+.stats-container{
+    max-width:1180px;
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:13px;
+}
+
+.stat-box{
+    background:#fff;
+
+    border:1px solid #e5e8ef;
+
+    border-radius:10px;
+
+    min-height:135px;
+
+    padding:22px 17px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    opacity:0;
+
+    transform:translateY(25px);
+
+    transition:.65s ease;
+
+    box-shadow:0 4px 15px rgba(20,45,55,.04);
+}
+
+.stat-box.show{
+    opacity:1;
+
+    transform:translateY(0);
+}
+
+.stat-box:hover{
+    transform:translateY(-7px);
+
+    border-color:#b7d6d2;
+
+    box-shadow:0 14px 30px rgba(17,87,82,.13);
+}
+
+.stat-icon{
+    width:30px;
+
+    height:30px;
+
+    border-radius:8px;
+
+    background:#eef7f5;
+
+    color:var(--teal);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:13px;
+}
+
+.stat-box h2{
+    font-size:28px;
+
+    margin:12px 0 3px;
+
+    color:#173d40;
+}
+
+.stat-box p{
+    font-size:11px;
+
+    color:#738083;
+
+    margin:0;
+}
+
+
+/* =========================================================
+   PROGRAMS
+========================================================= */
+
+.find-program{
+    padding:78px 6vw;
+
+    background:#fff;
+}
+
+.search-box{
+    max-width:720px;
+
+    margin:0 auto 36px;
+
+    position:relative;
+
+    display:flex;
+
+    gap:8px;
+}
+
+.search-box input{
+    flex:1;
+
+    padding:14px 16px;
+
+    border:1px solid #d9dee2;
+
+    border-radius:9px;
+
+    outline:none;
+
+    font-size:13px;
+
+    box-shadow:0 4px 15px rgba(0,0,0,.03);
+}
+
+.search-box input:focus{
+    border-color:var(--teal);
+
+    box-shadow:0 0 0 3px rgba(23,105,99,.1);
+}
+
+.search-box button{
+    border:0;
+
+    border-radius:9px;
+
+    padding:0 22px;
+
+    background:var(--navy);
+
+    color:#fff;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.25s;
+}
+
+.search-box button:hover{
+    background:var(--teal);
+
+    transform:translateY(-1px);
+}
+
+#suggestions{
+    position:absolute;
+
+    left:0;
+
+    right:90px;
+
+    top:50px;
+
+    margin:0;
+
+    padding:0;
+
+    list-style:none;
+
+    background:#fff;
+
+    z-index:100;
+
+    box-shadow:0 12px 25px rgba(0,0,0,.12);
+
+    border-radius:8px;
+
+    overflow:hidden;
+}
+
+#suggestions li{
+    padding:11px 14px;
+
+    border-bottom:1px solid #eee;
+
+    font-size:12px;
+
+    cursor:pointer;
+}
+
+#suggestions li:hover{
+    background:#eef8f6;
+
+    color:var(--teal);
+}
+
+#searchResult{
+    text-align:center;
+
+    min-height:22px;
+
+    margin:-22px auto 20px;
+
+    font-size:12px;
+
+    font-weight:700;
+
+    color:#c04b38;
+}
+
+.program-images{
+    max-width:1180px;
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:20px;
+}
+
+.program-card{
+    border:1px solid #e1e5e7;
+
+    border-radius:13px;
+
+    overflow:hidden;
+
+    background:#fff;
+
+    transition:.35s ease;
+
+    box-shadow:0 5px 18px rgba(20,40,50,.06);
+}
+
+.program-card:hover{
+    transform:translateY(-7px);
+
+    box-shadow:0 18px 35px rgba(20,50,55,.14);
+}
+
+.program-card.highlight{
+    outline:4px solid #f4b41a;
+
+    box-shadow:0 18px 45px rgba(244,180,26,.28);
+
+    animation:pulseCard 1.1s ease;
+}
+
+@keyframes pulseCard{
+
+    0%,100%{
+        box-shadow:0 18px 45px rgba(244,180,26,.28);
+    }
+
+    50%{
+        box-shadow:0 18px 60px rgba(244,180,26,.58);
+    }
+
+}
+
+.image-box{
+    position:relative;
+
+    height:220px;
+
+    overflow:hidden;
+}
+
+.image-box img{
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    display:block;
+
+    transition:.5s;
+}
+
+.program-card:hover .image-box img{
+    transform:scale(1.05);
+}
+
+.overlay{
+    position:absolute;
+
+    left:0;
+
+    right:0;
+
+    bottom:0;
+
+    padding:42px 17px 14px;
+
+    color:#fff;
+
+    font-size:15px;
+
+    font-weight:800;
+
+    background:linear-gradient(
+        to top,
+        rgba(0,0,0,.7),
+        transparent
+    );
+}
+
+.program-name{
+    padding:14px 15px 8px;
+
+    font-size:14px;
+
+    font-weight:800;
+
+    color:#173d40;
+}
+
+.sub-programs{
+    padding:0 15px 14px;
+}
+
+.sub-box{
+    padding:9px 10px;
+
+    border-top:1px solid #edf0f2;
+
+    font-size:11px;
+
+    color:#657276;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+    border-radius:5px;
+}
+
+.sub-box:hover,
+.sub-box.match-highlight{
+    background:#e9f5f3;
+
+    color:var(--teal);
+
+    font-weight:800;
+
+    padding-left:15px;
+}
+
+.apply-btn{
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:6px;
+
+    margin:0 15px 16px;
+
+    background:var(--teal);
+
+    color:#fff;
+
+    border-radius:7px;
+
+    padding:9px 14px;
+
+    font-size:11px;
+
+    font-weight:800;
+
+    transition:.25s;
+}
+
+.apply-btn:hover{
+    background:var(--navy);
+
+    transform:translateY(-2px);
+}
+
+
+/* =========================================================
+   EVENTS
+========================================================= */
+
+.events-section{
+    padding:76px 6vw;
+
+    background:#fafbfd;
+}
+
+.events-container{
+    max-width:1180px;
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:20px;
+}
+
+.event-card{
+    background:#fff;
+
+    border:1px solid #e5e8ed;
+
+    border-radius:12px;
+
+    overflow:hidden;
+
+    cursor:pointer;
+
+    transition:.35s;
+}
+
+.event-card:hover{
+    transform:translateY(-6px);
+
+    box-shadow:0 16px 30px rgba(20,45,55,.12);
+
+    border-color:#b9d8d5;
+}
+
+.event-img{
+    height:190px;
+
+    overflow:hidden;
+}
+
+.event-img img{
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    display:block;
+
+    transition:.45s;
+}
+
+.event-card:hover .event-img img{
+    transform:scale(1.08);
+}
+
+.event-content{
+    padding:14px 15px 18px;
+}
+
+.event-date{
+    font-size:10px;
+
+    color:var(--teal);
+
+    font-weight:800;
+
+    text-transform:uppercase;
+}
+
+.event-title{
+    font-size:14px;
+
+    line-height:1.4;
+
+    margin:7px 0;
+
+    color:#203437;
+}
+
+.event-desc{
+    font-size:11px;
+
+    color:#778387;
+
+    line-height:1.5;
+
+    margin:0;
+}
+
+.hidden{
+    display:none !important;
+}
+
+.more-btn-box{
+    text-align:center;
+
+    margin-top:32px;
+}
+
+#moreBtn{
+    border:0;
+
+    border-radius:8px;
+
+    background:var(--teal);
+
+    color:#fff;
+
+    padding:11px 25px;
+
+    font-size:12px;
+
+    font-weight:800;
+
+    cursor:pointer;
+}
+
+#moreBtn:hover{
+    background:var(--navy);
+}
+
+
+/* =========================================================
+   SCHOLARSHIP
+========================================================= */
+
+.scholarship-section{
+    padding:72px 6vw;
+
+    background:#f5f6fb;
+}
+
+.scholarship-panel{
+    max-width:1180px;
+
+    margin:auto;
+
+    border-radius:12px;
+
+    overflow:hidden;
+
+    background:
+    linear-gradient(
+        105deg,
+        #f5a400,
+        #0e5d57 72%
+    );
+
+    padding:26px;
+
+    display:grid;
+
+    grid-template-columns:1.25fr .75fr;
+
+    gap:25px;
+
+    align-items:center;
+
+    box-shadow:var(--shadow);
+}
+
+.scholarship-copy{
+    color:#fff;
+}
+
+.scholarship-copy .tag{
+    font-size:9px;
+
+    border:1px solid rgba(255,255,255,.5);
+
+    padding:5px 9px;
+
+    border-radius:20px;
+
+    display:inline-block;
+}
+
+.scholarship-copy h2{
+    font-size:27px;
+
+    margin:10px 0 7px;
+}
+
+.scholarship-copy p{
+    font-size:11px;
+
+    line-height:1.55;
+
+    max-width:560px;
+
+    margin:0 0 15px;
+}
+
+.scholarship-points{
+    display:flex;
+
+    gap:18px;
+
+    flex-wrap:wrap;
+}
+
+.scholarship-points div{
+    font-size:10px;
+}
+
+.scholarship-points strong{
+    display:block;
+
+    font-size:12px;
+
+    margin-bottom:2px;
+}
+
+.calculator{
+    background:#fff;
+
+    border-radius:11px;
+
+    padding:17px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+}
+
+.calculator h3{
+    margin:0 0 12px;
+
+    font-size:15px;
+
+    color:#163a3d;
+}
+
+.calc-row{
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:8px;
+}
+
+.calculator label{
+    font-size:9px;
+
+    color:#6c777a;
+
+    font-weight:700;
+
+    display:block;
+
+    margin-bottom:5px;
+}
+
+.calculator input{
+    width:100%;
+
+    border:1px solid #dce1e3;
+
+    border-radius:6px;
+
+    padding:9px;
+
+    font-size:11px;
+
+    outline:none;
+}
+
+.calculator input:focus{
+    border-color:var(--teal);
+}
+
+.calc-button{
+    width:100%;
+
+    border:0;
+
+    border-radius:7px;
+
+    padding:9px;
+
+    background:#163f4b;
+
+    color:#fff;
+
+    font-size:11px;
+
+    font-weight:800;
+
+    cursor:pointer;
+
+    margin-top:9px;
+}
+
+.calc-button:hover{
+    background:var(--teal);
+}
+
+.calc-result{
+    margin-top:9px;
+
+    border-radius:7px;
+
+    padding:8px;
+
+    font-size:10px;
+
+    text-align:center;
+
+    display:none;
+
+    font-weight:800;
+}
+
+.calc-result.eligible{
+    display:block;
+
+    background:#e7f7ed;
+
+    color:#177245;
+}
+
+.calc-result.not-eligible{
+    display:block;
+
+    background:#fff0ed;
+
+    color:#b6422f;
+}
+
+
+/* =========================================================
+   FACULTY
+========================================================= */
+
+.testimonials-section{
+    padding:76px 6vw;
+
+    background:#f3f5fb;
+
+    overflow:hidden;
+}
+
+.slider-wrapper{
+    max-width:1180px;
+
+    margin:auto;
+
+    overflow:hidden;
+}
+
+.testimonials-container{
+    display:flex;
+
+    gap:15px;
+
+    transition:transform .55s ease;
+}
+
+.testimonial-card{
+    flex:0 0 calc(33.333% - 10px);
+
+    background:#fff;
+
+    border:1px solid #e4e7ee;
+
+    border-radius:10px;
+
+    padding:17px 15px;
+
+    text-align:left;
+
+    box-shadow:0 5px 17px rgba(20,40,50,.05);
+
+    transition:.3s;
+}
+
+.testimonial-card:hover{
+    transform:translateY(-6px);
+
+    box-shadow:0 14px 28px rgba(20,45,55,.13);
+}
+
+.avatar{
+    width:46px;
+
+    height:46px;
+
+    border-radius:50%;
+
+    overflow:hidden;
+
+    border:2px solid #dcebe8;
+
+    float:left;
+
+    margin-right:11px;
+}
+
+.avatar img{
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+}
+
+.name{
+    font-size:12px;
+
+    margin:5px 0 3px;
+
+    color:#183c3e;
+}
+
+.role{
+    font-size:9px;
+
+    color:#718084;
+
+    margin:0 0 9px;
+
+    font-style:italic;
+
+    min-height:13px;
+}
+
+.testimonial{
+    clear:both;
+
+    font-size:10px;
+
+    line-height:1.55;
+
+    color:#657276;
+
+    margin:13px 0 0;
+}
+
+.nav-buttons{
+    text-align:center;
+
+    margin-top:28px;
+}
+
+.nav-buttons button{
+    border:0;
+
+    background:var(--teal);
+
+    color:#fff;
+
+    padding:9px 18px;
+
+    border-radius:20px;
+
+    font-size:11px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    margin:0 4px;
+}
+
+.nav-buttons button:hover{
+    background:var(--navy);
+}
+
+
+/* =========================================================
+   CAMPUS LIFE
+========================================================= */
+
+.campus-title{
+    text-align:center;
+
+    color:#193d40;
+
+    font-size:29px;
+
+    margin:72px 20px 12px;
+}
+
+.campus-sub{
+    text-align:center;
+
+    color:#798487;
+
+    font-size:11px;
+
+    margin:0 20px 28px;
+}
+
+.gallery-section{
+    max-width:1180px;
+
+    margin:auto;
+
+    padding:25px 6vw 75px;
+
+    display:grid;
+
+    grid-template-columns:2fr 1fr 1fr;
+
+    grid-auto-rows:180px;
+
+    gap:12px;
+}
+
+.gallery-card{
+    position:relative;
+
+    border-radius:10px;
+
+    overflow:hidden;
+
+    cursor:pointer;
+
+    background:#173f40;
+}
+
+.gallery-card:first-child{
+    grid-row:span 2;
+}
+
+.gallery-card img{
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    display:block;
+
+    transition:.5s;
+}
+
+.gallery-card::after{
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+    linear-gradient(
+        to top,
+        rgba(0,0,0,.72),
+        rgba(0,0,0,0) 60%
+    );
+
+    pointer-events:none;
+}
+
+.gallery-card h3{
+    position:absolute;
+
+    left:14px;
+
+    bottom:12px;
+
+    color:#fff;
+
+    font-size:13px;
+
+    margin:0;
+
+    z-index:2;
+}
+
+.gallery-card:hover img{
+    transform:scale(1.08);
+}
+
+
+/* =========================================================
+   READY SECTION
+========================================================= */
+
+.ready-section{
+    padding:0 6vw 70px;
+
+    background:#fff;
+}
+
+.ready-panel{
+    max-width:1180px;
+
+    margin:auto;
+
+    background:#0e5d57;
+
+    color:#fff;
+
+    border-radius:11px;
+
+    padding:23px 28px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:25px;
+
+    box-shadow:var(--shadow);
+}
+
+.ready-panel h2{
+    margin:0 0 7px;
+
+    font-size:23px;
+}
+
+.ready-panel p{
+    font-size:11px;
+
+    line-height:1.5;
+
+    margin:0;
+
+    color:#d9eeeb;
+}
+
+.ready-actions{
+    display:flex;
+
+    gap:8px;
+
+    flex-wrap:wrap;
+}
+
+.ready-btn{
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:6px;
+
+    padding:10px 13px;
+
+    border-radius:7px;
+
+    font-size:10px;
+
+    font-weight:800;
+
+    background:#f6b51b;
+
+    color:#183d3c;
+}
+
+.ready-btn:hover{
+    transform:translateY(-2px);
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.custom-footer{
+    background:
+    url("{% static 'images/footer hero.png' %}")
+    center/cover no-repeat;
+
+    color:#9ec0a8;
+}
+
+.footer-overlay{
+    background:rgba(4,25,27,.92);
+
+    padding:55px 7vw 25px;
+}
+
+.footer-container{
+    max-width:1180px;
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:.8fr 1.2fr;
+
+    gap:50px;
+}
+
+.footer-left ul{
+    list-style:none;
+
+    padding:0;
+
+    margin:0;
+}
+
+.footer-left li{
+    margin-bottom:12px;
+}
+
+.footer-left a{
+    color:#a7c4ad;
+
+    font-size:12px;
+
+    letter-spacing:.5px;
+}
+
+.footer-left a:hover{
+    color:#fff;
+}
+
+.footer-right h3{
+    margin:0 0 16px;
+
+    color:#fff;
+
+    font-size:16px;
+
+    letter-spacing:1.5px;
+}
+
+.footer-right p{
+    font-size:11px;
+
+    line-height:1.6;
+
+    margin:7px 0;
+
+    color:#b7c5c2;
+}
+
+.footer-right a{
+    color:#a7c4ad;
+}
+
+.social-icons{
+    max-width:1180px;
+
+    margin:28px auto 0;
+
+    display:flex;
+
+    gap:10px;
+
+    align-items:center;
+}
+
+.social-icons a{
+    width:35px;
+
+    height:35px;
+
+    border:1px solid rgba(255,255,255,.25);
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    color:#fff;
+
+    font-size:15px;
+
+    transition:.25s;
+}
+
+.social-icons a:hover{
+    background:var(--teal);
+
+    border-color:var(--teal);
+
+    transform:translateY(-2px);
+}
+
+.share-btn{
+    border:0;
+
+    background:transparent;
+
+    color:#a7c4ad;
+
+    font-size:10px;
+
+    cursor:pointer;
+}
+
+.share-btn:hover{
+    color:#fff;
+}
+
+.footer-bottom{
+    max-width:1180px;
+
+    margin:25px auto 0;
+
+    padding-top:16px;
+
+    border-top:1px solid rgba(158,192,168,.35);
+
+    display:flex;
+
+    justify-content:space-between;
+
+    gap:20px;
+}
+
+.footer-bottom p{
+    font-size:10px;
+
+    color:#a9b8b5;
+
+    margin:0;
+}
+
+
+/* =========================================================
+   BACK TO TOP
+========================================================= */
+
+#back-to-top{
+    display:none;
+
+    position:fixed;
+
+    right:20px;
+
+    bottom:20px;
+
+    width:42px;
+
+    height:42px;
+
+    border-radius:50%;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:var(--teal);
+
+    color:#fff;
+
+    z-index:6000;
+
+    box-shadow:0 7px 20px rgba(0,0,0,.2);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1100px){
+
+    .navbar{
+        gap:11px;
+    }
+
+    .navbar>a,
+    .navbar .dropdown>a{
+        font-size:11px;
+    }
+
+    .hero-content{
+        padding:50px 35px;
+    }
+
+    .stats-container{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .program-images{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+    .testimonial-card{
+        flex-basis:calc(50% - 7.5px);
+    }
+
+}
+
+@media(max-width:768px){
+
+    header{
+        min-height:70px;
+
+        padding:10px 20px;
+    }
+
+    .logo-container{
+        width:55px;
+        height:55px;
+    }
+
+    .college-text{
+        font-size:15px;
+    }
+
+    .menu-toggle{
+        display:flex;
+
+        width:42px;
+        height:42px;
+
+        align-items:center;
+        justify-content:center;
+
+        border:0;
+
+        background:none;
+
+        color:#fff;
+
+        font-size:25px;
+
+        cursor:pointer;
+    }
+
+    .navbar{
+
+        display:none;
+
+        position:absolute;
+
+        top:70px;
+
+        left:0;
+
+        width:100%;
+
+        padding:15px 20px 20px;
+
+        background:#0d3b3a;
+
+        flex-direction:column;
+
+        align-items:stretch;
+
+        gap:0;
+    }
+
+    .navbar.active{
+        display:flex;
+    }
+
+    .navbar>a,
+    .navbar .dropdown>a{
+
+        padding:12px 8px;
+
+        border-bottom:1px solid rgba(255,255,255,.12);
+
+        font-size:13px;
+    }
+
+    .navbar .dropdown>a{
+        justify-content:space-between;
+    }
+
+    .sub-menu{
+
+        position:static;
+
+        display:none;
+
+        width:100%;
+
+        min-width:0;
+
+        box-shadow:none;
+
+        border-radius:0;
+
+        background:#082c2b;
+
+        padding:0;
+    }
+
+    .dropdown:hover .sub-menu{
+        display:none;
+    }
+
+    .sub-menu li a{
+        padding:10px 20px;
+
+        border-bottom:1px solid rgba(255,255,255,.07);
+    }
+
+    .hero{
+
+        height:calc(100vh - 70px);
+
+        min-height:650px;
+    }
+
+    .hero::after{
+
+        background:
+        linear-gradient(
+            180deg,
+            rgba(4,56,53,.95),
+            rgba(4,56,53,.6) 55%,
+            rgba(0,0,0,.35)
+        );
+    }
+
+    .hero-content{
+
+        padding:35px 20px;
+
+        grid-template-columns:1fr;
+
+        gap:18px;
+
+        align-content:center;
+
+        text-align:center;
+    }
+
+    .hero-copy{
+        margin:auto;
+    }
+
+    .hero-copy h1{
+        font-size:38px;
+    }
+
+    .hero-copy p{
+        font-size:12px;
+    }
+
+    .hero-actions,
+    .hero-mini{
+        justify-content:center;
+    }
+
+    .hero-mini{
+        margin-top:17px;
+
+        gap:15px;
+    }
+
+    .hero-visual{
+        display:none;
+    }
+
+    .section,
+    .find-program,
+    .events-section,
+    .scholarship-section,
+    .testimonials-section{
+
+        padding:58px 20px;
+    }
+
+    .section-heading h2{
+        font-size:25px;
+    }
+
+    .stats-container{
+        grid-template-columns:1fr 1fr;
+
+        gap:10px;
+    }
+
+    .program-images,
+    .events-container{
+        grid-template-columns:1fr;
+    }
+
+    .program-card{
+        max-width:500px;
+
+        margin:auto;
+
+        width:100%;
+    }
+
+    .search-box{
+        flex-direction:column;
+    }
+
+    .search-box button{
+        height:44px;
+    }
+
+    .search-box input{
+        height:44px;
+    }
+
+    #suggestions{
+        right:0;
+
+        top:48px;
+    }
+
+    .image-box{
+        height:230px;
+    }
+
+    .scholarship-panel{
+        grid-template-columns:1fr;
+
+        padding:20px;
+    }
+
+    .scholarship-copy h2{
+        font-size:23px;
+    }
+
+    .testimonial-card{
+        flex-basis:100%;
+    }
+
+    .gallery-section{
+
+        grid-template-columns:1fr;
+
+        grid-auto-rows:220px;
+
+        padding:20px;
+    }
+
+    .gallery-card:first-child{
+        grid-row:span 1;
+    }
+
+    .ready-panel{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        padding:20px;
+    }
+
+    .footer-container{
+
+        grid-template-columns:1fr;
+
+        gap:25px;
+    }
+
+    .footer-bottom{
+
+        flex-direction:column;
+
+        text-align:center;
+    }
+
+}
+
+@media(max-width:480px){
+
+    .hero{
+        min-height:620px;
+    }
+
+    .hero-copy h1{
+        font-size:32px;
+    }
+
+    .hero-copy p{
+        font-size:11px;
+    }
+
+    .hero-mini strong{
+        font-size:15px;
+    }
+
+    .stats-container{
+        grid-template-columns:1fr;
+    }
+
+    .stat-box{
+        min-height:120px;
+    }
+
+    .gallery-section{
+        grid-auto-rows:200px;
+    }
+
+    .campus-title{
+        font-size:24px;
+    }
+
+    .calc-row{
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<header id="top">
+
+    <div class="logo-section">
+
+        <div class="logo-container">
+
+            <img src="{% static 'images/sup logo.png' %}"
+                 alt="Superior College Logo">
+
+        </div>
+
+        <div class="college-text">
+
+            <span>Superior</span>
+            <span>College</span>
+            <span>Chishtian</span>
+
+        </div>
+
+    </div>
+
+
+    <button class="menu-toggle"
+            id="menu-toggle"
+            aria-label="Open Menu">
+
+        <i class="fas fa-bars"></i>
+
+    </button>
+
+
+    <nav class="navbar" id="navbar">
+
+        <a href="{% url 'index' %}">
+            Home
+        </a>
+
+
+        <!-- ABOUT US -->
+
+        <div class="dropdown">
+
+            <a href="#">
+                ABOUT US
+                <i class="fa fa-caret-down"></i>
+            </a>
+
+            <ul class="sub-menu">
+
+                <li>
+                    <a href="{% url 'aboutsup' %}">
+                        Welcome Message From the Principal
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'historysup' %}">
+                        About Superior
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'missionsup' %}">
+                        Mission Vision and Values
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'results' %}">
+                        Results
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <!-- ADMISSIONS -->
+
+        <div class="dropdown">
+
+            <a href="#">
+                ADMISSIONS
+                <i class="fa fa-caret-down"></i>
+            </a>
+
+            <ul class="sub-menu">
+
+                <li>
+                    <a href="{% url 'addmission' %}">
+                        Admissions
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'fee' %}">
+                        Fees Structure
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'apply' %}">
+                        Apply
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <!-- FACILITIES -->
+
+        <div class="dropdown">
+
+            <a href="#">
+                FACILITIES
+                <i class="fa fa-caret-down"></i>
+            </a>
+
+            <ul class="sub-menu">
+
+                <li>
+                    <a href="{% url 'class' %}">
+                        Living Classrooms
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'spaces' %}">
+                        Unique College Learning Spaces
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <!-- LEARNING AT SUPERIOR -->
+
+        <div class="dropdown">
+
+            <a href="#">
+                LEARNING AT SUPERIOR
+                <i class="fa fa-caret-down"></i>
+            </a>
+
+            <ul class="sub-menu">
+
+                <li>
+                    <a href="{% url 'spaces' %}">
+                        LEARNING AT SUPERIOR
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'affiliate' %}">
+                        AFFILIATE
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <a href="{% url 'contact' %}">
+            CONTACT US
+        </a>
+
+    </nav>
+
+</header>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="hero">
+
+    <div class="slider">
+
+        <!-- Existing images from your project -->
+
+        <img src="{% static 'images/suphero1.png' %}"
+             class="slide active"
+             alt="Superior College">
+
+        <img src="{% static 'images/footer hero.png' %}"
+             class="slide"
+             alt="Superior College">
+
+        <img src="{% static 'images/hero2.jpg' %}"
+             class="slide"
+             alt="Superior College">
+
+        <img src="{% static 'images/hero3.jpg' %}"
+             class="slide"
+             alt="Superior College">
+
+        <img src="{% static 'images/hero4.png' %}"
+             class="slide"
+             alt="Superior College">
+
+        <img src="{% static 'images/hero 5.png' %}"
+             class="slide"
+             alt="Superior College">
+
+    </div>
+
+
+    <div class="hero-content">
+
+        <div class="hero-copy">
+
+            <span class="hero-kicker">
+
+                <i class="fa-solid fa-graduation-cap"></i>
+
+                Superior College Chishtian
+
+            </span>
+
+
+            <h1>
+
+                Empowering Ambitions,
+                <span>Shaping Futures</span>
+                at Superior College Chishtian
+
+            </h1>
+
+
+            <p>
+
+                Discover a learning environment built around
+                academic excellence, practical skills, confidence
+                and opportunities for the next generation.
+
+            </p>
+
+
+            <div class="hero-actions">
+
+                <a class="hero-btn"
+                   href="{% url 'results' %}">
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                    Explore Results
+
+                </a>
+
+            </div>
+
+
+            <div class="hero-mini">
+
+                <div>
+
+                    <strong>120+</strong>
+
+                    <span>
+                        Faculty members
+                    </span>
+
+                </div>
+
+
+                <div>
+
+                    <strong>1,000+</strong>
+
+                    <span>
+                        Enrolled students
+                    </span>
+
+                </div>
+
+
+                <div>
+
+                    <strong>50+</strong>
+
+                    <span>
+                        Academic programs
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="hero-visual">
+
+            <div class="hero-photo-card">
+
+                <img src="{% static 'images/suphero1.png' %}"
+                     alt="Superior College Campus">
+
+                <div class="hero-photo-label">
+
+                    <i class="fa-solid fa-location-dot"></i>
+
+                    <span>
+
+                        <strong>
+                            Superior College Chishtian
+                        </strong>
+
+                        <br>
+
+                        Explore our campus and learning environment
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CAMPUS OVERVIEW
+===================================================== -->
+
+<section class="section">
+
+    <div class="section-heading">
+
+        <div class="eyebrow">
+            Campus overview
+        </div>
+
+        <h2>
+            Campus Scale &amp; Academic Milestones
+        </h2>
+
+        <p>
+            Important numbers and academic highlights presented
+            with a clean, professional campus dashboard style.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     STATS
+===================================================== -->
+
+<section class="stats-section"
+         id="stats">
+
+    <div class="stats-container">
+
+
+        <div class="stat-box">
+
+            <div class="stat-icon">
+                <i class="fa-solid fa-users"></i>
+            </div>
+
+            <h2 data-target="120">
+                0
+            </h2>
+
+            <p>
+                Total Faculty
+            </p>
+
+        </div>
+
+
+        <div class="stat-box">
+
+            <div class="stat-icon">
+                <i class="fa-solid fa-user-graduate"></i>
+            </div>
+
+            <h2 data-target="2">
+                0
+            </h2>
+
+            <p>
+                PhD Qualified Faculty
+            </p>
+
+        </div>
+
+
+        <div class="stat-box">
+
+            <div class="stat-icon">
+                <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+
+            <h2 data-target="1000">
+                0
+            </h2>
+
+            <p>
+                Enrolled Students
+            </p>
+
+        </div>
+
+
+        <div class="stat-box">
+
+            <div class="stat-icon">
+                <i class="fa-solid fa-building"></i>
+            </div>
+
+            <h2 data-target="2">
+                0
+            </h2>
+
+            <p>
+                Acre Land
+            </p>
+
+        </div>
+
+
+        <div class="stat-box">
+
+            <div class="stat-icon">
+                <i class="fa-solid fa-book-open"></i>
+            </div>
+
+            <h2 data-target="50">
+                0
+            </h2>
+
+            <p>
+                Academic Programs
+            </p>
+
+        </div>
+
+
+        <div class="stat-box">
+
+            <div class="stat-icon">
+                <i class="fa-solid fa-flask"></i>
+            </div>
+
+            <h2 data-target="15">
+                0
+            </h2>
+
+            <p>
+                Engineering Programs
+            </p>
+
+        </div>
+
+
+        <div class="stat-box">
+
+            <div class="stat-icon">
+                <i class="fa-solid fa-wifi"></i>
+            </div>
+
+            <h2 data-target="260">
+                0
+            </h2>
+
+            <p>
+                Mbps Internet Bandwidth
+            </p>
+
+        </div>
+
+
+        <div class="stat-box">
+
+            <div class="stat-icon">
+                <i class="fa-solid fa-award"></i>
+            </div>
+
+            <h2 data-target="125">
+                0
+            </h2>
+
+            <p>
+                Million Scholarships Awarded
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     PROGRAMS
+===================================================== -->
+
+<section class="find-program"
+         id="programs">
+
+    <div class="section-heading">
+
+        <div class="eyebrow">
+            Academic opportunities
+        </div>
+
+        <h2>
+            Find Programs Offered by Superior College
+        </h2>
+
+        <p>
+            Search a program by name. Suggestions appear while
+            typing, and Search takes you directly to the matching program.
+        </p>
+
+    </div>
+
+
+    <div class="search-box">
+
+        <input type="text"
+               id="searchInput"
+               placeholder="Search programs..."
+               autocomplete="off">
+
+
+        <button id="searchBtn">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            Search
+
+        </button>
+
+
+        <ul id="suggestions"></ul>
+
+    </div>
+
+
+    <div id="searchResult"
+         aria-live="polite">
+    </div>
+
+
+    <div class="program-images">
+
+
+        <!-- ENGINEERING -->
+
+        <div class="program-card engineering"
+             data-name="engineering and technology">
+
+            <div class="image-box">
+
+                <img src="{% static 'images/engeeniring.webp' %}"
+                     alt="Engineering and Technology">
+
+                <div class="overlay">
+                    Engineering &amp; Technology
+                </div>
+
+            </div>
+
+
+            <div class="program-name">
+                B.Sc Computer Science
+            </div>
+
+
+            <div class="sub-programs">
+
+                <div class="sub-box"
+                     data-program="BS IT">
+                    BS IT
+                </div>
+
+                <div class="sub-box"
+                     data-program="B.Sc Mathematics">
+                    B.Sc Mathematics
+                </div>
+
+                <div class="sub-box"
+                     data-program="ADP-CS">
+                    ADP-CS
+                </div>
+
+            </div>
+
+
+            <a class="apply-btn"
+               href="{% url 'apply' %}">
+
+                <i class="fa-solid fa-paper-plane"></i>
+
+                Apply
+
+            </a>
+
+        </div>
+
+
+        <!-- BUSINESS -->
+
+        <div class="program-card business"
+             data-name="business and management sciences">
+
+            <div class="image-box">
+
+                <img src="{% static 'images/business.webp' %}"
+                     alt="Business and Management Sciences">
+
+                <div class="overlay">
+                    Business &amp; Management Sciences
+                </div>
+
+            </div>
+
+
+            <div class="program-name">
+                BS Entrepreneurship
+            </div>
+
+
+            <div class="sub-programs">
+
+                <div class="sub-box"
+                     data-program="ADP & BS English">
+
+                    ADP &amp; BS English
+
+                </div>
+
+                <div class="sub-box"
+                     data-program="ADP & BS Marketing">
+
+                    ADP &amp; BS Marketing
+
+                </div>
+
+                <div class="sub-box"
+                     data-program="B.A.D">
+
+                    B.A.D
+
+                </div>
+
+            </div>
+
+
+            <a class="apply-btn"
+               href="{% url 'apply' %}">
+
+                <i class="fa-solid fa-paper-plane"></i>
+
+                Apply
+
+            </a>
+
+        </div>
+
+
+        <!-- MEDICAL -->
+
+        <div class="program-card medical"
+             data-name="medical sciences">
+
+            <div class="image-box">
+
+                <img src="{% static 'images/medical sci.webp' %}"
+                     alt="Medical Sciences">
+
+                <div class="overlay">
+                    Medical Sciences
+                </div>
+
+            </div>
+
+
+            <div class="program-name">
+                ADP &amp; BS Chemistry
+            </div>
+
+
+            <div class="sub-programs">
+
+                <div class="sub-box"
+                     data-program="ADP & BS Botany">
+
+                    ADP &amp; BS Botany
+
+                </div>
+
+                <div class="sub-box"
+                     data-program="ADP & BS Nursing">
+
+                    ADP &amp; BS Nursing
+
+                </div>
+
+                <div class="sub-box"
+                     data-program="ADP & BS Zoology">
+
+                    ADP &amp; BS Zoology
+
+                </div>
+
+            </div>
+
+
+            <a class="apply-btn"
+               href="{% url 'apply' %}">
+
+                <i class="fa-solid fa-paper-plane"></i>
+
+                Apply
+
+            </a>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     EVENTS
+===================================================== -->
+
+<section class="events-section"
+         id="events">
+
+    <div class="section-heading">
+
+        <div class="eyebrow">
+            Campus calendar
+        </div>
+
+        <h2>
+            Upcoming &amp; Recent Campus Events
+        </h2>
+
+        <p>
+            Discover activities, celebrations and academic events
+            happening around Superior College.
+        </p>
+
+    </div>
+
+
+    <div class="events-container">
+
+
+        <!-- EVENT 1 -->
+
+        <article class="event-card">
+
+            <div class="event-img">
+
+                <img src="{% static 'images/1event.png' %}"
+                     alt="Autism Awareness">
+
+            </div>
+
+            <div class="event-content">
+
+                <div class="event-date">
+                    15 Feb
+                </div>
+
+                <h3 class="event-title">
+                    Autism Awareness: Early Identification for Better Outcomes
+                </h3>
+
+                <p class="event-desc">
+                    Awareness and learning activity for students
+                    and the wider community.
+                </p>
+
+            </div>
+
+        </article>
+
+
+        <!-- EVENT 2 -->
+
+        <article class="event-card">
+
+            <div class="event-img">
+
+                <img src="{% static 'images/1event.png' %}"
+                     alt="Educational Field Trip">
+
+            </div>
+
+            <div class="event-content">
+
+                <div class="event-date">
+                    24 Feb
+                </div>
+
+                <h3 class="event-title">
+                    Educational Field Trip: Expanding Horizons Beyond Classroom
+                </h3>
+
+                <p class="event-desc">
+                    Students explore learning beyond the traditional
+                    classroom environment.
+                </p>
+
+            </div>
+
+        </article>
+
+
+        <!-- EVENT 3 -->
+
+        <article class="event-card">
+
+            <div class="event-img">
+
+                <img src="{% static 'images/kashmir.jpg' %}"
+                     alt="Kashmir Solidarity Day">
+
+            </div>
+
+            <div class="event-content">
+
+                <div class="event-date">
+                    05 Feb
+                </div>
+
+                <h3 class="event-title">
+                    Kashmir Solidarity Day: Unity &amp; Awareness
+                </h3>
+
+                <p class="event-desc">
+                    An activity focused on awareness, unity and
+                    national spirit.
+                </p>
+
+            </div>
+
+        </article>
+
+
+        <!-- EVENT 4 -->
+
+        <article class="event-card">
+
+            <div class="event-img">
+
+                <img src="{% static 'images/sport.jpg' %}"
+                     alt="Sports Meet">
+
+            </div>
+
+            <div class="event-content">
+
+                <div class="event-date">
+                    18 Feb
+                </div>
+
+                <h3 class="event-title">
+                    Inter-College Sports Meet: Talent &amp; Team Spirit
+                </h3>
+
+                <p class="event-desc">
+                    A lively day celebrating sports, teamwork
+                    and student talent.
+                </p>
+
+            </div>
+
+        </article>
+
+
+        <!-- HIDDEN EVENT 5 -->
+
+        <article class="event-card hidden">
+
+            <div class="event-img">
+
+                <img src="{% static 'images/festival.jpg' %}"
+                     alt="Jashn-e-Baharan">
+
+            </div>
+
+            <div class="event-content">
+
+                <div class="event-date">
+                    20 Feb
+                </div>
+
+                <h3 class="event-title">
+                    Superior Grand Jashn-e-Baharan Festival
+                </h3>
+
+                <p class="event-desc">
+                    A colorful student celebration filled with
+                    campus activities.
+                </p>
+
+            </div>
+
+        </article>
+
+
+        <!-- HIDDEN EVENT 6 -->
+
+        <article class="event-card hidden">
+
+            <div class="event-img">
+
+                <img src="{% static 'images/2sup.jpg' %}"
+                     alt="Independence Day">
+
+            </div>
+
+            <div class="event-content">
+
+                <div class="event-date">
+                    14 Aug
+                </div>
+
+                <h3 class="event-title">
+                    Independence Day Celebrations: Patriotism in Every Corner
+                </h3>
+
+                <p class="event-desc">
+                    Students come together to celebrate national pride.
+                </p>
+
+            </div>
+
+        </article>
+
+
+        <!-- HIDDEN EVENT 7 -->
+
+        <article class="event-card hidden">
+
+            <div class="event-img">
+
+                <img src="{% static 'images/test.jpg' %}"
+                     alt="Scholarship Assessment">
+
+            </div>
+
+            <div class="event-content">
+
+                <div class="event-date">
+                    01 Mar
+                </div>
+
+                <h3 class="event-title">
+                    Scholarship Assessment 2026: Empowering Future Leaders
+                </h3>
+
+                <p class="event-desc">
+                    An assessment activity supporting deserving
+                    and high-achieving students.
+                </p>
+
+            </div>
+
+        </article>
+
+
+    </div>
+
+
+    <div class="more-btn-box">
+
+        <button id="moreBtn">
+
+            More Events
+
+            <i class="fa-solid fa-arrow-down"></i>
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SCHOLARSHIP
+===================================================== -->
+
+<section class="scholarship-section"
+         id="scholarships">
+
+    <div class="scholarship-panel">
+
+
+        <div class="scholarship-copy">
+
+            <span class="tag">
+
+                <i class="fa-solid fa-star"></i>
+
+                Scholarship opportunities
+
+            </span>
+
+
+            <h2>
+                Merit &amp; Need-Based Scholarships
+            </h2>
+
+
+            <p>
+                Step into your future through scholarship opportunities
+                designed to help deserving and exceptional students
+                grow and excel at Superior College.
+            </p>
+
+
+            <div class="scholarship-points">
+
+                <div>
+
+                    <strong>
+                        Merit
+                    </strong>
+
+                    Academic performance
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        Need-Based
+                    </strong>
+
+                    Financial support
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        Special Quota
+                    </strong>
+
+                    Eligible categories
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- CALCULATOR -->
+
+        <div class="calculator">
+
+            <h3>
+
+                <i class="fa-solid fa-calculator"></i>
+
+                Calculate Your Scholarship
+
+            </h3>
+
+
+            <div class="calc-row">
+
+
+                <div>
+
+                    <label for="percentageInput">
+                        Percentage (%)
+                    </label>
+
+                    <input id="percentageInput"
+                           type="number"
+                           min="0"
+                           max="100"
+                           step="0.01"
+                           placeholder="e.g. 82">
+
+                </div>
+
+
+                <div>
+
+                    <label for="marksInput">
+                        Obtained Marks
+                    </label>
+
+                    <input id="marksInput"
+                           type="number"
+                           min="0"
+                           placeholder="e.g. 902">
+
+                </div>
+
+
+            </div>
+
+
+            <div style="margin-top:8px">
+
+                <label for="totalMarksInput">
+                    Total Marks (only if using marks)
+                </label>
+
+                <input id="totalMarksInput"
+                       type="number"
+                       min="1"
+                       placeholder="e.g. 1100">
+
+            </div>
+
+
+            <button class="calc-button"
+                    id="checkEligibility">
+
+                Check Eligibility
+
+            </button>
+
+
+            <div class="calc-result"
+                 id="calcResult">
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FACULTY
+===================================================== -->
+
+<section class="testimonials-section"
+         id="faculty">
+
+    <div class="section-heading">
+
+        <div class="eyebrow">
+            People of Superior
+        </div>
+
+        <h2>
+            Our Esteemed Faculty &amp; Staff
+        </h2>
+
+        <p>
+            Meet members of the academic team using the faculty
+            images already present in your project.
+        </p>
+
+    </div>
+
+
+    <div class="slider-wrapper">
+
+        <div class="testimonials-container">
+
+
+            <!-- 1 -->
+
+            <div class="testimonial-card">
+
+                <div class="avatar">
+
+                    <img src="{% static 'images/dirsup.PNG' %}"
+                         alt="M.Asif Iqbal">
+
+                </div>
+
+                <h3 class="name">
+                    Sir.Asif Iqbal
+                </h3>
+
+                <p class="role">
+                    Director
+                </p>
+
+                <p class="testimonial">
+                    With over 15 years of experience in academic
+                    leadership, Sir.Asif is dedicated to fostering
+                    innovation and excellence at Superior College.
+                </p>
+
+            </div>
+
+
+            <!-- 2 -->
+
+            <div class="testimonial-card">
+
+                <div class="avatar">
+
+                    <img src="{% static 'images/taseer mam.PNG' %}"
+                         alt="Ms. Taseer Akthar">
+
+                </div>
+
+                <h3 class="name">
+                    Ms. Taseer Akthar
+                </h3>
+
+                <p class="role">
+                    Faculty, Law Department
+                </p>
+
+                <p class="testimonial">
+                    Ms. Taseer combines her expertise in law with
+                    her passion for teaching and practical knowledge.
+                </p>
+
+            </div>
+
+
+            <!-- 3 -->
+
+            <div class="testimonial-card">
+
+                <div class="avatar">
+
+                    <img src="{% static 'images/principle1.PNG' %}"
+                         alt="Sir Fasial">
+
+                </div>
+
+                <h3 class="name">
+                    Sir Fasial
+                </h3>
+
+                <p class="role">
+                    Principal
+                </p>
+
+                <p class="testimonial">
+                    Sir Fasial is passionate about nurturing young
+                    minds and creating a supportive learning environment.
+                </p>
+
+            </div>
+
+
+            <!-- 4 -->
+
+            <div class="testimonial-card">
+
+                <div class="avatar">
+
+                    <img src="{% static 'images/voice principle.PNG' %}"
+                         alt="Sir Waqas">
+
+                </div>
+
+                <h3 class="name">
+                    Sir Waqas
+                </h3>
+
+                <p class="role">
+                    Vice Principal
+                </p>
+
+                <p class="testimonial">
+                    Sir Waqas ensures academic programs run smoothly
+                    and students receive necessary support.
+                </p>
+
+            </div>
+
+
+            <!-- 5 -->
+
+            <div class="testimonial-card">
+
+                <div class="avatar">
+
+                    <img src="{% static 'images/Amara mam.jpg' %}"
+                         alt="Dr. Amara Kiran">
+
+                </div>
+
+                <h3 class="name">
+                    Dr. Amara Kiran
+                </h3>
+
+                <p class="role">
+                    PhD, Computer Science – Faculty &amp; Researcher
+                </p>
+
+                <p class="testimonial">
+                    Dr. Amara combines computer science knowledge
+                    with practical guidance for academics and research.
+                </p>
+
+            </div>
+
+
+            <!-- 6 -->
+
+            <div class="testimonial-card">
+
+                <div class="avatar">
+
+                    <img src="{% static 'images/Ayesha mam.jpg' %}"
+                         alt="Ms. Ayesha Shafique">
+
+                </div>
+
+                <h3 class="name">
+                    Ms. Ayesha Shafique
+                </h3>
+
+                <p class="role">
+                    Faculty, Department of Computer Science
+                </p>
+
+                <p class="testimonial">
+                    Ms. Ayesha's teaching style is engaging and clear,
+                    encouraging practical application.
+                </p>
+
+            </div>
+
+
+            <!-- 7 -->
+
+            <div class="testimonial-card">
+
+                <div class="avatar">
+
+                    <img src="{% static 'images/sir usman.PNG' %}"
+                         alt="Sir Usman Sohaib">
+
+                </div>
+
+                <h3 class="name">
+                    Sir Usman Sohaib
+                </h3>
+
+                <p class="role">
+                    Faculty, Computer Science
+                </p>
+
+                <p class="testimonial">
+                    Sir Usman guides students through programming
+                    and software development with patience and expertise.
+                </p>
+
+            </div>
+
+
+            <!-- 8 -->
+
+            <div class="testimonial-card">
+
+                <div class="avatar">
+
+                    <img src="{% static 'images/sir omir.PNG' %}"
+                         alt="Sir Omir Rasool">
+
+                </div>
+
+                <h3 class="name">
+                    Sir Omir Rasool
+                </h3>
+
+                <p class="role">
+                    Faculty, Mathematics
+                </p>
+
+                <p class="testimonial">
+                    Sir Omir's classes are interactive and concept-focused,
+                    making complex topics easier to grasp.
+                </p>
+
+            </div>
+
+
+            <!-- 9 -->
+
+            <div class="testimonial-card">
+
+                <div class="avatar">
+
+                    <img src="{% static 'images/sir arshad.PNG' %}"
+                         alt="Sir Arshad">
+
+                </div>
+
+                <h3 class="name">
+                    Sir Arshad
+                </h3>
+
+                <p class="role">
+                    Faculty, English
+                </p>
+
+                <p class="testimonial">
+                    Sir Arshad inspires students to improve language
+                    and communication skills and critical thinking.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <div class="nav-buttons">
+
+        <button id="prevBtn">
+
+            <i class="fa-solid fa-chevron-left"></i>
+
+            Previous
+
+        </button>
+
+
+        <button id="nextBtn">
+
+            Next
+
+            <i class="fa-solid fa-chevron-right"></i>
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CAMPUS LIFE
+===================================================== -->
+
+<h1 class="campus-title">
+    Campus Life &amp; Infrastructure
+</h1>
+
+<p class="campus-sub">
+    Explore the learning, recreation and community spaces
+    already included in your project.
+</p>
+
+
+<div class="gallery-section">
+
+
+    <div class="gallery-card">
+
+        <img src="{% static 'images/Art.jpg' %}"
+             alt="Art & Project Exhibition">
+
+        <h3>
+            Art &amp; Project Exhibition
+        </h3>
+
+    </div>
+
+
+    <div class="gallery-card">
+
+        <img src="{% static 'images/sports and events.jpg' %}"
+             alt="Sports & Fitness">
+
+        <h3>
+            Sports &amp; Fitness Facilities
+        </h3>
+
+    </div>
+
+
+    <div class="gallery-card">
+
+        <img src="{% static 'images/green cmapus kfu.jpg' %}"
+             alt="Superior Lush Green Campus">
+
+        <h3>
+            Superior Lush Green Campus
+        </h3>
+
+    </div>
+
+
+    <div class="gallery-card">
+
+        <img src="{% static 'images/health and safety.jpg' %}"
+             alt="Health & Medical Facilities">
+
+        <h3>
+            Health &amp; Medical Facilities
+        </h3>
+
+    </div>
+
+
+    <div class="gallery-card">
+
+        <img src="{% static 'images/confere.jpg' %}"
+             alt="Seminars & Conferences">
+
+        <h3>
+            Seminars &amp; Conferences
+        </h3>
+
+    </div>
+
+
+</div>
+
+
+<!-- =====================================================
+     READY TO BEGIN
+===================================================== -->
+
+<section class="ready-section">
+
+    <div class="ready-panel">
+
+        <div>
+
+            <div class="eyebrow"
+                 style="color:#f8c43a">
+
+                Superior College Chishtian
+
+            </div>
+
+            <h2>
+                Ready to Begin Your Superior Journey?
+            </h2>
+
+            <p>
+                Take the next step toward an education that builds
+                confidence, knowledge and opportunity.
+            </p>
+
+        </div>
+
+
+        <div class="ready-actions">
+
+            <a class="ready-btn"
+               href="{% url 'contact' %}">
+
+                <i class="fa-solid fa-location-dot"></i>
+
+                Get Directions &amp; Contact
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="custom-footer">
+
+    <div class="footer-overlay">
+
+
+        <div class="footer-container">
+
+
+            <!-- FOOTER MENU -->
+
+            <div class="footer-left">
+
+                <ul>
+
+                    <li>
+
+                        <a href="{% url 'superior' %}">
+                            HOME
+                        </a>
+
+                    </li>
+
+
+                    <li>
+
+                        <a href="{% url 'aboutsup' %}">
+                            ABOUT US
+                        </a>
+
+                    </li>
+
+
+                    <li>
+
+                        <a href="{% url 'addmission' %}">
+                            ADMISSIONS
+                        </a>
+
+                    </li>
+
+
+                    <li>
+
+                        <a href="{% url 'spaces' %}">
+                            LEARNING AT SUPERIOR
+                        </a>
+
+                    </li>
+
+
+                    <li>
+
+                        <a href="{% url 'fee' %}">
+                            FEE STRUCTURE
+                        </a>
+
+                    </li>
+
+
+                    <li>
+
+                        <a href="{% url 'contact' %}">
+                            CONTACT US
+                        </a>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <!-- CONTACT -->
+
+            <div class="footer-right">
+
+                <h3>
+                    GET IN TOUCH
+                </h3>
+
+
+                <p>
+
+                    <i class="fa-solid fa-location-dot"></i>
+
+                    The Superior College, Chishtian
+
+                </p>
+
+
+                <p>
+
+                    <i class="fa-solid fa-phone"></i>
+
+                    Main Office Telephone:
+                    +92 300 6989030 or
+                    +92 308 6985000.
+
+                </p>
+
+
+                <p>
+
+                    <i class="fa-solid fa-envelope"></i>
+
+                    Email:
+
+                    <a href="mailto:superiorctn@gmail.com">
+                        superiorctn@gmail.com
+                    </a>
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- SOCIAL -->
+
+        <div class="social-icons">
+
+
+            <a href="https://www.facebook.com/superiorctn/"
+               target="_blank"
+               rel="noopener noreferrer"
+               aria-label="Superior College Facebook">
+
+                <i class="fa-brands fa-facebook-f"></i>
+
+            </a>
+
+
+            <a href="https://www.instagram.com/superior_ctn/"
+               target="_blank"
+               rel="noopener noreferrer"
+               aria-label="Superior College Instagram">
+
+                <i class="fa-brands fa-instagram"></i>
+
+            </a>
+
+
+            <a href="https://www.linkedin.com/company/superior-college-of-law/"
+               target="_blank"
+               rel="noopener noreferrer"
+               aria-label="Superior College LinkedIn">
+
+                <i class="fa-brands fa-linkedin-in"></i>
+
+            </a>
+
+
+            <button class="share-btn"
+                    id="shareBtn">
+
+                <i class="fa-solid fa-share-nodes"></i>
+
+                Share
+
+            </button>
+
+
+        </div>
+
+
+        <!-- FOOTER BOTTOM -->
+
+        <div class="footer-bottom">
+
+            <p>
+                Legal &amp; Privacy Policy |
+                Copyright © 2023 - All Rights Reserved
+            </p>
+
+            <p>
+                Superior College Chishtian
+            </p>
+
+        </div>
+
+
+    </div>
+
+</footer>
+
+
+<!-- BACK TO TOP -->
+
+<a href="#top"
+   id="back-to-top"
+   aria-label="Back to top">
+
+    <i class="fas fa-chevron-up"></i>
+
+</a>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+
+/* =====================================================
+   MOBILE NAV
+===================================================== */
+
+const menuToggle =
+    document.getElementById("menu-toggle");
+
+const navbar =
+    document.getElementById("navbar");
+
+
+menuToggle.addEventListener("click",()=>{
+
+    navbar.classList.toggle("active");
+
+    menuToggle.innerHTML =
+        navbar.classList.contains("active")
+
+        ? '<i class="fas fa-times"></i>'
+
+        : '<i class="fas fa-bars"></i>';
+
+});
+
+
+document.querySelectorAll(".dropdown > a")
+.forEach(item=>{
+
+    item.addEventListener("click",e=>{
+
+        if(window.innerWidth<=768){
+
+            e.preventDefault();
+
+            const menu =
+                item.parentElement
+                    .querySelector(".sub-menu");
+
+
+            document
+            .querySelectorAll(".sub-menu")
+            .forEach(m=>{
+
+                if(m!==menu){
+
+                    m.style.display="none";
+
+                }
+
+            });
+
+
+            menu.style.display =
+                menu.style.display==="block"
+                ? "none"
+                : "block";
+
+        }
+
+    });
+
+});
+
+
+document.querySelectorAll(".navbar a")
+.forEach(link=>{
+
+    link.addEventListener("click",()=>{
+
+        if(
+            window.innerWidth<=768 &&
+            !link.parentElement
+            .classList.contains("dropdown")
+        ){
+
+            navbar.classList.remove("active");
+
+            menuToggle.innerHTML =
+                '<i class="fas fa-bars"></i>';
+
+        }
+
+    });
+
+});
+
+
+/* =====================================================
+   HERO SLIDER
+===================================================== */
+
+const slides =
+    document.querySelectorAll(".slide");
+
+let slideIndex=0;
+
+
+setInterval(()=>{
+
+    slides[slideIndex]
+        .classList.remove("active");
+
+
+    slideIndex =
+        (slideIndex+1) %
+        slides.length;
+
+
+    slides[slideIndex]
+        .classList.add("active");
+
+},4000);
+
+
+/* =====================================================
+   STATS COUNT UP
+===================================================== */
+
+let statsDone=false;
+
+
+function animateStats(){
+
+    const section =
+        document.querySelector(".stats-section");
+
+
+    if(!section || statsDone){
+        return;
+    }
+
+
+    if(
+        section.getBoundingClientRect().top
+        <
+        window.innerHeight*.82
+    ){
+
+        statsDone=true;
+
+
+        document
+        .querySelectorAll(".stat-box")
+        .forEach((box,i)=>{
+
+
+            setTimeout(()=>{
+
+                box.classList.add("show");
+
+            },i*100);
+
+
+            const number =
+                box.querySelector("h2");
+
+
+            const target =
+                Number(number.dataset.target);
+
+
+            let start=0;
+
+            const duration=900;
+
+            const begin =
+                performance.now();
+
+
+            function count(now){
+
+                const progress =
+                    Math.min(
+                        (now-begin)/duration,
+                        1
+                    );
+
+
+                number.textContent =
+                    Math.floor(
+                        progress*target
+                    ).toLocaleString();
+
+
+                if(progress<1){
+
+                    requestAnimationFrame(count);
+
+                }
+
+            }
+
+
+            requestAnimationFrame(count);
+
+        });
+
+    }
+
+}
+
+
+window.addEventListener(
+    "scroll",
+    animateStats
+);
+
+
+window.addEventListener(
+    "load",
+    animateStats
+);
+
+
+/* =====================================================
+   PROGRAM SEARCH
+===================================================== */
+
+const programCards =
+    [
+        ...document.querySelectorAll(".program-card")
+    ];
+
+
+const allProgramNames = [
+
+    "Engineering and Technology",
+
+    "B.Sc Computer Science",
+
+    "BS IT",
+
+    "B.Sc Mathematics",
+
+    "ADP-CS",
+
+    "Business and Management Sciences",
+
+    "BS Entrepreneurship",
+
+    "ADP & BS English",
+
+    "ADP & BS Marketing",
+
+    "B.A.D",
+
+    "Medical Sciences",
+
+    "ADP & BS Chemistry",
+
+    "ADP & BS Botany",
+
+    "ADP & BS Nursing",
+
+    "ADP & BS Zoology"
+
+];
+
+
+const input =
+    document.getElementById(
+        "searchInput"
+    );
+
+
+const suggestions =
+    document.getElementById(
+        "suggestions"
+    );
+
+
+const searchResult =
+    document.getElementById(
+        "searchResult"
+    );
+
+
+function normalize(s){
+
+    return s
+        .toLowerCase()
+        .replace(
+            /[^a-z0-9]+/g,
+            " "
+        )
+        .trim();
+
+}
+
+
+function clearProgramHighlights(){
+
+    programCards
+    .forEach(c=>{
+
+        c.classList.remove(
+            "highlight"
+        );
+
+    });
+
+
+    document
+    .querySelectorAll(".sub-box")
+    .forEach(x=>{
+
+        x.classList.remove(
+            "match-highlight"
+        );
+
+    });
+
+}
+
+
+/* INPUT */
+
+input.addEventListener(
+    "input",
+    ()=>{
+
+        const q =
+            normalize(
+                input.value
+            );
+
+
+        suggestions.innerHTML="";
+
+        searchResult.textContent="";
+
+        clearProgramHighlights();
+
+
+        if(!q){
+
+            return;
+
+        }
+
+
+        const found =
+            allProgramNames
+            .filter(
+                n =>
+                normalize(n)
+                .includes(q)
+            )
+            .slice(0,8);
+
+
+        if(!found.length){
+
+            const li =
+                document.createElement(
+                    "li"
+                );
+
+
+            li.textContent =
+                "No Program Found";
+
+
+            li.style.cursor =
+                "default";
+
+
+            suggestions
+                .appendChild(li);
+
+
+            return;
+
+        }
+
+
+        found.forEach(name=>{
+
+            const li =
+                document.createElement(
+                    "li"
+                );
+
+
+            li.textContent=name;
+
+
+            li.addEventListener(
+                "click",
+                ()=>{
+
+                    input.value=name;
+
+                    suggestions
+                        .innerHTML="";
+
+                    performSearch();
+
+                }
+            );
+
+
+            suggestions
+                .appendChild(li);
+
+        });
+
+    }
+);
+
+
+/* SEARCH FUNCTION */
+
+function performSearch(){
+
+    const q =
+        normalize(
+            input.value
+        );
+
+
+    suggestions.innerHTML="";
+
+    clearProgramHighlights();
+
+
+    if(!q){
+
+        searchResult.textContent =
+            "Please enter a program name.";
+
+        return;
+
+    }
+
+
+    let matches=[];
+
+
+    programCards.forEach(card=>{
+
+
+        const cardName =
+            normalize(
+                card.dataset.name
+            );
+
+
+        if(cardName.includes(q)){
+
+            card.classList.add(
+                "highlight"
+            );
+
+            matches.push(card);
+
+        }
+
+
+        card
+        .querySelectorAll(
+            ".program-name,.sub-box"
+        )
+        .forEach(item=>{
+
+
+            if(
+                normalize(
+                    item.textContent
+                ).includes(q)
+            ){
+
+                if(
+                    item.classList
+                    .contains("sub-box")
+                ){
+
+                    item.classList.add(
+                        "match-highlight"
+                    );
+
+                }
+
+
+                card.classList.add(
+                    "highlight"
+                );
+
+
+                matches.push(item);
+
+            }
+
+        });
+
+    });
+
+
+    if(!matches.length){
+
+        searchResult.textContent =
+            "No Program Found — please try another program name.";
+
+        return;
+
+    }
+
+
+    const target =
+        matches[0];
+
+
+    target.scrollIntoView({
+
+        behavior:"smooth",
+
+        block:"center"
+
+    });
+
+
+    searchResult.textContent =
+        "Program found — highlighted below.";
+
+
+    setTimeout(()=>{
+
+        searchResult.textContent="";
+
+    },3000);
+
+}
+
+
+document
+.getElementById("searchBtn")
+.addEventListener(
+    "click",
+    performSearch
+);
+
+
+document.addEventListener(
+    "click",
+    e=>{
+
+        if(
+            !input.contains(e.target) &&
+            !suggestions.contains(e.target)
+        ){
+
+            suggestions.innerHTML="";
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   MORE EVENTS
+===================================================== */
+
+document
+.getElementById("moreBtn")
+.addEventListener(
+    "click",
+    ()=>{
+
+
+        document
+        .querySelectorAll(
+            ".event-card.hidden"
+        )
+        .forEach(c=>{
+
+            c.classList.remove(
+                "hidden"
+            );
+
+        });
+
+
+        document
+        .getElementById("moreBtn")
+        .style.display="none";
+
+    }
+);
+
+
+/* =====================================================
+   FACULTY SLIDER
+===================================================== */
+
+const facultyContainer =
+    document.querySelector(
+        ".testimonials-container"
+    );
+
+
+const facultyCards =
+    [
+        ...document.querySelectorAll(
+            ".testimonial-card"
+        )
+    ];
+
+
+let facultyIndex=0;
+
+
+function facultyPerPage(){
+
+    if(window.innerWidth<=768){
+
+        return 1;
+
+    }
+
+    if(window.innerWidth<=1100){
+
+        return 2;
+
+    }
+
+    return 3;
+
+}
+
+
+function updateFaculty(){
+
+    if(!facultyCards.length){
+
+        return;
+
+    }
+
+
+    const per =
+        facultyPerPage();
+
+
+    const gap=15;
+
+
+    const width =
+        facultyCards[0]
+        .getBoundingClientRect()
+        .width;
+
+
+    const max =
+        Math.max(
+            0,
+            facultyCards.length-per
+        );
+
+
+    facultyIndex =
+        Math.min(
+            facultyIndex,
+            max
+        );
+
+
+    facultyContainer.style.transform =
+        `translateX(-${
+            facultyIndex*(width+gap)
+        }px)`;
+
+}
+
+
+document
+.getElementById("nextBtn")
+.addEventListener(
+    "click",
+    ()=>{
+
+        facultyIndex +=
+            facultyPerPage();
+
+        updateFaculty();
+
+    }
+);
+
+
+document
+.getElementById("prevBtn")
+.addEventListener(
+    "click",
+    ()=>{
+
+        facultyIndex -=
+            facultyPerPage();
+
+
+        if(facultyIndex<0){
+
+            facultyIndex=0;
+
+        }
+
+
+        updateFaculty();
+
+    }
+);
+
+
+window.addEventListener(
+    "resize",
+    updateFaculty
+);
+
+
+window.addEventListener(
+    "load",
+    updateFaculty
+);
+
+
+/* =====================================================
+   SCHOLARSHIP CALCULATOR
+===================================================== */
+
+document
+.getElementById(
+    "checkEligibility"
+)
+.addEventListener(
+    "click",
+    ()=>{
+
+
+        const pctInput =
+            document.getElementById(
+                "percentageInput"
+            );
+
+
+        const marksInput =
+            document.getElementById(
+                "marksInput"
+            );
+
+
+        const totalInput =
+            document.getElementById(
+                "totalMarksInput"
+            );
+
+
+        const result =
+            document.getElementById(
+                "calcResult"
+            );
+
+
+        let percentage=null;
+
+
+        const typedPct =
+            parseFloat(
+                pctInput.value
+            );
+
+
+        const marks =
+            parseFloat(
+                marksInput.value
+            );
+
+
+        const total =
+            parseFloat(
+                totalInput.value
+            );
+
+
+        /* DIRECT PERCENTAGE */
+
+        if(!Number.isNaN(typedPct)){
+
+            percentage=typedPct;
+
+        }
+
+
+        /* MARKS */
+
+        else if(
+            !Number.isNaN(marks) &&
+            !Number.isNaN(total) &&
+            total>0
+        ){
+
+            percentage =
+                (marks/total)*100;
+
+
+            pctInput.value =
+                percentage.toFixed(2);
+
+        }
+
+
+        /* EMPTY */
+
+        else{
+
+            result.className =
+                "calc-result not-eligible";
+
+
+            result.textContent =
+                "Please enter a percentage, or enter obtained and total marks.";
+
+            return;
+
+        }
+
+
+        /* INVALID */
+
+        if(
+            percentage<0 ||
+            percentage>100
+        ){
+
+            result.className =
+                "calc-result not-eligible";
+
+
+            result.textContent =
+                "Please enter a percentage between 0% and 100%.";
+
+            return;
+
+        }
+
+
+        /* 80% OR ABOVE */
+
+        result.className =
+            percentage>=80
+
+            ? "calc-result eligible"
+
+            : "calc-result not-eligible";
+
+
+        result.textContent =
+            percentage>=80
+
+            ? `Congratulations! You are eligible for the merit scholarship at ${percentage.toFixed(2)}%.`
+
+            : `Your percentage is ${percentage.toFixed(2)}%. You are not eligible for the 80% merit-scholarship threshold.`;
+
+    }
+);
+
+
+/* =====================================================
+   SHARE BUTTON
+===================================================== */
+
+document
+.getElementById("shareBtn")
+.addEventListener(
+    "click",
+    async ()=>{
+
+        const data={
+
+            title:document.title,
+
+            text:"Superior College Chishtian",
+
+            url:window.location.href
+
+        };
+
+
+        try{
+
+            if(navigator.share){
+
+                await navigator.share(
+                    data
+                );
+
+            }
+
+            else if(
+                navigator.clipboard
+            ){
+
+                await navigator
+                    .clipboard
+                    .writeText(
+                        window.location.href
+                    );
+
+
+                alert(
+                    "Page link copied. You can now share it anywhere."
+                );
+
+            }
+
+            else{
+
+                prompt(
+                    "Copy this page link:",
+                    window.location.href
+                );
+
+            }
+
+        }
+
+        catch(err){
+
+            /* User cancelled share */
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   BACK TO TOP
+===================================================== */
+
+const topBtn =
+    document.getElementById(
+        "back-to-top"
+    );
+
+
+window.addEventListener(
+    "scroll",
+    ()=>{
+
+        topBtn.style.display =
+            window.scrollY>400
+            ? "flex"
+            : "none";
+
+    }
+);
+
+</script>
+
+
+</body>
+</html>

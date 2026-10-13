@@ -1,0 +1,1378 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Historical Background | Superior College Chishtian</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            overflow-x: hidden;
+        }
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background: #1a6260;
+            color: white;
+            position: relative;
+            z-index: 1000;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-container {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid white;
+            flex-shrink: 0;
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .college-text {
+            display: flex;
+            flex-direction: column;
+            color: white;
+            font-weight: bold;
+            line-height: 1.2;
+            font-size: 18px;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .navbar > a,
+        .navbar .dropdown > a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .navbar > a:hover,
+        .navbar .dropdown > a:hover {
+            color: #f5a623;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown > a {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .sub-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #0d3b3a;
+            list-style: none;
+            padding: 10px 0;
+            min-width: 230px;
+            border-radius: 5px;
+            z-index: 9999;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+        }
+
+        .sub-menu li {
+            margin: 0;
+        }
+
+        .sub-menu li a {
+            padding: 10px 15px;
+            color: white;
+            display: block;
+            font-size: 14px;
+            text-decoration: none;
+            white-space: normal;
+        }
+
+        .sub-menu li a:hover {
+            background: #1a6260;
+            color: #f5a623;
+        }
+
+        /* Desktop dropdown */
+        .dropdown:hover .sub-menu {
+            display: block;
+        }
+
+        /* =========================
+           MOBILE MENU BUTTON
+        ========================= */
+
+        .menu-toggle {
+            display: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: white;
+            user-select: none;
+        }
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero-banner {
+            height: 60vh;
+            min-height: 400px;
+            background: url("/static/images/hero (5).png") center center/cover no-repeat;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            position: relative;
+            text-align: center;
+        }
+
+        .hero-overlay {
+            background: rgba(0, 0, 0, 0.5);
+
+            width: 100%;
+            height: 100%;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            color: white;
+            padding: 20px;
+        }
+
+        .hero-overlay h1 {
+            font-size: 24px;
+            letter-spacing: 3px;
+            line-height: 1.4;
+        }
+
+        .hero-overlay p {
+            margin-top: 15px;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        /* =========================
+           MAIN SECTION
+        ========================= */
+
+        .principal-section {
+            background: url("/static/images/hero (5).png") center center/cover no-repeat;
+            padding: 40px 20px 60px;
+        }
+
+        .principal-container {
+            width: 85%;
+            margin: auto;
+
+            background: #fff;
+
+            display: flex;
+
+            border-radius: 0 0 0 60px;
+            overflow: hidden;
+
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        /* =========================
+           LEFT SIDE
+        ========================= */
+
+        .left-side {
+            width: 30%;
+            background: #f3f3f3;
+            padding: 40px;
+        }
+
+        .left-side h3 {
+            color: #31A943;
+            letter-spacing: 4px;
+            font-size: 20px;
+        }
+
+        .left-side p {
+            margin: 10px 0;
+            color: #5D5D5D;
+            font-size: 15px;
+        }
+
+        .left-side hr {
+            border: 0;
+            border-top: 2px solid #F5E547;
+            margin-bottom: 15px;
+        }
+
+        .sidebar-link {
+            display: inline-block;
+
+            margin: 10px 0;
+
+            text-decoration: none;
+            color: #5D5D5D;
+
+            border-bottom: 2px solid transparent;
+            padding-bottom: 3px;
+
+            line-height: 1.5;
+
+            transition: 0.3s;
+        }
+
+        .sidebar-link:hover,
+        .sidebar-link.active {
+            color: #31A943;
+            border-bottom-color: #F5E547;
+        }
+
+        /* =========================
+           RIGHT SIDE
+        ========================= */
+
+        .right-side {
+            width: 70%;
+            padding: 50px;
+        }
+
+        .principal-heading {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #31A943;
+            line-height: 1.4;
+        }
+
+        /* =========================
+           IMAGE + TEXT
+        ========================= */
+
+        .principal-content {
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+        }
+
+        .principal-image {
+            width: 30%;
+            flex-shrink: 0;
+        }
+
+        .principal-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 10px;
+        }
+
+        .principal-text {
+            width: 70%;
+            font-family: "Open Sans", Arial, sans-serif;
+        }
+
+        .principal-text h4 {
+            color: #31A943;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .principal-text p {
+            color: #5D5D5D;
+            line-height: 1.7;
+            margin-bottom: 18px;
+            text-align: justify;
+            font-size: 15px;
+        }
+
+        .line {
+            color: #F5E547;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        .custom-footer {
+            position: relative;
+
+            background: url("/static/images/footer hero.png") center center/cover no-repeat;
+
+            color: #7BA388;
+            font-family: Arial, sans-serif;
+        }
+
+        .footer-overlay {
+            background: rgba(0, 0, 0, 0.75);
+            padding: 60px 80px;
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+
+        .footer-left ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-left ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-left ul li a {
+            color: #7BA388;
+            text-decoration: none;
+            font-size: 14px;
+            letter-spacing: 1px;
+            line-height: 1.2;
+        }
+
+        .footer-left ul li a:hover {
+            color: #ffffff;
+        }
+
+        .footer-right {
+            max-width: 800px;
+        }
+
+        .footer-right h3 {
+            margin-bottom: 20px;
+            font-size: 18px;
+            letter-spacing: 2px;
+            color: white;
+        }
+
+        .footer-right p {
+            margin-bottom: 10px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .footer-right a {
+            color: #7BA388;
+            text-decoration: none;
+        }
+
+        .footer-right a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            margin-top: 40px;
+            padding-top: 20px;
+
+            border-top: 1px solid #7BA388;
+
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+
+            font-size: 14px;
+        }
+
+        .footer-bottom p {
+            color: #c8c8c8;
+        }
+
+        /* =========================
+           BACK TO TOP
+        ========================= */
+
+        #back-to-top {
+            display: none;
+
+            position: fixed;
+
+            bottom: 20px;
+            right: 20px;
+
+            background: #1a6260;
+            color: white;
+
+            padding: 12px 16px;
+
+            border-radius: 5px;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            z-index: 9999;
+
+            box-shadow: 0 5px 15px rgba(0,0,0,0.25);
+        }
+
+        #back-to-top:hover {
+            background: #31A943;
+        }
+
+        /* =========================
+           TABLET
+        ========================= */
+
+        @media (max-width: 1000px) {
+
+            .navbar {
+                gap: 12px;
+            }
+
+            .navbar > a,
+            .navbar .dropdown > a {
+                font-size: 13px;
+            }
+
+            .principal-container {
+                width: 95%;
+            }
+
+            .left-side {
+                width: 30%;
+                padding: 30px;
+            }
+
+            .right-side {
+                width: 70%;
+                padding: 35px;
+            }
+
+            .principal-content {
+                gap: 25px;
+            }
+
+            .footer-overlay {
+                padding: 50px 40px;
+            }
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 768px) {
+
+            /* HEADER */
+
+            header {
+                padding: 10px 15px;
+                min-height: 80px;
+            }
+
+            .logo-container {
+                width: 58px;
+                height: 58px;
+            }
+
+            .college-text {
+                font-size: 15px;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .navbar {
+                position: absolute;
+
+                top: 80px;
+                right: 0;
+
+                width: 280px;
+                max-width: 90vw;
+
+                background: #0d3b3a;
+
+                display: none;
+
+                flex-direction: column;
+                align-items: stretch;
+
+                gap: 0;
+
+                padding: 15px;
+
+                box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            }
+
+            .navbar.active {
+                display: flex;
+            }
+
+            .navbar > a,
+            .navbar .dropdown > a {
+                display: block;
+
+                width: 100%;
+
+                padding: 12px 10px;
+
+                font-size: 14px;
+
+                color: white;
+            }
+
+            .navbar > a:hover,
+            .navbar .dropdown > a:hover {
+                background: #1a6260;
+                color: #f5a623;
+            }
+
+            .dropdown {
+                width: 100%;
+            }
+
+            .dropdown > a {
+                display: flex !important;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .sub-menu {
+                position: static;
+
+                width: 100%;
+                min-width: 0;
+
+                background: #082c2b;
+
+                box-shadow: none;
+
+                border-radius: 0;
+
+                padding: 0;
+            }
+
+            .dropdown.active .sub-menu {
+                display: block;
+            }
+
+            .sub-menu li a {
+                padding: 10px 20px;
+
+                font-size: 13px;
+            }
+
+            /* HERO */
+
+            .hero-banner {
+                height: 45vh;
+                min-height: 300px;
+            }
+
+            .hero-overlay h1 {
+                font-size: 20px;
+                letter-spacing: 1.5px;
+            }
+
+            .hero-overlay p {
+                font-size: 12px;
+            }
+
+            /* MAIN */
+
+            .principal-section {
+                padding: 25px 12px 40px;
+            }
+
+            .principal-container {
+                width: 100%;
+
+                display: block;
+
+                border-radius: 0 0 0 30px;
+            }
+
+            .left-side {
+                width: 100%;
+                padding: 25px;
+            }
+
+            .left-side h3 {
+                font-size: 18px;
+                letter-spacing: 3px;
+            }
+
+            .sidebar-link {
+                display: block;
+                width: fit-content;
+            }
+
+            .right-side {
+                width: 100%;
+                padding: 30px 20px 40px;
+            }
+
+            .principal-heading {
+                font-size: 22px;
+                margin-bottom: 30px;
+            }
+
+            /* IMAGE + TEXT */
+
+            .principal-content {
+                flex-direction: column;
+                gap: 25px;
+            }
+
+            .principal-image {
+                width: 100%;
+                max-width: 350px;
+                margin: 0 auto;
+            }
+
+            .principal-text {
+                width: 100%;
+            }
+
+            .principal-text h4 {
+                font-size: 17px;
+            }
+
+            .principal-text p {
+                font-size: 14px;
+                line-height: 1.7;
+                text-align: left;
+            }
+
+            /* FOOTER */
+
+            .footer-overlay {
+                padding: 40px 25px;
+            }
+
+            .footer-container {
+                display: block;
+            }
+
+            .footer-left {
+                margin-bottom: 35px;
+            }
+
+            .footer-right {
+                max-width: 100%;
+            }
+
+            .footer-right h3 {
+                font-size: 17px;
+            }
+
+            .footer-right p {
+                font-size: 13px;
+            }
+
+            .footer-bottom {
+                display: block;
+
+                margin-top: 30px;
+                padding-top: 15px;
+            }
+
+            .footer-bottom p {
+                font-size: 12px;
+                line-height: 1.6;
+            }
+
+            #back-to-top {
+                bottom: 15px;
+                right: 15px;
+
+                padding: 10px 13px;
+
+                font-size: 12px;
+            }
+        }
+
+        /* =========================
+           SMALL MOBILE
+        ========================= */
+
+        @media (max-width: 480px) {
+
+            header {
+                min-height: 72px;
+            }
+
+            .logo-container {
+                width: 52px;
+                height: 52px;
+            }
+
+            .college-text {
+                font-size: 13px;
+            }
+
+            .menu-toggle {
+                font-size: 25px;
+            }
+
+            .navbar {
+                top: 72px;
+            }
+
+            .hero-banner {
+                min-height: 280px;
+            }
+
+            .hero-overlay h1 {
+                font-size: 17px;
+            }
+
+            .hero-overlay p {
+                font-size: 11px;
+            }
+
+            .right-side {
+                padding: 25px 15px 35px;
+            }
+
+            .principal-heading {
+                font-size: 19px;
+            }
+
+            .principal-text h4 {
+                font-size: 16px;
+            }
+
+            .principal-text p {
+                font-size: 13px;
+            }
+
+            .footer-overlay {
+                padding: 35px 18px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body id="top">
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header>
+
+    <div class="logo-section">
+
+        <div class="logo-container">
+
+            <img
+                src="{% static 'images/sup logo.png' %}"
+                alt="Superior College Logo"
+            >
+
+        </div>
+
+        <div class="college-text">
+
+            <span>Superior</span>
+            <span>College</span>
+            <span>Chishtian</span>
+
+        </div>
+
+    </div>
+
+
+    <!-- MOBILE MENU -->
+
+    <div class="menu-toggle" id="menu-toggle">
+        ☰
+    </div>
+
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar" id="navbar">
+
+        <a href="{% url 'index' %}">
+            Home
+        </a>
+
+
+        <!-- ABOUT US -->
+
+        <div class="dropdown">
+
+            <a href="#">
+                ABOUT US
+                <span>▾</span>
+            </a>
+
+            <ul class="sub-menu">
+
+                <li>
+                    <a href="{% url 'aboutsup' %}">
+                        Welcome Message From the Principal
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'historysup' %}">
+                        About Superior
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'missionsup' %}">
+                        Mission Vision and Values
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'results' %}">
+                        Results
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <!-- ADMISSIONS -->
+
+        <div class="dropdown">
+
+            <a href="#">
+                ADMISSIONS
+                <span>▾</span>
+            </a>
+
+            <ul class="sub-menu">
+
+                <li>
+                    <a href="{% url 'addmission' %}">
+                        Admissions
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'fee' %}">
+                        Fees Structure
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'apply' %}">
+                        Apply
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <!-- FACILITIES -->
+
+        <div class="dropdown">
+
+            <a href="#">
+                FACILITIES
+                <span>▾</span>
+            </a>
+
+            <ul class="sub-menu">
+
+                <li>
+                    <a href="{% url 'class' %}">
+                        Living Classrooms
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'spaces' %}">
+                        Unique College Learning Spaces
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <!-- LEARNING AT SUPERIOR -->
+
+        <div class="dropdown">
+
+            <a href="#">
+                LEARNING AT SUPERIOR
+                <span>▾</span>
+            </a>
+
+            <ul class="sub-menu">
+
+                <li>
+                    <a href="{% url 'spaces' %}">
+                        LEARNING AT SUPERIOR
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'affiliate' %}">
+                        AFFILIATE
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <!-- CONTACT -->
+
+        <a href="{% url 'contact' %}">
+            CONTACT US
+        </a>
+
+    </nav>
+
+</header>
+
+
+
+<!-- =========================
+     HERO SECTION
+========================= -->
+
+<section class="hero-banner">
+
+    <div class="hero-overlay">
+
+        <h1>
+            Historical Background of Superior
+        </h1>
+
+        <p>
+            Home | About Us | Historical Background of Superior
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     CONTENT SECTION
+========================= -->
+
+<section class="principal-section">
+
+    <div class="principal-container">
+
+
+        <!-- LEFT SIDEBAR -->
+
+        <div class="left-side">
+
+            <h3>
+                ABOUT US
+            </h3>
+
+            <p>
+                In this Section
+            </p>
+
+            <hr>
+
+
+            <a
+                href="{% url 'aboutsup' %}"
+                class="sidebar-link"
+            >
+                Welcome Message From the Principal
+            </a>
+
+
+            <a
+                href="{% url 'historysup' %}"
+                class="sidebar-link active"
+            >
+                About Superior
+            </a>
+
+
+            <a
+                href="{% url 'missionsup' %}"
+                class="sidebar-link"
+            >
+                Mission, Vision &amp; Values
+            </a>
+
+
+            <a
+                href="{% url 'results' %}"
+                class="sidebar-link"
+            >
+                Results
+            </a>
+
+        </div>
+
+
+
+        <!-- RIGHT SIDE -->
+
+        <div class="right-side">
+
+            <h2 class="principal-heading">
+                Historical Background of Superior
+            </h2>
+
+
+            <div class="principal-content">
+
+
+                <!-- DIRECTOR IMAGE -->
+
+                <div class="principal-image">
+
+                    <img
+                        src="{% static 'images/dirsup.PNG' %}"
+                        alt="Sir Asif Iqbal, Director"
+                    >
+
+                </div>
+
+
+
+                <!-- TEXT -->
+
+                <div class="principal-text">
+
+                    <h4>
+                        <span class="line">|</span>
+                        Sir Asif Iqbal, Director
+                    </h4>
+
+
+                    <p>
+                        Under the inspiring leadership of Sir Asif Iqbal,
+                        our institution is committed to academic excellence,
+                        character building, and holistic student development.
+                    </p>
+
+
+                    <p>
+                        Superior College Chishtian, part of the extensive
+                        Superior Group of Colleges founded by Prof. Dr. Ch. Abdul
+                        Rehman in 2000, is a prominent educational institute
+                        located on Bahawalnagar Road, Chishtian.
+                        Superior College Chishtian is located at 2-km
+                        Bahawalnagar Road, Chishtian Mandi, Punjab, Pakistan.
+                        Superior Group of Colleges Chishtian offers Intermediate
+                        programs including FSc, ICS, FA along with professional
+                        diplomas.
+                    </p>
+
+
+                    <p>
+                        Particularly for girls, this collegies is an even bigger
+                        blessing, because many of the degree programs are of great
+                        interest of female students matching their educations
+                        aspirations and future endeavors. The year 2019 has also
+                        been scheduled to be yet another successful venture for
+                        SUPERIOR. After the admissions of Fall 2019, SUPERIOR will
+                        register its name in leading collegies of country by
+                        growing to 10 departments, 25 degree programs, over 2 PhD
+                        qualified faculty members and crossing milestone of 1100
+                        students.
+
+                        The campus provides scholarship opportunities,
+                        transport facilities, and strong academic support.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer class="custom-footer">
+
+    <div class="footer-overlay">
+
+
+        <div class="footer-container">
+
+
+            <!-- LEFT MENU -->
+
+            <div class="footer-left">
+
+                <ul>
+
+                    <li>
+                        <a href="{% url 'superior' %}">
+                            HOME
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'historysup' %}">
+                            ABOUT US
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'addmission' %}">
+                            ADMISSIONS
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'results' %}">
+                            LEARNING AT SUPERIOR
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'contact' %}">
+                            CONTACT US
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+
+            <!-- CONTACT INFO -->
+
+            <div class="footer-right">
+
+                <h3>
+                    GET IN TOUCH
+                </h3>
+
+
+                <p>
+                    THE Superior College, Chishtian,
+                </p>
+
+
+                <p>
+                    MAIN OFFICE TELEPHONE:
+                    +92 300 6989030 or +92 308 6985000.
+                </p>
+
+
+                <p>
+                    EMAIL:
+
+                    <a href="mailto:superiorctn@gmail.com">
+                        superiorctn@gmail.com
+                    </a>
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- BOTTOM BAR -->
+
+        <div class="footer-bottom">
+
+            <p>
+                Legal &amp; Privacy Policy |
+                Copyright © 2023 - All Rights Reserved
+            </p>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+
+<!-- =========================
+     BACK TO TOP
+========================= -->
+
+<a href="#top" id="back-to-top">
+    ↑ Back to Top
+</a>
+
+
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
+<script>
+
+    /* =========================
+       MOBILE MENU
+    ========================= */
+
+    const menuToggle = document.getElementById("menu-toggle");
+    const navbar = document.getElementById("navbar");
+
+    menuToggle.addEventListener("click", function () {
+
+        navbar.classList.toggle("active");
+
+    });
+
+
+
+    /* =========================
+       MOBILE DROPDOWNS
+    ========================= */
+
+    const dropdowns = document.querySelectorAll(".dropdown");
+
+    dropdowns.forEach(function(dropdown) {
+
+        const dropdownLink = dropdown.querySelector(":scope > a");
+
+        dropdownLink.addEventListener("click", function(event) {
+
+            if (window.innerWidth <= 768) {
+
+                event.preventDefault();
+
+                dropdowns.forEach(function(item) {
+
+                    if (item !== dropdown) {
+                        item.classList.remove("active");
+                    }
+
+                });
+
+                dropdown.classList.toggle("active");
+
+            }
+
+        });
+
+    });
+
+
+
+    /* =========================
+       BACK TO TOP
+    ========================= */
+
+    const backToTop = document.getElementById("back-to-top");
+
+    window.addEventListener("scroll", function() {
+
+        if (
+            document.body.scrollTop > 200 ||
+            document.documentElement.scrollTop > 200
+        ) {
+
+            backToTop.style.display = "block";
+
+        } else {
+
+            backToTop.style.display = "none";
+
+        }
+
+    });
+
+
+
+    /* =========================
+       CLOSE MENU OUTSIDE
+    ========================= */
+
+    document.addEventListener("click", function(event) {
+
+        if (
+            window.innerWidth <= 768 &&
+            !navbar.contains(event.target) &&
+            !menuToggle.contains(event.target)
+        ) {
+
+            navbar.classList.remove("active");
+
+            dropdowns.forEach(function(dropdown) {
+
+                dropdown.classList.remove("active");
+
+            });
+
+        }
+
+    });
+
+</script>
+
+
+</body>
+</html>
+
+

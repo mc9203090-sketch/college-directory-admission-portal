@@ -1,0 +1,1116 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Background CSC</title>
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #2e2c6a;
+        }
+
+        /* =========================
+           HEADER
+        ========================== */
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 30px;
+            background: #2e2c6a;
+            color: white;
+            position: relative;
+            z-index: 1000;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        .logo-container {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid white;
+            flex-shrink: 0;
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .college-text {
+            display: flex;
+            flex-direction: column;
+            color: white;
+            font-weight: bold;
+            line-height: 1.2;
+            font-size: 18px;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================== */
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .navbar > a,
+        .navbar .dropdown > a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .navbar a:hover {
+            color: #F5E547;
+        }
+
+        .navbar .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .navbar .dropdown > a {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        /* Invisible bridge for desktop dropdown */
+        .navbar .dropdown::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 100%;
+            height: 12px;
+            background: transparent;
+        }
+
+        .navbar .sub-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #2e2c6a;
+            list-style: none;
+            padding: 10px 0;
+            margin: 0;
+            min-width: 235px;
+            border-radius: 0 0 6px 6px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            z-index: 2000;
+        }
+
+        .navbar .sub-menu li {
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar .sub-menu li a {
+            padding: 10px 15px;
+            color: white;
+            display: block;
+            font-size: 14px;
+            text-decoration: none;
+            white-space: normal;
+        }
+
+        .navbar .sub-menu li a:hover {
+            background: #3d3a7d;
+            color: #f5a623;
+        }
+
+        /* Desktop hover */
+        @media (min-width: 768px) {
+
+            .navbar .dropdown:hover .sub-menu {
+                display: block;
+            }
+        }
+
+        /* =========================
+           HAMBURGER
+        ========================== */
+
+        .menu-toggle {
+            display: none;
+            border: none;
+            background: transparent;
+            color: white;
+            font-size: 25px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        /* =========================
+           HERO
+        ========================== */
+
+        .rit-hero {
+            background: #eee;
+            padding: 120px 0;
+            position: relative;
+        }
+
+        .orange-strip {
+            background: #E13B23;
+            min-height: 220px;
+            display: flex;
+            align-items: center;
+            padding: 35px 8%;
+        }
+
+        .orange-strip h1 {
+            color: white;
+            font-size: 45px;
+            font-weight: bold;
+            text-align: left;
+            margin: 0;
+        }
+
+        /* =========================
+           IMAGE FRAME
+        ========================== */
+
+        .image-box {
+            position: absolute;
+            right: 60px;
+            top: 60px;
+            background: #cfd3d6;
+            padding: 10px;
+            max-width: 47%;
+        }
+
+        .image-box img {
+            width: 520px;
+            max-width: 100%;
+            height: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        /* =========================
+           ABOUT SECTION
+        ========================== */
+
+        .about-pgc {
+            background: #eee;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .about-heading {
+            font-size: 24px;
+            font-weight: bold;
+            max-width: 900px;
+            margin: 0 auto 40px;
+            line-height: 1.4;
+            color: #2e2c6a;
+            text-align: justify;
+        }
+
+        .about-text {
+            max-width: 900px;
+            margin: auto;
+            font-size: 16px;
+            line-height: 1.8;
+            color: #2e2c6a;
+            text-align: justify;
+        }
+
+        /* =========================
+           FOOTER
+        ========================== */
+
+        .footer {
+            background: #2e2c6a;
+            color: white;
+            width: 100%;
+            padding: 80px 80px 100px;
+            position: relative;
+            margin-top: 0;
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 40px;
+            width: 100%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .footer-left {
+            max-width: 800px;
+        }
+
+        .footer-left h2 {
+            margin: 0 0 20px;
+            line-height: 1.5;
+            font-size: 25px;
+        }
+
+        .footer-left p {
+            margin: 8px 0;
+            line-height: 1.5;
+            font-size: 15px;
+        }
+
+        .social-icons {
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 20px;
+            margin-right: 15px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: #E13B23;
+        }
+
+        .copyright {
+            margin-top: 25px !important;
+        }
+
+        .footer-right {
+            flex-shrink: 0;
+            padding-top: 10px;
+        }
+
+        .apply-btn {
+            display: inline-block;
+            background: #E13B23;
+            padding: 15px 30px;
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: 0.3s;
+        }
+
+        .apply-btn:hover {
+            background: #c92f1f;
+        }
+
+        /* =========================
+           BACK TO TOP
+        ========================== */
+
+        #back-to-top {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 45px;
+            height: 45px;
+            background: #E13B23;
+            color: white;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            z-index: 9999;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+        }
+
+        #back-to-top:hover {
+            background: #2e2c6a;
+        }
+
+        /* =========================
+           TABLET
+        ========================== */
+
+        @media (max-width: 1100px) {
+
+            header {
+                padding: 10px 20px;
+            }
+
+            .navbar {
+                gap: 13px;
+            }
+
+            .navbar > a,
+            .navbar .dropdown > a {
+                font-size: 13px;
+            }
+
+            .image-box {
+                right: 35px;
+                max-width: 45%;
+            }
+
+            .footer {
+                padding-left: 40px;
+                padding-right: 40px;
+            }
+        }
+
+        /* =========================
+           MOBILE
+        ========================== */
+
+        @media (max-width: 767px) {
+
+            header {
+                padding: 10px 15px;
+                min-height: 78px;
+            }
+
+            .logo-container {
+                width: 55px;
+                height: 55px;
+            }
+
+            .college-text {
+                font-size: 15px;
+            }
+
+            /* Hamburger visible on mobile */
+            .menu-toggle {
+                display: block;
+            }
+
+            /* Mobile Navbar */
+            .navbar {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #2e2c6a;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0;
+                padding: 10px 0 15px;
+                box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            }
+
+            .navbar.active {
+                display: flex;
+            }
+
+            .navbar > a,
+            .navbar .dropdown > a {
+                width: 100%;
+                padding: 14px 20px;
+                font-size: 14px;
+            }
+
+            .navbar > a:hover,
+            .navbar .dropdown > a:hover {
+                background: #3d3a7d;
+            }
+
+            .navbar .dropdown {
+                width: 100%;
+            }
+
+            .navbar .dropdown::after {
+                display: none;
+            }
+
+            /* Disable desktop hover on mobile */
+            .navbar .dropdown:hover .sub-menu {
+                display: none;
+            }
+
+            .navbar .dropdown.open .sub-menu {
+                display: block;
+            }
+
+            .navbar .sub-menu {
+                position: static;
+                width: 100%;
+                min-width: 0;
+                border-radius: 0;
+                box-shadow: none;
+                padding: 0;
+                background: #252354;
+            }
+
+            .navbar .sub-menu li a {
+                padding: 12px 35px;
+                font-size: 13px;
+            }
+
+            /* =========================
+               MOBILE HERO
+            ========================== */
+
+            .rit-hero {
+                padding: 45px 0;
+            }
+
+            .orange-strip {
+                min-height: 160px;
+                padding: 35px 20px;
+                justify-content: center;
+            }
+
+            .orange-strip h1 {
+                font-size: 34px;
+                text-align: center;
+                line-height: 1.2;
+            }
+
+            /*
+                Image is changed from absolute
+                to normal flow on mobile.
+                This prevents cropping/half image.
+            */
+
+            .image-box {
+                position: relative;
+                top: auto;
+                right: auto;
+                width: 92%;
+                max-width: 520px;
+                margin: 20px auto 0;
+                padding: 8px;
+            }
+
+            .image-box img {
+                width: 100%;
+                max-width: 100%;
+                height: auto;
+                object-fit: contain;
+            }
+
+            /* =========================
+               MOBILE ABOUT
+            ========================== */
+
+            .about-pgc {
+                padding: 50px 18px;
+            }
+
+            .about-heading {
+                font-size: 20px;
+                line-height: 1.6;
+                margin-bottom: 30px;
+            }
+
+            .about-text {
+                font-size: 15px;
+                line-height: 1.8;
+                text-align: justify;
+            }
+
+            /* =========================
+               MOBILE FOOTER
+            ========================== */
+
+            .footer {
+                width: 100%;
+                padding: 55px 20px 70px;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 30px;
+            }
+
+            .footer-left {
+                width: 100%;
+            }
+
+            .footer-left h2 {
+                font-size: 21px;
+            }
+
+            .footer-left p {
+                font-size: 14px;
+            }
+
+            .social-icons a {
+                font-size: 19px;
+                margin: 0 7px;
+            }
+
+            .footer-right {
+                padding-top: 0;
+            }
+
+            .apply-btn {
+                padding: 13px 28px;
+            }
+
+            #back-to-top {
+                width: 42px;
+                height: 42px;
+                right: 15px;
+                bottom: 15px;
+            }
+        }
+
+        /* =========================
+           VERY SMALL MOBILE
+        ========================== */
+
+        @media (max-width: 400px) {
+
+            .college-text {
+                font-size: 13px;
+            }
+
+            .logo-container {
+                width: 50px;
+                height: 50px;
+            }
+
+            .orange-strip h1 {
+                font-size: 29px;
+            }
+
+            .about-heading {
+                font-size: 19px;
+            }
+
+            .about-text {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+
+<body id="top">
+
+    <!-- =========================
+         HEADER
+    ========================== -->
+
+    <header>
+
+        <div class="logo-section">
+
+            <div class="logo-container">
+                <img
+                    src="{% static 'images/csc logo.png' %}"
+                    alt="Chishtian Science College Logo">
+            </div>
+
+            <div class="college-text">
+                <span>Chishtian</span>
+                <span>Science</span>
+                <span>College</span>
+            </div>
+
+        </div>
+
+
+        <!-- MOBILE HAMBURGER -->
+
+        <button
+            class="menu-toggle"
+            id="menuToggle"
+            type="button"
+            aria-label="Open menu"
+            aria-expanded="false">
+
+            <i class="fa-solid fa-bars"></i>
+
+        </button>
+
+
+        <!-- NAVBAR -->
+
+        <nav class="navbar" id="navbar">
+
+            <a href="{% url 'index' %}">
+                Home
+            </a>
+
+
+            <!-- ABOUT US -->
+
+            <div class="dropdown">
+
+                <a href="#">
+                    ABOUT US
+                    <i class="fa fa-caret-down"></i>
+                </a>
+
+                <ul class="sub-menu">
+
+                    <li>
+                        <a href="{% url 'historycsc' %}">
+                            About CSC
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'uniquelycsc' %}">
+                            Uniquely CSC
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'missioncsc' %}">
+                            Mission,Vision,Goals CSC
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <!-- ADDMISSIONS -->
+
+            <div class="dropdown">
+
+                <a href="#">
+                    ADDMISSIONS
+                    <i class="fa fa-caret-down"></i>
+                </a>
+
+                <ul class="sub-menu">
+
+                    <li>
+                        <a href="{% url 'undergraduatecsc' %}">
+                            UnderGraduates Programmes
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'feecsc' %}">
+                            Scholarship *&* Fee Consection
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'applycsc' %}">
+                            Apply
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <!-- ACTIVITIES -->
+
+            <a href="{% url 'activitycsc' %}">
+                Activities
+            </a>
+
+
+            <!-- LEARNING -->
+
+            <div class="dropdown">
+
+                <a href="#">
+                    LEARNING AT CHISHTIAN SCIENCE
+                    <i class="fa fa-caret-down"></i>
+                </a>
+
+                <ul class="sub-menu">
+
+                    <li>
+                        <a href="{% url 'careercsc' %}">
+                            Careers
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'affiliatecsc' %}">
+                            AFFILIATE
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <!-- CONTACT -->
+
+            <a href="{% url 'contactcsc' %}">
+                CONTACT US
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- =========================
+         HERO
+    ========================== -->
+
+    <section class="rit-hero">
+
+        <div class="orange-strip">
+
+            <h1>
+                History of CSC
+            </h1>
+
+        </div>
+
+
+        <div class="image-box">
+
+            <img
+                src="{% static 'images/pgchistory.jpg' %}"
+                alt="History of CSC">
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         ABOUT / HISTORY
+    ========================== -->
+
+    <section class="about-pgc">
+
+        <p class="about-heading">
+
+            Chishtian Science Colleges has a proud legacy of academic excellence and student achievement.
+            The institution began with a vision to provide quality education and continues
+            to empower students across Pakistan.
+
+        </p>
+
+
+        <p class="about-text">
+
+            Established as a leading institution for science education, Chishtian Science College has built a strong reputation for academic excellence in intermediate examinations. The college is widely recognized for its outstanding performance, particularly in the Bahawalpur division, where its students consistently achieve top positions. Catering specifically to science students, the institution prepares learners for higher education in fields such as engineering and medicine. Over the years, it has emerged as a focused and high-achieving private sector college. In November 2025, the college was highlighted for securing 43 board positions, further strengthening its status as a prominent and successful institution in the region. It is important to note that this refers to the private sector Chishtian Science College, distinct from the Government Graduate College Chishtian established in 1962.
+
+        </p>
+
+    </section>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer class="footer">
+
+        <div class="footer-container">
+
+
+            <div class="footer-left">
+
+                <h2>
+                    CHISHTIAN SCIENCE COLLEGES
+                </h2>
+
+
+                <p>
+                    <strong>ADDRESS:</strong>
+                    G-Block Baldia Colony, Chishtian Mandi, Pakistan
+                </p>
+
+
+                <p>
+                    <strong>Phone no:</strong>
+                    0305 7367771
+                </p>
+
+
+                <p>
+                    <strong>EMAIL:</strong>
+                    chishtiansciencecollege@gmail.com
+                </p>
+
+
+                <!-- SOCIAL ICONS -->
+
+                <div class="social-icons">
+
+                    <a
+                        href="https://www.facebook.com/CSCgirls.chishtian/"
+                        target="_blank"
+                        rel="noopener noreferrer">
+
+                        <i class="fa-brands fa-facebook"></i>
+
+                    </a>
+
+
+                    <a
+                        href="https://www.instagram.com/csc_girls_official/"
+                        target="_blank"
+                        rel="noopener noreferrer">
+
+                        <i class="fa-brands fa-instagram"></i>
+
+                    </a>
+
+
+                    <a
+                        href="https://www.youtube.com/channel/UCUe6DD33vb_D4pDWMF60_jg"
+                        target="_blank"
+                        rel="noopener noreferrer">
+
+                        <i class="fa-brands fa-youtube"></i>
+
+                    </a>
+
+                </div>
+
+
+                <p class="copyright">
+                    2020 Chishtian Science Colleges. All Rights Reserved.
+                </p>
+
+            </div>
+
+
+            <!-- APPLY BUTTON -->
+
+            <div class="footer-right">
+
+                <a
+                    href="{% url 'applycsc' %}"
+                    class="apply-btn">
+
+                    APPLY NOW
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <!-- =========================
+         BACK TO TOP
+    ========================== -->
+
+    <a
+        href="#top"
+        id="back-to-top"
+        aria-label="Back to top">
+
+        <i class="fas fa-chevron-up"></i>
+
+    </a>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+
+    <script>
+
+        /* =========================
+           MOBILE MENU
+        ========================== */
+
+        const menuToggle = document.getElementById("menuToggle");
+        const navbar = document.getElementById("navbar");
+
+        menuToggle.addEventListener("click", function () {
+
+            navbar.classList.toggle("active");
+
+            const isOpen = navbar.classList.contains("active");
+
+            menuToggle.setAttribute("aria-expanded", isOpen);
+
+            if (isOpen) {
+
+                menuToggle.innerHTML =
+                    '<i class="fa-solid fa-xmark"></i>';
+
+            } else {
+
+                menuToggle.innerHTML =
+                    '<i class="fa-solid fa-bars"></i>';
+
+            }
+
+        });
+
+
+        /* =========================
+           MOBILE DROPDOWNS
+        ========================== */
+
+        document.querySelectorAll(".dropdown > a").forEach(function (item) {
+
+            item.addEventListener("click", function (e) {
+
+                /* Only mobile needs click dropdown */
+
+                if (window.innerWidth <= 767) {
+
+                    e.preventDefault();
+
+                    const parent = this.parentElement;
+
+                    document.querySelectorAll(".dropdown").forEach(function (dropdown) {
+
+                        if (dropdown !== parent) {
+                            dropdown.classList.remove("open");
+                        }
+
+                    });
+
+                    parent.classList.toggle("open");
+
+                }
+
+            });
+
+        });
+
+
+        /* =========================
+           CLOSE MOBILE MENU
+           AFTER CLICKING LINK
+        ========================== */
+
+        document.querySelectorAll(
+            ".navbar a:not(.dropdown > a)"
+        ).forEach(function (link) {
+
+            link.addEventListener("click", function () {
+
+                if (window.innerWidth <= 767) {
+
+                    navbar.classList.remove("active");
+
+                    menuToggle.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+
+                    menuToggle.innerHTML =
+                        '<i class="fa-solid fa-bars"></i>';
+
+                }
+
+            });
+
+        });
+
+
+        /* =========================
+           WINDOW RESIZE
+        ========================== */
+
+        window.addEventListener("resize", function () {
+
+            if (window.innerWidth > 767) {
+
+                navbar.classList.remove("active");
+
+                menuToggle.setAttribute(
+                    "aria-expanded",
+                    "false"
+                );
+
+                menuToggle.innerHTML =
+                    '<i class="fa-solid fa-bars"></i>';
+
+                document.querySelectorAll(".dropdown").forEach(
+                    function (dropdown) {
+
+                        dropdown.classList.remove("open");
+
+                    }
+                );
+
+            }
+
+        });
+
+
+        /* =========================
+           BACK TO TOP
+        ========================== */
+
+        window.addEventListener("scroll", function () {
+
+            const button =
+                document.getElementById("back-to-top");
+
+            if (
+                document.body.scrollTop > 200 ||
+                document.documentElement.scrollTop > 200
+            ) {
+
+                button.style.display = "flex";
+
+            } else {
+
+                button.style.display = "none";
+
+            }
+
+        });
+
+
+        document.getElementById("back-to-top")
+            .addEventListener("click", function (e) {
+
+                e.preventDefault();
+
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+
+            });
+
+    </script>
+
+</body>
+</html>

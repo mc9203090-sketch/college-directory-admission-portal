@@ -1,0 +1,1509 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Fee Structure PGC</title>
+
+<!-- Font Awesome -->
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+
+    /* =========================
+       GENERAL
+    ========================= */
+
+    *{
+        box-sizing:border-box;
+    }
+
+    html{
+        scroll-behavior:smooth;
+    }
+
+    body{
+        margin:0;
+        padding:0;
+        overflow-x:hidden;
+        font-family:Arial, sans-serif;
+        background:#f5f5f5;
+        color:#333;
+    }
+
+
+    /* =========================
+       HEADER
+    ========================= */
+
+    header{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        padding:10px 20px;
+        background:#2e2c6a;
+        color:white;
+        position:relative;
+        z-index:1000;
+    }
+
+    .logo-section{
+        display:flex;
+        align-items:center;
+        gap:12px;
+    }
+
+    .logo-container{
+        width:70px;
+        height:70px;
+        border-radius:50%;
+        overflow:hidden;
+        border:3px solid white;
+        flex-shrink:0;
+    }
+
+    .logo-container img{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+        display:block;
+    }
+
+    .college-text{
+        display:flex;
+        flex-direction:column;
+        color:white;
+        font-weight:bold;
+        line-height:1.2;
+        font-size:18px;
+    }
+
+
+    /* =========================
+       NAVBAR
+    ========================= */
+
+    .navbar{
+        display:flex;
+        align-items:center;
+        gap:20px;
+    }
+
+    .navbar > a,
+    .navbar .dropdown > a{
+        color:white;
+        text-decoration:none;
+        font-size:15px;
+        font-weight:500;
+        white-space:nowrap;
+    }
+
+    .navbar a:hover{
+        color:#F5E547;
+    }
+
+    .navbar .dropdown{
+        position:relative;
+        display:inline-block;
+    }
+
+    .navbar .dropdown > a{
+        display:flex;
+        align-items:center;
+        gap:5px;
+        cursor:pointer;
+    }
+
+
+    /* =========================
+       DESKTOP DROPDOWN
+    ========================= */
+
+    .navbar .sub-menu{
+        display:none;
+        position:absolute;
+        top:100%;
+        left:0;
+        background:#2e2c6a;
+        list-style:none;
+        margin:0;
+        padding:10px 0;
+        min-width:220px;
+        border-radius:0 0 5px 5px;
+        z-index:2000;
+    }
+
+    /* Invisible bridge */
+    .navbar .dropdown::after{
+        content:"";
+        position:absolute;
+        left:0;
+        right:0;
+        top:100%;
+        height:8px;
+        background:transparent;
+    }
+
+    .navbar .dropdown:hover .sub-menu{
+        display:block;
+    }
+
+    .navbar .sub-menu li{
+        margin:0;
+        padding:0;
+    }
+
+    .navbar .sub-menu li a{
+        display:block;
+        padding:9px 15px;
+        color:white;
+        font-size:14px;
+        text-decoration:none;
+        white-space:nowrap;
+    }
+
+    .navbar .sub-menu li a:hover{
+        background:#3c3980;
+        color:#f5a623;
+    }
+
+
+    /* =========================
+       MOBILE MENU BUTTON
+    ========================= */
+
+    .menu-toggle{
+        display:none;
+        color:white;
+        font-size:28px;
+        cursor:pointer;
+    }
+
+
+    /* =========================
+       HERO
+    ========================= */
+
+    .rit-hero{
+        background:#eee;
+        padding:120px 0;
+        position:relative;
+    }
+
+    .orange-strip{
+        background:#f76902;
+        min-height:220px;
+        display:flex;
+        align-items:center;
+        padding:30px 120px;
+    }
+
+    .orange-strip h1{
+        color:white;
+        font-size:45px;
+        font-weight:bold;
+        text-align:left;
+        margin:0;
+        line-height:1.2;
+    }
+
+
+    /* =========================
+       HERO IMAGE
+    ========================= */
+
+    .image-box{
+        position:absolute;
+        right:60px;
+        top:60px;
+        background:#cfd3d6;
+        padding:10px;
+        max-width:520px;
+    }
+
+    .image-box img{
+        width:100%;
+        height:auto;
+        display:block;
+        object-fit:contain;
+    }
+
+
+    /* =========================
+       INTRO
+    ========================= */
+
+    .about-pgc{
+        background:#eee;
+        text-align:center;
+        padding:0 20px;
+    }
+
+    .about-text{
+        max-width:900px;
+        margin:auto;
+        font-size:28px;
+        padding-top:0;
+        line-height:1.8;
+        color:#2e2c6a;
+        text-align:center;
+    }
+
+
+    /* =========================
+       SCHOLARSHIP SECTION
+    ========================= */
+
+    .scholarship-section{
+        max-width:1100px;
+        margin:auto;
+        padding:70px 20px;
+        font-family:Arial, sans-serif;
+    }
+
+    .title{
+        font-size:48px;
+        font-weight:bold;
+        color:#E13B23;
+        margin:0 0 25px;
+        line-height:1.2;
+    }
+
+    .procedure{
+        font-size:36px;
+        color:#E13B23;
+        margin-top:40px;
+        margin-bottom:20px;
+    }
+
+    .sub{
+        font-size:24px;
+        font-weight:bold;
+        margin-top:25px;
+        margin-bottom:10px;
+        color:#2e2c6a;
+        line-height:1.4;
+    }
+
+    .note{
+        font-size:22px;
+        font-weight:bold;
+        color:#E13B23;
+        margin-top:20px;
+    }
+
+    .desc{
+        font-size:16px;
+        line-height:1.8;
+        color:#2e2c6a;
+        margin-bottom:20px;
+    }
+
+
+    /* =========================
+       RIT SECTION
+    ========================= */
+
+    .rit-section{
+        background:#f3f3f3;
+        padding:100px 80px;
+        font-family:Arial, sans-serif;
+        margin-top:0;
+    }
+
+    .rit-container{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:60px;
+        max-width:1200px;
+        margin:auto;
+    }
+
+
+    /* LEFT SIDE */
+
+    .rit-images{
+        position:relative;
+        width:50%;
+        min-height:420px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+    }
+
+
+    /* SHAPES */
+
+    .shape-yellow{
+        position:absolute;
+        width:200px;
+        height:200px;
+        background:#f5b400;
+        top:-40px;
+        left:40px;
+        clip-path:polygon(
+            0 40%,
+            40% 0,
+            100% 0,
+            100% 60%,
+            60% 100%,
+            0 100%
+        );
+    }
+
+    .shape-orange{
+        position:absolute;
+        width:260px;
+        height:260px;
+        background:#E13B23;
+        bottom:-40px;
+        right:40px;
+        clip-path:polygon(
+            40% 0,
+            100% 0,
+            100% 60%,
+            60% 100%,
+            0 100%,
+            0 40%
+        );
+    }
+
+
+    /* IMAGE */
+
+    .img1{
+        width:350px;
+        max-width:90%;
+        height:auto;
+        position:relative;
+        z-index:2;
+        box-shadow:0 10px 25px rgba(0,0,0,0.2);
+        object-fit:contain;
+    }
+
+
+    /* RIGHT SIDE */
+
+    .rit-text{
+        width:40%;
+    }
+
+    .rit-text h2{
+        font-size:32px;
+        color:#E13B23;
+        line-height:1.3;
+        margin-bottom:30px;
+    }
+
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    .footer{
+        background:#2e2c6a;
+        color:white;
+        width:100%;
+        padding:80px 80px 120px;
+        position:relative;
+    }
+
+    .footer-container{
+        display:flex;
+        justify-content:space-between;
+        align-items:flex-start;
+        width:100%;
+        max-width:1100px;
+        margin:auto;
+        position:relative;
+    }
+
+    .footer-left h2{
+        margin:0 0 20px;
+        line-height:1.8;
+    }
+
+    .footer-left p{
+        margin:8px 0;
+        line-height:1.5;
+    }
+
+    .social-icons{
+        margin-top:20px;
+        display:flex;
+        flex-wrap:wrap;
+        gap:15px;
+    }
+
+    .social-icons a{
+        color:white;
+        font-size:20px;
+        text-decoration:none;
+        transition:0.3s;
+    }
+
+    .social-icons a:hover{
+        color:#E13B23;
+    }
+
+    .copyright{
+        margin-top:25px !important;
+    }
+
+    .footer-right{
+        margin-top:10px;
+    }
+
+    .apply-btn{
+        display:inline-block;
+        background:#E13B23;
+        padding:15px 30px;
+        color:white;
+        font-weight:bold;
+        text-decoration:none;
+        border-radius:6px;
+        transition:0.3s;
+    }
+
+    .apply-btn:hover{
+        background:#c92f20;
+    }
+
+
+    /* =========================
+       BACK TO TOP
+    ========================= */
+
+    #back-to-top{
+        display:none;
+        position:fixed;
+        bottom:20px;
+        right:20px;
+        width:45px;
+        height:45px;
+        background:#E13B23;
+        color:white;
+        border-radius:50%;
+        text-decoration:none;
+        align-items:center;
+        justify-content:center;
+        z-index:9999;
+        box-shadow:0 3px 10px rgba(0,0,0,0.25);
+    }
+
+
+    /* =========================
+       TABLET
+    ========================= */
+
+    @media(max-width:1000px){
+
+        .navbar{
+            gap:12px;
+        }
+
+        .navbar > a,
+        .navbar .dropdown > a{
+            font-size:13px;
+        }
+
+        .orange-strip{
+            padding-left:60px;
+        }
+
+        .image-box{
+            right:30px;
+            max-width:450px;
+        }
+
+        .about-text{
+            font-size:24px;
+        }
+
+        .rit-section{
+            padding:80px 40px;
+        }
+
+        .footer{
+            padding:70px 40px 100px;
+        }
+
+    }
+
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media(max-width:768px){
+
+        /* HEADER */
+
+        header{
+            padding:10px 15px;
+            min-height:80px;
+        }
+
+        .logo-container{
+            width:55px;
+            height:55px;
+        }
+
+        .college-text{
+            font-size:15px;
+        }
+
+        .menu-toggle{
+            display:block;
+        }
+
+
+        /* MOBILE NAVBAR */
+
+        .navbar{
+            display:none;
+            position:absolute;
+            top:100%;
+            left:0;
+            width:100%;
+            background:#2e2c6a;
+            flex-direction:column;
+            align-items:stretch;
+            gap:0;
+            padding:10px 0;
+            box-shadow:0 5px 10px rgba(0,0,0,0.2);
+        }
+
+        .navbar.show{
+            display:flex;
+        }
+
+        .navbar > a,
+        .navbar .dropdown > a{
+            width:100%;
+            padding:13px 20px;
+            font-size:14px;
+        }
+
+        .navbar > a:hover,
+        .navbar .dropdown > a:hover{
+            background:#3c3980;
+        }
+
+        .navbar .dropdown{
+            width:100%;
+        }
+
+
+        /* MOBILE DROPDOWN */
+
+        .navbar .dropdown:hover .sub-menu{
+            display:none;
+        }
+
+        .navbar .dropdown.open .sub-menu{
+            display:block;
+        }
+
+        .navbar .dropdown::after{
+            display:none;
+        }
+
+        .navbar .sub-menu{
+            position:static;
+            width:100%;
+            min-width:100%;
+            padding:0;
+            border-radius:0;
+            background:#252354;
+        }
+
+        .navbar .sub-menu li a{
+            padding:11px 35px;
+            font-size:13px;
+            white-space:normal;
+        }
+
+
+        /* HERO */
+
+        .rit-hero{
+            padding:30px 15px 40px;
+        }
+
+        .orange-strip{
+            min-height:150px;
+            padding:30px 20px;
+            justify-content:center;
+        }
+
+        .orange-strip h1{
+            font-size:32px;
+            text-align:center;
+        }
+
+
+        /* HERO IMAGE */
+
+        .image-box{
+            position:static;
+            width:100%;
+            max-width:100%;
+            margin:25px auto 0;
+            padding:8px;
+        }
+
+        .image-box img{
+            width:100%;
+            height:auto;
+            max-height:none;
+            object-fit:contain;
+        }
+
+
+        /* INTRO */
+
+        .about-pgc{
+            padding:20px;
+        }
+
+        .about-text{
+            font-size:19px;
+            line-height:1.7;
+        }
+
+
+        /* SCHOLARSHIP */
+
+        .scholarship-section{
+            padding:45px 20px;
+        }
+
+        .title{
+            font-size:32px;
+            line-height:1.3;
+        }
+
+        .procedure{
+            font-size:28px;
+            margin-top:35px;
+        }
+
+        .sub{
+            font-size:20px;
+            line-height:1.4;
+        }
+
+        .desc{
+            font-size:15px;
+            line-height:1.8;
+            text-align:left;
+        }
+
+        .note{
+            font-size:19px;
+        }
+
+
+        /* RIT SECTION */
+
+        .rit-section{
+            padding:60px 20px;
+        }
+
+        .rit-container{
+            flex-direction:column;
+            gap:50px;
+        }
+
+        .rit-images,
+        .rit-text{
+            width:100%;
+        }
+
+        .rit-images{
+            min-height:auto;
+            padding:20px 0;
+        }
+
+        .shape-yellow{
+            width:130px;
+            height:130px;
+            top:0;
+            left:0;
+        }
+
+        .shape-orange{
+            width:170px;
+            height:170px;
+            bottom:0;
+            right:0;
+        }
+
+        .img1{
+            width:100%;
+            max-width:330px;
+            height:auto;
+            object-fit:contain;
+        }
+
+        .rit-text h2{
+            font-size:28px;
+            text-align:center;
+            margin-bottom:0;
+        }
+
+
+        /* FOOTER */
+
+        .footer{
+            padding:55px 25px 90px;
+        }
+
+        .footer-container{
+            flex-direction:column;
+            align-items:center;
+            text-align:center;
+            gap:30px;
+        }
+
+        .footer-left{
+            width:100%;
+        }
+
+        .footer-left h2{
+            font-size:24px;
+        }
+
+        .footer-left p{
+            font-size:14px;
+            word-break:break-word;
+        }
+
+        .social-icons{
+            justify-content:center;
+        }
+
+        .footer-right{
+            margin-top:0;
+        }
+
+        .apply-btn{
+            padding:13px 25px;
+        }
+
+    }
+
+
+    /* =========================
+       SMALL MOBILE
+    ========================= */
+
+    @media(max-width:480px){
+
+        .logo-container{
+            width:50px;
+            height:50px;
+        }
+
+        .college-text{
+            font-size:13px;
+        }
+
+        .menu-toggle{
+            font-size:25px;
+        }
+
+        .orange-strip{
+            min-height:120px;
+        }
+
+        .orange-strip h1{
+            font-size:28px;
+        }
+
+        .about-text{
+            font-size:17px;
+        }
+
+        .scholarship-section{
+            padding-left:15px;
+            padding-right:15px;
+        }
+
+        .title{
+            font-size:27px;
+        }
+
+        .procedure{
+            font-size:25px;
+        }
+
+        .sub{
+            font-size:18px;
+        }
+
+        .desc{
+            font-size:14px;
+        }
+
+        .rit-section{
+            padding-left:15px;
+            padding-right:15px;
+        }
+
+        .rit-text h2{
+            font-size:25px;
+        }
+
+        .footer{
+            padding-left:20px;
+            padding-right:20px;
+        }
+
+        .footer-left h2{
+            font-size:21px;
+        }
+
+    }
+
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header>
+<div class="logo-section">
+
+    <div class="logo-container">
+
+        <img src="{% static 'images/pgc logo.png' %}"
+             alt="Punjab College Logo">
+
+    </div>
+
+    <div class="college-text">
+
+        <span>Punjab</span>
+        <span>College</span>
+        <span>Chishtian</span>
+
+    </div>
+
+</div>
+
+
+<!-- MOBILE MENU -->
+
+<div class="menu-toggle" id="menu-toggle">
+
+    <i class="fas fa-bars"></i>
+
+</div>
+
+
+<!-- NAVBAR -->
+
+<nav class="navbar" id="navbar">
+
+    <a href="{% url 'index' %}">
+        Home
+    </a>
+
+
+    <!-- ABOUT US -->
+
+    <div class="dropdown">
+
+        <a href="#">
+            ABOUT US
+            <i class="fa fa-caret-down"></i>
+        </a>
+
+        <ul class="sub-menu">
+
+            <li>
+                <a href="{% url 'historypgc' %}">
+                    About PGC
+                </a>
+            </li>
+
+            <li>
+                <a href="{% url 'uniquelypgc' %}">
+                    Uniquely PGC
+                </a>
+            </li>
+
+            <li>
+                <a href="{% url 'missionpgc' %}">
+                    Mission,Vision,Goals PGC
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+
+
+    <!-- ADMISSIONS -->
+
+    <div class="dropdown">
+
+        <a href="#">
+            ADDMISSIONS
+            <i class="fa fa-caret-down"></i>
+        </a>
+
+        <ul class="sub-menu">
+
+            <li>
+                <a href="{% url 'undergraduatepgc' %}">
+                    UnderGraduates Programmes
+                </a>
+            </li>
+
+            <li>
+                <a href="{% url 'feepgc' %}">
+                    Scholarship *&* Fee Consection
+                </a>
+            </li>
+
+            <li>
+                <a href="{% url 'applypgc' %}">
+                    Apply
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+
+
+    <!-- ACTIVITIES -->
+
+    <a href="{% url 'activitypgc' %}">
+        Activities
+    </a>
+
+
+    <!-- LEARNING AT PUNJAB -->
+
+    <div class="dropdown">
+
+        <a href="#">
+            LEARNING AT PUNJAB
+            <i class="fa fa-caret-down"></i>
+        </a>
+
+        <ul class="sub-menu">
+
+            <li>
+                <a href="{% url 'blogpgc' %}">
+                    Blogs PGC
+                </a>
+            </li>
+
+            <li>
+                <a href="{% url 'careerpgc' %}">
+                    Careers
+                </a>
+            </li>
+
+            <li>
+                <a href="{% url 'affiliatepgc' %}">
+                    AFFILIATE
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+
+
+    <!-- CONTACT -->
+
+    <a href="{% url 'contactpgc' %}">
+        CONTACT US
+    </a>
+
+</nav>
+</header>
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="rit-hero">
+<div class="orange-strip">
+
+    <h1>
+        Scholarship *&*<br>
+        Fee Concession
+    </h1>
+
+</div>
+
+
+<div class="image-box">
+
+    <img src="{% static 'images/fee.jpg' %}"
+         alt="Fee Structure">
+
+</div>
+
+</section>
+
+<!-- =========================
+     INTRO
+========================= -->
+
+<section class="about-pgc">
+<p class="about-text">
+
+    We’re here to support your future success and make a world-class education within reach. We are committed to making an PGC experience accessible. Our goal is to work with each family to create a financial plan that provides the means to help you launch the career of your dreams.
+
+</p>
+</section>
+
+<!-- =========================
+     SCHOLARSHIP CONTENT
+========================= -->
+
+<section class="scholarship-section">
+<h1 class="title">
+    SCHOLARSHIPS *&* FEE CONCESSIONS
+</h1>
+
+
+<p class="desc">
+
+    At Punjab College we believe that hard working students deserve rewards, and that every child deserves an education. Incentives and scholarships have always been a source of encouragement and much needed support for students. These awards inspire talented students to work harder and attain the best results in their examinations. Position holders are the pride of their alma mater. Punjab College offers a number of incentives for all those students who perform exceptionally well in their Boards/University exams. Other than incentives on the basis of performance, Punjab Group of Colleges is also concerned about the need of education of those students who can’t afford the fees and provide financial support by giving them concession or free education through different categories.
+
+</p>
+
+
+<h2 class="procedure">
+    PROCEDURE
+</h2>
+
+
+<h3 class="sub">
+    1. MERIT-BASED SCHOLARSHIP:
+</h3>
+
+<p class="desc">
+
+    Punjab Colleges promotes hard work and excellence. We offer an exclusive scholarship to students who show excellent performance in academics. They can avail up to a 100% fee waiver. Students with 75% or above marks are eligible to apply for free education at the time of admission.
+
+</p>
+
+
+<h3 class="sub">
+    2. TEACHERS’ CHILDREN:
+</h3>
+
+<p class="desc">
+
+    Punjab Colleges facilitate teachers and ensure that their children can avail high-quality education. Children of teachers at public sector and well-known private institutes are eligible for this concession.
+
+</p>
+
+
+<h3 class="sub">
+    3. KINSHIP:
+</h3>
+
+<p class="desc">
+
+    Punjab Colleges take care of the family of its students. The direct family members of old *&* current students are offered a special discount on their education.
+
+</p>
+
+
+<h3 class="sub">
+    4. ORPHAN STUDENTS:
+</h3>
+
+<p class="desc">
+
+    Orphans are entitled to a special scholarship at Punjab Colleges. Those who have lost their fathers/guardians can apply under this category.
+
+</p>
+
+
+<h3 class="sub">
+    5. STUDENTS WITH SPECIAL NEEDS:
+</h3>
+
+<p class="desc">
+
+    To motivate students with special needs to pursue education and nurture their minds with hope, a special fee concession opportunity has been ensured for them.
+
+</p>
+
+
+<h3 class="sub">
+    6. NEED-BASED CONCESSION:
+</h3>
+
+<p class="desc">
+
+    Recognizing that not all students can afford the fees and may face economic crises, PGC is concerned about their need for education and provides financial support through concessions or free education.
+
+</p>
+
+
+<h3 class="sub">
+    7. 1122 EMPLOYEES:
+</h3>
+
+<p class="desc">
+
+    The employees and paramedical staff of rescue 1122 risk their lives in the line of duty. They deserve our support, and to cope with that, Punjab Colleges provide special concessions for the children of Rescue 1122 employees.
+
+</p>
+
+
+<h3 class="sub">
+    8. SHUHDA’S CHILDREN:
+</h3>
+
+<p class="desc">
+
+    Punjab Colleges take special care of children of Shuhada of armed forces and police of our country who sacrificed their lives for us. We provide a specific concession to Shuhda’s children so that they can study in Punjab College without any financial burden.
+
+</p>
+
+
+<h3 class="sub">
+    9. INCENTIVE POLICIES FOR HIGH ACHIEVERS:
+</h3>
+
+<p class="desc">
+
+    Punjab Colleges honor students who perform exceptionally well in their respective Boards. The top position holders in intermediate from all boards are awarded with a brand new car/cash prizes.
+
+</p>
+
+
+<h3 class="sub">
+    10. INCENTIVE POLICIES FOR MATRIC TOPPERS:
+</h3>
+
+<p class="desc">
+
+    Students securing top positions in matric from all boards are awarded with a brand new car/cash prizes upon joining Punjab College.
+
+</p>
+
+
+<h3 class="sub">
+    11. INCENTIVE POLICY FOR PGC STUDENTS IN UNIVERSITIES:
+</h3>
+
+<p class="desc">
+
+    Old students of PGC can avail concessions at the time of admission at the University of Central Punjab-Lahore, Mohammad Ali Jinnah University-Karachi, and Capital University of Science *&* Technology-Islamabad.
+
+</p>
+
+
+<h3 class="sub">
+    12. SPECIAL CIRCUMSTANCES FINANCIAL AID:
+</h3>
+
+<p class="desc">
+
+    If the father/guardian of any current student unfortunately passes away, the responsibility of their fees will be taken over by Punjab College itself, and education will be free for the student.
+
+</p>
+
+
+<h3 class="sub">
+    OTHER DISCOUNTS:
+</h3>
+
+<p class="desc">
+
+    For Afternoon Programs at PGC, students have another opportunity to avail a 50% discount on fees and receive quality education without financial constraints. Furthermore, all the scholarship categories mentioned above can be equally applied to all Afternoon programs for students studying in Afternoon classes.
+
+</p>
+
+
+<h3 class="note">
+    Note:
+</h3>
+
+<p class="desc">
+
+    To continue availing the concession or scholarship, students must maintain 90% attendance.
+
+</p>
+</section>
+
+<!-- =========================
+     RIT SECTION
+========================= -->
+
+<section class="rit-section">
+<div class="rit-container">
+
+
+    <!-- LEFT IMAGES -->
+
+    <div class="rit-images">
+
+        <div class="shape-yellow"></div>
+
+        <div class="shape-orange"></div>
+
+        <img src="{% static 'images/std1pgc.png' %}"
+             class="img1"
+             alt="PGC Students">
+
+    </div>
+
+
+    <!-- RIGHT TEXT -->
+
+    <div class="rit-text">
+
+        <h2>
+
+            At PGC, you’re always<br>
+            on to something<br>
+            amazing.
+
+        </h2>
+
+    </div>
+</div>
+
+</section>
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer class="footer">
+<div class="footer-container">
+
+    <div class="footer-left">
+
+        <h2>
+            PUNJAB COLLEGES
+        </h2>
+
+
+        <p>
+            <strong>WhatsApp</strong>
+            0312 2026500
+        </p>
+
+
+        <p>
+            <strong>EMAIL</strong>
+            pcchishitan@pgc.edu
+        </p>
+
+
+        <p>
+            <strong>COMPLAINT PORTAL</strong>
+            complaint.pgc.edu
+        </p>
+
+
+        <div class="social-icons">
+
+            <a href="https://www.facebook.com/PGCWorld/"
+               target="_blank">
+
+                <i class="fa-brands fa-facebook"></i>
+
+            </a>
+
+
+            <a href="https://twitter.com/pgcworld"
+               target="_blank">
+
+                <i class="fa-brands fa-twitter"></i>
+
+            </a>
+
+
+            <a href="https://www.instagram.com/pgcworld/"
+               target="_blank">
+
+                <i class="fa-brands fa-instagram"></i>
+
+            </a>
+
+
+            <a href="https://www.youtube.com/user/pgcworld"
+               target="_blank">
+
+                <i class="fa-brands fa-youtube"></i>
+
+            </a>
+
+
+            <a href="https://www.linkedin.com/company/pgcworld/"
+               target="_blank">
+
+                <i class="fa-brands fa-linkedin"></i>
+
+            </a>
+
+        </div>
+
+
+        <p class="copyright">
+
+            2020 Punjab Colleges. All Rights Reserved.
+
+        </p>
+
+    </div>
+
+
+    <div class="footer-right">
+
+        <a href="{% url 'applypgc' %}"
+           class="apply-btn">
+
+            APPLY NOW
+
+        </a>
+
+    </div>
+
+</div>
+
+</footer>
+
+<!-- =========================
+     BACK TO TOP
+========================= -->
+
+<a href="#"
+id="back-to-top"
+aria-label="Back to top">
+
+<i class="fas fa-chevron-up"></i>
+
+</a>
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
+<script>
+
+/* =========================
+   MOBILE MENU
+========================= */
+
+const menuToggle = document.getElementById("menu-toggle");
+const navbar = document.getElementById("navbar");
+
+menuToggle.addEventListener("click", function(){
+
+    navbar.classList.toggle("show");
+
+});
+
+
+/* =========================
+   MOBILE DROPDOWNS
+========================= */
+
+document.querySelectorAll(".dropdown > a").forEach(function(dropdownLink){
+
+    dropdownLink.addEventListener("click", function(e){
+
+        if(window.innerWidth <= 768){
+
+            e.preventDefault();
+
+            const dropdown = this.parentElement;
+
+            dropdown.classList.toggle("open");
+
+        }
+
+    });
+
+});
+
+
+/* =========================
+   CLOSE MOBILE MENU
+   ON NORMAL LINK CLICK
+========================= */
+
+document.querySelectorAll(".navbar > a").forEach(function(link){
+
+    link.addEventListener("click", function(){
+
+        if(window.innerWidth <= 768){
+
+            navbar.classList.remove("show");
+
+        }
+
+    });
+
+});
+
+
+/* =========================
+   BACK TO TOP
+========================= */
+
+const backToTop = document.getElementById("back-to-top");
+
+window.addEventListener("scroll", function(){
+
+    if(window.scrollY > 200){
+
+        backToTop.style.display = "flex";
+
+    }else{
+
+        backToTop.style.display = "none";
+
+    }
+
+});
+
+
+backToTop.addEventListener("click", function(e){
+
+    e.preventDefault();
+
+    window.scrollTo({
+
+        top:0,
+        behavior:"smooth"
+
+    });
+
+});
+
+</script>
+
+</body>
+
+</html>

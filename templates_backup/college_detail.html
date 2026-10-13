@@ -1,0 +1,472 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ college.name }} - College Directory</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7fa;
+            color: #222;
+            line-height: 1.6;
+        }
+
+        /* ================= HEADER ================= */
+
+        header {
+            width: 100%;
+            background: #ffffff;
+            min-height: 75px;
+            padding: 15px 7%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            position: relative;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 700;
+            color: #123c69;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: #222;
+            font-size: 15px;
+            font-weight: 600;
+            transition: 0.3s ease;
+        }
+
+        .navbar a:hover {
+            color: #123c69;
+        }
+
+        /* ================= COLLEGE DETAIL ================= */
+
+        .college-detail {
+            width: 100%;
+            padding: 70px 7%;
+            min-height: calc(100vh - 145px);
+            display: flex;
+            align-items: center;
+        }
+
+        .college-detail-container {
+            width: 100%;
+            max-width: 1150px;
+            margin: auto;
+            background: #ffffff;
+            border-radius: 15px;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 45% 55%;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.10);
+        }
+
+        /* ================= IMAGE ================= */
+
+        .college-detail-image {
+            width: 100%;
+            min-height: 430px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #eef2f6;
+            overflow: hidden;
+        }
+
+        .college-detail-image img {
+            width: 100%;
+            height: 100%;
+            min-height: 430px;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* ================= CONTENT ================= */
+
+        .college-detail-content {
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .college-detail-content h1 {
+            font-size: 36px;
+            line-height: 1.2;
+            color: #123c69;
+            margin-bottom: 25px;
+        }
+
+        .college-detail-content p {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 16px;
+            line-height: 1.7;
+        }
+
+        .college-detail-content strong {
+            color: #222;
+        }
+
+        .college-detail-content a:not(.card-btn) {
+            color: #123c69;
+            font-weight: 600;
+            text-decoration: none;
+            word-break: break-word;
+        }
+
+        .college-detail-content a:not(.card-btn):hover {
+            text-decoration: underline;
+        }
+
+        /* ================= BUTTON ================= */
+
+        .card-btn {
+            display: inline-block;
+            width: fit-content;
+            margin-top: 15px;
+            padding: 12px 24px;
+            background: #123c69;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 7px;
+            font-size: 15px;
+            font-weight: 600;
+            transition: 0.3s ease;
+        }
+
+        .card-btn:hover {
+            background: #0b2b4d;
+            transform: translateY(-2px);
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            width: 100%;
+            background: #123c69;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px 15px;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        /* ================= TABLET ================= */
+
+        @media (max-width: 900px) {
+
+            header {
+                padding: 15px 5%;
+            }
+
+            .college-detail {
+                padding: 50px 5%;
+            }
+
+            .college-detail-container {
+                grid-template-columns: 1fr;
+                max-width: 700px;
+            }
+
+            .college-detail-image {
+                min-height: 350px;
+            }
+
+            .college-detail-image img {
+                min-height: 350px;
+                max-height: 450px;
+            }
+
+            .college-detail-content {
+                padding: 40px;
+            }
+
+            .college-detail-content h1 {
+                font-size: 30px;
+            }
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 768px) {
+
+            header {
+                min-height: 65px;
+                padding: 14px 5%;
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+            }
+
+            .logo {
+                font-size: 19px;
+                line-height: 1.4;
+            }
+
+            .navbar {
+                width: 100%;
+                justify-content: center;
+                gap: 20px;
+            }
+
+            .navbar a {
+                font-size: 14px;
+            }
+
+            .college-detail {
+                padding: 30px 5%;
+                min-height: auto;
+            }
+
+            .college-detail-container {
+                width: 100%;
+                border-radius: 12px;
+            }
+
+            .college-detail-image {
+                min-height: 260px;
+            }
+
+            .college-detail-image img {
+                min-height: 260px;
+                max-height: 320px;
+            }
+
+            .college-detail-content {
+                padding: 30px 25px;
+            }
+
+            .college-detail-content h1 {
+                font-size: 27px;
+                margin-bottom: 20px;
+            }
+
+            .college-detail-content p {
+                font-size: 15px;
+                margin-bottom: 13px;
+            }
+
+            .card-btn {
+                width: 100%;
+                text-align: center;
+                margin-top: 10px;
+            }
+
+            footer {
+                padding: 18px 12px;
+            }
+
+            footer p {
+                font-size: 13px;
+                line-height: 1.5;
+            }
+        }
+
+        /* ================= SMALL MOBILE ================= */
+
+        @media (max-width: 480px) {
+
+            .logo {
+                font-size: 17px;
+            }
+
+            .navbar {
+                gap: 15px;
+            }
+
+            .navbar a {
+                font-size: 13px;
+            }
+
+            .college-detail {
+                padding: 20px 4%;
+            }
+
+            .college-detail-image {
+                min-height: 220px;
+            }
+
+            .college-detail-image img {
+                min-height: 220px;
+                max-height: 260px;
+            }
+
+            .college-detail-content {
+                padding: 25px 20px;
+            }
+
+            .college-detail-content h1 {
+                font-size: 23px;
+            }
+
+            .college-detail-content p {
+                font-size: 14px;
+            }
+
+            .card-btn {
+                font-size: 14px;
+                padding: 11px 18px;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- ================= HEADER ================= -->
+
+    <header>
+
+        <div class="logo">
+            🎓 Discover Colleges in Chishtian
+        </div>
+
+        <nav class="navbar">
+
+            <a href="{% url 'index' %}">
+                HOME
+            </a>
+
+            <a href="{% url 'index' %}#universities">
+                COLLEGES
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- ================= COLLEGE DETAIL ================= -->
+
+    <section class="college-detail">
+
+        <div class="college-detail-container">
+
+            {% if college.image %}
+
+            <div class="college-detail-image">
+
+                <img src="{{ college.image.url }}"
+                     alt="{{ college.name }}">
+
+            </div>
+
+            {% endif %}
+
+
+            <div class="college-detail-content">
+
+                <h1>
+                    {{ college.name }}
+                </h1>
+
+
+                <p>
+                    <strong>Location:</strong>
+                    {{ college.location }}
+                </p>
+
+
+                {% if college.description %}
+
+                <p>
+                    {{ college.description }}
+                </p>
+
+                {% endif %}
+
+
+                {% if college.phone %}
+
+                <p>
+                    <strong>Phone:</strong>
+                    {{ college.phone }}
+                </p>
+
+                {% endif %}
+
+
+                {% if college.email %}
+
+                <p>
+                    <strong>Email:</strong>
+                    {{ college.email }}
+                </p>
+
+                {% endif %}
+
+
+                {% if college.website %}
+
+                <p>
+                    <strong>Website:</strong>
+
+                    <a href="{{ college.website }}"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        Visit Website
+                    </a>
+
+                </p>
+
+                {% endif %}
+
+
+                <a href="{% url 'index' %}"
+                   class="card-btn">
+
+                    ← Back to Colleges
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <p>
+            © 2024 Colleges in Chishtian | All Rights Reserved
+        </p>
+
+    </footer>
+
+</body>
+
+</html>
+

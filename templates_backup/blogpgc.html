@@ -1,0 +1,1575 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Blogs</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+    padding:0;
+    overflow-x:hidden;
+    font-family:Arial,sans-serif;
+    background:#f5f5f5;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:10px 20px;
+    background:#2e2c6a;
+    color:white;
+    position:relative;
+    z-index:1000;
+}
+
+.logo-section{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.logo-container{
+    width:70px;
+    height:70px;
+    border-radius:50%;
+    overflow:hidden;
+    border:3px solid white;
+    flex-shrink:0;
+}
+
+.logo-container img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+}
+
+.college-text{
+    display:flex;
+    flex-direction:column;
+    color:white;
+    font-weight:bold;
+    line-height:1.2;
+    font-size:18px;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+.navbar > a,
+.navbar .dropdown > a{
+    color:white;
+    text-decoration:none;
+    font-size:15px;
+    font-weight:500;
+}
+
+.navbar > a:hover,
+.navbar .dropdown > a:hover{
+    color:#F5E547;
+}
+
+.navbar .dropdown{
+    position:relative;
+    display:inline-block;
+}
+
+.navbar .dropdown > a{
+    display:flex;
+    align-items:center;
+    gap:5px;
+    cursor:pointer;
+}
+
+/* Desktop dropdown */
+
+.navbar .sub-menu{
+    display:none;
+    position:absolute;
+    top:100%;
+    left:0;
+    background:#2e2c6a;
+    list-style:none;
+    padding:8px 0;
+    margin:0;
+    min-width:230px;
+    border-radius:0 0 5px 5px;
+    z-index:2000;
+    box-shadow:0 5px 15px rgba(0,0,0,0.25);
+}
+
+.navbar .sub-menu li{
+    margin:0;
+    padding:0;
+}
+
+.navbar .sub-menu li a{
+    padding:10px 15px;
+    color:white;
+    display:block;
+    font-size:14px;
+    text-decoration:none;
+    white-space:nowrap;
+}
+
+.navbar .sub-menu li a:hover{
+    background:#3f3c7d;
+    color:#f5a623;
+}
+
+/* Hover bridge */
+
+.navbar .dropdown::after{
+    content:"";
+    position:absolute;
+    left:0;
+    right:0;
+    top:100%;
+    height:8px;
+}
+
+/* Desktop hover */
+
+@media(min-width:769px){
+
+    .navbar .dropdown:hover .sub-menu{
+        display:block;
+    }
+
+}
+
+/* =========================
+   MOBILE MENU BUTTON
+========================= */
+
+.menu-toggle{
+    display:none;
+    color:white;
+    font-size:27px;
+    cursor:pointer;
+    padding:5px;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.rit-hero{
+    background:#eee;
+    padding:120px 0;
+    position:relative;
+    min-height:440px;
+}
+
+.orange-strip{
+    background:#E13B28;
+    min-height:220px;
+    display:flex;
+    align-items:center;
+    padding-left:120px;
+    padding-right:40px;
+}
+
+.orange-strip h1{
+    color:white;
+    font-size:45px;
+    font-weight:bold;
+    margin:0;
+    text-align:left;
+}
+
+.image-box{
+    position:absolute;
+    right:60px;
+    top:60px;
+    background:#cfd3d6;
+    padding:10px;
+    max-width:55%;
+}
+
+.image-box img{
+    width:520px;
+    max-width:100%;
+    height:auto;
+    display:block;
+    object-fit:contain;
+}
+
+/* =========================
+   ABOUT
+========================= */
+
+.about-pgc{
+    background:#eee;
+    text-align:center;
+    padding:20px 15px;
+}
+
+.about-text{
+    max-width:900px;
+    margin:auto;
+    font-size:28px;
+    line-height:1.8;
+    color:#2e2c6a;
+    text-align:center;
+}
+
+/* =========================
+   BLOG SECTION
+========================= */
+
+.blog-section{
+    width:calc(100% - 40px);
+    max-width:1100px;
+    margin:0 auto;
+    padding:20px 0;
+}
+
+.blog-card{
+    display:flex;
+    align-items:center;
+    gap:25px;
+    margin-bottom:40px;
+    padding:10px 0;
+}
+
+.blog-img{
+    flex:0 0 300px;
+}
+
+.blog-img img{
+    width:300px;
+    height:auto;
+    max-height:none;
+    object-fit:contain;
+    display:block;
+}
+
+.blog-content{
+    flex:1;
+    max-width:700px;
+}
+
+.blog-content small{
+    color:#2e2c6a;
+    font-size:14px;
+}
+
+.blog-content h2{
+    color:#E13B28;
+    font-size:24px;
+    margin:6px 0 10px;
+    font-weight:700;
+    text-transform:uppercase;
+    line-height:1.3;
+}
+
+.blog-content p{
+    color:#2e2c6a;
+    font-size:15px;
+    line-height:1.6;
+    max-width:650px;
+    margin:0;
+}
+
+/* =========================
+   HIDDEN BLOGS
+========================= */
+
+.more-blogs{
+    display:none;
+}
+
+.more-blogs.show{
+    display:block;
+}
+
+/* =========================
+   MORE BUTTON
+========================= */
+
+.more-btn{
+    display:block;
+    margin:40px auto;
+    padding:12px 30px;
+    background:#E13B28;
+    color:white;
+    border:none;
+    font-size:16px;
+    cursor:pointer;
+    border-radius:5px;
+}
+
+.more-btn:hover{
+    background:#2e2c6a;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer{
+    background:#2e2c6a;
+    color:white;
+    width:100%;
+    padding:80px 80px 120px;
+    position:relative;
+    margin-top:20px;
+}
+
+.footer-container{
+    display:flex;
+    flex-direction:column;
+    gap:30px;
+    justify-content:space-between;
+    align-items:flex-start;
+    width:100%;
+    max-width:1000px;
+    margin:auto;
+    position:relative;
+}
+
+.footer-left h2{
+    margin-bottom:20px;
+    line-height:1.8;
+    color:white;
+    border:none;
+    padding:0;
+}
+
+.footer-left p{
+    margin:8px 0;
+    line-height:1.5;
+}
+
+.social-icons{
+    margin-top:20px;
+}
+
+.social-icons a{
+    color:white;
+    font-size:20px;
+    margin-right:15px;
+    text-decoration:none;
+}
+
+.social-icons a:hover{
+    color:#E13B28;
+    transition:0.3s;
+}
+
+.apply-btn{
+    display:inline-block;
+    background:#E13B28;
+    padding:15px 30px;
+    margin-top:5%;
+    color:white;
+    font-weight:bold;
+    text-decoration:none;
+    border-radius:6px;
+}
+
+.apply-btn:hover{
+    background:#c72f1c;
+}
+
+.footer-right{
+    position:absolute;
+    right:0;
+    top:60px;
+}
+
+.copyright{
+    margin-top:25px !important;
+    font-size:14px;
+}
+
+/* =========================
+   BACK TO TOP
+========================= */
+
+#back-to-top{
+    display:none;
+    position:fixed;
+    right:25px;
+    bottom:25px;
+    width:45px;
+    height:45px;
+    border:none;
+    border-radius:50%;
+    background:#E13B28;
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+    z-index:9999;
+}
+
+#back-to-top:hover{
+    background:#2e2c6a;
+}
+
+/* =========================
+   TABLET
+========================= */
+
+@media(max-width:1100px){
+
+    .navbar{
+        gap:12px;
+    }
+
+    .navbar > a,
+    .navbar .dropdown > a{
+        font-size:13px;
+    }
+
+    .image-box{
+        right:30px;
+        max-width:50%;
+    }
+
+    .image-box img{
+        width:450px;
+    }
+
+    .blog-section{
+        max-width:950px;
+    }
+
+    .footer{
+        padding-left:40px;
+        padding-right:40px;
+    }
+
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:768px){
+
+    header{
+        padding:10px 15px;
+        min-height:75px;
+    }
+
+    .logo-container{
+        width:55px;
+        height:55px;
+        border-width:2px;
+    }
+
+    .college-text{
+        font-size:15px;
+    }
+
+    .menu-toggle{
+        display:block;
+    }
+
+    .navbar{
+        display:none;
+        position:absolute;
+        top:100%;
+        left:0;
+        width:100%;
+        background:#2e2c6a;
+        flex-direction:column;
+        align-items:stretch;
+        gap:0;
+        padding:10px 0;
+        box-shadow:0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .navbar.active{
+        display:flex;
+    }
+
+    .navbar > a,
+    .navbar .dropdown > a{
+        width:100%;
+        padding:13px 20px;
+        font-size:14px;
+    }
+
+    .navbar > a{
+        display:block;
+    }
+
+    .navbar .dropdown{
+        width:100%;
+    }
+
+    .navbar .dropdown > a{
+        justify-content:space-between;
+    }
+
+    /* Mobile dropdown */
+
+    .navbar .sub-menu{
+        position:static;
+        display:none;
+        width:100%;
+        min-width:0;
+        padding:0;
+        margin:0;
+        border-radius:0;
+        box-shadow:none;
+        background:#242252;
+    }
+
+    .navbar .dropdown.open .sub-menu{
+        display:block;
+    }
+
+    .navbar .sub-menu li a{
+        padding:11px 35px;
+        font-size:13px;
+        white-space:normal;
+    }
+
+    .navbar .dropdown::after{
+        display:none;
+    }
+
+    /* Hero */
+
+    .rit-hero{
+        padding:25px 0 0;
+        min-height:auto;
+    }
+
+    .orange-strip{
+        min-height:150px;
+        padding:30px 25px;
+        justify-content:center;
+    }
+
+    .orange-strip h1{
+        font-size:36px;
+        text-align:center;
+    }
+
+    .image-box{
+        position:relative;
+        right:auto;
+        top:auto;
+        width:calc(100% - 30px);
+        max-width:none;
+        margin:20px auto;
+        padding:8px;
+    }
+
+    /* Full hero image */
+
+    .image-box img{
+        width:100%;
+        height:auto;
+        max-height:none;
+        object-fit:contain;
+    }
+
+    /* About */
+
+    .about-pgc{
+        padding:10px 15px 20px;
+    }
+
+    .about-text{
+        font-size:20px;
+        line-height:1.6;
+    }
+
+    /* Blogs */
+
+    .blog-section{
+        width:calc(100% - 30px);
+        padding:10px 0;
+    }
+
+    .blog-card{
+        flex-direction:column;
+        align-items:stretch;
+        gap:18px;
+        margin-bottom:45px;
+    }
+
+    .blog-img{
+        width:100%;
+        flex:none;
+    }
+
+    /* Full blog image on mobile */
+
+    .blog-img img{
+        width:100%;
+        height:auto;
+        max-height:none;
+        object-fit:contain;
+    }
+
+    .blog-content{
+        width:100%;
+        max-width:none;
+    }
+
+    .blog-content h2{
+        font-size:21px;
+        line-height:1.35;
+    }
+
+    .blog-content p{
+        font-size:15px;
+        line-height:1.7;
+        max-width:none;
+    }
+
+    /* Footer */
+
+    .footer{
+        width:100%;
+        margin:0;
+        padding:50px 25px 80px;
+    }
+
+    .footer-container{
+        width:100%;
+    }
+
+    .footer-right{
+        position:static;
+        width:100%;
+        margin-top:10px;
+    }
+
+    .apply-btn{
+        display:block;
+        width:100%;
+        text-align:center;
+        margin-top:0;
+    }
+
+    .social-icons{
+        display:flex;
+        flex-wrap:wrap;
+        gap:15px;
+    }
+
+    .social-icons a{
+        margin-right:0;
+    }
+
+}
+
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media(max-width:480px){
+
+    .college-text{
+        font-size:14px;
+    }
+
+    .logo-container{
+        width:50px;
+        height:50px;
+    }
+
+    .menu-toggle{
+        font-size:25px;
+    }
+
+    .orange-strip h1{
+        font-size:32px;
+    }
+
+    .about-text{
+        font-size:18px;
+    }
+
+    .blog-content h2{
+        font-size:19px;
+    }
+
+    .blog-content p{
+        font-size:14px;
+    }
+
+    .footer{
+        padding-left:20px;
+        padding-right:20px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body id="top">
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header>
+
+<div class="logo-section">
+
+<div class="logo-container">
+
+<img
+src="{% static 'images/pgc logo.png' %}"
+alt="Punjab College Logo"
+
+>
+
+</div>
+
+<div class="college-text">
+
+<span>Punjab</span> <span>College</span> <span>Chishtian</span>
+
+</div>
+
+</div>
+
+<!-- Mobile menu button -->
+
+<div class="menu-toggle" id="menu-toggle">
+
+<i class="fa-solid fa-bars"></i>
+
+</div>
+
+<nav class="navbar" id="navbar">
+
+<a href="{% url 'index' %}">
+Home
+</a>
+
+<!-- ABOUT US -->
+
+<div class="dropdown">
+
+<a href="#" class="dropdown-toggle">
+
+ABOUT US <i class="fa fa-caret-down"></i>
+
+</a>
+
+<ul class="sub-menu">
+
+<li>
+<a href="{% url 'historypgc' %}">
+About PGC
+</a>
+</li>
+
+<li>
+<a href="{% url 'uniquelypgc' %}">
+Uniquely PGC
+</a>
+</li>
+
+<li>
+<a href="{% url 'missionpgc' %}">
+Mission,Vision,Goals PGC
+</a>
+</li>
+
+</ul>
+
+</div>
+
+<!-- ADMISSIONS -->
+
+<div class="dropdown">
+
+<a href="#" class="dropdown-toggle">
+
+ADDMISSIONS <i class="fa fa-caret-down"></i>
+
+</a>
+
+<ul class="sub-menu">
+
+<li>
+<a href="{% url 'undergraduatepgc' %}">
+UnderGraduates Programmes
+</a>
+</li>
+
+<li>
+<a href="{% url 'feepgc' %}">
+Scholarship *&* Fee Consection
+</a>
+</li>
+
+<li>
+<a href="{% url 'applypgc' %}">
+Apply
+</a>
+</li>
+
+</ul>
+
+</div>
+
+<a href="{% url 'activitypgc' %}">
+Activities
+</a>
+
+<!-- LEARNING AT PUNJAB -->
+
+<div class="dropdown">
+
+<a href="#" class="dropdown-toggle">
+
+LEARNING AT PUNJAB <i class="fa fa-caret-down"></i>
+
+</a>
+
+<ul class="sub-menu">
+
+<li>
+<a href="{% url 'blogpgc' %}">
+Blogs PGC
+</a>
+</li>
+
+<li>
+<a href="{% url 'careerpgc' %}">
+Careers
+</a>
+</li>
+
+<li>
+<a href="{% url 'affiliatepgc' %}">
+AFFILIATE
+</a>
+</li>
+
+</ul>
+
+</div>
+
+<a href="{% url 'contactpgc' %}">
+CONTACT US
+</a>
+
+</nav>
+
+</header>
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="rit-hero">
+
+<div class="orange-strip">
+
+<h1>
+Blogs
+</h1>
+
+</div>
+
+<div class="image-box">
+
+<img
+src="{% static 'images/fee.jpg' %}"
+alt="Blogs"
+
+>
+
+</div>
+
+</section>
+
+<!-- =========================
+     ABOUT
+========================= -->
+
+<section class="about-pgc">
+
+<p class="about-text">
+
+A successful future begins with the right education and guidance. At PGC, we help students learn, grow, and turn their dreams into real career opportunities.
+
+</p>
+
+</section>
+
+<br><br>
+
+<!-- =========================
+     BLOG SECTION
+========================= -->
+
+<div class="blog-section">
+
+<!-- Blog 1 -->
+
+<div class="blog-card">
+
+<div class="blog-img">
+
+<img
+src="{% static 'images/blog1.jpeg' %}"
+alt="International Day of Happiness"
+
+>
+
+</div>
+
+<div class="blog-content">
+
+<small>
+By Abiha-Yasir
+</small>
+
+<h2>
+WHY THE INTERNATIONAL DAY OF HAPPINESS 2026 MATTERS?
+</h2>
+
+<p>
+
+Happiness is an essential human goal because it brings peace, satisfaction, and meaning to life. People try to achieve happiness through success, strong relationships, good health, and helping others. However, stress, life problems, and different circumstances often make it difficult to stay happy.
+
+</p>
+
+</div>
+
+</div>
+
+<!-- Blog 2 -->
+
+<div class="blog-card">
+
+<div class="blog-img">
+
+<img
+src="{% static 'images/blogpgc2.png' %}"
+alt="Effective Study Methods"
+
+>
+
+</div>
+
+<div class="blog-content">
+
+<small>
+By Abiha-Yasir
+</small>
+
+<h2>
+WHAT ARE SOME EFFECTIVE STUDY METHODS FOR STUDENTS?
+</h2>
+
+<p>
+
+When students have to study many subjects at once, studying becomes difficult for them. This showcases the need for different effective study methods that help students feel at ease during this learning process. Likewise, matric students need the right plan, mindset, and techniques to become successful during their matric exams.
+
+</p>
+
+</div>
+
+</div>
+
+<!-- Blog 3 -->
+
+<div class="blog-card">
+
+<div class="blog-img">
+
+<img
+src="{% static 'images/blogpgc3.png' %}"
+alt="High Demand Skills"
+
+>
+
+</div>
+
+<div class="blog-content">
+
+<small>
+By Abiha-Yasir
+</small>
+
+<h2>
+EXPLORE THE HIGH-DEMAND SKILLS IN 2026
+</h2>
+
+<p>
+
+As we all know, the world is changing very fast, and technology is evolving, resulting in the emergence of new jobs for people. That’s why getting an education in 2026 is not about passing exams, but it should also include the learning of high-demand skills that help students thrive academically and professionally.
+
+</p>
+
+</div>
+
+</div>
+
+<!-- Blog 4 -->
+
+<div class="blog-card">
+
+<div class="blog-img">
+
+<img
+src="{% static 'images/blog4pgc.png' %}"
+alt="Scholarships for 2026"
+
+>
+
+</div>
+
+<div class="blog-content">
+
+<small>
+By Abiha-Yasir
+</small>
+
+<h2>
+Scholarships for 2026: A Complete Guide for Pakistani Students
+</h2>
+
+<p>
+
+Nowadays, access to quality education has become increasingly difficult due to the rising cost of studies. This is why scholarships for 2026 are one of the finest solutions for students seeking a quality education without financial burden. This article explains the open scholarships for 2026, their significance, and how they enable students to receive.
+
+</p>
+
+</div>
+
+</div>
+
+<!-- Blog 5 -->
+
+<div class="blog-card">
+
+<div class="blog-img">
+
+<img
+src="{% static 'images/blog5pgc.jpeg' %}"
+alt="ADP in UCP Colleges"
+
+>
+
+</div>
+
+<div class="blog-content">
+
+<small>
+By Abiha-Yasir
+</small>
+
+<h2>
+How is ADP in UCP Colleges Different from Bachelor’s Degree?
+</h2>
+
+<p>
+
+After completing the intermediate, the next step in Pakistan is to select a relevant undergraduate programme. UCP Colleges offers both undergraduate programmes, ADP, and a bachelor’s degree. Moreover, ADP in UCP Colleges is different from the bachelor’s degree programmes. Thus, decisions need to be taken wisely.
+
+</p>
+
+</div>
+
+</div>
+
+<!-- =========================
+     HIDDEN BLOGS
+========================= -->
+
+<div class="more-blogs" id="moreBlogs">
+
+<!-- Blog 6 -->
+
+<div class="blog-card">
+
+<div class="blog-img">
+
+<img
+src="{% static 'images/blog6pgc.jpg' %}"
+alt="BBA in Your City"
+
+>
+
+</div>
+
+<div class="blog-content">
+
+<small>
+By Abiha-Yasir
+</small>
+
+<h2>
+Build Your Future with a BBA in Your City at UCP Colleges
+</h2>
+
+<p>
+
+UCP Colleges bring a remarkable opportunity to study business with a BBA in your city. With a graduation degree of BBA, you can learn effective business, marketing, and management strategies. This graduation degree is the best option for those who have a strong interest in joining the business world.
+
+</p>
+
+</div>
+
+</div>
+
+<!-- Blog 7 -->
+
+<div class="blog-card">
+
+<div class="blog-img">
+
+<img
+src="{% static 'images/blog7pgc.jpg' %}"
+alt="BS Biotechnology"
+
+>
+
+</div>
+
+<div class="blog-content">
+
+<small>
+By Abiha-Yasir
+</small>
+
+<h2>
+BS Biotechnology at UCP Colleges: Your Gateway to Discovery
+</h2>
+
+<p>
+
+Getting a UCP Degree by staying in your own city through UCP Colleges is a big blessing. The UCP Colleges offer a wonderful BS Biotechnology programme. This programme is for those students who love science and want to change the world. Students can learn how living things work.
+
+</p>
+
+</div>
+
+</div>
+
+<!-- Blog 8 -->
+
+<div class="blog-card">
+
+<div class="blog-img">
+
+<img
+src="{% static 'images/blog8pgc.png' %}"
+alt="International Teachers Day"
+
+>
+
+</div>
+
+<div class="blog-content">
+
+<small>
+By Abiha-Yasir
+</small>
+
+<h2>
+Celebrate International Teachers Day with PGC
+</h2>
+
+<p>
+
+Teachers play a vibrant role in a person’s life. Every year, International Teachers Day has been celebrated by people around the world. This day is celebrated to thank teachers for all their hard work and the prominent role in our lives. Punjab Group of Colleges also honours this day.
+
+</p>
+
+</div>
+
+</div>
+
+<!-- Blog 9 -->
+
+<div class="blog-card">
+
+<div class="blog-img">
+
+<img
+src="{% static 'images/blog9pgc.jpg' %}"
+alt="ADP Degree"
+
+>
+
+</div>
+
+<div class="blog-content">
+
+<small>
+By Abiha-Yasir
+</small>
+
+<h2>
+Why is ADP Degree Beneficial in 2025?
+</h2>
+
+<p>
+
+To build a bright future, every student wants to choose the right programme and college. But the availability of lots of options out there makes the selection of programmes difficult and confusing for students. Some are long degrees, while some are short ones.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- More Blog Button -->
+
+<button
+class="more-btn"
+id="moreBtn"
+onclick="showBlogs()"
+
+>
+
+More Blogs
+
+</button>
+
+</div>
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer class="footer">
+
+<div class="footer-container">
+
+<div class="footer-left">
+
+<h2>
+PUNJAB COLLEGES
+</h2>
+
+<p>
+<strong>WhatsApp</strong>
+0312 2026500
+</p>
+
+<p>
+<strong>EMAIL</strong>
+pcchishitan@pgc.edu
+</p>
+
+<p>
+<strong>COMPLAINT PORTAL</strong>
+complaint.pgc.edu
+</p>
+
+<div class="social-icons">
+
+<a
+href="https://www.facebook.com/PGCWorld/"
+target="_blank"
+rel="noopener noreferrer"
+
+>
+
+<i class="fa-brands fa-facebook"></i>
+
+</a>
+
+<a
+href="https://twitter.com/pgcworld"
+target="_blank"
+rel="noopener noreferrer"
+
+>
+
+<i class="fa-brands fa-twitter"></i>
+
+</a>
+
+<a
+href="https://www.instagram.com/pgcworld/"
+target="_blank"
+rel="noopener noreferrer"
+
+>
+
+<i class="fa-brands fa-instagram"></i>
+
+</a>
+
+<a
+href="https://www.youtube.com/user/pgcworld"
+target="_blank"
+rel="noopener noreferrer"
+
+>
+
+<i class="fa-brands fa-youtube"></i>
+
+</a>
+
+<a
+href="https://www.linkedin.com/company/pgcworld/"
+target="_blank"
+rel="noopener noreferrer"
+
+>
+
+<i class="fa-brands fa-linkedin"></i>
+
+</a>
+
+</div>
+
+<p class="copyright">
+
+2020 Punjab Colleges. All Rights Reserved.
+
+</p>
+
+</div>
+
+<div class="footer-right">
+
+<a
+href="{% url 'applypgc' %}"
+class="apply-btn"
+
+>
+
+APPLY NOW
+
+</a>
+
+</div>
+
+</div>
+
+</footer>
+
+<!-- =========================
+     BACK TO TOP
+========================= -->
+
+<button
+id="back-to-top"
+title="Back to top"
+
+>
+
+<i class="fa-solid fa-chevron-up"></i>
+
+</button>
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
+<script>
+
+/* =========================
+   MOBILE MENU
+========================= */
+
+const menuToggle =
+document.getElementById("menu-toggle");
+
+const navbar =
+document.getElementById("navbar");
+
+
+menuToggle.addEventListener("click", function(){
+
+    navbar.classList.toggle("active");
+
+});
+
+
+/* =========================
+   DROPDOWNS
+========================= */
+
+const dropdownToggles =
+document.querySelectorAll(".dropdown-toggle");
+
+
+dropdownToggles.forEach(function(toggle){
+
+    toggle.addEventListener("click", function(e){
+
+        /* Mobile par dropdown click */
+
+        if(window.innerWidth <= 768){
+
+            e.preventDefault();
+
+            const dropdown =
+            this.parentElement;
+
+            /* Close other dropdowns */
+
+            document.querySelectorAll(".dropdown")
+            .forEach(function(item){
+
+                if(item !== dropdown){
+
+                    item.classList.remove("open");
+
+                }
+
+            });
+
+            dropdown.classList.toggle("open");
+
+        }
+
+    });
+
+});
+
+
+/* =========================
+   CLOSE MENU AFTER LINK
+========================= */
+
+document.querySelectorAll(
+    ".navbar a:not(.dropdown-toggle)"
+).forEach(function(link){
+
+    link.addEventListener("click", function(){
+
+        if(window.innerWidth <= 768){
+
+            navbar.classList.remove("active");
+
+        }
+
+    });
+
+});
+
+
+/* =========================
+   WINDOW RESIZE
+========================= */
+
+window.addEventListener("resize", function(){
+
+    if(window.innerWidth > 768){
+
+        navbar.classList.remove("active");
+
+        document.querySelectorAll(".dropdown")
+        .forEach(function(item){
+
+            item.classList.remove("open");
+
+        });
+
+    }
+
+});
+
+
+/* =========================
+   MORE BLOGS
+========================= */
+
+function showBlogs(){
+
+    const moreBlogs =
+    document.getElementById("moreBlogs");
+
+    const moreBtn =
+    document.getElementById("moreBtn");
+
+    moreBlogs.classList.add("show");
+
+    moreBtn.style.display = "none";
+
+}
+
+
+/* =========================
+   BACK TO TOP
+========================= */
+
+const backToTop =
+document.getElementById("back-to-top");
+
+
+window.addEventListener("scroll", function(){
+
+    if(
+        document.body.scrollTop > 200 ||
+        document.documentElement.scrollTop > 200
+    ){
+
+        backToTop.style.display = "block";
+
+    }else{
+
+        backToTop.style.display = "none";
+
+    }
+
+});
+
+
+backToTop.addEventListener("click", function(){
+
+    window.scrollTo({
+
+        top:0,
+
+        behavior:"smooth"
+
+    });
+
+});
+
+</script>
+
+</body>
+
+</html>

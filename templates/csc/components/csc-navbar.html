@@ -1,0 +1,124 @@
+
+{% load static %}
+
+<header class="csc-header">
+    <div class="csc-logo-section">
+        <div class="csc-logo-container">
+            <img src="{% static 'images/csc logo.png' %}" alt="Chishtian Science College Logo">
+        </div>
+
+        <div class="csc-college-text">
+            <span>CHISHTIAN</span>
+            <span>COLLEGE</span>
+            <span>COLLEGE</span>
+        </div>
+    </div>
+
+    <button class="csc-menu-toggle" id="csc-menu-toggle" type="button"
+            aria-label="Toggle navigation" aria-expanded="false">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <nav class="csc-navbar" id="csc-navbar">
+        <a href="{% url 'index' %}">Home</a>
+
+        <div class="csc-dropdown">
+            <a href="#" class="csc-dropdown-toggle">ABOUT US <i class="fa fa-caret-down"></i></a>
+            <ul class="csc-sub-menu">
+                <li><a href="{% url 'historycsc' %}">About CSC</a></li>
+                <li><a href="{% url 'uniquelycsc' %}">Uniquely CSC</a></li>
+                <li><a href="{% url 'missioncsc' %}">Mission, Vision, Goals CSC</a></li>
+            </ul>
+        </div>
+
+        <div class="csc-dropdown">
+            <a href="#" class="csc-dropdown-toggle">ADMISSIONS <i class="fa fa-caret-down"></i></a>
+            <ul class="csc-sub-menu">
+                <li><a href="{% url 'undergraduatecsc' %}">UnderGraduates Programmes</a></li>
+                <li><a href="{% url 'feecsc' %}">Scholarship &amp; Fee Consection</a></li>
+                <li><a href="{% url 'applycsc' %}">Apply</a></li>
+            </ul>
+        </div>
+
+        <a href="{% url 'activitycsc' %}">Activities</a>
+
+        <div class="csc-dropdown">
+            <a href="#" class="csc-dropdown-toggle">LEARNING AT CHISHTIAN SCIENCE <i class="fa fa-caret-down"></i></a>
+            <ul class="csc-sub-menu">
+                <li><a href="{% url 'careercsc' %}">Careers</a></li>
+                <li><a href="{% url 'affiliatecsc' %}">AFFILIATE</a></li>
+            </ul>
+        </div>
+
+        <a href="{% url 'contactcsc' %}">CONTACT US</a>
+    </nav>
+</header>
+
+<script>
+(function () {
+    const menu = document.getElementById("csc-navbar");
+    const toggle = document.getElementById("csc-menu-toggle");
+
+    if (!menu || !toggle) return;
+
+    toggle.addEventListener("click", function () {
+        const isOpen = menu.classList.toggle("active");
+        toggle.setAttribute("aria-expanded", String(isOpen));
+
+        const icon = toggle.querySelector("i");
+        if (icon) {
+            icon.classList.toggle("fa-bars", !isOpen);
+            icon.classList.toggle("fa-xmark", isOpen);
+        }
+    });
+
+    document.querySelectorAll(".csc-dropdown-toggle").forEach(function (link) {
+        link.addEventListener("click", function (event) {
+            if (window.innerWidth <= 767) {
+                event.preventDefault();
+                const dropdown = link.closest(".csc-dropdown");
+
+                document.querySelectorAll(".csc-dropdown").forEach(function (item) {
+                    if (item !== dropdown) item.classList.remove("open");
+                });
+
+                dropdown.classList.toggle("open");
+            }
+        });
+    });
+
+    menu.querySelectorAll("a:not(.csc-dropdown-toggle)").forEach(function (link) {
+        link.addEventListener("click", function () {
+            if (window.innerWidth <= 767) {
+                menu.classList.remove("active");
+                document.querySelectorAll(".csc-dropdown").forEach(function (item) {
+                    item.classList.remove("open");
+                });
+                toggle.setAttribute("aria-expanded", "false");
+
+                const icon = toggle.querySelector("i");
+                if (icon) {
+                    icon.classList.remove("fa-xmark");
+                    icon.classList.add("fa-bars");
+                }
+            }
+        });
+    });
+
+    window.addEventListener("resize", function () {
+        if (window.innerWidth > 767) {
+            menu.classList.remove("active");
+            document.querySelectorAll(".csc-dropdown").forEach(function (item) {
+                item.classList.remove("open");
+            });
+            toggle.setAttribute("aria-expanded", "false");
+
+            const icon = toggle.querySelector("i");
+            if (icon) {
+                icon.classList.remove("fa-xmark");
+                icon.classList.add("fa-bars");
+            }
+        }
+    });
+})();
+</script>

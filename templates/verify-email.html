@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Email</title>
+</head>
+<body>
+    <h2>Verify Your Email</h2>
+
+    <p>Enter the six-digit verification code sent to your email.</p>
+    <p>Email: {{ email }}</p>
+
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label for="otp">Verification code</label>
+        <input
+            id="otp"
+            type="text"
+            name="otp"
+            inputmode="numeric"
+            pattern="[0-9]{6}"
+            maxlength="6"
+            required
+        >
+
+        <button type="submit">Verify Email</button>
+    </form>
+    
+<form method="POST" action="{% url 'resend-email-otp' %}">
+    {% csrf_token %}
+    <button type="submit">Resend Verification Code</button>
+</form>
+
+</body>
+</html>
