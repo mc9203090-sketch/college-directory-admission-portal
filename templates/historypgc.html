@@ -1,542 +1,1189 @@
-{% extends 'pgc/base.html' %}
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>History of PGC | Punjab Colleges</title>
+
+    <title>Background PGC</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <style>
-        :root {
-            --purple: #2e2c6a;
-            --orange: #e13b23;
-            --light: #f6f7fb;
-            --text: #333;
-        }
 
         * {
-            margin: 0;
-            padding: 0;
             box-sizing: border-box;
         }
 
-        html { scroll-behavior: smooth; }
+        html {
+            scroll-behavior: smooth;
+        }
 
         body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
             font-family: Arial, sans-serif;
-            color: var(--text);
-            line-height: 1.7;
-            background: #fff;
+            background-color: #f5f5f5;
+            color: #2e2c6a;
         }
 
-        a { text-decoration: none; }
 
-        .topbar {
-            background: var(--purple);
-            color: #fff;
-            padding: 8px 6%;
-            text-align: right;
-            font-size: 13px;
-        }
-
-        .topbar a { color: #fff; }
+        /* =========================
+           HEADER
+        ========================== */
 
         header {
-            background: #fff;
-            box-shadow: 0 3px 12px #00000012;
-            position: sticky;
-            top: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background: #2e2c6a;
+            color: white;
+            position: relative;
             z-index: 1000;
         }
 
-        .navbar {
-            max-width: 1200px;
-            margin: auto;
-            padding: 12px 20px;
+        .logo-section {
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        .logo-container {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid white;
+            flex-shrink: 0;
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .college-text {
+            display: flex;
+            flex-direction: column;
+            color: white;
+            font-weight: bold;
+            line-height: 1.2;
+            font-size: 18px;
+        }
+
+
+        /* =========================
+           NAVBAR
+        ========================== */
+
+        .navbar {
+            display: flex;
+            align-items: center;
             gap: 20px;
         }
 
-        .logo img {
-            display: block;
-            width: 180px;
-            max-height: 70px;
-            object-fit: contain;
-        }
-
-        .menu-toggle {
-            display: none;
-            border: 0;
-            background: var(--purple);
+        .navbar > a,
+        .navbar .dropdown > a {
             color: white;
-            font-size: 25px;
-            padding: 5px 12px;
-            border-radius: 5px;
-            cursor: pointer;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            white-space: nowrap;
         }
 
-        .nav-links {
+        .navbar a:hover {
+            color: #F5E547;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown > a {
             display: flex;
             align-items: center;
-            gap: 18px;
-            list-style: none;
-        }
-
-        .nav-links a,
-        .dropdown-button {
-            color: var(--purple);
-            font-size: 14px;
-            font-weight: bold;
-        }
-
-        .nav-links a:hover,
-        .dropdown-button:hover {
-            color: var(--orange);
-        }
-
-        .dropdown { position: relative; }
-
-        .dropdown-button {
-            border: 0;
-            background: transparent;
+            gap: 5px;
             cursor: pointer;
-            font-family: inherit;
         }
 
-        .dropdown-content {
+
+        /* =========================
+           DESKTOP DROPDOWN
+        ========================== */
+
+        .sub-menu {
             display: none;
             position: absolute;
             top: 100%;
             left: 0;
-            min-width: 190px;
-            background: white;
-            box-shadow: 0 5px 18px #00000020;
-            border-radius: 5px;
+            background: #2e2c6a;
+            list-style: none;
             padding: 8px 0;
+            margin: 0;
+            min-width: 230px;
+            border-radius: 0 0 6px 6px;
+            z-index: 9999;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
         }
 
-        .dropdown-content a {
+        .sub-menu li {
+            margin: 0;
+            padding: 0;
+        }
+
+        .sub-menu li a {
             display: block;
-            padding: 8px 15px;
-            white-space: nowrap;
-        }
-
-        .dropdown:hover .dropdown-content,
-        .dropdown:focus-within .dropdown-content,
-        .dropdown.open .dropdown-content {
-            display: block;
-        }
-
-        .apply-btn {
-            background: var(--orange);
-            color: #fff !important;
             padding: 10px 15px;
-            border-radius: 5px;
-            display: inline-block;
+            color: white;
+            font-size: 14px;
+            text-decoration: none;
+            white-space: normal;
         }
 
-        .hero {
-            min-height: 320px;
-            background:
-                linear-gradient(#171542a8, #171542a8),
-                url("{% static 'images/pgchistory.jpg' %}") center/cover no-repeat;
+        .sub-menu li a:hover {
+            background: #242253;
+            color: #f5a623;
+        }
+
+
+        /* Desktop hover */
+
+        @media (min-width: 768px) {
+
+            .dropdown:hover .sub-menu {
+                display: block;
+            }
+
+            /*
+              Invisible bridge:
+              dropdown mouse move karte waqt disappear nahi hoga.
+            */
+
+            .dropdown::after {
+                content: "";
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 100%;
+                height: 8px;
+            }
+        }
+
+
+        /* =========================
+           MOBILE MENU BUTTON
+        ========================== */
+
+        .menu-toggle {
+            display: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            padding: 5px;
+        }
+
+
+        /* =========================
+           HERO
+        ========================== */
+
+        .rit-hero {
+            background: #eee;
+            padding: 120px 0;
+            position: relative;
+            min-height: 420px;
+        }
+
+        .orange-strip {
+            background: #E13B23;
+            min-height: 220px;
+            display: flex;
+            align-items: center;
+            padding: 30px 120px;
+        }
+
+        .orange-strip h1 {
+            color: white;
+            font-size: 45px;
+            font-weight: bold;
+            text-align: left;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+
+        /* =========================
+           HISTORY IMAGE
+        ========================== */
+
+        .image-box {
+            position: absolute;
+            right: 60px;
+            top: 60px;
+            background: #cfd3d6;
+            padding: 10px;
+            max-width: 560px;
+        }
+
+        .image-box img {
+            width: 520px;
+            max-width: 100%;
+            height: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+
+        /* =========================
+           ABOUT PGC
+        ========================== */
+
+        .about-pgc {
+            background: #eee;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .about-heading {
+            font-size: 24px;
+            font-weight: bold;
+            max-width: 900px;
+            margin: 0 auto 40px;
+            line-height: 1.4;
+            color: #2e2c6a;
+            text-align: justify;
+        }
+
+        .about-text {
+            max-width: 900px;
+            margin: auto;
+            font-size: 16px;
+            line-height: 1.8;
+            color: #2e2c6a;
+            text-align: justify;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================== */
+
+        .footer {
+            background: #2e2c6a;
+            color: white;
+            width: 100%;
+            padding: 70px 80px 80px;
+            position: relative;
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 50px;
+            width: 100%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .footer-left {
+            flex: 1;
+        }
+
+        .footer-left h2 {
+            margin: 0 0 20px;
+            line-height: 1.5;
+        }
+
+        .footer-left p {
+            margin: 8px 0;
+            line-height: 1.5;
+            word-break: break-word;
+        }
+
+        .social-icons {
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 20px;
+            margin-right: 15px;
+            text-decoration: none;
+        }
+
+        .social-icons a:hover {
+            color: #E13B23;
+            transition: 0.3s;
+        }
+
+        .copyright {
+            margin-top: 25px !important;
+        }
+
+        .footer-right {
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            padding: 40px 20px;
-            color: #fff;
+            padding-top: 10px;
         }
 
-        .hero h1 {
-            font-size: clamp(32px, 5vw, 52px);
-            margin-bottom: 10px;
-        }
-
-        .hero p { font-size: 17px; }
-
-        .container {
-            max-width: 1100px;
-            margin: auto;
-            padding: 65px 22px;
-        }
-
-        .section-label {
-            color: var(--orange);
-            text-transform: uppercase;
-            font-size: 13px;
-            font-weight: bold;
-            letter-spacing: 2px;
-            margin-bottom: 8px;
-        }
-
-        .section-title {
-            color: var(--purple);
-            font-size: clamp(27px, 4vw, 38px);
-            line-height: 1.25;
-            margin-bottom: 20px;
-        }
-
-        .history-grid {
-            display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            align-items: center;
-            gap: 40px;
-        }
-
-        .history-text p {
-            margin-bottom: 16px;
-            color: #555;
-        }
-
-        .history-image img {
-            display: block;
-            width: 100%;
-            height: 340px;
-            object-fit: cover;
-            border-radius: 12px;
-            box-shadow: 0 8px 25px #00000015;
-        }
-
-        .facts {
-            background: var(--light);
-            padding: 45px 20px;
-        }
-
-        .facts-grid {
-            max-width: 1100px;
-            margin: auto;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 22px;
-        }
-
-        .fact-card {
-            background: white;
-            padding: 25px 20px;
-            border-radius: 10px;
-            border-bottom: 4px solid var(--orange);
-            box-shadow: 0 4px 16px #0000000c;
-        }
-
-        .fact-card h3 {
-            color: var(--purple);
-            margin-bottom: 8px;
-        }
-
-        .fact-card p { color: #666; }
-
-        footer {
-            background: #22223f;
-            color: #fff;
-            padding: 45px 6% 20px;
-        }
-
-        .footer-grid {
-            max-width: 1100px;
-            margin: auto;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-        }
-
-        footer h3 { margin-bottom: 12px; }
-
-        footer p,
-        footer a {
-            color: #e0e0e8;
-            font-size: 14px;
-            overflow-wrap: anywhere;
-        }
-
-        footer a:hover { color: #ff806f; }
-
-        .footer-bottom {
-            border-top: 1px solid #ffffff30;
-            margin-top: 30px;
-            padding-top: 18px;
-            text-align: center;
-            font-size: 13px;
-        }
-
-        #backToTop {
-            position: fixed;
-            right: 20px;
-            bottom: 20px;
-            border: none;
-            background: var(--orange);
+        .apply-btn {
+            display: inline-block;
+            background: #E13B23;
+            padding: 15px 30px;
             color: white;
-            font-size: 20px;
-            padding: 10px 14px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: none;
-            z-index: 999;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 6px;
         }
 
-        @media (max-width: 900px) {
-            .menu-toggle { display: block; }
+        .apply-btn:hover {
+            background: #c92f20;
+        }
 
-            .nav-links {
+
+        /* =========================
+           BACK TO TOP
+        ========================== */
+
+        #back-to-top {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            color: white;
+            background: #E13B23;
+            padding: 12px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            z-index: 9999;
+            font-size: 14px;
+        }
+
+        #back-to-top i {
+            margin-left: 5px;
+        }
+
+
+        /* =========================
+           TABLET
+        ========================== */
+
+        @media (max-width: 1100px) {
+
+            .navbar {
+                gap: 12px;
+            }
+
+            .navbar > a,
+            .navbar .dropdown > a {
+                font-size: 13px;
+            }
+
+            .rit-hero {
+                padding: 90px 0;
+            }
+
+            .orange-strip {
+                padding-left: 60px;
+                padding-right: 40px;
+            }
+
+            .image-box {
+                right: 30px;
+                max-width: 48%;
+            }
+
+            .image-box img {
+                width: 100%;
+                height: auto;
+            }
+
+            .footer {
+                padding-left: 40px;
+                padding-right: 40px;
+            }
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================== */
+
+        @media (max-width: 767px) {
+
+            header {
+                padding: 10px 15px;
+                min-height: 80px;
+            }
+
+            .logo-container {
+                width: 58px;
+                height: 58px;
+            }
+
+            .college-text {
+                font-size: 15px;
+            }
+
+            /* Hamburger visible only on mobile */
+
+            .menu-toggle {
+                display: block;
+                margin-left: auto;
+            }
+
+
+            /* Mobile navbar */
+
+            .navbar {
                 display: none;
                 position: absolute;
-                top: 100%;
+                top: 80px;
                 left: 0;
                 width: 100%;
-                max-height: 75vh;
-                overflow-y: auto;
-                background: white;
-                padding: 20px;
+                background: #2e2c6a;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0;
+                padding: 10px 0 15px;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
+            }
+
+            .navbar.active {
+                display: flex;
+            }
+
+            .navbar > a,
+            .navbar .dropdown > a {
+                display: flex;
+                width: 100%;
+                padding: 13px 20px;
+                font-size: 14px;
+            }
+
+            .navbar > a:hover,
+            .navbar .dropdown > a:hover {
+                background: #242253;
+            }
+
+            .dropdown {
+                width: 100%;
+            }
+
+            .dropdown > a {
+                justify-content: space-between;
+            }
+
+
+            /* Mobile dropdown */
+
+            .sub-menu {
+                display: none;
+                position: static;
+                width: 100%;
+                min-width: 0;
+                padding: 0;
+                margin: 0;
+                border-radius: 0;
+                box-shadow: none;
+                background: #242253;
+            }
+
+            .dropdown.open .sub-menu {
+                display: block;
+            }
+
+            .sub-menu li a {
+                padding: 11px 35px;
+                font-size: 13px;
+            }
+
+
+            /* Hero */
+
+            .rit-hero {
+                padding: 0;
+                min-height: auto;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .orange-strip {
+                min-height: 150px;
+                padding: 30px 20px;
+                justify-content: center;
+            }
+
+            .orange-strip h1 {
+                font-size: 30px;
+                text-align: center;
+                line-height: 1.2;
+            }
+
+
+            /* Image */
+
+            .image-box {
+                position: static;
+                width: 92%;
+                max-width: 600px;
+                margin: 25px auto 0;
+                padding: 8px;
+                background: #cfd3d6;
+            }
+
+            .image-box img {
+                width: 100%;
+                height: auto;
+                max-height: none;
+                object-fit: contain;
+            }
+
+
+            /* About */
+
+            .about-pgc {
+                padding: 50px 20px;
+            }
+
+            .about-heading {
+                font-size: 20px;
+                line-height: 1.6;
+                margin-bottom: 30px;
+            }
+
+            .about-text {
+                font-size: 15px;
+                line-height: 1.8;
+            }
+
+
+            /* Footer */
+
+            .footer {
+                padding: 50px 25px 70px;
+            }
+
+            .footer-container {
                 flex-direction: column;
                 align-items: flex-start;
-                gap: 17px;
-                box-shadow: 0 6px 12px #00000015;
+                gap: 35px;
             }
 
-            .nav-links.active { display: flex; }
-
-            .dropdown-content {
-                position: static;
-                box-shadow: none;
-                padding-left: 12px;
+            .footer-left {
+                width: 100%;
             }
 
-            .dropdown:hover .dropdown-content { display: none; }
-            .dropdown.open .dropdown-content,
-            .dropdown:focus-within .dropdown-content { display: block; }
+            .footer-left h2 {
+                font-size: 23px;
+            }
 
-            .history-grid { grid-template-columns: 1fr; }
-            .history-image { max-width: 600px; }
+            .footer-left p {
+                font-size: 14px;
+            }
+
+            .social-icons {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+
+            .social-icons a {
+                margin-right: 0;
+                font-size: 19px;
+            }
+
+            .footer-right {
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            .apply-btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            #back-to-top {
+                bottom: 15px;
+                right: 15px;
+                padding: 10px 13px;
+                font-size: 13px;
+            }
         }
 
-        @media (max-width: 600px) {
-            .logo img { width: 145px; }
-            .hero { min-height: 250px; }
-            .container { padding: 45px 18px; }
-            .facts-grid,
-            .footer-grid { grid-template-columns: 1fr; }
-            .history-image img { height: 250px; }
+
+        /* =========================
+           VERY SMALL MOBILE
+        ========================== */
+
+        @media (max-width: 400px) {
+
+            .college-text {
+                font-size: 13px;
+            }
+
+            .logo-container {
+                width: 52px;
+                height: 52px;
+            }
+
+            .orange-strip h1 {
+                font-size: 26px;
+            }
+
+            .about-heading {
+                font-size: 18px;
+            }
+
+            .about-text {
+                font-size: 14px;
+            }
+
+            .footer {
+                padding-left: 18px;
+                padding-right: 18px;
+            }
         }
+
     </style>
+
 </head>
 
-<body>
 
-<div class="topbar">
-    <a href="mailto:pcchishitan@pgc.edu">pcchishitan@pgc.edu</a>
-    &nbsp; | &nbsp;
-    <a href="https://complaint.pgc.edu/" target="_blank" rel="noopener">
-        Complaint Portal
-    </a>
-</div>
+<body id="top">
 
-<header>
-    <nav class="navbar" aria-label="Main navigation">
-        <a href="{% url 'index' %}" class="logo">
-            <img src="{% static 'images/pgc logo.png' %}"
-                 alt="Punjab Colleges logo">
-        </a>
 
-        <button class="menu-toggle" id="menuToggle"
-                aria-label="Open navigation menu"
-                aria-expanded="false"
-                aria-controls="navLinks">
-            ☰
+    <!-- =========================
+         HEADER
+    ========================== -->
+
+    <header>
+
+        <div class="logo-section">
+
+            <div class="logo-container">
+
+                <img src="{% static 'images/pgc logo.png' %}"
+                     alt="Punjab College Logo">
+
+            </div>
+
+            <div class="college-text">
+
+                <span>Punjab</span>
+                <span>College</span>
+                <span>Chishtian</span>
+
+            </div>
+
+        </div>
+
+
+        <!-- MOBILE HAMBURGER -->
+
+        <button class="menu-toggle"
+                id="menu-toggle"
+                aria-label="Open Menu">
+
+            <i class="fas fa-bars"></i>
+
         </button>
 
-        <ul class="nav-links" id="navLinks">
-            <li><a href="{% url 'index' %}">HOME</a></li>
 
-            <li class="dropdown">
-                <button class="dropdown-button" type="button">ABOUT US ▾</button>
-                <div class="dropdown-content">
-                    <a href="{% url 'historypgc' %}">History</a>
-                    <a href="{% url 'uniquelypgc' %}">Uniquely PGC</a>
-                    <a href="{% url 'missionpgc' %}">Vision &amp; Mission</a>
-                </div>
-            </li>
+        <!-- NAVIGATION -->
 
-            <li class="dropdown">
-                <button class="dropdown-button" type="button">ADMISSIONS ▾</button>
-                <div class="dropdown-content">
-                    <a href="{% url 'undergraduatepgc' %}">Programs</a>
-                    <a href="{% url 'feepgc' %}">Fee Structure</a>
-                    <a href="{% url 'applypgc' %}">Apply Now</a>
-                </div>
-            </li>
+        <nav class="navbar" id="navbar">
 
-            <li><a href="{% url 'activitypgc' %}">ACTIVITIES</a></li>
+            <a href="{% url 'index' %}">
+                Home
+            </a>
 
-            <li class="dropdown">
-                <button class="dropdown-button" type="button">LEARNING ▾</button>
-                <div class="dropdown-content">
-                    <a href="{% url 'blogpgc' %}">Blog</a>
-                    <a href="{% url 'careerpgc' %}">Careers</a>
-                    <a href="{% url 'affiliatepgc' %}">Affiliate</a>
-                </div>
-            </li>
 
-            <li><a href="{% url 'contactpgc' %}">CONTACT</a></li>
-            <li><a class="apply-btn" href="{% url 'applypgc' %}">APPLY NOW</a></li>
-        </ul>
-    </nav>
-</header>
+            <!-- ABOUT US -->
 
-<main>
-    <section class="hero">
-        <div>
-            <h1>History of PGC</h1>
-            <p>Discover our journey, vision, and commitment to education.</p>
-        </div>
-    </section>
+            <div class="dropdown">
 
-    <section class="container">
-        <div class="history-grid">
-            <div class="history-text">
-                <p class="section-label">Our Journey</p>
-                <h2 class="section-title">A Legacy of Quality Education</h2>
+                <a href="#">
+                    ABOUT US
+                    <i class="fa fa-caret-down"></i>
+                </a>
 
-                <p>
-                    Punjab Colleges has a proud educational legacy built around
-                    learning, personal development, and preparing students for
-                    their future. Its journey began with a vision to make
-                    quality education accessible to students.
-                </p>
+                <ul class="sub-menu">
 
-                <p>
-                    Founded by Mian Amer Mahmood, Punjab Colleges began its
-                    journey in Lahore in 1985 and expanded its educational
-                    network across Punjab and other parts of Pakistan.
-                </p>
+                    <li>
+                        <a href="{% url 'historypgc' %}">
+                            About PGC
+                        </a>
+                    </li>
 
-                <p>
-                    The wider educational network associated with the group
-                    includes institutions such as the University of Central
-                    Punjab and Allied Schools.
-                </p>
+                    <li>
+                        <a href="{% url 'uniquelypgc' %}">
+                            Uniquely PGC
+                        </a>
+                    </li>
 
-                <p>
-                    At the Chishtian campus, students can explore intermediate
-                    study options such as FSc, FA, ICS, and ICom, subject to
-                    current campus offerings and admission policies.
-                </p>
+                    <li>
+                        <a href="{% url 'missionpgc' %}">
+                            Mission,Vision,Goals PGC
+                        </a>
+                    </li>
+
+                </ul>
+
             </div>
 
-            <div class="history-image">
-                <img src="{% static 'images/pgchistory.jpg' %}"
-                     alt="Punjab Colleges history">
+
+            <!-- ADMISSIONS -->
+
+            <div class="dropdown">
+
+                <a href="#">
+                    ADDMISSIONS
+                    <i class="fa fa-caret-down"></i>
+                </a>
+
+                <ul class="sub-menu">
+
+                    <li>
+                        <a href="{% url 'undergraduatepgc' %}">
+                            UnderGraduates Programmes
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'feepgc' %}">
+                            Scholarship *&* Fee Consection
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'applypgc' %}">
+                            Apply
+                        </a>
+                    </li>
+
+                </ul>
+
             </div>
+
+
+            <!-- ACTIVITIES -->
+
+            <a href="{% url 'activitypgc' %}">
+                Activities
+            </a>
+
+
+            <!-- LEARNING AT PUNJAB -->
+
+            <div class="dropdown">
+
+                <a href="#">
+                    LEARNING AT PUNJAB
+                    <i class="fa fa-caret-down"></i>
+                </a>
+
+                <ul class="sub-menu">
+
+                    <li>
+                        <a href="{% url 'blogpgc' %}">
+                            Blogs PGC
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'careerpgc' %}">
+                            Careers
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'affiliatepgc' %}">
+                            AFFILIATE
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <!-- CONTACT -->
+
+            <a href="{% url 'contactpgc' %}">
+                CONTACT US
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- =========================
+         HERO
+    ========================== -->
+
+    <section class="rit-hero">
+
+        <div class="orange-strip">
+
+            <h1>
+                History of PGC
+            </h1>
+
         </div>
+
+
+        <div class="image-box">
+
+            <img src="{% static 'images/pgchistory.jpg' %}"
+                 alt="History of PGC">
+
+        </div>
+
     </section>
 
-    <section class="facts">
-        <div class="facts-grid">
-            <article class="fact-card">
-                <h3>Established in 1985</h3>
-                <p>
-                    The institution began its educational journey in Lahore
-                    and gradually expanded its reach.
-                </p>
-            </article>
 
-            <article class="fact-card">
-                <h3>Student Development</h3>
-                <p>
-                    Academic learning and extracurricular activities help
-                    students build knowledge, confidence, and skills.
-                </p>
-            </article>
+    <!-- =========================
+         ABOUT / HISTORY
+    ========================== -->
 
-            <article class="fact-card">
-                <h3>Chishtian Campus</h3>
-                <p>
-                    Students can explore available intermediate programs and
-                    admission information through the campus website.
-                </p>
-            </article>
-        </div>
+    <section class="about-pgc">
+
+        <p class="about-heading">
+
+            Punjab Colleges has a proud legacy of academic excellence and student achievement.
+            The institution began with a vision to provide quality education and continues
+            to empower students across Pakistan.
+
+        </p>
+
+
+        <p class="about-text">
+
+            Started in 1985 in Lahore, Punjab Colleges has expanded its network across Punjab.
+            With more than 456 campuses in over 216 cities, the institution has always taken pride
+            in delivering quality education. Over the years, students of Punjab Colleges have
+            secured top positions in Pakistan’s national board examinations for intermediate.
+
+            The Punjab Group of Colleges (PGC) was founded by Mian Amer Mahmood and has grown
+            from a single commerce college into one of the largest private educational networks
+            in Pakistan. The network now includes institutions such as the University of Central Punjab
+            and Allied Schools.
+
+            Punjab College Chishtian is part of this nationwide network and serves students in
+            Chishtian city, Bahawalnagar district. The campus offers intermediate programs
+            including FSc, FA, ICS, and ICom while focusing on academic excellence,
+            modern facilities, and student development.
+
+        </p>
+
     </section>
-</main>
 
-<footer>
-    <div class="footer-grid">
-        <div>
-            <h3>Punjab Colleges</h3>
-            <p>Supporting students through education, learning, and development.</p>
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer class="footer">
+
+        <div class="footer-container">
+
+
+            <div class="footer-left">
+
+                <h2>
+                    PUNJAB COLLEGES
+                </h2>
+
+
+                <p>
+                    <strong>WhatsApp</strong>
+                    0312 2026500
+                </p>
+
+
+                <p>
+                    <strong>EMAIL</strong>
+                    pcchishitan@pgc.edu
+                </p>
+
+
+                <p>
+                    <strong>COMPLAINT PORTAL</strong>
+                    complaint.pgc.edu
+                </p>
+
+
+                <!-- SOCIAL ICONS -->
+
+                <div class="social-icons">
+
+                    <a href="https://www.facebook.com/PGCWorld/"
+                       target="_blank"
+                       aria-label="Facebook">
+
+                        <i class="fa-brands fa-facebook"></i>
+
+                    </a>
+
+
+                    <a href="https://twitter.com/pgcworld"
+                       target="_blank"
+                       aria-label="Twitter">
+
+                        <i class="fa-brands fa-twitter"></i>
+
+                    </a>
+
+
+                    <a href="https://www.instagram.com/pgcworld/"
+                       target="_blank"
+                       aria-label="Instagram">
+
+                        <i class="fa-brands fa-instagram"></i>
+
+                    </a>
+
+
+                    <a href="https://www.youtube.com/user/pgcworld"
+                       target="_blank"
+                       aria-label="YouTube">
+
+                        <i class="fa-brands fa-youtube"></i>
+
+                    </a>
+
+
+                    <a href="https://www.linkedin.com/company/pgcworld/"
+                       target="_blank"
+                       aria-label="LinkedIn">
+
+                        <i class="fa-brands fa-linkedin"></i>
+
+                    </a>
+
+                </div>
+
+
+                <p class="copyright">
+
+                    2020 Punjab Colleges. All Rights Reserved.
+
+                </p>
+
+            </div>
+
+
+            <!-- APPLY BUTTON -->
+
+            <div class="footer-right">
+
+                <a href="{% url 'applypgc' %}"
+                   class="apply-btn">
+
+                    APPLY NOW
+
+                </a>
+
+            </div>
+
         </div>
 
-        <div>
-            <h3>Contact Us</h3>
-            <p>Email:
-                <a href="mailto:pcchishitan@pgc.edu">pcchishitan@pgc.edu</a>
-            </p>
-            <p>WhatsApp: <a href="https://wa.me/923122026500">0312 2026500</a></p>
-            <p><a href="{% url 'contactpgc' %}">Contact page</a></p>
-        </div>
+    </footer>
 
-        <div>
-            <h3>Quick Links</h3>
-            <p><a href="{% url 'historypgc' %}">Our History</a></p>
-            <p><a href="{% url 'missionpgc' %}">Vision &amp; Mission</a></p>
-            <p><a href="{% url 'applypgc' %}">Apply Now</a></p>
-            <p><a href="https://complaint.pgc.edu/" target="_blank" rel="noopener">Complaint Portal</a></p>
-        </div>
-    </div>
 
-    <div class="footer-bottom">
-        &copy; 2026 Punjab Colleges. All rights reserved.
-    </div>
-</footer>
+    <!-- BACK TO TOP -->
 
-<button id="backToTop" aria-label="Back to top">↑</button>
+    <a href="#top" id="back-to-top">
 
-<script>
-    const menuToggle = document.getElementById("menuToggle");
-    const navLinks = document.getElementById("navLinks");
+        Back to Top
+        <i class="fas fa-chevron-up"></i>
 
-    menuToggle.addEventListener("click", function () {
-        const isOpen = navLinks.classList.toggle("active");
-        menuToggle.setAttribute("aria-expanded", isOpen);
-        menuToggle.setAttribute(
-            "aria-label",
-            isOpen ? "Close navigation menu" : "Open navigation menu"
-        );
-    });
+    </a>
 
-    document.querySelectorAll(".dropdown-button").forEach(function (button) {
-        button.addEventListener("click", function () {
-            const dropdown = button.closest(".dropdown");
-            const willOpen = !dropdown.classList.contains("open");
 
-            document.querySelectorAll(".dropdown").forEach(function (item) {
-                item.classList.remove("open");
-            });
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
 
-            if (willOpen) dropdown.classList.add("open");
+    <script>
+
+
+        /* =========================
+           MOBILE MENU
+        ========================== */
+
+        const menuToggle =
+            document.getElementById("menu-toggle");
+
+        const navbar =
+            document.getElementById("navbar");
+
+
+        menuToggle.addEventListener("click", function () {
+
+            navbar.classList.toggle("active");
+
+            const icon =
+                menuToggle.querySelector("i");
+
+
+            if (navbar.classList.contains("active")) {
+
+                icon.classList.remove("fa-bars");
+                icon.classList.add("fa-xmark");
+
+            } else {
+
+                icon.classList.remove("fa-xmark");
+                icon.classList.add("fa-bars");
+
+            }
+
         });
-    });
 
-    document.addEventListener("click", function (event) {
-        if (!event.target.closest(".dropdown")) {
-            document.querySelectorAll(".dropdown").forEach(function (item) {
-                item.classList.remove("open");
+
+        /* =========================
+           MOBILE DROPDOWNS
+        ========================== */
+
+        document.querySelectorAll(".dropdown > a")
+            .forEach(function (dropdownLink) {
+
+                dropdownLink.addEventListener("click", function (e) {
+
+                    if (window.innerWidth <= 767) {
+
+                        e.preventDefault();
+
+                        const parent =
+                            this.parentElement;
+
+
+                        document.querySelectorAll(".dropdown")
+                            .forEach(function (dropdown) {
+
+                                if (dropdown !== parent) {
+
+                                    dropdown.classList.remove("open");
+
+                                }
+
+                            });
+
+
+                        parent.classList.toggle("open");
+
+                    }
+
+                });
+
             });
-        }
-    });
 
-    const backToTop = document.getElementById("backToTop");
 
-    window.addEventListener("scroll", function () {
-        backToTop.style.display = window.scrollY > 250 ? "block" : "none";
-    });
+        /* =========================
+           NORMAL MOBILE LINKS
+        ========================== */
 
-    backToTop.addEventListener("click", function () {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-</script>
+        document.querySelectorAll(".navbar > a")
+            .forEach(function (link) {
+
+                link.addEventListener("click", function () {
+
+                    if (window.innerWidth <= 767) {
+
+                        navbar.classList.remove("active");
+
+
+                        const icon =
+                            menuToggle.querySelector("i");
+
+
+                        icon.classList.remove("fa-xmark");
+                        icon.classList.add("fa-bars");
+
+                    }
+
+                });
+
+            });
+
+
+        /* =========================
+           RESIZE
+        ========================== */
+
+        window.addEventListener("resize", function () {
+
+            if (window.innerWidth > 767) {
+
+                navbar.classList.remove("active");
+
+
+                document.querySelectorAll(".dropdown")
+                    .forEach(function (dropdown) {
+
+                        dropdown.classList.remove("open");
+
+                    });
+
+
+                const icon =
+                    menuToggle.querySelector("i");
+
+
+                icon.classList.remove("fa-xmark");
+                icon.classList.add("fa-bars");
+
+            }
+
+        });
+
+
+        /* =========================
+           BACK TO TOP
+        ========================== */
+
+        window.addEventListener("scroll", function () {
+
+            const button =
+                document.getElementById("back-to-top");
+
+
+            if (
+                document.body.scrollTop > 200 ||
+                document.documentElement.scrollTop > 200
+            ) {
+
+                button.style.display = "block";
+
+            } else {
+
+                button.style.display = "none";
+
+            }
+
+        });
+
+    </script>
 
 </body>
+
 </html>
+

@@ -1,407 +1,628 @@
 
-{% extends 'csc/base.html' %}
 {% load static %}
 
-{% block title %}Recruitment Form | Chishtian Science College{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-{% block extra_css %}
-<style>
-.recruitment-page {
-    background: #f5f5f5;
-    color: #2e2c6a;
-}
-.recruitment-hero {
-    background: #eee;
-    padding: 90px 0;
-}
-.recruitment-strip {
-    background: #E13B28;
-    min-height: 190px;
-    display: flex;
-    align-items: center;
-    padding: 35px 8%;
-}
-.recruitment-strip h1 {
-    margin: 0;
-    color: white;
-    font-size: clamp(30px, 4vw, 45px);
-}
-.recruitment-form-section {
-    width: 90%;
-    max-width: 1200px;
-    margin: auto;
-    padding: 50px 0 70px;
-}
-.recruitment-form-row {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 25px 60px;
-    margin-bottom: 25px;
-}
-.recruitment-form-section label {
-    display: block;
-    margin-bottom: 8px;
-    font-size: 14px;
-    letter-spacing: .5px;
-    font-weight: bold;
-    color: #2e2c6a;
-}
-.recruitment-form-section input,
-.recruitment-form-section select,
-.recruitment-form-section textarea {
-    width: 100%;
-    min-width: 0;
-    padding: 14px 18px;
-    border: 2px solid #E13B28;
-    border-radius: 28px;
-    background: #efefef;
-    color: #2e2c6a;
-    font: 15px Arial, sans-serif;
-}
-.recruitment-form-section input:focus,
-.recruitment-form-section select:focus,
-.recruitment-form-section textarea:focus {
-    outline: 2px solid #2e2c6a;
-    background: white;
-}
-.recruitment-form-section input[type="file"] {
-    padding: 10px;
-    border-radius: 12px;
-}
-.recruitment-form-section hr {
-    border: 0;
-    border-top: 1px solid #ccc;
-    margin: 40px 0;
-}
-.recruitment-section-title {
-    margin: 35px 0 25px;
-    font-size: 26px;
-    color: #2e2c6a;
-}
-.recruitment-qualification-grid {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 25px 35px;
-    margin-bottom: 30px;
-}
-.recruitment-file-row {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 25px 60px;
-    margin-top: 35px;
-}
-.recruitment-send-btn {
-    display: block;
-    margin: 35px 0 0 auto;
-    background: #E13B28;
-    color: white;
-    padding: 15px 55px;
-    border: 0;
-    border-radius: 40px;
-    font-size: 18px;
-    cursor: pointer;
-    transition: .25s;
-}
-.recruitment-send-btn:hover {
-    background: #c92f1f;
-    transform: translateY(-2px);
-}
-.recruitment-notice {
-    display: none;
-    margin-top: 25px;
-    padding: 15px;
-    color: #245b24;
-    background: #eaf8ea;
-    border: 1px solid #a8d8a8;
-    border-radius: 8px;
-}
-.recruitment-note {
-    margin-top: 18px;
-    font-size: 13px;
-    line-height: 1.6;
-    color: #555;
-}
-@media (max-width: 1000px) {
-    .recruitment-qualification-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-    .recruitment-form-row,
-    .recruitment-file-row {
-        gap: 22px 30px;
-    }
-}
-@media (max-width: 767px) {
-    .recruitment-hero {
-        padding: 40px 0;
-    }
-    .recruitment-strip {
-        min-height: 145px;
-        padding: 28px 20px;
-        justify-content: center;
-        text-align: center;
-    }
-    .recruitment-form-section {
-        width: 92%;
-        padding: 35px 0 50px;
-    }
-    .recruitment-form-row,
-    .recruitment-qualification-grid,
-    .recruitment-file-row {
-        grid-template-columns: 1fr;
-        gap: 22px;
-    }
-    .recruitment-section-title {
-        font-size: 23px;
-        margin: 30px 0 22px;
-    }
-    .recruitment-form-section label {
-        font-size: 13px;
-    }
-    .recruitment-form-section input,
-    .recruitment-form-section select,
-    .recruitment-form-section textarea {
-        font-size: 14px;
-        padding: 13px 15px;
-    }
-    .recruitment-send-btn {
-        width: 100%;
-        margin-top: 28px;
-    }
-}
-</style>
-{% endblock %}
+    <title>Teaching Jobs Application | Chishtian Science College</title>
 
-{% block content %}
-<div class="recruitment-page">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <section class="recruitment-hero">
-        <div class="recruitment-strip">
-            <h1>Recruitment Form</h1>
-        </div>
-    </section>
+        :root {
+            --primary: #153c69;
+            --secondary: #235b91;
+            --accent: #e9b949;
+            --light: #f4f7fb;
+            --text: #263445;
+            --border: #d8e0e9;
+        }
 
-    <section class="recruitment-form-section">
-        <form id="applicationForm">
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--text);
+            background: var(--light);
+            line-height: 1.6;
+        }
 
-            <div class="recruitment-form-row">
-                <div>
-                    <label for="applicant-name">NAME *</label>
-                    <input id="applicant-name" name="name"
-                           type="text" placeholder="Name" required>
-                </div>
-                <div>
-                    <label for="father-name">FATHER NAME *</label>
-                    <input id="father-name" name="father_name"
-                           type="text" placeholder="Father Name" required>
-                </div>
-            </div>
+        a {
+            text-decoration: none;
+        }
 
-            <div class="recruitment-form-row">
-                <div>
-                    <label for="date-of-birth">DATE OF BIRTH *</label>
-                    <input id="date-of-birth" name="date_of_birth"
-                           type="date" required>
-                </div>
-                <div>
-                    <label for="nationality">NATIONALITY *</label>
-                    <input id="nationality" name="nationality"
-                           type="text" placeholder="Nationality" required>
-                </div>
-            </div>
+        header {
+            background: white;
+            box-shadow: 0 2px 12px #00000012;
+            position: relative;
+            z-index: 10;
+        }
 
-            <div class="recruitment-form-row">
-                <div>
-                    <label for="cnic">CNIC # *</label>
-                    <input id="cnic" name="cnic"
-                           type="text" placeholder="XXXXX-XXXXXXX-X" required>
-                </div>
-                <div>
-                    <label for="domicile">DOMICILE *</label>
-                    <input id="domicile" name="domicile"
-                           type="text" placeholder="Domicile" required>
-                </div>
-            </div>
+        .navbar {
+            max-width: 1200px;
+            margin: auto;
+            padding: 12px 22px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
 
-            <div class="recruitment-form-row">
-                <div>
-                    <label for="present-address">PRESENT ADDRESS</label>
-                    <input id="present-address" name="present_address"
-                           type="text" placeholder="Present Address">
-                </div>
-                <div>
-                    <label for="permanent-address">PERMANENT ADDRESS</label>
-                    <input id="permanent-address" name="permanent_address"
-                           type="text" placeholder="Permanent Address">
-                </div>
-            </div>
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--primary);
+            font-weight: bold;
+            min-width: 0;
+        }
 
-            <div class="recruitment-form-row">
-                <div>
-                    <label for="email">EMAIL *</label>
-                    <input id="email" name="email"
-                           type="email" placeholder="Email" required>
-                </div>
-                <div>
-                    <label for="phone">PHONE *</label>
-                    <input id="phone" name="phone"
-                           type="tel" placeholder="Phone" required>
-                </div>
-            </div>
+        .brand img {
+            width: 58px;
+            height: 58px;
+            object-fit: contain;
+        }
 
-            <div class="recruitment-form-row">
-                <div>
-                    <label for="subject">DEPARTMENT / SUBJECT *</label>
-                    <select id="subject" name="subject" required>
-                        <option value="">Select Subject</option>
-                        <option>Mathematics</option>
-                        <option>Physics</option>
-                        <option>Chemistry</option>
-                        <option>Computer Science</option>
-                        <option>English</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="campus">CAMPUS TO BE APPLIED FOR</label>
-                    <select id="campus" name="campus">
-                        <option value="">Select Campus</option>
-                        <option>Lahore</option>
-                        <option>Multan</option>
-                        <option>Bahawalpur</option>
-                    </select>
-                </div>
-            </div>
+        .brand span {
+            font-size: 17px;
+            line-height: 1.3;
+        }
 
-            <hr>
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            gap: 15px;
+        }
 
-            <h2 class="recruitment-section-title">LAST QUALIFICATION</h2>
+        .nav-links a {
+            color: var(--primary);
+            font-size: 13px;
+            font-weight: bold;
+        }
 
-            <div class="recruitment-qualification-grid">
-                <div>
-                    <label for="last-degree">LAST DEGREE *</label>
-                    <select id="last-degree" name="last_degree" required>
-                        <option value="">Select</option>
-                        <option>BS</option>
-                        <option>MS</option>
-                        <option>MPhil</option>
-                        <option>PhD</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="degree-title">DEGREE TITLE *</label>
-                    <input id="degree-title" name="degree_title"
-                           type="text" placeholder="Degree Title" required>
-                </div>
-                <div>
-                    <label for="passing-year">PASSING YEAR *</label>
-                    <input id="passing-year" name="passing_year"
-                           type="number" min="1950" max="2100"
-                           placeholder="Passing Year" required>
-                </div>
-                <div>
-                    <label for="university">UNIVERSITY *</label>
-                    <input id="university" name="university"
-                           type="text" placeholder="University" required>
-                </div>
-                <div>
-                    <label for="institution">INSTITUTION *</label>
-                    <input id="institution" name="institution"
-                           type="text" placeholder="Institution" required>
-                </div>
-                <div>
-                    <label for="marks-cgpa">MARKS / CGPA *</label>
-                    <input id="marks-cgpa" name="marks_cgpa"
-                           type="text" placeholder="Marks/CGPA" required>
-                </div>
-                <div>
-                    <label for="specialization">SPECIALIZATION *</label>
-                    <input id="specialization" name="specialization"
-                           type="text" placeholder="Specialization" required>
-                </div>
-            </div>
+        .nav-links a:hover {
+            color: #b78314;
+        }
 
-            <div class="recruitment-form-row">
-                <div>
-                    <label for="experience">EXPERIENCE</label>
-                    <select id="experience" name="experience">
-                        <option value="">Select</option>
-                        <option>0-1 Years</option>
-                        <option>2-5 Years</option>
-                        <option>5+ Years</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="last-organization">LAST ORGANIZATION</label>
-                    <input id="last-organization" name="last_organization"
-                           type="text" placeholder="Last Organization">
-                </div>
-            </div>
+        .hero {
+            background: linear-gradient(120deg, #153c69, #286da1);
+            color: white;
+            padding: 48px 20px;
+            text-align: center;
+        }
 
-            <div class="recruitment-form-row">
-                <div>
-                    <label for="reference-one">REFERENCE 1</label>
-                    <input id="reference-one" name="reference_one"
-                           type="text" placeholder="Reference 1">
-                </div>
-                <div>
-                    <label for="reference-two">REFERENCE 2</label>
-                    <input id="reference-two" name="reference_two"
-                           type="text" placeholder="Reference 2">
-                </div>
-            </div>
+        .hero h1 {
+            font-size: clamp(27px, 4vw, 40px);
+            margin-bottom: 10px;
+        }
 
-            <div class="recruitment-file-row">
-                <div>
-                    <label for="cv">CV * (PDF/DOC/DOCX)</label>
-                    <input id="cv" name="cv" type="file"
-                           accept=".pdf,.doc,.docx" required>
-                </div>
-                <div>
-                    <label for="other-documents">OTHER DOCUMENTS</label>
-                    <input id="other-documents" name="other_documents"
-                           type="file" multiple>
-                </div>
-            </div>
+        .hero p {
+            max-width: 760px;
+            margin: auto;
+            color: #edf4fc;
+        }
 
-            <p class="recruitment-note">
-                Please check your details before sending. This demo form
-                displays a confirmation only; it does not send or store
-                your information on the server.
-            </p>
+        .page-container {
+            width: min(1000px, calc(100% - 32px));
+            margin: 35px auto 55px;
+        }
 
-            <button type="submit" class="recruitment-send-btn">Send</button>
+        .form-card {
+            background: white;
+            border-radius: 14px;
+            box-shadow: 0 8px 30px #183d6210;
+            overflow: hidden;
+        }
 
-            <div id="successMessage" class="recruitment-notice"
-                 role="status" aria-live="polite">
-                Form checked. This demo has not sent your application
-                to the college.
-            </div>
+        .form-heading {
+            padding: 25px 30px;
+            border-bottom: 1px solid var(--border);
+        }
 
-        </form>
-    </section>
-</div>
-{% endblock %}
+        .form-heading h2 {
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
 
-{% block extra_js %}
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    const form = document.getElementById("applicationForm");
-    const message = document.getElementById("successMessage");
+        .form-heading p {
+            color: #64748b;
+            font-size: 14px;
+        }
 
-    if (form && message) {
-        form.addEventListener("submit", function (event) {
-            event.preventDefault();
+        .form-content {
+            padding: 30px;
+        }
 
-            if (!form.reportValidity()) {
-                return;
+        .section-title {
+            color: var(--primary);
+            font-size: 19px;
+            margin: 25px 0 18px;
+            padding-bottom: 9px;
+            border-bottom: 2px solid #e8eef5;
+        }
+
+        .section-title:first-child {
+            margin-top: 0;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 19px 22px;
+        }
+
+        .field {
+            min-width: 0;
+        }
+
+        .field.full-width {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 7px;
+            color: #334155;
+        }
+
+        .required {
+            color: #c0392b;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px 13px;
+            border: 1px solid #cbd5e1;
+            border-radius: 7px;
+            background: white;
+            color: #243244;
+            font: inherit;
+            font-size: 14px;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px #235b911a;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        input[type="file"] {
+            padding: 9px;
+            background: #f8fafc;
+        }
+
+        .help-text {
+            display: block;
+            font-size: 12px;
+            color: #64748b;
+            margin-top: 5px;
+        }
+
+        .campus-display {
+            padding: 12px 13px;
+            border: 1px solid var(--border);
+            border-radius: 7px;
+            background: #f1f5f9;
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .message {
+            padding: 13px 16px;
+            border-radius: 7px;
+            margin-bottom: 18px;
+            font-size: 14px;
+        }
+
+        .message.success {
+            color: #166534;
+            background: #dcfce7;
+            border: 1px solid #bbf7d0;
+        }
+
+        .message.error {
+            color: #991b1b;
+            background: #fee2e2;
+            border: 1px solid #fecaca;
+        }
+
+        .submit-area {
+            margin-top: 30px;
+            padding-top: 22px;
+            border-top: 1px solid var(--border);
+        }
+
+        .submit-button {
+            width: 100%;
+            border: none;
+            border-radius: 8px;
+            padding: 15px 20px;
+            background: var(--primary);
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background .2s;
+        }
+
+        .submit-button:hover {
+            background: var(--secondary);
+        }
+
+        .privacy-note {
+            margin-top: 12px;
+            text-align: center;
+            color: #64748b;
+            font-size: 12px;
+        }
+
+        footer {
+            background: #102e50;
+            color: white;
+            text-align: center;
+            padding: 24px 15px;
+            font-size: 13px;
+        }
+
+        footer p + p {
+            margin-top: 5px;
+            color: #d6e2f0;
+        }
+
+        @media (max-width: 850px) {
+            .navbar {
+                align-items: flex-start;
+                flex-direction: column;
             }
 
-            message.style.display = "block";
-            message.scrollIntoView({
-                behavior: "smooth",
-                block: "center"
-            });
-        });
-    }
-});
-</script>
-{% endblock %}
+            .nav-links {
+                justify-content: flex-start;
+                gap: 12px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hero {
+                padding: 35px 17px;
+            }
+
+            .page-container {
+                width: calc(100% - 20px);
+                margin: 20px auto 35px;
+            }
+
+            .form-heading,
+            .form-content {
+                padding: 20px 16px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .field.full-width {
+                grid-column: auto;
+            }
+
+            .brand img {
+                width: 48px;
+                height: 48px;
+            }
+
+            .nav-links a {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <nav class="navbar">
+        <a class="brand" href="{% url 'index' %}">
+            <img src="{% static 'images/csc logo.png' %}"
+                 alt="Chishtian Science College logo">
+            <span>Chishtian Science College</span>
+        </a>
+
+        <div class="nav-links">
+            <a href="{% url 'index' %}">HOME</a>
+            <a href="{% url 'historycsc' %}">HISTORY</a>
+            <a href="{% url 'uniquelycsc' %}">UNIQUENESS</a>
+            <a href="{% url 'missioncsc' %}">MISSION</a>
+            <a href="{% url 'undergraduatecsc' %}">PROGRAMS</a>
+            <a href="{% url 'feecsc' %}">FEE</a>
+            <a href="{% url 'applycsc' %}">ADMISSIONS</a>
+            <a href="{% url 'activitycsc' %}">ACTIVITIES</a>
+            <a href="{% url 'affiliatecsc' %}">AFFILIATION</a>
+            <a href="{% url 'careercsc' %}">CAREERS</a>
+            <a href="{% url 'contactcsc' %}">CONTACT</a>
+        </div>
+    </nav>
+</header>
+
+<section class="hero">
+    <h1>Teaching Jobs Application</h1>
+    <p>
+        Join Chishtian Science College. Complete the application form
+        carefully and upload your CV and supporting documents.
+    </p>
+</section>
+
+<main class="page-container">
+    <div class="form-card">
+
+        <div class="form-heading">
+            <h2>Faculty Recruitment Form</h2>
+            <p>Fields marked with <span class="required">*</span> are required.</p>
+        </div>
+
+        <div class="form-content">
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="message {% if message.tags == 'success' %}success{% else %}error{% endif %}"
+                         role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <form id="applicationForm"
+                  method="POST"
+                  action="{% url 'formteachcsc' %}"
+                  enctype="multipart/form-data">
+
+                {% csrf_token %}
+
+                <h3 class="section-title">1. Personal Information</h3>
+
+                <div class="form-grid">
+
+                    <div class="field">
+                        <label for="name">Full Name <span class="required">*</span></label>
+                        <input type="text" id="name" name="name"
+                               value="{{ form_data.name|default:'' }}"
+                               maxlength="150" autocomplete="name" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="father_name">Father's Name <span class="required">*</span></label>
+                        <input type="text" id="father_name" name="father_name"
+                               value="{{ form_data.father_name|default:'' }}"
+                               maxlength="150" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="date_of_birth">Date of Birth <span class="required">*</span></label>
+                        <input type="date" id="date_of_birth" name="date_of_birth"
+                               value="{{ form_data.date_of_birth|default:'' }}"
+                               required>
+                    </div>
+
+                    <div class="field">
+                        <label for="nationality">Nationality <span class="required">*</span></label>
+                        <input type="text" id="nationality" name="nationality"
+                               value="{{ form_data.nationality|default:'' }}"
+                               maxlength="80" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="cnic">CNIC <span class="required">*</span></label>
+                        <input type="text" id="cnic" name="cnic"
+                               value="{{ form_data.cnic|default:'' }}"
+                               placeholder="1234512345671"
+                               inputmode="numeric" maxlength="15" required>
+                        <small class="help-text">Enter your 13-digit CNIC number.</small>
+                    </div>
+
+                    <div class="field">
+                        <label for="domicile">Domicile <span class="required">*</span></label>
+                        <input type="text" id="domicile" name="domicile"
+                               value="{{ form_data.domicile|default:'' }}"
+                               maxlength="100" required>
+                    </div>
+
+                    <div class="field full-width">
+                        <label for="present_address">Present Address <span class="required">*</span></label>
+                        <textarea id="present_address" name="present_address"
+                                  required>{{ form_data.present_address|default:'' }}</textarea>
+                    </div>
+
+                    <div class="field full-width">
+                        <label for="permanent_address">Permanent Address <span class="required">*</span></label>
+                        <textarea id="permanent_address" name="permanent_address"
+                                  required>{{ form_data.permanent_address|default:'' }}</textarea>
+                    </div>
+
+                    <div class="field">
+                        <label for="email">Email Address <span class="required">*</span></label>
+                        <input type="email" id="email" name="email"
+                               value="{{ form_data.email|default:'' }}"
+                               maxlength="254" autocomplete="email" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="phone">Phone Number <span class="required">*</span></label>
+                        <input type="tel" id="phone" name="phone"
+                               value="{{ form_data.phone|default:'' }}"
+                               maxlength="20" autocomplete="tel" required>
+                    </div>
+
+                </div>
+
+                <h3 class="section-title">2. Job Application Details</h3>
+
+                <div class="form-grid">
+
+                    <div class="field">
+                        <label for="department">Department <span class="required">*</span></label>
+                        <select id="department" name="department" required>
+                            <option value="">Select Department</option>
+                            <option value="Mathematics" {% if form_data.department == "Mathematics" %}selected{% endif %}>Mathematics</option>
+                            <option value="Physics" {% if form_data.department == "Physics" %}selected{% endif %}>Physics</option>
+                            <option value="Chemistry" {% if form_data.department == "Chemistry" %}selected{% endif %}>Chemistry</option>
+                            <option value="Computer Science" {% if form_data.department == "Computer Science" %}selected{% endif %}>Computer Science</option>
+                            <option value="English" {% if form_data.department == "English" %}selected{% endif %}>English</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label>Applying College</label>
+                        <div class="campus-display">Chishtian Science College (CSC)</div>
+                    </div>
+
+                    <div class="field">
+                        <label for="last_degree">Last Degree <span class="required">*</span></label>
+                        <select id="last_degree" name="last_degree" required>
+                            <option value="">Select Degree</option>
+                            <option value="BS" {% if form_data.last_degree == "BS" %}selected{% endif %}>BS</option>
+                            <option value="MS" {% if form_data.last_degree == "MS" %}selected{% endif %}>MS</option>
+                            <option value="MPhil" {% if form_data.last_degree == "MPhil" %}selected{% endif %}>MPhil</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label for="degree_title">Degree Title <span class="required">*</span></label>
+                        <input type="text" id="degree_title" name="degree_title"
+                               value="{{ form_data.degree_title|default:'' }}"
+                               maxlength="150" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="passing_year">Passing Year <span class="required">*</span></label>
+                        <input type="number" id="passing_year" name="passing_year"
+                               value="{{ form_data.passing_year|default:'' }}"
+                               min="1950" max="2100" step="1" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="university">University <span class="required">*</span></label>
+                        <input type="text" id="university" name="university"
+                               value="{{ form_data.university|default:'' }}"
+                               maxlength="150" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="institution">Institution <span class="required">*</span></label>
+                        <input type="text" id="institution" name="institution"
+                               value="{{ form_data.institution|default:'' }}"
+                               maxlength="150" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="marks_cgpa">Marks / CGPA <span class="required">*</span></label>
+                        <input type="text" id="marks_cgpa" name="marks_cgpa"
+                               value="{{ form_data.marks_cgpa|default:'' }}"
+                               maxlength="30" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="specialization">Specialization <span class="required">*</span></label>
+                        <input type="text" id="specialization" name="specialization"
+                               value="{{ form_data.specialization|default:'' }}"
+                               maxlength="150" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="experience">Teaching Experience</label>
+                        <select id="experience" name="experience">
+                            <option value="">Select Experience</option>
+                            <option value="0-1 Years" {% if form_data.experience == "0-1 Years" %}selected{% endif %}>0–1 Years</option>
+                            <option value="2-5 Years" {% if form_data.experience == "2-5 Years" %}selected{% endif %}>2–5 Years</option>
+                            <option value="5+ Years" {% if form_data.experience == "5+ Years" %}selected{% endif %}>5+ Years</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label for="last_organization">Last Organization</label>
+                        <input type="text" id="last_organization" name="last_organization"
+                               value="{{ form_data.last_organization|default:'' }}"
+                               maxlength="150">
+                    </div>
+
+                </div>
+
+                <h3 class="section-title">3. References</h3>
+
+                <div class="form-grid">
+
+                    <div class="field">
+                        <label for="reference_1">Reference 1</label>
+                        <input type="text" id="reference_1" name="reference_1"
+                               value="{{ form_data.reference_1|default:'' }}"
+                               maxlength="200">
+                    </div>
+
+                    <div class="field">
+                        <label for="reference_2">Reference 2</label>
+                        <input type="text" id="reference_2" name="reference_2"
+                               value="{{ form_data.reference_2|default:'' }}"
+                               maxlength="200">
+                    </div>
+
+                </div>
+
+                <h3 class="section-title">4. Upload Documents</h3>
+
+                <div class="form-grid">
+
+                    <div class="field">
+                        <label for="cv">Upload CV <span class="required">*</span></label>
+                        <input type="file" id="cv" name="cv"
+                               accept=".pdf,.doc,.docx" required>
+                        <small class="help-text">PDF, DOC, or DOCX. Maximum 5 MB.</small>
+                    </div>
+
+                    <div class="field">
+                        <label for="other_documents">Other Documents</label>
+                        <input type="file" id="other_documents" name="other_documents"
+                               accept=".pdf,.doc,.docx">
+                        <small class="help-text">Optional. PDF, DOC, or DOCX. Maximum 10 MB.</small>
+                    </div>
+
+                </div>
+
+                <div class="submit-area">
+                    <button type="submit" class="submit-button">
+                        Submit Application
+                    </button>
+
+                    <p class="privacy-note">
+                        Please review your information before submitting.
+                        Your application will be saved for review by the college.
+                    </p>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p>&copy; {% now "Y" %} Chishtian Science College. All rights reserved.</p>
+    <p>Teaching Recruitment Application</p>
+</footer>
+
+</body>
+</html>

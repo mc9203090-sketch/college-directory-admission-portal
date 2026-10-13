@@ -245,7 +245,7 @@ header {
 
     color: #9f5a20;
 
-    font-size: 9px;
+    font-size: 14px;
 
     font-weight: 700;
 
@@ -265,7 +265,7 @@ header {
 .section-heading p {
     color: #6b7280;
 
-    font-size: 13px;
+    font-size: 14px;
 
     line-height: 1.6;
 
@@ -511,7 +511,7 @@ header {
 
     color: #89919a;
 
-    font-size: 7px;
+    font-size: 11px;
 
     line-height: 1.2;
 }

@@ -1,66 +1,32 @@
-
 from django.contrib import admin
 from django.core.mail import send_mail
-from django.utils.text import slugify
 
-from .models import College, AdmissionApplication, Notification
-
-
+from .models import (
+    College,
+    AdmissionApplication,
+    Notification,
+    TeachingApplication,
+)
 @admin.register(College)
 class CollegeAdmin(admin.ModelAdmin):
 
     list_display = (
         'name',
-        'slug',
         'location',
         'website',
     )
 
     search_fields = (
         'name',
-        'slug',
         'location',
         'description',
     )
-
-    prepopulated_fields = {
-        'slug': ('name',),
-    }
 
     list_per_page = 20
 
     ordering = (
         'name',
     )
-
-    actions = (
-        'generate_missing_slugs',
-    )
-
-    @admin.action(description='Generate slugs for colleges with blank slugs')
-    def generate_missing_slugs(self, request, queryset):
-        updated = 0
-
-        for college in queryset.filter(slug=''):
-            base_slug = slugify(college.name) or 'college'
-            candidate = base_slug
-            counter = 2
-
-            while College.objects.filter(slug=candidate).exclude(
-                pk=college.pk
-            ).exists():
-                suffix = f'-{counter}'
-                candidate = f'{base_slug[:220 - len(suffix)]}{suffix}'
-                counter += 1
-
-            college.slug = candidate
-            college.save(update_fields=['slug'])
-            updated += 1
-
-        self.message_user(
-            request,
-            f'Successfully generated slugs for {updated} college(s).'
-        )
 
 
 @admin.register(AdmissionApplication)
@@ -121,6 +87,7 @@ class AdmissionApplicationAdmin(admin.ModelAdmin):
                 )
             }
         ),
+
         (
             'Student Information',
             {
@@ -136,6 +103,7 @@ class AdmissionApplicationAdmin(admin.ModelAdmin):
                 )
             }
         ),
+
         (
             'Guardian Information',
             {
@@ -147,6 +115,7 @@ class AdmissionApplicationAdmin(admin.ModelAdmin):
                 )
             }
         ),
+
         (
             'Contact Information',
             {
@@ -156,6 +125,7 @@ class AdmissionApplicationAdmin(admin.ModelAdmin):
                 )
             }
         ),
+
         (
             'Academic Information',
             {
@@ -172,6 +142,7 @@ class AdmissionApplicationAdmin(admin.ModelAdmin):
                 )
             }
         ),
+
         (
             'Additional Information',
             {
@@ -188,7 +159,9 @@ class AdmissionApplicationAdmin(admin.ModelAdmin):
         old_status = None
 
         if change:
-            old_application = AdmissionApplication.objects.get(pk=obj.pk)
+            old_application = AdmissionApplication.objects.get(
+                pk=obj.pk
+            )
             old_status = old_application.status
 
         super().save_model(request, obj, form, change)
@@ -201,6 +174,7 @@ class AdmissionApplicationAdmin(admin.ModelAdmin):
         ):
 
             if obj.status == 'Approved':
+
                 subject = 'Admission Application Approved'
 
                 message = (
@@ -216,6 +190,7 @@ class AdmissionApplicationAdmin(admin.ModelAdmin):
                 )
 
             else:
+
                 subject = 'Admission Application Status'
 
                 message = (
@@ -237,10 +212,87 @@ class AdmissionApplicationAdmin(admin.ModelAdmin):
                 [obj.email],
                 fail_silently=True,
             )
+            Notification.objects.create( user=obj.student, application=obj, title=subject, message=message, )
+      
 
-            Notification.objects.create(
-                user=obj.student,
-                application=obj,
-                title=subject,
-                message=message,
-            )
+@admin.register(TeachingApplication)
+class TeachingApplicationAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "name",
+        "email",
+        "department",
+        "campus",
+        "status",
+        "submitted_at",
+    )
+
+    list_filter = (
+        "status",
+        "department",
+        "campus",
+        "submitted_at",
+    )
+
+    search_fields = (
+        "name",
+        "email",
+        "cnic",
+        "phone",
+    )
+
+    list_editable = ("status",)
+    readonly_fields = ("submitted_at",)
+    ordering = ("-submitted_at",)
+    list_per_page = 20
+
+    fieldsets = (
+        (
+            "Personal Information",
+            {
+                "fields": (
+                    "name",
+                    "father_name",
+                    "date_of_birth",
+                    "nationality",
+                    "cnic",
+                    "domicile",
+                    "present_address",
+                    "permanent_address",
+                    "email",
+                    "phone",
+                )
+            },
+        ),
+        (
+            "Job Application",
+            {
+                "fields": (
+                    "department",
+                    "campus",
+                    "last_degree",
+                    "degree_title",
+                    "passing_year",
+                    "university",
+                    "institution",
+                    "marks_cgpa",
+                    "specialization",
+                    "experience",
+                    "last_organization",
+                    "reference_1",
+                    "reference_2",
+                )
+            },
+        ),
+        (
+            "Documents and Status",
+            {
+                "fields": (
+                    "cv",
+                    "other_documents",
+                    "status",
+                    "submitted_at",
+                )
+            },
+        ),
+    )

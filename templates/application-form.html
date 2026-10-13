@@ -189,7 +189,7 @@
 
    
 
-    <form method="POST" action="{% url 'application-form' %}">
+    <form method="POST" action="{% url 'login' %}">
     {% csrf_token %}
     <input type="hidden" name="form_type" value="signup">
         <div class="field">
@@ -266,7 +266,7 @@
     <h2>Welcome Back</h2>
     <p class="subtitle">Login to continue your college application.</p>
 
-   <form method="POST" action="{% url 'application-form' %}">
+   <form method="POST" action="{% url 'login' %}">
     {% csrf_token %}
     <input type="hidden" name="form_type" value="login">
 

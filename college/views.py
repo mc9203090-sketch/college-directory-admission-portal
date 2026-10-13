@@ -1,129 +1,31 @@
 
+from datetime import timedelta
 import re
 import secrets
-from datetime import timedelta
-
-from django.contrib import messages
+from datetime import date
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.hashers import check_password, make_password
-from django.contrib.auth.models import User
+from django.contrib import messages
+from django.db import transaction
 from django.contrib.auth.password_validation import validate_password
+from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from django.core.mail import send_mail
-from django.db import transaction
-from django.shortcuts import get_object_or_404, redirect, render
+from django.contrib.auth.hashers import make_password, check_password
 from django.utils import timezone
+from django.utils.dateparse import parse_date
+from django.shortcuts import render, redirect
+from .models import TeachingApplication
 
 from .models import (
-    AdmissionApplication,
     College,
-    EmailOTP,
-    Notification,
+    AdmissionApplication,
     StudentProfile,
+    Notification,
+    EmailOTP,
 )
-
-
-# =========================================================
-# HELPER: RENDER ADMISSION FORM WITH CONTEXT
-# =========================================================
-
-def render_admission_form(
-    request,
-    colleges=None,
-    college=None,
-    selected_slugs=None,
-    multiple_colleges=False,
-):
-    """
-    Shared context for the common admission form.
-    Supports either one college or multiple selected colleges.
-    """
-    context = {
-        "college": college,
-        "colleges": colleges or ([college] if college else []),
-        "selected_slugs": selected_slugs or [],
-        "multiple_colleges": multiple_colleges,
-    }
-
-    return render(request, "admission-form.html", context)
-
-
-# =========================================================
-# HELPER: VALIDATE ADMISSION FIELDS
-# =========================================================
-
-def validate_admission_form(request):
-    guardian_cnic = request.POST.get("guardian_cnic", "").strip()
-    student_cnic = request.POST.get("student_cnic", "").strip()
-    guardian_contact = request.POST.get("guardian_contact", "").strip()
-    student_contact = request.POST.get("student_contact", "").strip()
-
-    if guardian_cnic and not re.fullmatch(r"\d{13}", guardian_cnic):
-        return "Guardian CNIC must contain exactly 13 digits."
-
-    if student_cnic and not re.fullmatch(r"\d{13}", student_cnic):
-        return "Student CNIC must contain exactly 13 digits."
-
-    if guardian_contact and not re.fullmatch(r"\d{11}", guardian_contact):
-        return "Guardian contact number must contain exactly 11 digits."
-
-    if student_contact and not re.fullmatch(r"\d{11}", student_contact):
-        return "Student contact number must contain exactly 11 digits."
-
-    return None
-
-
-# =========================================================
-# HELPER: GET ADMISSION DATA FROM FORM
-# =========================================================
-
-def get_admission_data(request):
-    """
-    Prepare the common fields shared by admission applications.
-    """
-    return {
-        "gender": request.POST.get("gender", "").strip(),
-        "location": request.POST.get("location", "").strip(),
-        "course": request.POST.get("course", "").strip(),
-        "full_name": request.POST.get("full_name", "").strip(),
-        "father_name": request.POST.get("father_name", "").strip(),
-        "relationship": request.POST.get("relationship", "").strip(),
-        "guardian_cnic": request.POST.get("guardian_cnic", "").strip(),
-        "student_cnic": request.POST.get("student_cnic", "").strip(),
-        "date_of_birth": request.POST.get("date_of_birth") or None,
-        "guardian_contact": request.POST.get("guardian_contact", "").strip(),
-        "student_contact": request.POST.get("student_contact", "").strip(),
-        "email": request.POST.get("email", "").strip(),
-        "address": request.POST.get("address", "").strip(),
-        "degree": request.POST.get("degree", "").strip(),
-        "passing_year": request.POST.get("passing_year", "").strip(),
-        "board": request.POST.get("board", "").strip(),
-        "group": request.POST.get("group", "").strip(),
-        "obtained_marks": request.POST.get("obtained_marks", "").strip(),
-        "total_marks": request.POST.get("total_marks", "").strip(),
-        "board_roll_no": request.POST.get("board_roll_no", "").strip(),
-        "previous_school": request.POST.get("previous_school", "").strip(),
-        "heard_about_us": request.POST.get("heard_about_us", "").strip(),
-    }
-
-
-# =========================================================
-# HELPER: CREATE APPLICATIONS FOR SELECTED COLLEGES
-# =========================================================
-
-def create_applications_for_colleges(request, colleges, application_data):
-    """
-    Create applications using the same fields for one or more colleges.
-    Atomic transaction prevents a partial set of applications.
-    """
-    with transaction.atomic():
-        for college in colleges:
-            AdmissionApplication.objects.create(
-                student=request.user,
-                college=college,
-                **application_data,
-            )
 
 
 # =========================================================
@@ -131,31 +33,15 @@ def create_applications_for_colleges(request, colleges, application_data):
 # =========================================================
 
 def home(request):
-    colleges = College.objects.all().order_by("name")
-
-    return render(
-        request,
-        "index.html",
-        {"colleges": colleges},
-    )
-
+    colleges = College.objects.all()
+    return render(request, "index.html", {"colleges": colleges})
 
 def college_detail(request, slug):
-    """
-    Display college details using its readable URL slug.
-    Example: /college/superior-college-chishtian/
-    """
     college = get_object_or_404(College, slug=slug)
-
-    return render(
-        request,
-        "college_detail.html",
-        {"college": college},
-    )
-
+    return render(request, "college_detail.html", {"college": college})
 
 # =========================================================
-# COLLEGE HOME PAGES
+# COLLEGE PAGES
 # =========================================================
 
 def superior(request):
@@ -180,13 +66,208 @@ def ripah(request):
 
 @login_required
 def choose_college(request):
-    colleges = College.objects.all().order_by("name")
-
+    colleges = College.objects.all()
     return render(
         request,
         "choose-college.html",
         {"colleges": colleges},
     )
+
+
+# =========================================================
+# COMMON ADMISSION FORM
+# =========================================================
+
+@login_required
+def admission_application_common(request, slug):
+    college = get_object_or_404(College, slug=slug)
+
+    field_names = [
+        "full_name", "father_name", "gender", "date_of_birth",
+        "relationship", "student_cnic", "guardian_cnic",
+        "student_contact", "guardian_contact", "email", "address",
+        "location", "heard_about_us", "course", "degree",
+        "passing_year", "board", "group", "board_roll_no",
+        "obtained_marks", "total_marks", "previous_school",
+    ]
+
+    data = {field: "" for field in field_names}
+    data["gender"] = ""
+    data["heard_about_us"] = ""
+
+    if request.method == "POST":
+        data = {
+            field: request.POST.get(field, "").strip()
+            for field in field_names
+        }
+
+        errors = []
+
+        required_fields = {
+            "full_name": "Student name",
+            "father_name": "Father's name",
+            "gender": "Gender",
+            "date_of_birth": "Date of birth",
+            "guardian_contact": "Guardian contact",
+            "email": "Email",
+            "address": "Address",
+            "course": "Course",
+        }
+
+        for field, label in required_fields.items():
+            if not data[field]:
+                errors.append(f"{label} is required.")
+
+        dob = None
+        if data["date_of_birth"]:
+            try:
+                dob = parse_date(data["date_of_birth"])
+            except (ValueError, TypeError):
+                dob = None
+
+            if dob is None:
+                errors.append("Enter a valid date of birth.")
+            elif dob > timezone.localdate():
+                errors.append("Date of birth cannot be in the future.")
+
+        if data["gender"] and data["gender"] not in ("Male", "Female"):
+            errors.append("Please select a valid gender.")
+
+        if data["email"]:
+            try:
+                validate_email(data["email"])
+            except ValidationError:
+                errors.append("Enter a valid email address.")
+
+        for field, label in (
+            ("student_cnic", "Student CNIC"),
+            ("guardian_cnic", "Guardian CNIC"),
+        ):
+            value = data[field]
+            if value and not re.fullmatch(r"[0-9]{13}", value):
+                errors.append(f"{label} must contain exactly 13 digits.")
+
+        for field, label in (
+            ("student_contact", "Student contact"),
+            ("guardian_contact", "Guardian contact"),
+        ):
+            value = data[field]
+            if value and not re.fullmatch(r"[0-9]{11}", value):
+                errors.append(f"{label} must contain exactly 11 digits.")
+
+        if request.POST.get("confirm_terms") != "on":
+            errors.append("Please accept the terms before submitting.")
+
+        if errors:
+            for error in errors:
+                messages.error(request, error)
+
+        else:
+            AdmissionApplication.objects.create(
+                student=request.user,
+                college=college,
+                full_name=data["full_name"],
+                father_name=data["father_name"],
+                gender=data["gender"],
+                date_of_birth=dob,
+                relationship=data["relationship"],
+                student_cnic=data["student_cnic"],
+                guardian_cnic=data["guardian_cnic"],
+                student_contact=data["student_contact"],
+                guardian_contact=data["guardian_contact"],
+                email=data["email"],
+                address=data["address"],
+                location=data["location"],
+                heard_about_us=data["heard_about_us"],
+                course=data["course"],
+                degree=data["degree"],
+                passing_year=data["passing_year"],
+                board=data["board"],
+                group=data["group"],
+                board_roll_no=data["board_roll_no"],
+                obtained_marks=data["obtained_marks"],
+                total_marks=data["total_marks"],
+                previous_school=data["previous_school"],
+                status="Pending",
+            )
+
+            messages.success(
+                request,
+                f"Your admission application for {college.name} "
+                "was submitted successfully.",
+            )
+            return redirect("dashboard")
+
+    return render(
+        request,
+        "admission-form.html",
+        {
+            "college": college,
+            "form_data": data,
+            "terms_checked": (
+                request.method == "POST"
+                and request.POST.get("confirm_terms") == "on"
+            ),
+        },
+    )
+
+# =========================================================
+# LEGACY APPLY URLS
+# Keep existing URL names, but use the common form
+# =========================================================
+
+def _redirect_to_common_admission(college_name):
+    college = get_object_or_404(College, name=college_name)
+    return redirect("admission-form", slug=college.slug)
+
+
+@login_required
+def admission_application(request):
+    return _redirect_to_common_admission(
+        "Punjab College Chishtian"
+    )
+
+
+@login_required
+def admission_application_csc(request):
+    return _redirect_to_common_admission(
+        "Chishtian Science College"
+    )
+
+
+@login_required
+def admission_application_ripah(request):
+    return _redirect_to_common_admission(
+        "Riphah International College"
+    )
+
+
+@login_required
+def admission_application_superior(request):
+    return _redirect_to_common_admission(
+        "Superior College Chishtian"
+    )
+
+
+# =========================================================
+# SINGLE-COLLEGE SELECTION SUBMISSION
+# The template sends college_slug, not college_slugs
+# =========================================================
+
+@login_required
+def admission_application_multiple(request):
+    if request.method != "POST":
+        return redirect("choose-college")
+
+    selected_slug = request.POST.get("college_slug", "").strip()
+
+    if not selected_slug:
+        messages.error(request, "Please select one college.")
+        return redirect("choose-college")
+
+    college = get_object_or_404(College, slug=selected_slug)
+
+    return redirect("admission-form", slug=college.slug)
 
 
 # =========================================================
@@ -204,9 +285,6 @@ def application_form(request):
         email = request.POST.get("email", "").strip().lower()
         password = request.POST.get("password", "")
 
-        # -------------------------------------------------
-        # LOGIN
-        # -------------------------------------------------
         if form_type == "login":
             show_login = True
 
@@ -224,16 +302,15 @@ def application_form(request):
                         "Invalid email or password.",
                     )
                 else:
-                    matching_user = users.first()
-
+                    user_record = users.first()
                     user = authenticate(
                         request,
-                        username=matching_user.username,
+                        username=user_record.username,
                         password=password,
                     )
 
                     if user is None:
-                        if not matching_user.is_active:
+                        if not user_record.is_active:
                             messages.error(
                                 request,
                                 "Please verify your email before logging in.",
@@ -247,13 +324,16 @@ def application_form(request):
                         login(request, user)
                         return redirect("choose-college")
 
-        # -------------------------------------------------
-        # SIGNUP
-        # -------------------------------------------------
         elif form_type == "signup":
-            full_name = request.POST.get("full_name", "").strip()
-            mobile = request.POST.get("mobile", "").strip()
-            confirm_password = request.POST.get("confirm_password", "")
+            full_name = request.POST.get(
+                "full_name", ""
+            ).strip()
+            mobile = request.POST.get(
+                "mobile", ""
+            ).strip()
+            confirm_password = request.POST.get(
+                "confirm_password", ""
+            )
 
             if not all([
                 full_name,
@@ -274,13 +354,11 @@ def application_form(request):
                 )
 
             elif password != confirm_password:
-                messages.error(
-                    request,
-                    "Passwords do not match.",
-                )
+                messages.error(request, "Passwords do not match.")
 
             else:
                 try:
+                    validate_email(email)
                     validate_password(password)
                 except ValidationError as error:
                     for message in error.messages:
@@ -308,12 +386,10 @@ def application_form(request):
                                     )
                                 else:
                                     user = existing_user
-                                    user.email = email
                                     user.first_name = full_name
                                     user.set_password(password)
                                     user.save(
                                         update_fields=[
-                                            "email",
                                             "first_name",
                                             "password",
                                         ]
@@ -322,7 +398,6 @@ def application_form(request):
                                 request.session[
                                     "pending_verification_email"
                                 ] = email
-
                                 request.session[
                                     "pending_verification_mobile"
                                 ] = mobile
@@ -363,7 +438,7 @@ def application_form(request):
 
 
 # =========================================================
-# EMAIL VERIFICATION
+# EMAIL OTP VERIFICATION
 # =========================================================
 
 def verify_email(request):
@@ -375,7 +450,7 @@ def verify_email(request):
             request,
             "Please sign up first to verify your email.",
         )
-        return redirect("application-form")
+        return redirect("login")
 
     if request.method == "POST":
         code = request.POST.get("otp", "").strip()
@@ -406,11 +481,7 @@ def verify_email(request):
         elif not check_password(code, otp_record.code_hash):
             otp_record.attempts += 1
             otp_record.save(update_fields=["attempts"])
-
-            messages.error(
-                request,
-                "Incorrect verification code.",
-            )
+            messages.error(request, "Incorrect verification code.")
 
         else:
             with transaction.atomic():
@@ -424,9 +495,11 @@ def verify_email(request):
                         request,
                         "Account not found or already verified. Please log in.",
                     )
-                    return redirect("application-form")
+                    return redirect("login")
 
-                profile, _ = StudentProfile.objects.get_or_create(user=user)
+                profile, created = StudentProfile.objects.get_or_create(
+                    user=user
+                )
 
                 if mobile and re.fullmatch(r"\d{11}", mobile):
                     profile.mobile = mobile
@@ -438,15 +511,15 @@ def verify_email(request):
                 otp_record.is_verified = True
                 otp_record.save(update_fields=["is_verified"])
 
-            request.session.pop("pending_verification_email", None)
-            request.session.pop("pending_verification_mobile", None)
+            request.session.pop(
+                "pending_verification_email", None
+            )
+            request.session.pop(
+                "pending_verification_mobile", None
+            )
 
             login(request, user)
-
-            messages.success(
-                request,
-                "Email verified successfully!",
-            )
+            messages.success(request, "Email verified successfully!")
             return redirect("choose-college")
 
     return render(
@@ -457,91 +530,7 @@ def verify_email(request):
 
 
 # =========================================================
-# RESEND EMAIL OTP
-# =========================================================
-
-def generate_email_otp(email):
-    email = email.strip().lower()
-    otp = f"{secrets.randbelow(1_000_000):06d}"
-    expires_at = timezone.now() + timedelta(minutes=5)
-
-    sent = send_mail(
-        subject="Your College Portal Verification Code",
-        message=(
-            f"Your email verification code is {otp}.\n\n"
-            "This code expires in 5 minutes. "
-            "If you did not request it, ignore this email."
-        ),
-        from_email=None,
-        recipient_list=[email],
-        fail_silently=False,
-    )
-
-    if sent != 1:
-        raise RuntimeError("Verification email could not be sent.")
-
-    EmailOTP.objects.filter(
-        email__iexact=email,
-        is_verified=False,
-    ).delete()
-
-    EmailOTP.objects.create(
-        email=email,
-        code_hash=make_password(otp),
-        expires_at=expires_at,
-    )
-
-
-def resend_email_otp(request):
-    if request.method != "POST":
-        return redirect("verify-email")
-
-    email = request.session.get("pending_verification_email")
-
-    if not email:
-        messages.error(
-            request,
-            "Please sign up first to verify your email.",
-        )
-        return redirect("application-form")
-
-    latest_otp = EmailOTP.objects.filter(
-        email__iexact=email,
-        is_verified=False,
-    ).order_by("-created_at").first()
-
-    if latest_otp is not None:
-        seconds_since_sent = (
-            timezone.now() - latest_otp.created_at
-        ).total_seconds()
-
-        if seconds_since_sent < 60:
-            wait_seconds = max(1, int(60 - seconds_since_sent))
-            messages.error(
-                request,
-                f"Please wait {wait_seconds} seconds before requesting another code.",
-            )
-            return redirect("verify-email")
-
-    try:
-        generate_email_otp(email)
-    except Exception:
-        messages.error(
-            request,
-            "We could not send a new code. Please try again later.",
-        )
-    else:
-        messages.success(
-            request,
-            "A new verification code has been sent to your email. "
-            "The previous code is no longer valid.",
-        )
-
-    return redirect("verify-email")
-
-
-# =========================================================
-# STUDENT DASHBOARD
+# DASHBOARD
 # =========================================================
 
 @login_required
@@ -555,19 +544,25 @@ def dashboard(request):
         is_read=False,
     )
 
-    context = {
-        "applications": applications,
-        "total_applications": applications.count(),
-        "pending_applications": applications.filter(status="Pending").count(),
-        "approved_applications": applications.filter(status="Approved").count(),
-        "rejected_applications": applications.filter(status="Rejected").count(),
-        "unread_notifications_count": unread_notifications.count(),
-        "latest_notification": unread_notifications.order_by(
-            "-created_at"
-        ).first(),
-    }
-
-    return render(request, "dashboard.html", context)
+    return render(
+        request,
+        "dashboard.html",
+        {
+            "applications": applications,
+            "total_applications": applications.count(),
+            "pending_applications": applications.filter(
+                status="Pending"
+            ).count(),
+            "approved_applications": applications.filter(
+                status="Approved"
+            ).count(),
+            "rejected_applications": applications.filter(
+                status="Rejected"
+            ).count(),
+            "unread_notifications_count": unread_notifications.count(),
+            "latest_notification": unread_notifications.first(),
+        },
+    )
 
 
 # =========================================================
@@ -623,7 +618,7 @@ def mark_all_notifications_read(request):
 
 @login_required
 def profile(request):
-    student_profile, _ = StudentProfile.objects.get_or_create(
+    student_profile, created = StudentProfile.objects.get_or_create(
         user=request.user
     )
 
@@ -636,7 +631,6 @@ def profile(request):
             if picture:
                 student_profile.profile_picture = picture
                 student_profile.save()
-
                 messages.success(
                     request,
                     "Profile picture updated successfully.",
@@ -654,7 +648,6 @@ def profile(request):
                 student_profile.profile_picture.delete(save=False)
                 student_profile.profile_picture = None
                 student_profile.save()
-
                 messages.success(
                     request,
                     "Profile picture removed successfully.",
@@ -706,262 +699,96 @@ def application_detail(request, id):
 
 def user_logout(request):
     logout(request)
-    return redirect("application-form")
+    return redirect("login")
 
 
 # =========================================================
-# COMMON ADMISSION APPLICATION — SINGLE COLLEGE
+# EMAIL OTP GENERATION
 # =========================================================
 
-@login_required
-def admission_application_common(request, slug):
-    college = get_object_or_404(College, slug=slug)
+def generate_email_otp(email):
+    email = email.strip().lower()
+    otp = f"{secrets.randbelow(1_000_000):06d}"
+    expires_at = timezone.now() + timedelta(minutes=5)
 
-    if request.method == "POST":
-        validation_error = validate_admission_form(request)
-
-        if validation_error:
-            messages.error(request, validation_error)
-            return render_admission_form(request, college=college)
-
-        application_data = get_admission_data(request)
-
-        try:
-            create_applications_for_colleges(
-                request,
-                [college],
-                application_data,
-            )
-        except (ValidationError, ValueError, TypeError):
-            messages.error(
-                request,
-                "Some application information is invalid. Please review the form.",
-            )
-            return render_admission_form(request, college=college)
-
-        messages.success(
-            request,
-            f"Your admission application for {college.name} "
-            "has been submitted successfully!",
-        )
-        return redirect("dashboard")
-
-    return render_admission_form(request, college=college)
-
-
-# =========================================================
-# LEGACY ADMISSION URL — PGC
-# =========================================================
-
-@login_required
-def admission_application(request):
-    """
-    Preserve the existing admission-application URL.
-    The college is looked up dynamically by its existing database name.
-    """
-    college = get_object_or_404(
-        College,
-        name="Punjab College Chishtian",
+    sent = send_mail(
+        subject="Your College Portal Verification Code",
+        message=(
+            f"Your email verification code is {otp}.\n\n"
+            "This code expires in 5 minutes. "
+            "If you did not request it, ignore this email."
+        ),
+        from_email=None,
+        recipient_list=[email],
+        fail_silently=False,
     )
 
-    if request.method == "POST":
-        validation_error = validate_admission_form(request)
+    if sent != 1:
+        raise RuntimeError("Verification email could not be sent.")
 
-        if validation_error:
-            messages.error(request, validation_error)
-            return render(request, "applypgc.html", {"college": college})
+    EmailOTP.objects.filter(
+        email__iexact=email,
+        is_verified=False,
+    ).delete()
 
-        try:
-            create_applications_for_colleges(
-                request,
-                [college],
-                get_admission_data(request),
-            )
-        except (ValidationError, ValueError, TypeError):
-            messages.error(
-                request,
-                "Some application information is invalid. Please review the form.",
-            )
-            return render(request, "applypgc.html", {"college": college})
-
-        messages.success(
-            request,
-            "Your admission application has been submitted successfully!",
-        )
-        return redirect("dashboard")
-
-    return render(request, "applypgc.html", {"college": college})
+    EmailOTP.objects.create(
+        email=email,
+        code_hash=make_password(otp),
+        expires_at=expires_at,
+    )
 
 
 # =========================================================
-# COMMON ADMISSION APPLICATION — MULTIPLE COLLEGES
+# RESEND EMAIL OTP
 # =========================================================
 
-@login_required
-def admission_application_multiple(request):
+def resend_email_otp(request):
     if request.method != "POST":
-        return redirect("choose-college")
+        return redirect("verify-email")
 
-    # -----------------------------------------------------
-    # STAGE 1: COLLEGE SELECTION
-    # -----------------------------------------------------
-    if request.POST.get("submission_stage") != "admission_form":
-        selected_slugs = list(dict.fromkeys(
-            request.POST.getlist("college_slugs")
-        ))
+    email = request.session.get("pending_verification_email")
 
-        if not selected_slugs:
+    if not email:
+        messages.error(
+            request,
+            "Please sign up first to verify your email.",
+        )
+        return redirect("login")
+
+    latest_otp = EmailOTP.objects.filter(
+        email__iexact=email,
+        is_verified=False,
+    ).order_by("-created_at").first()
+
+    if latest_otp is not None:
+        seconds_since_sent = (
+            timezone.now() - latest_otp.created_at
+        ).total_seconds()
+
+        if seconds_since_sent < 60:
+            wait_seconds = max(
+                1, int(60 - seconds_since_sent)
+            )
             messages.error(
                 request,
-                "Please select at least one college.",
+                f"Please wait {wait_seconds} seconds before requesting another code.",
             )
-            return redirect("choose-college")
-
-        colleges_by_slug = {
-            college.slug: college
-            for college in College.objects.filter(
-                slug__in=selected_slugs
-            )
-        }
-
-        if (
-            len(colleges_by_slug) != len(selected_slugs)
-            or any(not slug for slug in selected_slugs)
-        ):
-            messages.error(
-                request,
-                "One or more selected colleges are invalid.",
-            )
-            return redirect("choose-college")
-
-        colleges = [colleges_by_slug[slug] for slug in selected_slugs]
-
-        return render_admission_form(
-            request,
-            colleges=colleges,
-            selected_slugs=selected_slugs,
-            multiple_colleges=True,
-        )
-
-    # -----------------------------------------------------
-    # STAGE 2: FINAL FORM SUBMISSION
-    # -----------------------------------------------------
-    selected_slugs = list(dict.fromkeys(
-        request.POST.getlist("selected_college_slugs")
-    ))
-
-    if not selected_slugs or any(not slug for slug in selected_slugs):
-        messages.error(
-            request,
-            "No valid colleges were selected. Please start again.",
-        )
-        return redirect("choose-college")
-
-    colleges_by_slug = {
-        college.slug: college
-        for college in College.objects.filter(
-            slug__in=selected_slugs
-        )
-    }
-
-    if len(colleges_by_slug) != len(selected_slugs):
-        messages.error(
-            request,
-            "One or more selected colleges are invalid.",
-        )
-        return redirect("choose-college")
-
-    colleges = [colleges_by_slug[slug] for slug in selected_slugs]
-
-    required_fields = [
-        "gender",
-        "location",
-        "course",
-        "full_name",
-        "father_name",
-        "relationship",
-        "guardian_cnic",
-        "student_cnic",
-        "date_of_birth",
-        "guardian_contact",
-        "email",
-        "degree",
-        "passing_year",
-        "board",
-        "group",
-        "obtained_marks",
-        "total_marks",
-        "board_roll_no",
-        "previous_school",
-        "heard_about_us",
-    ]
-
-    missing_fields = [
-        field
-        for field in required_fields
-        if not request.POST.get(field, "").strip()
-    ]
-
-    if missing_fields:
-        messages.error(
-            request,
-            "Please complete all required fields.",
-        )
-        return render_admission_form(
-            request,
-            colleges=colleges,
-            selected_slugs=selected_slugs,
-            multiple_colleges=True,
-        )
-
-    if request.POST.get("confirm_terms") not in {"on", "yes", "true", "1"}:
-        messages.error(
-            request,
-            "Please accept the terms and conditions.",
-        )
-        return render_admission_form(
-            request,
-            colleges=colleges,
-            selected_slugs=selected_slugs,
-            multiple_colleges=True,
-        )
-
-    validation_error = validate_admission_form(request)
-
-    if validation_error:
-        messages.error(request, validation_error)
-        return render_admission_form(
-            request,
-            colleges=colleges,
-            selected_slugs=selected_slugs,
-            multiple_colleges=True,
-        )
-
-    application_data = get_admission_data(request)
+            return redirect("verify-email")
 
     try:
-        create_applications_for_colleges(
-            request,
-            colleges,
-            application_data,
-        )
-    except (ValidationError, ValueError, TypeError):
+        generate_email_otp(email)
+    except Exception:
         messages.error(
             request,
-            "Some application information is invalid. Please review the form.",
+            "We could not send a new code. Please try again later.",
         )
-        return render_admission_form(
+    else:
+        messages.success(
             request,
-            colleges=colleges,
-            selected_slugs=selected_slugs,
-            multiple_colleges=True,
+            "A new verification code has been sent to your email.",
         )
 
-    messages.success(
-        request,
-        f"Applications submitted successfully to {len(colleges)} college(s).",
-    )
-    return redirect("dashboard")
+    return redirect("verify-email")
 
 
 # =========================================================
@@ -978,3 +805,250 @@ def error_403(request, exception):
 
 def error_500(request):
     return render(request, "500.html", status=500)
+
+def formteachpgc(request):
+    if request.method == "POST":
+        data = request.POST
+        errors = []
+
+        required_fields = [
+            "name", "father_name", "date_of_birth", "nationality",
+            "cnic", "domicile", "email", "phone", "department",
+            "last_degree", "degree_title", "passing_year",
+            "university", "institution", "marks_cgpa", "specialization",
+        ]
+
+        for field in required_fields:
+            if not data.get(field, "").strip():
+                errors.append(f"{field.replace('_', ' ').title()} is required.")
+
+        email = data.get("email", "").strip()
+        try:
+            validate_email(email)
+        except ValidationError:
+            errors.append("Please enter a valid email address.")
+
+        cnic = data.get("cnic", "").strip()
+        if not cnic.isdigit() or len(cnic) != 13:
+            errors.append("CNIC must contain exactly 13 digits.")
+
+        try:
+            dob = date.fromisoformat(data.get("date_of_birth", ""))
+            if dob >= date.today():
+                errors.append("Date of birth must be in the past.")
+        except (ValueError, TypeError):
+            dob = None
+            errors.append("Please enter a valid date of birth.")
+
+        try:
+            passing_year = int(data.get("passing_year", ""))
+            if not 1950 <= passing_year <= date.today().year:
+                errors.append("Please enter a valid passing year.")
+        except (ValueError, TypeError):
+            passing_year = None
+            errors.append("Passing year must be a number.")
+
+        department = data.get("department", "")
+        if department not in dict(TeachingApplication.DEPARTMENT_CHOICES):
+            errors.append("Please select a valid department.")
+
+        degree = data.get("last_degree", "")
+        if degree not in dict(TeachingApplication.DEGREE_CHOICES):
+            errors.append("Please select a valid degree.")
+
+        experience = data.get("experience", "")
+        if experience and experience not in dict(TeachingApplication.EXPERIENCE_CHOICES):
+            errors.append("Please select a valid experience range.")
+
+        cv = request.FILES.get("cv")
+        other_documents = request.FILES.get("other_documents")
+
+        if not cv:
+            errors.append("Please upload your CV.")
+
+        allowed_extensions = {".pdf", ".doc", ".docx"}
+        max_size = 5 * 1024 * 1024
+
+        for uploaded_file, label in [
+            (cv, "CV"),
+            (other_documents, "Other document"),
+        ]:
+            if uploaded_file:
+                filename = uploaded_file.name.lower()
+                extension = "." + filename.rsplit(".", 1)[-1] if "." in filename else ""
+                if extension not in allowed_extensions:
+                    errors.append(f"{label} must be a PDF, DOC, or DOCX file.")
+                if uploaded_file.size > max_size:
+                    errors.append(f"{label} must be 5 MB or smaller.")
+
+        if errors:
+            for error in errors:
+                messages.error(request, error)
+            return render(request, "formteachpgc.html")
+
+        TeachingApplication.objects.create(
+            name=data["name"].strip(),
+            father_name=data["father_name"].strip(),
+            date_of_birth=dob,
+            nationality=data["nationality"].strip(),
+            cnic=cnic,
+            domicile=data["domicile"].strip(),
+            present_address=data.get("present_address", "").strip(),
+            permanent_address=data.get("permanent_address", "").strip(),
+            email=email,
+            phone=data["phone"].strip(),
+            department=department,
+            campus=data.get("campus", "").strip(),
+            last_degree=degree,
+            degree_title=data["degree_title"].strip(),
+            passing_year=passing_year,
+            university=data["university"].strip(),
+            institution=data["institution"].strip(),
+            marks_cgpa=data["marks_cgpa"].strip(),
+            specialization=data["specialization"].strip(),
+            experience=experience,
+            last_organization=data.get("last_organization", "").strip(),
+            reference_1=data.get("reference_1", "").strip(),
+            reference_2=data.get("reference_2", "").strip(),
+            cv=cv,
+            other_documents=other_documents,
+        )
+
+        messages.success(
+            request,
+            "Your teaching application has been submitted successfully."
+        )
+        return redirect("formteachpgc")
+
+    return render(request, "formteachpgc.html")
+def formteachcsc(request):
+    if request.method == "POST":
+        data = request.POST
+        files = request.FILES
+        errors = []
+
+        required_fields = [
+            "name", "father_name", "date_of_birth",
+            "nationality", "cnic", "domicile",
+            "present_address", "permanent_address",
+            "email", "phone", "department",
+            "last_degree", "degree_title", "passing_year",
+            "university", "institution", "marks_cgpa",
+            "specialization",
+        ]
+
+        for field in required_fields:
+            if not data.get(field, "").strip():
+                errors.append(
+                    f"{field.replace('_', ' ').title()} is required."
+                )
+
+        dob = None
+        try:
+            dob = date.fromisoformat(data.get("date_of_birth", ""))
+            if dob > date.today():
+                errors.append("Date of birth cannot be in the future.")
+        except (ValueError, TypeError):
+            errors.append("Please enter a valid date of birth.")
+
+        cnic = re.sub(r"\D", "", data.get("cnic", ""))
+        if len(cnic) != 13:
+            errors.append("CNIC must contain 13 digits.")
+
+        year_text = data.get("passing_year", "").strip()
+        year = None
+        if not year_text.isdigit() or len(year_text) != 4:
+            errors.append("Enter a valid four-digit passing year.")
+        else:
+            year = int(year_text)
+            if year < 1950 or year > date.today().year + 1:
+                errors.append("Please enter a valid passing year.")
+
+        allowed_extensions = {".pdf", ".doc", ".docx"}
+
+        def valid_file(upload, max_size):
+            if not upload:
+                return False
+            extension = (
+                "." + upload.name.rsplit(".", 1)[-1].lower()
+                if "." in upload.name else ""
+            )
+            return (
+                extension in allowed_extensions
+                and upload.size <= max_size
+            )
+
+        cv = files.get("cv")
+        other_documents = files.get("other_documents")
+
+        if not cv:
+            errors.append("Please upload your CV.")
+        elif not valid_file(cv, 5 * 1024 * 1024):
+            errors.append("CV must be PDF, DOC, or DOCX and no larger than 5 MB.")
+
+        if other_documents and not valid_file(
+            other_documents, 10 * 1024 * 1024
+        ):
+            errors.append(
+                "Other documents must be PDF, DOC, or DOCX and no larger than 10 MB."
+            )
+
+        department = data.get("department", "")
+        if department not in dict(TeachingApplication.DEPARTMENT_CHOICES):
+            errors.append("Please select a valid department.")
+
+        degree = data.get("last_degree", "")
+        if degree not in dict(TeachingApplication.DEGREE_CHOICES):
+            errors.append("Please select a valid degree.")
+
+        experience = data.get("experience", "")
+        if experience and experience not in dict(
+            TeachingApplication.EXPERIENCE_CHOICES
+        ):
+            errors.append("Please select a valid experience option.")
+
+        if errors:
+            for error in errors:
+                messages.error(request, error)
+
+            return render(
+                request,
+                "formteachcsc.html",
+                {"form_data": data},
+            )
+
+        TeachingApplication.objects.create(
+            name=data["name"].strip(),
+            father_name=data["father_name"].strip(),
+            date_of_birth=dob,
+            nationality=data["nationality"].strip(),
+            cnic=cnic,
+            domicile=data["domicile"].strip(),
+            present_address=data["present_address"].strip(),
+            permanent_address=data["permanent_address"].strip(),
+            email=data["email"].strip(),
+            phone=data["phone"].strip(),
+            department=department,
+            campus="CSC",
+            last_degree=degree,
+            degree_title=data["degree_title"].strip(),
+            passing_year=year,
+            university=data["university"].strip(),
+            institution=data["institution"].strip(),
+            marks_cgpa=data["marks_cgpa"].strip(),
+            specialization=data["specialization"].strip(),
+            experience=experience,
+            last_organization=data.get("last_organization", "").strip(),
+            reference_1=data.get("reference_1", "").strip(),
+            reference_2=data.get("reference_2", "").strip(),
+            cv=cv,
+            other_documents=other_documents,
+        )
+
+        messages.success(
+            request,
+            "Your Chishtian Science College application was submitted successfully!"
+        )
+        return redirect("formteachcsc")
+
+    return render(request, "formteachcsc.html", {"form_data": {}})

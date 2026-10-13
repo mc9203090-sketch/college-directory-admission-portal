@@ -2,468 +2,484 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>College Admission Form</title>
+    <title>{{ college.name }} - Admission Form</title>
 
     <style>
-        * {
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
 
         body {
             margin: 0;
-            padding: 25px 15px;
             font-family: Arial, Helvetica, sans-serif;
-            background: #f3f6fb;
-            color: #243047;
-        }
-
-        .container {
-            max-width: 950px;
-            margin: 0 auto;
-            background: #ffffff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+            background: #f4f6f9;
+            color: #333;
         }
 
         .header {
+            background: #2e2c6a;
+            color: white;
+            padding: 28px 20px;
             text-align: center;
-            margin-bottom: 28px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #e3e8f0;
         }
 
         .header h1 {
-            margin: 0 0 10px;
-            color: #1c3c6b;
+            margin: 0 0 8px;
             font-size: 30px;
+            line-height: 1.3;
         }
 
         .header p {
-            margin: 8px 0;
-            color: #667085;
-            line-height: 1.6;
+            margin: 0;
+            font-size: 15px;
+            opacity: .95;
         }
 
-        .college-list {
-            list-style: none;
-            padding: 0;
-            margin: 15px 0 0;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 8px;
+        .container {
+            width: 900px;
+            max-width: 94%;
+            margin: 40px auto;
+            background: white;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, .10);
         }
 
-        .college-list li {
-            padding: 8px 13px;
-            background: #eaf1fb;
-            color: #1c3c6b;
-            border-radius: 20px;
+        .form-title {
+            text-align: center;
+            color: #2e2c6a;
+            margin: 0 0 30px;
+            font-size: 27px;
+        }
+
+        .message {
+            padding: 12px 15px;
+            margin-bottom: 12px;
+            border-radius: 6px;
+            line-height: 1.5;
+        }
+
+        .message.success {
+            background: #e8f5e9;
+            color: #2e7d32;
+            border-left: 4px solid #2e7d32;
+        }
+
+        .message.error {
+            background: #ffebee;
+            color: #b71c1c;
+            border-left: 4px solid #c62828;
+        }
+
+        .section-title {
+            background: #2e2c6a;
+            color: white;
+            padding: 13px 15px;
+            border-radius: 6px;
+            margin: 30px 0 20px;
+            font-size: 18px;
             font-weight: bold;
-            font-size: 14px;
         }
 
-        .section {
-            margin-top: 28px;
-        }
-
-        .section h2 {
-            font-size: 19px;
-            color: #1c3c6b;
-            border-bottom: 2px solid #e6edf7;
-            padding-bottom: 10px;
-            margin-bottom: 18px;
-        }
-
-        .form-grid {
+        .form-row {
             display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 18px;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 18px;
         }
 
         .form-group {
             display: flex;
             flex-direction: column;
+            min-width: 0;
         }
 
-        .full-width {
-            grid-column: 1 / -1;
-        }
+        .form-group.full { grid-column: 1 / -1; }
 
         label {
-            margin-bottom: 7px;
-            font-size: 14px;
             font-weight: bold;
-            color: #344054;
+            margin-bottom: 7px;
+            color: #333;
+            font-size: 14px;
         }
 
-        input,
-        select,
-        textarea {
+        input, select, textarea {
             width: 100%;
             padding: 12px;
-            border: 1px solid #cfd6e2;
-            border-radius: 6px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
             font-size: 14px;
-            font-family: inherit;
-            background: #fff;
-            color: #243047;
+            font-family: Arial, Helvetica, sans-serif;
+            outline: none;
+            background: white;
+            transition: .2s ease;
         }
 
-        input:focus,
-        select:focus,
-        textarea:focus {
-            outline: none;
-            border-color: #1c3c6b;
-            box-shadow: 0 0 0 3px rgba(28, 60, 107, 0.1);
+        input:focus, select:focus, textarea:focus {
+            border-color: #2e2c6a;
+            box-shadow: 0 0 0 2px rgba(46, 44, 106, .08);
         }
 
         textarea {
-            min-height: 95px;
+            min-height: 110px;
             resize: vertical;
         }
 
-        .hint {
-            color: #667085;
-            font-size: 12px;
-            margin-top: 5px;
+        .terms {
+            margin-top: 28px;
+            padding: 16px;
+            background: #f7f7f7;
+            border-radius: 6px;
+            border: 1px solid #e5e5e5;
         }
 
-        .terms {
+        .terms label {
+            font-weight: normal;
             display: flex;
-            align-items: flex-start;
             gap: 10px;
-            margin-top: 28px;
+            align-items: flex-start;
+            margin: 0;
             line-height: 1.5;
-            font-size: 14px;
         }
 
         .terms input {
             width: auto;
+            min-width: 16px;
             margin-top: 3px;
-        }
-
-        .terms label {
-            margin: 0;
-            font-weight: normal;
+            accent-color: #2e2c6a;
         }
 
         .submit-btn {
             display: block;
             width: 100%;
             margin-top: 25px;
-            padding: 14px;
+            padding: 14px 18px;
+            background: #E13B23;
+            color: white;
             border: none;
-            border-radius: 7px;
-            background: #1c3c6b;
-            color: #fff;
+            border-radius: 6px;
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: .3s ease;
         }
 
         .submit-btn:hover {
-            background: #142c50;
+            background: #2e2c6a;
+            transform: translateY(-1px);
         }
 
-        .messages {
-            margin-bottom: 20px;
+        .back-btn {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            padding: 12px;
+            text-decoration: none;
+            color: #2e2c6a;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: .2s ease;
         }
 
-        .message {
-            padding: 12px 15px;
-            margin-bottom: 10px;
-            border-radius: 6px;
-            background: #fff3cd;
-            color: #664d03;
+        .back-btn:hover { background: #f1f1f6; }
+
+        @media (max-width: 800px) {
+            .container { width: 94%; padding: 28px; }
+            .form-row { gap: 15px; }
+            .header h1 { font-size: 27px; }
         }
 
-        .error {
-            color: #b42318;
-            font-size: 13px;
-            margin-top: 5px;
-        }
-
-        @media (max-width: 650px) {
-            body {
-                padding: 12px 8px;
-            }
+        @media (max-width: 700px) {
+            .header { padding: 22px 15px; }
+            .header h1 { font-size: 23px; }
+            .header p { font-size: 14px; }
 
             .container {
-                padding: 20px 15px;
+                width: 94%;
+                max-width: 94%;
+                margin: 22px auto;
+                padding: 20px 16px;
+                border-radius: 9px;
             }
 
-            .header h1 {
-                font-size: 24px;
+            .form-title {
+                font-size: 22px;
+                margin-bottom: 22px;
             }
 
-            .form-grid {
+            .section-title {
+                font-size: 16px;
+                padding: 11px 12px;
+                margin: 24px 0 17px;
+            }
+
+            .form-row {
                 grid-template-columns: 1fr;
+                gap: 15px;
+                margin-bottom: 15px;
             }
 
-            .full-width {
-                grid-column: auto;
+            .form-group.full { grid-column: auto; }
+            label { font-size: 13px; }
+
+            input, select, textarea {
+                font-size: 14px;
+                padding: 11px;
             }
+
+            textarea { min-height: 100px; }
+            .terms { padding: 13px; margin-top: 22px; }
+            .terms label { font-size: 13px; }
+            .submit-btn { font-size: 15px; padding: 13px 12px; }
+            .back-btn { font-size: 14px; }
+        }
+
+        @media (max-width: 400px) {
+            .header h1 { font-size: 20px; }
+            .header p { font-size: 13px; }
+            .container { padding: 18px 13px; }
+            .form-title { font-size: 20px; }
+            .section-title { font-size: 15px; }
+
+            input, select, textarea { padding: 10px; }
+            .submit-btn { font-size: 14px; }
         }
     </style>
 </head>
 
 <body>
 
+<div class="header">
+    <h1>{{ college.name }}</h1>
+    <p>Admission Application Form</p>
+</div>
+
 <div class="container">
-
-    <div class="header">
-        <h1>College Admission Form</h1>
-        <p>Complete the form below to submit your admission application.</p>
-        <p><strong>You are applying to:</strong></p>
-
-        <ul class="college-list">
-            {% for college in colleges %}
-                <li>{{ college.name }}</li>
-            {% empty %}
-                {% if college %}
-                    <li>{{ college.name }}</li>
-                {% endif %}
-            {% endfor %}
-        </ul>
-    </div>
+    <h2 class="form-title">Student Admission Form</h2>
 
     {% if messages %}
-        <div class="messages">
-            {% for message in messages %}
-                <div class="message">{{ message }}</div>
-            {% endfor %}
-        </div>
-    {% endif %}
-
-    {% if form_errors %}
-        <div class="messages">
-            {% for error in form_errors %}
-                <div class="error">{{ error }}</div>
-            {% endfor %}
-        </div>
+        {% for message in messages %}
+            <div class="message {% if message.tags == 'success' %}success{% else %}error{% endif %}"
+                 role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
     {% endif %}
 
     <form method="POST"
-          id="admissionForm"
-          action="{% url 'admission-form-multiple' %}">
-
+          id="superiorApplyForm"
+          action="{% url 'admission-form' college.slug %}">
         {% csrf_token %}
 
-        <!-- Submission stage -->
-        <input type="hidden" name="submission_stage" value="admission_form">
+        <div class="section-title">Personal Information</div>
 
-        <!-- Preserve all selected colleges -->
-        {% for slug in selected_slugs %}
-            <input type="hidden" name="selected_college_slugs" value="{{ slug }}">
-        {% endfor %}
+        <div class="form-row">
+            <div class="form-group">
+                <label for="full_name">Full Name *</label>
+                <input id="full_name" type="text" name="full_name"
+                       value="{{ form_data.full_name|default:'' }}"
+                       autocomplete="name" required>
+            </div>
 
-        {% if not selected_slugs and college %}
-            <input type="hidden" name="selected_college_slugs" value="{{ college.slug }}">
-        {% endif %}
-
-        <!-- 1. Personal Information -->
-        <div class="section">
-            <h2>1. Personal Information</h2>
-
-            <div class="form-grid">
-
-                <div class="form-group">
-                    <label for="full_name">Student Full Name *</label>
-                    <input type="text" id="full_name" name="full_name"
-                           value="{{ request.POST.full_name|default:'' }}"
-                           autocomplete="name" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="father_name">Father's Name *</label>
-                    <input type="text" id="father_name" name="father_name"
-                           value="{{ request.POST.father_name|default:'' }}"
-                           required>
-                </div>
-
-                <div class="form-group">
-                    <label for="gender">Gender *</label>
-                    <select id="gender" name="gender" required>
-                        <option value="">Select Gender</option>
-                        <option value="Male" {% if request.POST.gender == "Male" %}selected{% endif %}>Male</option>
-                        <option value="Female" {% if request.POST.gender == "Female" %}selected{% endif %}>Female</option>
-                        <option value="Other" {% if request.POST.gender == "Other" %}selected{% endif %}>Other</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="date_of_birth">Date of Birth *</label>
-                    <input type="date" id="date_of_birth" name="date_of_birth"
-                           value="{{ request.POST.date_of_birth|default:'' }}"
-                           required>
-                </div>
-
-                <div class="form-group">
-                    <label for="relationship">Relationship with Guardian</label>
-                    <input type="text" id="relationship" name="relationship"
-                           value="{{ request.POST.relationship|default:'' }}"
-                           placeholder="e.g. Father, Mother">
-                </div>
-
-                <div class="form-group">
-                    <label for="student_cnic">Student CNIC / B-Form</label>
-                    <input type="text" id="student_cnic" name="student_cnic"
-                           value="{{ request.POST.student_cnic|default:'' }}"
-                           maxlength="15" placeholder="XXXXX-XXXXXXX-X">
-                    <span class="hint">Enter 13 digits if available.</span>
-                </div>
-
-                <div class="form-group">
-                    <label for="guardian_cnic">Guardian CNIC</label>
-                    <input type="text" id="guardian_cnic" name="guardian_cnic"
-                           value="{{ request.POST.guardian_cnic|default:'' }}"
-                           maxlength="15" placeholder="XXXXX-XXXXXXX-X">
-                    <span class="hint">Optional.</span>
-                </div>
-
-                <div class="form-group">
-                    <label for="student_contact">Student Contact</label>
-                    <input type="tel" id="student_contact" name="student_contact"
-                           value="{{ request.POST.student_contact|default:'' }}"
-                           placeholder="03XXXXXXXXX">
-                </div>
-
+            <div class="form-group">
+                <label for="father_name">Father Name *</label>
+                <input id="father_name" type="text" name="father_name"
+                       value="{{ form_data.father_name|default:'' }}"
+                       required>
             </div>
         </div>
 
-        <!-- 2. Contact Information -->
-        <div class="section">
-            <h2>2. Contact Information</h2>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="gender">Gender *</label>
+                <select id="gender" name="gender" required>
+                    <option value="">Select Gender</option>
+                    <option value="Male" {% if form_data.gender == "Male" %}selected{% endif %}>Male</option>
+                    <option value="Female" {% if form_data.gender == "Female" %}selected{% endif %}>Female</option>
+                </select>
+            </div>
 
-            <div class="form-grid">
-
-                <div class="form-group">
-                    <label for="guardian_contact">Guardian Contact *</label>
-                    <input type="tel" id="guardian_contact" name="guardian_contact"
-                           value="{{ request.POST.guardian_contact|default:'' }}"
-                           placeholder="03XXXXXXXXX" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="email">Email Address *</label>
-                    <input type="email" id="email" name="email"
-                           value="{{ request.POST.email|default:request.user.email }}"
-                           autocomplete="email" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="location">City / Location</label>
-                    <input type="text" id="location" name="location"
-                           value="{{ request.POST.location|default:'' }}"
-                           placeholder="Enter your city">
-                </div>
-
-                <div class="form-group">
-                    <label for="heard_about_us">How did you hear about us?</label>
-                    <select id="heard_about_us" name="heard_about_us">
-                        <option value="">Select an option</option>
-                        <option value="Social Media" {% if request.POST.heard_about_us == "Social Media" %}selected{% endif %}>Social Media</option>
-                        <option value="Friends or Family" {% if request.POST.heard_about_us == "Friends or Family" %}selected{% endif %}>Friends or Family</option>
-                        <option value="Website" {% if request.POST.heard_about_us == "Website" %}selected{% endif %}>Website</option>
-                        <option value="Advertisement" {% if request.POST.heard_about_us == "Advertisement" %}selected{% endif %}>Advertisement</option>
-                        <option value="Other" {% if request.POST.heard_about_us == "Other" %}selected{% endif %}>Other</option>
-                    </select>
-                </div>
-
-                <div class="form-group full-width">
-                    <label for="address">Complete Address *</label>
-                    <textarea id="address" name="address"
-                              autocomplete="street-address"
-                              required>{{ request.POST.address|default:'' }}</textarea>
-                </div>
-
+            <div class="form-group">
+                <label for="date_of_birth">Date of Birth *</label>
+                <input id="date_of_birth" type="date" name="date_of_birth"
+                       value="{{ form_data.date_of_birth|default:'' }}"
+                       required>
             </div>
         </div>
 
-        <!-- 3. Academic Information -->
-        <div class="section">
-            <h2>3. Academic Information</h2>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="relationship">Relationship with Guardian</label>
+                <input id="relationship" type="text" name="relationship"
+                       value="{{ form_data.relationship|default:'' }}"
+                       placeholder="Father / Mother / Guardian">
+            </div>
 
-            <div class="form-grid">
-
-                <div class="form-group">
-                    <label for="course">Course / Program *</label>
-                    <input type="text" id="course" name="course"
-                           value="{{ request.POST.course|default:'' }}"
-                           placeholder="e.g. BS Computer Science" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="degree">Previous Degree</label>
-                    <input type="text" id="degree" name="degree"
-                           value="{{ request.POST.degree|default:'' }}"
-                           placeholder="e.g. Matric, Intermediate">
-                </div>
-
-                <div class="form-group">
-                    <label for="passing_year">Passing Year</label>
-                    <input type="number" id="passing_year" name="passing_year"
-                           value="{{ request.POST.passing_year|default:'' }}"
-                           min="1950" max="2100">
-                </div>
-
-                <div class="form-group">
-                    <label for="board">Board / University</label>
-                    <input type="text" id="board" name="board"
-                           value="{{ request.POST.board|default:'' }}">
-                </div>
-
-                <div class="form-group">
-                    <label for="group">Group / Major Subject</label>
-                    <input type="text" id="group" name="group"
-                           value="{{ request.POST.group|default:'' }}"
-                           placeholder="e.g. ICS, Pre-Medical">
-                </div>
-
-                <div class="form-group">
-                    <label for="board_roll_no">Board Roll Number</label>
-                    <input type="text" id="board_roll_no" name="board_roll_no"
-                           value="{{ request.POST.board_roll_no|default:'' }}">
-                </div>
-
-                <div class="form-group">
-                    <label for="obtained_marks">Obtained Marks</label>
-                    <input type="number" id="obtained_marks" name="obtained_marks"
-                           value="{{ request.POST.obtained_marks|default:'' }}"
-                           min="0">
-                </div>
-
-                <div class="form-group">
-                    <label for="total_marks">Total Marks</label>
-                    <input type="number" id="total_marks" name="total_marks"
-                           value="{{ request.POST.total_marks|default:'' }}"
-                           min="0">
-                </div>
-
-                <div class="form-group full-width">
-                    <label for="previous_school">Previous School / College</label>
-                    <input type="text" id="previous_school" name="previous_school"
-                           value="{{ request.POST.previous_school|default:'' }}">
-                </div>
-
+            <div class="form-group">
+                <label for="student_cnic">Student CNIC / B-Form</label>
+                <input id="student_cnic" type="text" name="student_cnic"
+                       value="{{ form_data.student_cnic|default:'' }}"
+                       placeholder="Enter 13 digits" minlength="13"
+                       maxlength="13" pattern="[0-9]{13}"
+                       inputmode="numeric"
+                       title="Please enter exactly 13 digits.">
             </div>
         </div>
 
-        <!-- Terms and Conditions -->
+        <div class="form-row">
+            <div class="form-group">
+                <label for="guardian_cnic">Guardian CNIC</label>
+                <input id="guardian_cnic" type="text" name="guardian_cnic"
+                       value="{{ form_data.guardian_cnic|default:'' }}"
+                       placeholder="Enter 13 digits" minlength="13"
+                       maxlength="13" pattern="[0-9]{13}"
+                       inputmode="numeric"
+                       title="Please enter exactly 13 digits.">
+            </div>
+
+            <div class="form-group">
+                <label for="student_contact">Student Contact</label>
+                <input id="student_contact" type="text" name="student_contact"
+                       value="{{ form_data.student_contact|default:'' }}"
+                       placeholder="Enter 11 digits" minlength="11"
+                       maxlength="11" pattern="[0-9]{11}"
+                       inputmode="numeric"
+                       title="Please enter exactly 11 digits if provided.">
+            </div>
+        </div>
+
+        <div class="section-title">Contact Information</div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="guardian_contact">Guardian Contact *</label>
+                <input id="guardian_contact" type="text" name="guardian_contact"
+                       value="{{ form_data.guardian_contact|default:'' }}"
+                       required placeholder="Enter 11 digits"
+                       minlength="11" maxlength="11"
+                       pattern="[0-9]{11}" inputmode="numeric"
+                       title="Please enter exactly 11 digits.">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email *</label>
+                <input id="email" type="email" name="email"
+                       value="{{ form_data.email|default:'' }}"
+                       autocomplete="email" required>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group full">
+                <label for="address">Address *</label>
+                <textarea id="address" name="address" required
+                          placeholder="Enter complete address">{{ form_data.address|default:'' }}</textarea>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="location">Location</label>
+                <input id="location" type="text" name="location"
+                       value="{{ form_data.location|default:'' }}"
+                       placeholder="City / Area">
+            </div>
+
+            <div class="form-group">
+                <label for="heard_about_us">Heard About Us</label>
+                <select id="heard_about_us" name="heard_about_us">
+                    <option value="">Select</option>
+                    <option value="Friends" {% if form_data.heard_about_us == "Friends" %}selected{% endif %}>Friends</option>
+                    <option value="Social Media" {% if form_data.heard_about_us == "Social Media" %}selected{% endif %}>Social Media</option>
+                    <option value="Website" {% if form_data.heard_about_us == "Website" %}selected{% endif %}>Website</option>
+                    <option value="Advertisement" {% if form_data.heard_about_us == "Advertisement" %}selected{% endif %}>Advertisement</option>
+                    <option value="Other" {% if form_data.heard_about_us == "Other" %}selected{% endif %}>Other</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="section-title">Academic Information</div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="course">Course / Program *</label>
+                <input id="course" type="text" name="course"
+                       value="{{ form_data.course|default:'' }}"
+                       required placeholder="e.g. ICS, FSc, FA">
+            </div>
+
+            <div class="form-group">
+                <label for="degree">Degree / Qualification</label>
+                <input id="degree" type="text" name="degree"
+                       value="{{ form_data.degree|default:'' }}"
+                       placeholder="Previous qualification">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="passing_year">Passing Year</label>
+                <input id="passing_year" type="text" name="passing_year"
+                       value="{{ form_data.passing_year|default:'' }}">
+            </div>
+
+            <div class="form-group">
+                <label for="board">Board</label>
+                <input id="board" type="text" name="board"
+                       value="{{ form_data.board|default:'' }}"
+                       placeholder="BISE Bahawalpur etc.">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="group">Group</label>
+                <input id="group" type="text" name="group"
+                       value="{{ form_data.group|default:'' }}"
+                       placeholder="Pre-Medical / Pre-Engineering / ICS">
+            </div>
+
+            <div class="form-group">
+                <label for="board_roll_no">Board Roll No.</label>
+                <input id="board_roll_no" type="text" name="board_roll_no"
+                       value="{{ form_data.board_roll_no|default:'' }}">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="obtained_marks">Obtained Marks</label>
+                <input id="obtained_marks" type="text" name="obtained_marks"
+                       value="{{ form_data.obtained_marks|default:'' }}">
+            </div>
+
+            <div class="form-group">
+                <label for="total_marks">Total Marks</label>
+                <input id="total_marks" type="text" name="total_marks"
+                       value="{{ form_data.total_marks|default:'' }}">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group full">
+                <label for="previous_school">Previous School / College</label>
+                <input id="previous_school" type="text" name="previous_school"
+                       value="{{ form_data.previous_school|default:'' }}">
+            </div>
+        </div>
+
         <div class="terms">
-            <input type="checkbox" id="confirm_terms" name="confirm_terms"
-                   value="yes" required>
             <label for="confirm_terms">
-                I confirm that the information provided in this application is accurate
-                to the best of my knowledge. *
+                <input id="confirm_terms" type="checkbox"
+                       name="confirm_terms" required
+                       {% if terms_checked %}checked{% endif %}>
+                <span>
+                    I confirm that the information provided in this
+                    admission application is correct.
+                </span>
             </label>
         </div>
 
@@ -471,9 +487,43 @@
             Submit Admission Application
         </button>
 
+        <a href="{% url 'dashboard' %}" class="back-btn">
+            ← Back to Dashboard
+        </a>
     </form>
-
 </div>
+
+<script>
+document.getElementById("superiorApplyForm").addEventListener("submit", function(event) {
+    const guardianCNIC = document.querySelector('[name="guardian_cnic"]').value.trim();
+    const studentCNIC = document.querySelector('[name="student_cnic"]').value.trim();
+    const guardianContact = document.querySelector('[name="guardian_contact"]').value.trim();
+    const studentContact = document.querySelector('[name="student_contact"]').value.trim();
+
+    if (guardianCNIC && !/^[0-9]{13}$/.test(guardianCNIC)) {
+        event.preventDefault();
+        alert("Guardian CNIC must contain exactly 13 digits.");
+        return;
+    }
+
+    if (studentCNIC && !/^[0-9]{13}$/.test(studentCNIC)) {
+        event.preventDefault();
+        alert("Student CNIC / B-Form must contain exactly 13 digits.");
+        return;
+    }
+
+    if (!/^[0-9]{11}$/.test(guardianContact)) {
+        event.preventDefault();
+        alert("Guardian Contact must contain exactly 11 digits.");
+        return;
+    }
+
+    if (studentContact && !/^[0-9]{11}$/.test(studentContact)) {
+        event.preventDefault();
+        alert("Student Contact must contain exactly 11 digits if provided.");
+    }
+});
+</script>
 
 </body>
 </html>

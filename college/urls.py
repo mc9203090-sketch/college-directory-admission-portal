@@ -1,423 +1,457 @@
 
-from django.urls import path, reverse
+from django.urls import path
 from django.views.generic import TemplateView
-from django.views.generic.base import RedirectView
-from django.shortcuts import redirect
+
 from . import views
 
 
-# Redirect old URLs to the new readable URLs.
-def redirect_to_named_url(request, url_name, *args, **kwargs):
-    return redirect(reverse(url_name, args=args, kwargs=kwargs))
-
-
 urlpatterns = [
-    # ==================================================
-    # HOME AND COLLEGE DETAILS
-    # ==================================================
+
+    # =====================================================
+    # MAIN WEBSITE
+    # =====================================================
+
     path("", views.home, name="index"),
 
-    # New readable college detail URL
-    path(
-        "college/<slug:slug>/",
-        views.college_detail,
-        name="college_detail",
-    ),
+    
+path("college/<slug:slug>/", views.college_detail, name="college_detail"),
 
-    # ==================================================
-    # CHOOSE COLLEGE
-    # ==================================================
-    path(
-        "admissions/choose-college/",
-        views.choose_college,
-        name="choose-college",
-    ),
-    path(
-        "choose-college/",
-        RedirectView.as_view(
-            pattern_name="choose-college",
-            permanent=True,
-        ),
-    ),
 
-    # ==================================================
-    # EMAIL VERIFICATION
-    # ==================================================
+    path("choose-college/", views.choose_college, name="choose-college"),
+
     path("verify-email/", views.verify_email, name="verify-email"),
-    path(
-        "resend-email-otp/",
-        views.resend_email_otp,
-        name="resend-email-otp",
-    ),
 
-    # ==================================================
-    # COLLEGE HOME PAGES
-    # ==================================================
-    path(
-        "superior-college-chishtian/",
-        views.superior,
-        name="superior",
-    ),
-    path(
-        "punjab-college-chishtian/",
-        views.pgc,
-        name="pgc",
-    ),
-    path(
-        "chishtian-science-college/",
-        views.chishtian_science,
-        name="chishtian_science",
-    ),
-    path(
-        "riphah-international-college/",
-        views.ripah,
-        name="ripah",
-    ),
+    path("resend-email-otp/", views.resend_email_otp, name="resend-email-otp"),
 
-    # Old college home URLs
-    path(
-        "superior/",
-        RedirectView.as_view(
-            pattern_name="superior",
-            permanent=True,
-        ),
-    ),
-    path(
-        "pgc/",
-        RedirectView.as_view(
-            pattern_name="pgc",
-            permanent=True,
-        ),
-    ),
-    path(
-        "chishtian-science/",
-        RedirectView.as_view(
-            pattern_name="chishtian_science",
-            permanent=True,
-        ),
-    ),
-    path(
-        "ripah/",
-        RedirectView.as_view(
-            pattern_name="ripah",
-            permanent=True,
-        ),
-    ),
 
-    # ==================================================
-    # SUPERIOR COLLEGE
-    # ==================================================
+    # =====================================================
+    # COLLEGES
+    # =====================================================
+
+    path("superior/", views.superior, name="superior"),
+
+    path("pgc/", views.pgc, name="pgc"),
+
+    path("chishtian-science/", views.chishtian_science, name="chishtian_science"),
+
+    path("ripah/", views.ripah, name="ripah"),
+
+
+    # =====================================================
+    # SUPERIOR COLLEGE - ABOUT US
+    # =====================================================
+
     path(
-        "superior-college-chishtian/apply/",
-        TemplateView.as_view(template_name="apply.html"),
-        name="apply",
-    ),
-    path(
-        "superior-college-chishtian/about/",
+        "superior/about/",
         TemplateView.as_view(template_name="aboutsup.html"),
         name="aboutsup",
     ),
+
     path(
-        "superior-college-chishtian/history/",
+        "superior/history/",
         TemplateView.as_view(template_name="historysup.html"),
         name="historysup",
     ),
+
     path(
-        "superior-college-chishtian/mission/",
+        "superior/mission/",
         TemplateView.as_view(template_name="missionsup.html"),
         name="missionsup",
     ),
+
     path(
-        "superior-college-chishtian/results/",
+        "superior/results/",
         TemplateView.as_view(template_name="results.html"),
         name="results",
     ),
+
+
+    # =====================================================
+    # SUPERIOR COLLEGE - ADMISSIONS
+    # =====================================================
+
     path(
-        "superior-college-chishtian/admissions/",
+        "superior/admissions/",
         TemplateView.as_view(template_name="addmission.html"),
         name="addmission",
     ),
+
     path(
-        "superior-college-chishtian/application-form/",
-        views.application_form,
-        name="application-form",
-    ),
-    path(
-        "superior-college-chishtian/classrooms/",
-        TemplateView.as_view(template_name="class.html"),
-        name="class",
-    ),
-    path(
-        "superior-college-chishtian/spaces/",
-        TemplateView.as_view(template_name="spaces.html"),
-        name="spaces",
-    ),
-    path(
-        "superior-college-chishtian/affiliate/",
-        TemplateView.as_view(template_name="affiliate.html"),
-        name="affiliate",
-    ),
-    path(
-        "superior-college-chishtian/contact/",
-        TemplateView.as_view(template_name="contact.html"),
-        name="contact",
-    ),
-    path(
-        "superior-college-chishtian/fees/",
+        "superior/fees/",
         TemplateView.as_view(template_name="fee.html"),
         name="fee",
     ),
 
-    # ==================================================
-    # PUNJAB COLLEGE (PGC)
-    # ==================================================
     path(
-        "punjab-college-chishtian/history/",
+        "superior/apply/",
+        TemplateView.as_view(template_name="apply.html"),
+        name="apply",
+    ),
+
+    path(
+        "superior/admission-application/",
+        views.admission_application_superior,
+        name="applysuperior",
+    ),
+
+    path(
+        "superior/application-form/",
+        views.application_form,
+        name="application-form",
+    ),
+
+
+    # =====================================================
+    # SUPERIOR COLLEGE - FACILITIES
+    # =====================================================
+
+    path(
+        "superior/classrooms/",
+        TemplateView.as_view(template_name="class.html"),
+        name="class",
+    ),
+
+    path(
+        "superior/spaces/",
+        TemplateView.as_view(template_name="spaces.html"),
+        name="spaces",
+    ),
+
+
+    # =====================================================
+    # SUPERIOR COLLEGE - OTHER
+    # =====================================================
+
+    path(
+        "superior/affiliate/",
+        TemplateView.as_view(template_name="affiliate.html"),
+        name="affiliate",
+    ),
+
+    path(
+        "superior/contact/",
+        TemplateView.as_view(template_name="contact.html"),
+        name="contact",
+    ),
+
+
+    # =====================================================
+    # PGC - ABOUT US
+    # =====================================================
+
+    path(
+        "pgc/history/",
         TemplateView.as_view(template_name="historypgc.html"),
         name="historypgc",
     ),
+
     path(
-        "punjab-college-chishtian/uniquely/",
+        "pgc/uniquely/",
         TemplateView.as_view(template_name="uniquelypgc.html"),
         name="uniquelypgc",
     ),
+
     path(
-        "punjab-college-chishtian/mission/",
+        "pgc/mission/",
         TemplateView.as_view(template_name="missionpgc.html"),
         name="missionpgc",
     ),
+
+
+    # =====================================================
+    # PGC - ADMISSIONS
+    # =====================================================
+
     path(
-        "punjab-college-chishtian/undergraduate/",
+        "pgc/undergraduate/",
         TemplateView.as_view(template_name="undergraduatepgc.html"),
         name="undergraduatepgc",
     ),
+
     path(
-        "punjab-college-chishtian/fees/",
+        "pgc/fees/",
         TemplateView.as_view(template_name="feepgc.html"),
         name="feepgc",
     ),
+
     path(
-        "punjab-college-chishtian/apply/",
-        views.choose_college,
+        "pgc/apply/",
+        views.admission_application,
         name="applypgc",
     ),
+
+
+    # =====================================================
+    # PGC - OTHER
+    # =====================================================
+
     path(
-        "punjab-college-chishtian/activities/",
-        TemplateView.as_view(template_name="activities.html"),
-        name="activities",
+        "pgc/activities/",
+        TemplateView.as_view(template_name="activitypgc.html"),
+        name="activitypgc",
     ),
+
     path(
-        "punjab-college-chishtian/blog/",
-        TemplateView.as_view(template_name="blog.html"),
-        name="blog",
+        "pgc/blog/",
+        TemplateView.as_view(template_name="blogpgc.html"),
+        name="blogpgc",
     ),
+
     path(
-        "punjab-college-chishtian/careers/",
-        TemplateView.as_view(template_name="careers.html"),
-        name="careers",
+        "pgc/careers/",
+        TemplateView.as_view(template_name="careerpgc.html"),
+        name="careerpgc",
     ),
+
+    # Both GET and POST requests go to the database-connected view.
     path(
-        "punjab-college-chishtian/careers/teaching-form/",
-        TemplateView.as_view(template_name="teachingform.html"),
-        name="teaching-form",
+        "pgc/careers/teaching-form/",
+        views.formteachpgc,
+        name="formteachpgc",
     ),
+
     path(
-        "punjab-college-chishtian/affiliate/",
+        "pgc/affiliate/",
         TemplateView.as_view(template_name="affiliatepgc.html"),
         name="affiliatepgc",
     ),
+
     path(
-        "punjab-college-chishtian/contact/",
+        "pgc/contact/",
         TemplateView.as_view(template_name="contactpgc.html"),
         name="contactpgc",
     ),
+
     path(
-        "punjab-college-chishtian/signup/",
+        "pgc/signup/",
         TemplateView.as_view(template_name="signup pgc.html"),
-        name="signup-pgc",
+        name="signup pgc",
     ),
 
-    # ==================================================
-    # RIPHAH COLLEGE
-    # ==================================================
+
+    # =====================================================
+    # RIPHAH COLLEGE - ABOUT US
+    # =====================================================
+
     path(
-        "riphah-international-college/history/",
+        "ripah/history/",
         TemplateView.as_view(template_name="historyrip.html"),
         name="historyrip",
     ),
+
     path(
-        "riphah-international-college/mission/",
+        "ripah/mission/",
         TemplateView.as_view(template_name="missionrip.html"),
         name="missionrip",
     ),
+
+
+    # =====================================================
+    # RIPHAH COLLEGE - ADMISSIONS
+    # =====================================================
+
     path(
-        "riphah-international-college/fees/",
+        "ripah/fees/",
         TemplateView.as_view(template_name="feestructurerip.html"),
         name="feestructurerip",
     ),
+
     path(
-        "riphah-international-college/apply/",
-        views.choose_college,
+        "ripah/apply/",
+        views.admission_application_ripah,
         name="applyrip",
     ),
+
+
+    # =====================================================
+    # RIPHAH COLLEGE - FACILITIES
+    # =====================================================
+
     path(
-        "riphah-international-college/classrooms/",
+        "ripah/classrooms/",
         TemplateView.as_view(template_name="classrip.html"),
         name="classrip",
     ),
+
     path(
-        "riphah-international-college/spaces/",
+        "ripah/spaces/",
         TemplateView.as_view(template_name="spacerip.html"),
         name="spacerip",
     ),
+
+
+    # =====================================================
+    # RIPHAH COLLEGE - OTHER
+    # =====================================================
+
     path(
-        "riphah-international-college/affiliate/",
+        "ripah/affiliate/",
         TemplateView.as_view(template_name="affiliaterip.html"),
         name="affiliaterip",
     ),
+
     path(
-        "riphah-international-college/contact/",
+        "ripah/contact/",
         TemplateView.as_view(template_name="contactrip.html"),
         name="contactrip",
     ),
 
-    # ==================================================
+
+    # =====================================================
     # CHISHTIAN SCIENCE COLLEGE
-    # ==================================================
+    # =====================================================
+
     path(
-        "chishtian-science-college/history/",
+        "chishtian-science/history/",
         TemplateView.as_view(template_name="historycsc.html"),
         name="historycsc",
     ),
+
     path(
-        "chishtian-science-college/uniquely/",
+        "chishtian-science/uniquely/",
         TemplateView.as_view(template_name="uniquelycsc.html"),
         name="uniquelycsc",
     ),
+
     path(
-        "chishtian-science-college/mission/",
+        "chishtian-science/mission/",
         TemplateView.as_view(template_name="missioncsc.html"),
         name="missioncsc",
     ),
+
     path(
-        "chishtian-science-college/undergraduate/",
+        "chishtian-science/undergraduate/",
         TemplateView.as_view(template_name="undergraduatecsc.html"),
         name="undergraduatecsc",
     ),
+
     path(
-        "chishtian-science-college/fees/",
+        "chishtian-science/fees/",
         TemplateView.as_view(template_name="feecsc.html"),
         name="feecsc",
     ),
+
     path(
-        "chishtian-science-college/apply/",
-        views.choose_college,
+        "chishtian-science/apply/",
+        views.admission_application_csc,
         name="applycsc",
     ),
+
     path(
-        "chishtian-science-college/activities/",
+        "chishtian-science/activities/",
         TemplateView.as_view(template_name="activitycsc.html"),
         name="activitycsc",
     ),
+
     path(
-        "chishtian-science-college/careers/",
+        "chishtian-science/careers/",
         TemplateView.as_view(template_name="careercsc.html"),
         name="careercsc",
     ),
+
+    # Database-connected CSC teaching application form.
     path(
-        "chishtian-science-college/careers/teaching-form/",
-        TemplateView.as_view(template_name="formteachcsc.html"),
+        "chishtian-science/careers/teaching-form/",
+        views.formteachcsc,
         name="formteachcsc",
     ),
+
     path(
-        "chishtian-science-college/affiliate/",
+        "chishtian-science/affiliate/",
         TemplateView.as_view(template_name="affiliatecsc.html"),
         name="affiliatecsc",
     ),
+
     path(
-        "chishtian-science-college/contact/",
+        "chishtian-science/contact/",
         TemplateView.as_view(template_name="contactcsc.html"),
         name="contactcsc",
     ),
 
-    # ==================================================
-    # LOGIN / SIGNUP
-    # ==================================================
+
+    # =====================================================
+    # STUDENT ACCOUNT
+    # =====================================================
+
     path(
         "accounts/login/",
         views.application_form,
         name="login",
     ),
 
-    # ==================================================
-    # DASHBOARD AND PROFILE
-    # ==================================================
-    path("dashboard/", views.dashboard, name="dashboard"),
-    path("profile/", views.profile, name="profile"),
+    path(
+        "dashboard/",
+        views.dashboard,
+        name="dashboard",
+    ),
+
+    path(
+        "profile/",
+        views.profile,
+        name="profile",
+    ),
+
     path(
         "application/<int:id>/",
         views.application_detail,
         name="application-detail",
     ),
 
-    # ==================================================
-    # ADMISSION APPLICATIONS
-    # ==================================================
     path(
         "admission-application/",
         views.admission_application,
         name="admission-application",
     ),
+
     path(
-        "admissions/<slug:slug>/",
-        views.admission_application_common,
-        name="admission-form",
-    ),
-    path(
-        "admission/<slug:slug>/",
-        RedirectView.as_view(
-            pattern_name="admission-form",
-            permanent=True,
-        ),
-    ),
-    path(
-        "admissions/multiple/",
+        "admission/multiple/",
         views.admission_application_multiple,
         name="admission-form-multiple",
     ),
+
+    # Correct Django slug converter syntax.
     path(
-        "admission/multiple/",
-        RedirectView.as_view(
-            pattern_name="admission-form-multiple",
-            permanent=True,
-        ),
+        "admission/<slug:slug>/",
+        views.admission_application_common,
+        name="admission-form",
     ),
 
-    # ==================================================
-    # LOGOUT
-    # ==================================================
-    path("logout/", views.user_logout, name="logout"),
+    path(
+        "logout/",
+        views.user_logout,
+        name="logout",
+    ),
 
-    # ==================================================
+
+    # =====================================================
     # NOTIFICATIONS
-    # ==================================================
-    path("notifications/", views.notifications, name="notifications"),
+    # =====================================================
+
+    path(
+        "notifications/",
+        views.notifications,
+        name="notifications",
+    ),
+
     path(
         "notifications/read/<int:id>/",
         views.mark_notification_read,
         name="mark-notification-read",
     ),
+
     path(
         "notifications/read-all/",
         views.mark_all_notifications_read,
         name="mark-all-notifications-read",
     ),
+
 ]
 
 
-# ======================================================
+# =========================================================
 # CUSTOM ERROR HANDLERS
-# ======================================================
+# =========================================================
+
 handler404 = "college.views.error_404"
 handler403 = "college.views.error_403"
 handler500 = "college.views.error_500"

@@ -1,112 +1,610 @@
-{% extends 'pgc/base.html' %}
+
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Recruitment Form | Punjab College Chishtian</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recruitment Form | Punjab College Chishtian</title>
 
-<style>
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;font-family:Arial,sans-serif;background:#f5f5f5;color:#2e2c6a;overflow-x:hidden}
-header{display:flex;justify-content:space-between;align-items:center;padding:10px 20px;background:#2e2c6a;color:white;position:relative;z-index:1000}
-.logo-section{display:flex;align-items:center;gap:12px;flex-shrink:0}
-.logo-container{width:65px;height:65px;border-radius:50%;overflow:hidden;border:3px solid white;flex-shrink:0}
-.logo-container img{width:100%;height:100%;object-fit:cover;display:block}
-.college-text{display:flex;flex-direction:column;color:white;font-weight:bold;line-height:1.2;font-size:17px}
-.navbar{display:flex;align-items:center;gap:18px}
-.navbar>a,.dropdown>a{color:white;text-decoration:none;font-size:14px;white-space:nowrap}
-.navbar a:hover{color:#F5E547}
-.dropdown{position:relative}
-.dropdown>a{display:flex;align-items:center;gap:6px;cursor:pointer}
-.sub-menu{display:none;position:absolute;top:100%;left:0;background:#2e2c6a;list-style:none;margin:0;padding:8px 0;min-width:220px;border-radius:0 0 6px 6px;box-shadow:0 5px 15px #0003;z-index:2000}
-.dropdown::after{content:"";position:absolute;top:100%;left:0;right:0;height:8px}
-.dropdown:hover .sub-menu,.dropdown:focus-within .sub-menu{display:block}
-.sub-menu li a{display:block;padding:10px 15px;color:white;text-decoration:none;font-size:14px}
-.sub-menu li a:hover{background:#242253;color:#f5a623}
-.menu-toggle{display:none;color:white;font-size:26px;border:0;background:none;cursor:pointer;padding:8px}
-.hero{background:#E13B28;padding:45px 20px;text-align:center}
-.hero h1{color:white;font-size:clamp(30px,4vw,46px);line-height:1.2;margin:0}
-.hero p{color:white;line-height:1.7;margin:14px 0 0}
-.form-section{width:92%;max-width:1150px;margin:45px auto 70px;background:white;padding:40px;border-radius:12px;box-shadow:0 5px 25px #0000000c}
-.form-intro{font-size:15px;color:#555;line-height:1.7;margin:0 0 30px}
-.section-title{font-size:23px;color:#2e2c6a;border-bottom:2px solid #E13B28;padding-bottom:12px;margin:35px 0 25px}
-.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:23px 30px}
-.form-group{min-width:0}
-.form-group.full{grid-column:1/-1}
-label{display:block;font-size:13px;font-weight:bold;letter-spacing:.5px;margin-bottom:9px;color:#2e2c6a}
-.required{color:#d93025}
-input,select,textarea{font-family:Arial,sans-serif;width:100%;max-width:100%;padding:14px 16px;border:1.5px solid #d6d6df;border-radius:7px;background:#fafafa;color:#2e2c6a;font-size:15px}
-input:focus,select:focus,textarea:focus{outline:2px solid #2e2c6a;outline-offset:1px;border-color:#2e2c6a}
-textarea{resize:vertical;min-height:100px;line-height:1.6}
-input[type=file]{padding:11px;font-size:13px}
-.hint{font-size:12px;line-height:1.5;color:#666;margin:7px 0 0}
-.form-actions{display:flex;justify-content:flex-end;gap:12px;margin-top:35px;flex-wrap:wrap}
-.submit-btn,.reset-btn{border:0;border-radius:7px;padding:14px 28px;font-size:15px;font-weight:bold;cursor:pointer}
-.submit-btn{background:#E13B28;color:white}
-.submit-btn:hover{background:#c92f20}
-.reset-btn{background:#e8e8ef;color:#2e2c6a}
-.reset-btn:hover{background:#d9d9e5}
-.notice{margin-top:25px;padding:15px;background:#fff4e8;border-left:4px solid #f76902;border-radius:5px;font-size:13px;line-height:1.7;color:#444}
-.footer{background:#2e2c6a;color:white;padding:60px 7% 75px}
-.footer-container{display:flex;justify-content:space-between;align-items:flex-start;gap:40px;max-width:1150px;margin:auto}
-.footer-left{flex:1;min-width:0}
-.footer-left h2{margin:0 0 20px}
-.footer-left p{line-height:1.7;margin:8px 0;overflow-wrap:anywhere}
-.social-icons{display:flex;flex-wrap:wrap;gap:18px;margin-top:20px}
-.social-icons a{color:white;font-size:21px}
-.social-icons a:hover{color:#E13B28}
-.copyright{margin-top:25px!important;font-size:13px}
-.apply-btn{display:inline-block;background:#E13B28;padding:14px 25px;color:white;font-weight:bold;text-decoration:none;border-radius:6px}
-.apply-btn:hover{background:#c92f20}
-#back-to-top{display:none;position:fixed;right:20px;bottom:20px;width:45px;height:45px;align-items:center;justify-content:center;background:#E13B28;color:white;border-radius:50%;text-decoration:none;z-index:9999;box-shadow:0 3px 10px #0003}
-@media(max-width:1050px){.navbar{gap:10px}.navbar>a,.dropdown>a{font-size:12px}.form-section{padding:30px}}
-@media(max-width:767px){
-header{min-height:78px;padding:10px 15px}
-.logo-container{width:54px;height:54px}
-.college-text{font-size:14px}
-.menu-toggle{display:block;margin-left:auto}
-.navbar{display:none;position:absolute;top:100%;left:0;width:100%;background:#2e2c6a;flex-direction:column;align-items:stretch;gap:0;padding:10px 0;box-shadow:0 5px 12px #0003}
-.navbar.show{display:flex}
-.navbar>a,.dropdown>a{display:flex;width:100%;padding:13px 20px;font-size:14px;justify-content:space-between}
-.navbar>a:hover,.dropdown>a:hover{background:#3c3980}
-.dropdown{width:100%}
-.dropdown:hover .sub-menu,.dropdown:focus-within .sub-menu{display:none}
-.dropdown.open .sub-menu{display:block}
-.dropdown::after{display:none}
-.sub-menu{position:static;width:100%;min-width:100%;padding:0;border-radius:0;background:#252354;box-shadow:none}
-.sub-menu li a{padding:11px 35px;font-size:13px}
-.hero{padding:35px 18px}
-.form-section{width:94%;margin:25px auto 45px;padding:23px 18px}
-.form-grid{grid-template-columns:1fr;gap:20px}
-.form-group.full{grid-column:auto}
-.section-title{font-size:21px;margin-top:30px}
-.form-actions{flex-direction:column}
-.submit-btn,.reset-btn{width:100%}
-.footer{padding:45px 22px 60px}
-.footer-container{flex-direction:column;gap:30px}
-.footer-left,.footer-right{width:100%}
-.apply-btn{width:100%;text-align:center}
-}
-@media(max-width:400px){.college-text{font-size:12px}.logo-container{width:49px;height:49px}.form-section{padding:20px 14px}}
-</style>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        * { box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            color: #2e2c6a;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background: #2e2c6a;
+            color: white;
+            position: relative;
+            z-index: 1000;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        .logo-container {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid white;
+            flex-shrink: 0;
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .college-text {
+            display: flex;
+            flex-direction: column;
+            color: white;
+            font-weight: bold;
+            line-height: 1.2;
+            font-size: 18px;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .navbar > a,
+        .navbar .dropdown > a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .navbar a:hover { color: #F5E547; }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown > a {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .sub-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #2e2c6a;
+            list-style: none;
+            padding: 8px 0;
+            margin: 0;
+            min-width: 230px;
+            border-radius: 0 0 6px 6px;
+            z-index: 9999;
+            box-shadow: 0 5px 15px rgba(0,0,0,.25);
+        }
+
+        .sub-menu li { margin: 0; padding: 0; }
+
+        .sub-menu li a {
+            padding: 10px 15px;
+            color: white;
+            display: block;
+            font-size: 14px;
+            text-decoration: none;
+            white-space: normal;
+        }
+
+        .sub-menu li a:hover {
+            background: #242253;
+            color: #f5a623;
+        }
+
+        @media (min-width: 768px) {
+            .dropdown:hover .sub-menu { display: block; }
+
+            .dropdown::after {
+                content: "";
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 100%;
+                height: 8px;
+            }
+        }
+
+        .menu-toggle {
+            display: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            padding: 5px;
+        }
+
+        .rit-hero { background: #eee; padding: 0; }
+
+        .orange-strip {
+            background: #E13B28;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 40px;
+        }
+
+        .orange-strip h1 {
+            color: white;
+            font-size: 45px;
+            font-weight: bold;
+            text-align: center;
+            margin: 0;
+        }
+
+        .form-section {
+            width: 90%;
+            max-width: 1400px;
+            margin: auto;
+            padding: 60px 0;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            column-gap: 60px;
+            row-gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        .form-group { min-width: 0; }
+
+        label {
+            font-size: 14px;
+            letter-spacing: 1px;
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #2e2c6a;
+        }
+
+        input, select, textarea {
+            font-family: Arial, sans-serif;
+            max-width: 100%;
+        }
+
+        input::placeholder { color: #888; }
+
+        input, select {
+            width: 100%;
+            padding: 16px 20px;
+            border-radius: 40px;
+            border: 2px solid #E13B28;
+            background: #efefef;
+            font-size: 15px;
+            outline: none;
+            color: #2e2c6a;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: #2e2c6a;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 16px 20px;
+            border-radius: 20px;
+            border: 2px solid #E13B28;
+            background: #efefef;
+            outline: none;
+            font-size: 15px;
+            resize: vertical;
+        }
+
+        input[type="file"] {
+            padding: 12px 15px;
+            border-radius: 12px;
+            background: #efefef;
+        }
+
+        hr {
+            border: 0;
+            border-top: 1px solid #ccc;
+            margin: 45px 0;
+        }
+
+        .section-title {
+            font-size: 26px;
+            font-weight: bold;
+            margin: 50px 0 30px;
+            color: #2e2c6a;
+        }
+
+        .qualification-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            column-gap: 60px;
+            row-gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .file-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            column-gap: 60px;
+            row-gap: 25px;
+            margin-top: 40px;
+        }
+
+        .send-btn {
+            display: block;
+            margin: 40px 0 0 auto;
+            background: #E13B28;
+            color: white;
+            padding: 16px 60px;
+            border: none;
+            border-radius: 40px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .send-btn:hover { background: #c92f20; }
+
+        .messages { margin-bottom: 25px; }
+
+        .message {
+            padding: 14px 18px;
+            border-radius: 8px;
+            margin: 10px 0;
+            line-height: 1.5;
+        }
+
+        .message.success {
+            color: #155724;
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+        }
+
+        .message.error {
+            color: #721c24;
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+        }
+
+        .footer {
+            background: #2e2c6a;
+            color: white;
+            width: 100%;
+            padding: 70px 80px 80px;
+            position: relative;
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 50px;
+            width: 100%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .footer-left { flex: 1; }
+
+        .footer-left h2 {
+            margin: 0 0 20px;
+            line-height: 1.5;
+        }
+
+        .footer-left p {
+            margin: 8px 0;
+            line-height: 1.5;
+            word-break: break-word;
+        }
+
+        .social-icons { margin-top: 20px; }
+
+        .social-icons a {
+            color: white;
+            font-size: 20px;
+            margin-right: 15px;
+            text-decoration: none;
+        }
+
+        .social-icons a:hover {
+            color: #E13B28;
+            transition: .3s;
+        }
+
+        .copyright { margin-top: 25px !important; }
+
+        .footer-right {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 10px;
+        }
+
+        .apply-btn {
+            display: inline-block;
+            background: #E13B28;
+            padding: 15px 30px;
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+        .apply-btn:hover { background: #c92f20; }
+
+        #back-to-top {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            color: white;
+            background: #E13B28;
+            padding: 12px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            z-index: 9999;
+            font-size: 14px;
+        }
+
+        #back-to-top i { margin-left: 5px; }
+
+        @media (max-width: 1100px) {
+            .navbar { gap: 12px; }
+
+            .navbar > a,
+            .navbar .dropdown > a { font-size: 13px; }
+
+            .qualification-grid {
+                grid-template-columns: repeat(2, 1fr);
+                column-gap: 30px;
+            }
+
+            .form-row, .file-row { column-gap: 30px; }
+
+            .footer {
+                padding-left: 40px;
+                padding-right: 40px;
+            }
+        }
+
+        @media (max-width: 767px) {
+            header {
+                padding: 10px 15px;
+                min-height: 80px;
+            }
+
+            .logo-container {
+                width: 58px;
+                height: 58px;
+            }
+
+            .college-text { font-size: 15px; }
+
+            .menu-toggle {
+                display: block;
+                margin-left: auto;
+            }
+
+            .navbar {
+                display: none;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background: #2e2c6a;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0;
+                padding: 10px 0 15px;
+                box-shadow: 0 5px 15px rgba(0,0,0,.25);
+            }
+
+            .navbar.active { display: flex; }
+
+            .navbar > a,
+            .navbar .dropdown > a {
+                display: flex;
+                width: 100%;
+                padding: 13px 20px;
+                font-size: 14px;
+            }
+
+            .navbar > a:hover,
+            .navbar .dropdown > a:hover { background: #242253; }
+
+            .dropdown { width: 100%; }
+
+            .dropdown > a { justify-content: space-between; }
+
+            .sub-menu {
+                display: none;
+                position: static;
+                width: 100%;
+                min-width: 0;
+                padding: 0;
+                margin: 0;
+                border-radius: 0;
+                box-shadow: none;
+                background: #242253;
+            }
+
+            .dropdown.open .sub-menu { display: block; }
+
+            .sub-menu li a {
+                padding: 11px 35px;
+                font-size: 13px;
+            }
+
+            .orange-strip {
+                min-height: 150px;
+                padding: 30px 20px;
+            }
+
+            .orange-strip h1 {
+                font-size: 30px;
+                line-height: 1.2;
+            }
+
+            .form-section {
+                width: 92%;
+                padding: 40px 0;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                row-gap: 22px;
+                margin-bottom: 22px;
+            }
+
+            .qualification-grid {
+                grid-template-columns: 1fr;
+                row-gap: 22px;
+            }
+
+            .file-row {
+                grid-template-columns: 1fr;
+                row-gap: 22px;
+                margin-top: 30px;
+            }
+
+            label {
+                font-size: 13px;
+                letter-spacing: .7px;
+            }
+
+            input, select {
+                padding: 14px 16px;
+                font-size: 14px;
+            }
+
+            textarea { padding: 14px 16px; }
+
+            .section-title {
+                font-size: 22px;
+                margin: 40px 0 25px;
+            }
+
+            hr { margin: 35px 0; }
+
+            .send-btn {
+                width: 100%;
+                margin-top: 35px;
+                padding: 14px 25px;
+                font-size: 17px;
+            }
+
+            .footer { padding: 50px 25px 70px; }
+
+            .footer-container {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 35px;
+            }
+
+            .footer-left { width: 100%; }
+
+            .footer-left h2 { font-size: 23px; }
+
+            .footer-left p { font-size: 14px; }
+
+            .social-icons {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+
+            .social-icons a {
+                margin-right: 0;
+                font-size: 19px;
+            }
+
+            .footer-right {
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            .apply-btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            #back-to-top {
+                bottom: 15px;
+                right: 15px;
+                padding: 10px 13px;
+                font-size: 13px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .college-text { font-size: 13px; }
+
+            .logo-container {
+                width: 52px;
+                height: 52px;
+            }
+
+            .orange-strip h1 { font-size: 26px; }
+
+            .form-section { width: 94%; }
+
+            .footer {
+                padding-left: 18px;
+                padding-right: 18px;
+            }
+        }
+    </style>
 </head>
 
 <body id="top">
+
 <header>
     <div class="logo-section">
         <div class="logo-container">
             <img src="{% static 'images/pgc logo.png' %}" alt="Punjab College Logo">
         </div>
+
         <div class="college-text">
-            <span>Punjab</span><span>College</span><span>Chishtian</span>
+            <span>Punjab</span>
+            <span>College</span>
+            <span>Chishtian</span>
         </div>
     </div>
 
-    <button class="menu-toggle" id="menu-toggle" aria-label="Open navigation" aria-expanded="false">
+    <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Open Menu">
         <i class="fas fa-bars"></i>
     </button>
 
@@ -114,19 +612,23 @@ header{min-height:78px;padding:10px 15px}
         <a href="{% url 'index' %}">Home</a>
 
         <div class="dropdown">
-            <a href="#" aria-haspopup="true">ABOUT US <i class="fa fa-caret-down"></i></a>
+            <a href="#">
+                ABOUT US <i class="fa fa-caret-down"></i>
+            </a>
             <ul class="sub-menu">
                 <li><a href="{% url 'historypgc' %}">About PGC</a></li>
                 <li><a href="{% url 'uniquelypgc' %}">Uniquely PGC</a></li>
-                <li><a href="{% url 'missionpgc' %}">Mission, Vision, Goals</a></li>
+                <li><a href="{% url 'missionpgc' %}">Mission, Vision, Goals PGC</a></li>
             </ul>
         </div>
 
         <div class="dropdown">
-            <a href="#" aria-haspopup="true">ADMISSIONS <i class="fa fa-caret-down"></i></a>
+            <a href="#">
+                ADMISSIONS <i class="fa fa-caret-down"></i>
+            </a>
             <ul class="sub-menu">
                 <li><a href="{% url 'undergraduatepgc' %}">Undergraduate Programmes</a></li>
-                <li><a href="{% url 'feepgc' %}">Scholarships &amp; Fee Concessions</a></li>
+                <li><a href="{% url 'feepgc' %}">Scholarship &amp; Fee Concession</a></li>
                 <li><a href="{% url 'applypgc' %}">Apply</a></li>
             </ul>
         </div>
@@ -134,7 +636,9 @@ header{min-height:78px;padding:10px 15px}
         <a href="{% url 'activitypgc' %}">Activities</a>
 
         <div class="dropdown">
-            <a href="#" aria-haspopup="true">LEARNING AT PUNJAB <i class="fa fa-caret-down"></i></a>
+            <a href="#">
+                LEARNING AT PUNJAB <i class="fa fa-caret-down"></i>
+            </a>
             <ul class="sub-menu">
                 <li><a href="{% url 'blogpgc' %}">Blogs PGC</a></li>
                 <li><a href="{% url 'careerpgc' %}">Careers</a></li>
@@ -146,235 +650,216 @@ header{min-height:78px;padding:10px 15px}
     </nav>
 </header>
 
-<main>
-    <section class="hero">
-        <h1>Recruitment Application Form</h1>
-        <p>Punjab College Chishtian — Teaching Staff</p>
-    </section>
+<section class="rit-hero">
+    <div class="orange-strip">
+        <h1>Recruitment Form</h1>
+    </div>
+</section>
 
-    <section class="form-section">
-        <p class="form-intro">Please provide accurate information in the required fields. Fields marked with an asterisk (*) are mandatory.</p>
+<div class="form-section">
 
-        <form id="applicationForm" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-
-            <h2 class="section-title">Personal Information</h2>
-
-            <div class="form-grid">
-                <div class="form-group">
-                    <label for="full_name">Full Name <span class="required">*</span></label>
-                    <input id="full_name" name="full_name" type="text" autocomplete="name" placeholder="Enter your full name" required>
+    {% if messages %}
+        <div class="messages" role="status" aria-live="polite">
+            {% for message in messages %}
+                <div class="message {% if message.tags == 'success' %}success{% else %}error{% endif %}">
+                    {{ message }}
                 </div>
+            {% endfor %}
+        </div>
+    {% endif %}
 
-                <div class="form-group">
-                    <label for="father_name">Father's Name <span class="required">*</span></label>
-                    <input id="father_name" name="father_name" type="text" placeholder="Enter father's name" required>
-                </div>
+    <form
+        id="applicationForm"
+        method="POST"
+        action="{% url 'formteachpgc' %}"
+        enctype="multipart/form-data"
+    >
+        {% csrf_token %}
 
-                <div class="form-group">
-                    <label for="date_of_birth">Date of Birth <span class="required">*</span></label>
-                    <input id="date_of_birth" name="date_of_birth" type="date" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="nationality">Nationality <span class="required">*</span></label>
-                    <input id="nationality" name="nationality" type="text" value="Pakistani" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="cnic">CNIC / B-Form Number <span class="required">*</span></label>
-                    <input id="cnic" name="cnic" type="text" inputmode="numeric" placeholder="XXXXX-XXXXXXX-X" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="domicile">Domicile <span class="required">*</span></label>
-                    <input id="domicile" name="domicile" type="text" placeholder="e.g. Bahawalpur" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="present_address">Present Address</label>
-                    <textarea id="present_address" name="present_address" rows="3" placeholder="Enter present address"></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="permanent_address">Permanent Address</label>
-                    <textarea id="permanent_address" name="permanent_address" rows="3" placeholder="Enter permanent address"></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="email">Email Address <span class="required">*</span></label>
-                    <input id="email" name="email" type="email" autocomplete="email" placeholder="example@email.com" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="phone">Phone Number <span class="required">*</span></label>
-                    <input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="03XX-XXXXXXX" required>
-                </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="name">NAME*</label>
+                <input id="name" type="text" name="name" placeholder="Name" maxlength="150" required>
             </div>
 
-            <h2 class="section-title">Position Information</h2>
+            <div class="form-group">
+                <label for="father_name">FATHER NAME*</label>
+                <input id="father_name" type="text" name="father_name" placeholder="Father Name" maxlength="150" required>
+            </div>
+        </div>
 
-            <div class="form-grid">
-                <div class="form-group">
-                    <label for="department">Department / Subject <span class="required">*</span></label>
-                    <select id="department" name="department" required>
-                        <option value="">Select subject</option>
-                        <option value="Computer Science">Computer Science</option>
-                        <option value="Mathematics">Mathematics</option>
-                        <option value="Physics">Physics</option>
-                        <option value="Chemistry">Chemistry</option>
-                        <option value="Biology">Biology</option>
-                        <option value="English">English</option>
-                        <option value="Urdu">Urdu</option>
-                        <option value="Pakistan Studies">Pakistan Studies</option>
-                        <option value="Islamic Studies">Islamic Studies</option>
-                        <option value="Other">Other</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="campus">Campus to Apply For <span class="required">*</span></label>
-                    <select id="campus" name="campus" required>
-                        <option value="">Select campus</option>
-                        <option value="Chishtian">Chishtian</option>
-                        <option value="Bahawalpur">Bahawalpur</option>
-                        <option value="Multan">Multan</option>
-                        <option value="Lahore">Lahore</option>
-                        <option value="Other">Other</option>
-                    </select>
-                </div>
-
-                <div class="form-group full">
-                    <label for="position">Position Applied For <span class="required">*</span></label>
-                    <select id="position" name="position" required>
-                        <option value="">Select position</option>
-                        <option value="Lecturer">Lecturer</option>
-                        <option value="Subject Teacher">Subject Teacher</option>
-                        <option value="Lab Instructor">Lab Instructor</option>
-                        <option value="Other Teaching Position">Other Teaching Position</option>
-                    </select>
-                </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="date_of_birth">DATE OF BIRTH*</label>
+                <input id="date_of_birth" type="date" name="date_of_birth" required>
             </div>
 
-            <h2 class="section-title">Last Qualification</h2>
+            <div class="form-group">
+                <label for="nationality">NATIONALITY*</label>
+                <input id="nationality" type="text" name="nationality" placeholder="Nationality" maxlength="80" required>
+            </div>
+        </div>
 
-            <div class="form-grid">
-                <div class="form-group">
-                    <label for="last_degree">Highest Completed Degree <span class="required">*</span></label>
-                    <select id="last_degree" name="last_degree" required>
-                        <option value="">Select degree</option>
-                        <option value="Intermediate">Intermediate</option>
-                        <option value="ADP">ADP</option>
-                        <option value="BS">BS</option>
-                        <option value="MS">MS</option>
-                        <option value="MPhil">MPhil</option>
-                        <option value="PhD">PhD</option>
-                        <option value="Other">Other</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="degree_title">Degree Title <span class="required">*</span></label>
-                    <input id="degree_title" name="degree_title" type="text" placeholder="e.g. BS Computer Science" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="passing_year">Passing Year <span class="required">*</span></label>
-                    <input id="passing_year" name="passing_year" type="number" min="1950" max="2100" placeholder="e.g. 2025" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="university">University / Board <span class="required">*</span></label>
-                    <input id="university" name="university" type="text" placeholder="University or board name" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="institution">College / Institution <span class="required">*</span></label>
-                    <input id="institution" name="institution" type="text" placeholder="Institution name" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="marks_cgpa">Marks / CGPA <span class="required">*</span></label>
-                    <input id="marks_cgpa" name="marks_cgpa" type="text" placeholder="e.g. 3.50/4.00 or 75%" required>
-                </div>
-
-                <div class="form-group full">
-                    <label for="specialization">Specialization <span class="required">*</span></label>
-                    <input id="specialization" name="specialization" type="text" placeholder="Your subject specialization" required>
-                </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="cnic">CNIC#*</label>
+                <input id="cnic" type="text" name="cnic" placeholder="13 digits, without dashes" inputmode="numeric" pattern="[0-9]{13}" maxlength="13" title="Enter exactly 13 digits without dashes" required>
             </div>
 
-            <h2 class="section-title">Professional Experience</h2>
+            <div class="form-group">
+                <label for="domicile">DOMICILE*</label>
+                <input id="domicile" type="text" name="domicile" placeholder="Domicile" maxlength="100" required>
+            </div>
+        </div>
 
-            <div class="form-grid">
-                <div class="form-group">
-                    <label for="experience">Teaching Experience</label>
-                    <select id="experience" name="experience">
-                        <option value="">Select experience</option>
-                        <option value="No experience">No experience</option>
-                        <option value="Less than 1 year">Less than 1 year</option>
-                        <option value="1-2 years">1–2 years</option>
-                        <option value="3-5 years">3–5 years</option>
-                        <option value="More than 5 years">More than 5 years</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="last_organization">Last Organization</label>
-                    <input id="last_organization" name="last_organization" type="text" placeholder="Previous school or college">
-                </div>
-
-                <div class="form-group">
-                    <label for="reference_one">Reference 1</label>
-                    <input id="reference_one" name="reference_one" type="text" placeholder="Name and contact details">
-                </div>
-
-                <div class="form-group">
-                    <label for="reference_two">Reference 2</label>
-                    <input id="reference_two" name="reference_two" type="text" placeholder="Name and contact details">
-                </div>
-
-                <div class="form-group full">
-                    <label for="additional_information">Additional Information</label>
-                    <textarea id="additional_information" name="additional_information" rows="4" placeholder="Add relevant skills or information (optional)"></textarea>
-                </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="present_address">PRESENT ADDRESS</label>
+                <input id="present_address" type="text" name="present_address" placeholder="Present Address">
             </div>
 
-            <h2 class="section-title">Required Documents</h2>
+            <div class="form-group">
+                <label for="permanent_address">PERMANENT ADDRESS</label>
+                <input id="permanent_address" type="text" name="permanent_address" placeholder="Permanent Address">
+            </div>
+        </div>
 
-            <div class="form-grid">
-                <div class="form-group">
-                    <label for="cv">CV / Resume <span class="required">*</span></label>
-                    <input id="cv" name="cv" type="file" accept=".pdf,.doc,.docx" required>
-                    <p class="hint">Accepted formats: PDF, DOC, DOCX.</p>
-                </div>
-
-                <div class="form-group">
-                    <label for="other_documents">Other Documents</label>
-                    <input id="other_documents" name="other_documents" type="file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
-                    <p class="hint">Optional: qualification certificates or supporting documents.</p>
-                </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="email">EMAIL*</label>
+                <input id="email" type="email" name="email" placeholder="Email" maxlength="254" required>
             </div>
 
-            <div class="notice">
-                <strong>Privacy reminder:</strong> Only submit your application through a trusted official college channel. Do not upload original identity documents unless the college specifically requires them.
+            <div class="form-group">
+                <label for="phone">PHONE*</label>
+                <input id="phone" type="tel" name="phone" placeholder="Phone number" maxlength="20" required>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="department">DEPARTMENT / SUBJECT*</label>
+                <select id="department" name="department" required>
+                    <option value="">Select Subject</option>
+                    <option value="Mathematics">Mathematics</option>
+                    <option value="Physics">Physics</option>
+                    <option value="Chemistry">Chemistry</option>
+                    <option value="Computer Science">Computer Science</option>
+                    <option value="English">English</option>
+                </select>
             </div>
 
-            <div class="form-actions">
-                <button type="reset" class="reset-btn">Clear Form</button>
-                <button type="submit" class="submit-btn">Submit Application <i class="fas fa-paper-plane"></i></button>
+            <div class="form-group">
+                <label for="campus">CAMPUS TO BE APPLIED FOR</label>
+                <select id="campus" name="campus">
+                    <option value="">Select Campus</option>
+                    <option value="Lahore">Lahore</option>
+                    <option value="Multan">Multan</option>
+                    <option value="Bahawalpur">Bahawalpur</option>
+                </select>
             </div>
-        </form>
-    </section>
-</main>
+        </div>
+
+        <hr>
+
+        <div class="section-title">LAST QUALIFICATION</div>
+
+        <div class="qualification-grid">
+            <div class="form-group">
+                <label for="last_degree">LAST DEGREE*</label>
+                <select id="last_degree" name="last_degree" required>
+                    <option value="">Select</option>
+                    <option value="BS">BS</option>
+                    <option value="MS">MS</option>
+                    <option value="MPhil">MPhil</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="degree_title">DEGREE TITLE*</label>
+                <input id="degree_title" type="text" name="degree_title" placeholder="Degree Title" maxlength="150" required>
+            </div>
+
+            <div class="form-group">
+                <label for="passing_year">PASSING YEAR*</label>
+                <input id="passing_year" type="number" name="passing_year" placeholder="Passing Year" min="1950" max="2100" required>
+            </div>
+
+            <div class="form-group">
+                <label for="university">UNIVERSITY*</label>
+                <input id="university" type="text" name="university" placeholder="University" maxlength="150" required>
+            </div>
+
+            <div class="form-group">
+                <label for="institution">INSTITUTION*</label>
+                <input id="institution" type="text" name="institution" placeholder="Institution" maxlength="150" required>
+            </div>
+
+            <div class="form-group">
+                <label for="marks_cgpa">MARKS / CGPA*</label>
+                <input id="marks_cgpa" type="text" name="marks_cgpa" placeholder="Marks / CGPA" maxlength="30" required>
+            </div>
+
+            <div class="form-group">
+                <label for="specialization">SPECIALIZATION*</label>
+                <input id="specialization" type="text" name="specialization" placeholder="Specialization" maxlength="150" required>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="experience">EXPERIENCE</label>
+                <select id="experience" name="experience">
+                    <option value="">Select</option>
+                    <option value="0-1 Years">0-1 Years</option>
+                    <option value="2-5 Years">2-5 Years</option>
+                    <option value="5+ Years">5+ Years</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="last_organization">LAST ORGANIZATION</label>
+                <input id="last_organization" type="text" name="last_organization" placeholder="Last Organization" maxlength="150">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="reference_1">REFERENCE 1</label>
+                <input id="reference_1" type="text" name="reference_1" placeholder="Reference 1" maxlength="200">
+            </div>
+
+            <div class="form-group">
+                <label for="reference_2">REFERENCE 2</label>
+                <input id="reference_2" type="text" name="reference_2" placeholder="Reference 2" maxlength="200">
+            </div>
+        </div>
+
+        <div class="file-row">
+            <div class="form-group">
+                <label for="cv">CV* (PDF, DOC, DOCX — maximum 5 MB)</label>
+                <input id="cv" type="file" name="cv" accept=".pdf,.doc,.docx" required>
+            </div>
+
+            <div class="form-group">
+                <label for="other_documents">OTHER DOCUMENTS (optional, maximum 5 MB)</label>
+                <input id="other_documents" type="file" name="other_documents" accept=".pdf,.doc,.docx">
+            </div>
+        </div>
+
+        <button type="submit" class="send-btn">Submit Application</button>
+    </form>
+</div>
 
 <footer class="footer">
     <div class="footer-container">
         <div class="footer-left">
             <h2>PUNJAB COLLEGES</h2>
-            <p><strong>WhatsApp:</strong> 0312 2026500</p>
-            <p><strong>Email:</strong> pcchishitan@pgc.edu</p>
-            <p><strong>Complaint Portal:</strong> complaint.pgc.edu</p>
+
+            <p><strong>WhatsApp</strong> 0312 2026500</p>
+            <p><strong>EMAIL</strong> pcchishitan@pgc.edu</p>
+            <p><strong>COMPLAINT PORTAL</strong> complaint.pgc.edu</p>
+
             <div class="social-icons">
                 <a href="https://www.facebook.com/PGCWorld/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
                 <a href="https://twitter.com/pgcworld" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
@@ -382,67 +867,88 @@ header{min-height:78px;padding:10px 15px}
                 <a href="https://www.youtube.com/user/pgcworld" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
                 <a href="https://www.linkedin.com/company/pgcworld/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
             </div>
+
             <p class="copyright">2020 Punjab Colleges. All Rights Reserved.</p>
         </div>
+
         <div class="footer-right">
             <a href="{% url 'applypgc' %}" class="apply-btn">APPLY NOW</a>
         </div>
     </div>
 </footer>
 
-<a href="#top" id="back-to-top" aria-label="Back to top"><i class="fas fa-chevron-up"></i></a>
+<a href="#top" id="back-to-top">
+    Back to Top <i class="fas fa-chevron-up"></i>
+</a>
 
 <script>
-const menuToggle = document.getElementById("menu-toggle");
-const navbar = document.getElementById("navbar");
+    const menuToggle = document.getElementById("menu-toggle");
+    const navbar = document.getElementById("navbar");
 
-menuToggle.addEventListener("click", function () {
-    const isOpen = navbar.classList.toggle("show");
-    menuToggle.setAttribute("aria-expanded", String(isOpen));
-    menuToggle.setAttribute("aria-label", isOpen ? "Close navigation" : "Open navigation");
-    const icon = menuToggle.querySelector("i");
-    icon.classList.toggle("fa-bars", !isOpen);
-    icon.classList.toggle("fa-xmark", isOpen);
-});
+    menuToggle.addEventListener("click", function () {
+        navbar.classList.toggle("active");
 
-document.querySelectorAll(".dropdown > a").forEach(function (link) {
-    link.addEventListener("click", function (event) {
-        if (window.innerWidth <= 767) {
-            event.preventDefault();
-            const parent = this.parentElement;
-            document.querySelectorAll(".dropdown").forEach(function (item) {
-                if (item !== parent) item.classList.remove("open");
-            });
-            parent.classList.toggle("open");
+        const icon = menuToggle.querySelector("i");
+        if (navbar.classList.contains("active")) {
+            icon.classList.remove("fa-bars");
+            icon.classList.add("fa-xmark");
+        } else {
+            icon.classList.remove("fa-xmark");
+            icon.classList.add("fa-bars");
         }
     });
-});
 
-document.querySelectorAll(".navbar > a").forEach(function (link) {
-    link.addEventListener("click", function () {
-        if (window.innerWidth <= 767) {
-            navbar.classList.remove("show");
-            menuToggle.setAttribute("aria-expanded", "false");
-            menuToggle.querySelector("i").classList.replace("fa-xmark", "fa-bars");
-        }
-    });
-});
+    document.querySelectorAll(".dropdown > a").forEach(function (dropdownLink) {
+        dropdownLink.addEventListener("click", function (event) {
+            if (window.innerWidth <= 767) {
+                event.preventDefault();
+                const parent = this.parentElement;
 
-window.addEventListener("resize", function () {
-    if (window.innerWidth > 767) {
-        navbar.classList.remove("show");
-        document.querySelectorAll(".dropdown").forEach(function (item) {
-            item.classList.remove("open");
+                document.querySelectorAll(".dropdown").forEach(function (dropdown) {
+                    if (dropdown !== parent) dropdown.classList.remove("open");
+                });
+
+                parent.classList.toggle("open");
+            }
         });
-        menuToggle.setAttribute("aria-expanded", "false");
-        menuToggle.querySelector("i").classList.replace("fa-xmark", "fa-bars");
-    }
-});
+    });
 
-const backToTop = document.getElementById("back-to-top");
-window.addEventListener("scroll", function () {
-    backToTop.style.display = window.scrollY > 200 ? "flex" : "none";
-});
+    document.querySelectorAll(".navbar > a").forEach(function (link) {
+        link.addEventListener("click", function () {
+            if (window.innerWidth <= 767) {
+                navbar.classList.remove("active");
+
+                const icon = menuToggle.querySelector("i");
+                icon.classList.remove("fa-xmark");
+                icon.classList.add("fa-bars");
+            }
+        });
+    });
+
+    window.addEventListener("resize", function () {
+        if (window.innerWidth > 767) {
+            navbar.classList.remove("active");
+
+            document.querySelectorAll(".dropdown").forEach(function (dropdown) {
+                dropdown.classList.remove("open");
+            });
+
+            const icon = menuToggle.querySelector("i");
+            icon.classList.remove("fa-xmark");
+            icon.classList.add("fa-bars");
+        }
+    });
+
+    window.addEventListener("scroll", function () {
+        const button = document.getElementById("back-to-top");
+
+        button.style.display =
+            (document.body.scrollTop > 200 ||
+             document.documentElement.scrollTop > 200)
+                ? "block"
+                : "none";
+    });
 </script>
+
 </body>
 </html>
