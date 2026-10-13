@@ -1,3 +1,4 @@
+
 from pathlib import Path
 import os
 import dj_database_url
@@ -19,24 +20,28 @@ SECRET_KEY = os.environ.get(
     "django-insecure-local-development-key-change-in-production"
 )
 
-DEBUG = os.environ.get("RENDER") is None
+# Local development: DEBUG=True by default
+# Render: DEBUG=False by default
+default_debug = "False" if os.environ.get("RENDER") else "True"
+DEBUG = os.environ.get("DEBUG", default_debug).lower() == "true"
 
 
-# Allowed hosts
+# =========================================================
+# ALLOWED HOSTS
+# =========================================================
+
 ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
 ]
 
+# Render hostname
+render_hostname = os.environ.get("RENDER_EXTERNAL_HOSTNAME", "").strip()
 
-# Render host
-if os.environ.get("RENDER_EXTERNAL_HOSTNAME"):
-    ALLOWED_HOSTS.append(
-        os.environ["RENDER_EXTERNAL_HOSTNAME"]
-    )
+if render_hostname:
+    ALLOWED_HOSTS.append(render_hostname)
 
-
-# Optional additional hosts from environment variable
+# Additional hosts, including a PythonAnywhere domain if needed
 extra_hosts = os.environ.get("ALLOWED_HOSTS", "")
 
 if extra_hosts:
@@ -46,13 +51,15 @@ if extra_hosts:
         if host.strip()
     )
 
+# Remove duplicates
+ALLOWED_HOSTS = list(dict.fromkeys(ALLOWED_HOSTS))
+
 
 # =========================================================
 # APPLICATIONS
 # =========================================================
 
 INSTALLED_APPS = [
-
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -69,10 +76,7 @@ INSTALLED_APPS = [
 # =========================================================
 
 MIDDLEWARE = [
-
     "django.middleware.security.SecurityMiddleware",
-
-    # WhiteNoise serves static files in production
     "whitenoise.middleware.WhiteNoiseMiddleware",
 
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -96,7 +100,6 @@ ROOT_URLCONF = "config.urls"
 # =========================================================
 
 TEMPLATES = [
-
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
 
@@ -108,11 +111,8 @@ TEMPLATES = [
 
         "OPTIONS": {
             "context_processors": [
-
                 "django.template.context_processors.request",
-
                 "django.contrib.auth.context_processors.auth",
-
                 "django.contrib.messages.context_processors.messages",
             ],
         },
@@ -131,17 +131,9 @@ WSGI_APPLICATION = "config.wsgi.application"
 # DATABASE
 # =========================================================
 
-# Local computer:
-# SQLite database is used.
-
-# Render:
-# DATABASE_URL is used automatically when available.
-
-DATABASE_URL = os.environ.get("DATABASE_URL")
-
+DATABASE_URL = os.environ.get("DATABASE_URL", "").strip()
 
 if DATABASE_URL:
-
     DATABASES = {
         "default": dj_database_url.parse(
             DATABASE_URL,
@@ -149,9 +141,7 @@ if DATABASE_URL:
             conn_health_checks=True,
         )
     }
-
 else:
-
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
@@ -165,28 +155,24 @@ else:
 # =========================================================
 
 AUTH_PASSWORD_VALIDATORS = [
-
     {
         "NAME": (
             "django.contrib.auth.password_validation."
             "UserAttributeSimilarityValidator"
         ),
     },
-
     {
         "NAME": (
             "django.contrib.auth.password_validation."
             "MinimumLengthValidator"
         ),
     },
-
     {
         "NAME": (
             "django.contrib.auth.password_validation."
             "CommonPasswordValidator"
         ),
     },
-
     {
         "NAME": (
             "django.contrib.auth.password_validation."
@@ -221,9 +207,16 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-STATICFILES_STORAGE = (
-    "whitenoise.storage.CompressedManifestStaticFilesStorage"
-)
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": (
+            "whitenoise.storage.CompressedManifestStaticFilesStorage"
+        ),
+    },
+}
 
 
 # =========================================================
@@ -239,23 +232,23 @@ MEDIA_ROOT = BASE_DIR / "media"
 # EMAIL
 # =========================================================
 
-# =========================================================
-# EMAIL
-# =========================================================
+EMAIL_BACKEND = os.environ.get(
+    "EMAIL_BACKEND",
+    "django.core.mail.backends.smtp.EmailBackend",
+)
 
-import os
+EMAIL_HOST = os.environ.get("EMAIL_HOST", "")
+EMAIL_PORT = int(os.environ.get("EMAIL_PORT", "587"))
+EMAIL_USE_TLS = os.environ.get("EMAIL_USE_TLS", "True").lower() == "true"
+EMAIL_USE_SSL = os.environ.get("EMAIL_USE_SSL", "False").lower() == "true"
 
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "")
 
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-
-EMAIL_HOST_USER = os.environ.get("COLLEGE_EMAIL")
-EMAIL_HOST_PASSWORD = os.environ.get("COLLEGE_EMAIL_APP_PASSWORD")
-
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-
+DEFAULT_FROM_EMAIL = os.environ.get(
+    "DEFAULT_FROM_EMAIL",
+    EMAIL_HOST_USER,
+)
 
 
 # =========================================================
@@ -263,18 +256,13 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 # =========================================================
 
 if not DEBUG:
-
     SECURE_PROXY_SSL_HEADER = (
         "HTTP_X_FORWARDED_PROTO",
         "https",
     )
 
     SESSION_COOKIE_SECURE = True
-
     CSRF_COOKIE_SECURE = True
-
-    SECURE_BROWSER_XSS_FILTER = True
-
     SECURE_CONTENT_TYPE_NOSNIFF = True
 
 
