@@ -28,55 +28,41 @@
         <nav class="navbar" id="navbar">
             <a href="{% url 'index' %}">HOME</a>
 
-            <div class="dropdown">
-                <a href="#" class="dropdown-toggle">
-                    COLLEGES <span>▼</span>
-                </a>
+            
 
-                <ul class="sub-menu">
-                    <li>
-                        <a href="{% url 'college_detail' 'superior-college-chishtian' %}">
-                            Superior College Chishtian
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{% url 'college_detail' 'punjab-college-chishtian' %}">
-                            Punjab College Chishtian
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{% url 'college_detail' 'chishtian-science-college' %}">
-                            Chishtian Science College
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{% url 'college_detail' 'riphah-international-college' %}">
-                            Riphah International College
-                        </a>
-                    </li>
-                </ul>
-            </div>
+            
+<div class="dropdown">
+    <a href="#" class="dropdown-toggle">
+        COLLEGES <span>▼</span>
+    </a>
 
-            <div class="dropdown">
-                <a href="#" class="dropdown-toggle">
-                    CONTACT US <span>▼</span>
-                </a>
+    <ul class="sub-menu">
+        <li>
+            <a href="{% url 'superior' %}">
+                Superior College Chishtian
+            </a>
+        </li>
 
-                <ul class="sub-menu">
-                    <li>
-                        <a href="{% url 'contact' %}">Superior College</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'contactpgc' %}">PGC</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'contactcsc' %}">Chishtian Science</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'contactrip' %}">RIC</a>
-                    </li>
-                </ul>
-            </div>
+        <li>
+            <a href="{% url 'pgc' %}">
+                Punjab College Chishtian
+            </a>
+        </li>
+
+        <li>
+            <a href="{% url 'chishtian_science' %}">
+                Chishtian Science College
+            </a>
+        </li>
+
+        <li>
+            <a href="{% url 'ripah' %}">
+                Riphah International College
+            </a>
+        </li>
+    </ul>
+</div>
+
         </nav>
     </header>
 
@@ -112,25 +98,23 @@
             </p>
         </div>
 
-
         <div class="card-container">
-
 
             <!-- SUPERIOR COLLEGE -->
 
             <article class="college-card">
                 <div class="college-image">
-
-                    <a href="{% url 'college_detail' 'superior-college-chishtian' %}">
-                        <img src="{% static 'images/1sup.png' %}"
-                             alt="Superior College Chishtian">
-                    </a>
+<a href="{% url 'superior' %}">
+    <img src="{% static 'images/1sup.png' %}"
+         alt="Superior College Chishtian">
+</a>
 
                     <div class="image-top-label">
                         <span>
                             <i class="fa-solid fa-graduation-cap"></i>
                             ACADEMIC PRESTIGE
                         </span>
+
                         <span>
                             <i class="fa-solid fa-location-dot"></i>
                             CHISHTIAN
@@ -154,14 +138,17 @@
                             <strong>1,000+</strong>
                             <span>Students</span>
                         </div>
+
                         <div class="stat-box">
                             <strong>120</strong>
                             <span>Faculty</span>
                         </div>
+
                         <div class="stat-box">
                             <strong>50+</strong>
                             <span>Programs</span>
                         </div>
+
                         <div class="stat-box">
                             <strong>75–100%</strong>
                             <span>Scholarships</span>
@@ -186,6 +173,7 @@
                             <i class="fa-solid fa-file-signature"></i>
                             Apply
                         </span>
+
                         <i class="fa-solid fa-arrow-right"></i>
                     </a>
                 </div>
@@ -197,16 +185,17 @@
             <article class="college-card">
                 <div class="college-image">
 
-                    <a href="{% url 'college_detail' 'punjab-college-chishtian' %}">
-                        <img src="{% static 'images/pgc1.png' %}"
-                             alt="Punjab College Chishtian">
-                    </a>
+                    <a href="{% url 'pgc' %}">
+    <img src="{% static 'images/pgc1.png' %}"
+         alt="Punjab College Chishtian">
+</a>
 
                     <div class="image-top-label">
                         <span>
                             <i class="fa-solid fa-award"></i>
                             EDUCATIONAL NETWORK
                         </span>
+
                         <span>
                             <i class="fa-solid fa-location-dot"></i>
                             CHISHTIAN
@@ -230,14 +219,17 @@
                             <strong>900+</strong>
                             <span>Students</span>
                         </div>
+
                         <div class="stat-box">
                             <strong>20+</strong>
                             <span>Programs</span>
                         </div>
+
                         <div class="stat-box">
                             <strong>30+</strong>
                             <span>Teachers</span>
                         </div>
+
                         <div class="stat-box">
                             <strong>10+</strong>
                             <span>Years</span>
@@ -262,6 +254,7 @@
                             <i class="fa-solid fa-magnifying-glass"></i>
                             Check for Admission
                         </span>
+
                         <i class="fa-solid fa-arrow-right"></i>
                     </a>
                 </div>
@@ -273,16 +266,17 @@
             <article class="college-card">
                 <div class="college-image">
 
-                    <a href="{% url 'college_detail' 'chishtian-science-college' %}">
-                        <img src="{% static 'images/ctn sci.png' %}"
-                             alt="Chishtian Science College">
-                    </a>
+                    <a href="{% url 'chishtian_science' %}">
+    <img src="{% static 'images/ctn sci.png' %}"
+         alt="Chishtian Science College">
+</a>
 
                     <div class="image-top-label">
                         <span>
                             <i class="fa-solid fa-flask"></i>
                             SCIENCE &amp; TECHNOLOGY
                         </span>
+
                         <span>
                             <i class="fa-solid fa-location-dot"></i>
                             CHISHTIAN
@@ -306,14 +300,17 @@
                             <strong>600+</strong>
                             <span>Students</span>
                         </div>
+
                         <div class="stat-box">
                             <strong>18</strong>
                             <span>Programs</span>
                         </div>
+
                         <div class="stat-box">
                             <strong>98%</strong>
                             <span>Success Rate</span>
                         </div>
+
                         <div class="stat-box">
                             <strong>Top 5%</strong>
                             <span>Results</span>
@@ -338,6 +335,7 @@
                             <i class="fa-solid fa-file-signature"></i>
                             Apply for Admission
                         </span>
+
                         <i class="fa-solid fa-arrow-right"></i>
                     </a>
                 </div>
@@ -349,16 +347,17 @@
             <article class="college-card">
                 <div class="college-image">
 
-                    <a href="{% url 'college_detail' 'riphah-international-college' %}">
-                        <img src="{% static 'images/ripah1.png' %}"
-                             alt="Riphah International College">
-                    </a>
+                    <a href="{% url 'ripah' %}">
+    <img src="{% static 'images/ripah1.png' %}"
+         alt="Riphah International College">
+</a>
 
                     <div class="image-top-label">
                         <span>
                             <i class="fa-solid fa-building-columns"></i>
                             RECOGNIZED COLLEGE
                         </span>
+
                         <span>
                             <i class="fa-solid fa-location-dot"></i>
                             CHISHTIAN
@@ -382,14 +381,17 @@
                             <strong>750+</strong>
                             <span>Students</span>
                         </div>
+
                         <div class="stat-box">
                             <strong>HEC</strong>
                             <span>Recognized</span>
                         </div>
+
                         <div class="stat-box">
                             <strong>14</strong>
                             <span>Programs</span>
                         </div>
+
                         <div class="stat-box">
                             <strong>Hospital</strong>
                             <span>Affiliation</span>
@@ -414,6 +416,7 @@
                             <i class="fa-solid fa-file-signature"></i>
                             Apply for Admission
                         </span>
+
                         <i class="fa-solid fa-arrow-right"></i>
                     </a>
                 </div>
