@@ -24,18 +24,19 @@
         }
 
         .container {
-            width: 380px;
+            width: 420px;
             max-width: 100%;
             background: white;
             padding: 28px 25px;
-            border-radius: 8px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 4px 22px rgba(0, 0, 0, 0.09);
         }
 
         h2 {
             text-align: center;
             margin: 0 0 10px;
             color: #2e2c6a;
+            font-size: 27px;
         }
 
         .subtitle {
@@ -47,29 +48,54 @@
         }
 
         .field {
-            margin-bottom: 14px;
+            margin-bottom: 16px;
         }
 
         .field label {
             display: block;
-            margin-bottom: 6px;
-            font-size: 13px;
-            font-weight: bold;
+            margin-bottom: 7px;
+            font-size: 14px;
+            font-weight: 600;
             color: #333;
         }
 
         input {
             width: 100%;
-            padding: 12px;
+            padding: 13px;
             border: 1px solid #ccc;
-            border-radius: 5px;
+            border-radius: 6px;
             font-size: 14px;
+            font-family: inherit;
             outline: none;
+            background: #fff;
+            transition: border-color 0.2s, box-shadow 0.2s;
         }
 
         input:focus {
             border-color: #2e2c6a;
-            box-shadow: 0 0 0 2px rgba(46, 44, 106, 0.08);
+            box-shadow: 0 0 0 3px rgba(46, 44, 106, 0.08);
+        }
+
+        input.input-error {
+            border-color: #c62828;
+            background-color: #fffafa;
+        }
+
+        input.input-error:focus {
+            border-color: #c62828;
+            box-shadow: 0 0 0 3px rgba(198, 40, 40, 0.09);
+        }
+
+        .field-error {
+            display: block;
+            color: #c62828;
+            font-size: 12px;
+            line-height: 1.5;
+            margin-top: 6px;
+        }
+
+        .field-error:empty {
+            display: none;
         }
 
         .password-wrap {
@@ -101,6 +127,7 @@
         .toggle-password:hover {
             background: #f0f0f5;
             color: #2e2c6a;
+            border-radius: 5px;
         }
 
         .toggle-password svg {
@@ -110,13 +137,14 @@
 
         .submit-btn {
             width: 100%;
-            padding: 12px;
+            padding: 13px;
             margin-top: 5px;
             background: #E13B23;
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 6px;
             font-size: 16px;
+            font-weight: 600;
             cursor: pointer;
             transition: background 0.2s;
         }
@@ -143,19 +171,31 @@
             text-decoration: underline;
         }
 
-        .message {
-            padding: 10px;
-            margin-bottom: 15px;
-            border-radius: 5px;
-            background: #fff0ed;
-            color: #b52a19;
-            font-size: 14px;
+        .form-alert {
+            padding: 11px 13px;
+            margin-bottom: 18px;
+            border-radius: 6px;
+            font-size: 13px;
             line-height: 1.5;
+            overflow-wrap: anywhere;
         }
 
-        .message.success {
-            background: #eaf7ed;
+        .form-alert.error {
+            background: #fff1f0;
+            color: #b42318;
+            border: 1px solid #f3c7c4;
+        }
+
+        .form-alert.success {
+            background: #edfaf0;
             color: #216e39;
+            border: 1px solid #c5e8ce;
+        }
+
+        .form-alert.info {
+            background: #eef4ff;
+            color: #254b87;
+            border: 1px solid #cbdaf7;
         }
 
         .hidden {
@@ -165,63 +205,114 @@
         @media (max-width: 480px) {
             body {
                 padding: 15px;
+                align-items: flex-start;
             }
 
             .container {
                 width: 100%;
                 padding: 24px 18px;
+                margin-top: 10px;
+            }
+
+            h2 {
+                font-size: 24px;
             }
         }
     </style>
 </head>
 
 <body>
- {% if messages %}
+
+<!-- SIGNUP FORM -->
+<div class="container {% if show_login %}hidden{% endif %}" id="signup">
+
+    <h2>Create Account</h2>
+    <p class="subtitle">Create your account to apply to colleges.</p>
+
+    <div id="signup-alert" class="form-alert hidden" role="alert"></div>
+
+    {% if messages and not show_login %}
         {% for message in messages %}
-            <div class="message{% if 'success' in message.tags %} success{% endif %}">
+            <div class="form-alert
+                {% if 'success' in message.tags %}success
+                {% elif 'error' in message.tags %}error
+                {% else %}info{% endif %}"
+                role="alert">
                 {{ message }}
             </div>
         {% endfor %}
     {% endif %}
-<div class="container {% if show_login %}hidden{% endif %}" id="signup">
-    <h2>Create Account</h2>
-    <p class="subtitle">Create your account to apply to colleges.</p>
 
-   
+    <form method="POST" action="{% url 'login' %}" id="signup-form">
+        {% csrf_token %}
+        <input type="hidden" name="form_type" value="signup">
 
-    <form method="POST" action="{% url 'login' %}">
-    {% csrf_token %}
-    <input type="hidden" name="form_type" value="signup">
         <div class="field">
             <label for="signup-name">Full Name</label>
-            <input id="signup-name" type="text" name="full_name"
-                   placeholder="Enter your full name" autocomplete="name" required>
+            <input
+                id="signup-name"
+                type="text"
+                name="full_name"
+                placeholder="Enter your full name"
+                autocomplete="name"
+                required
+                {% if field_errors.full_name %}class="input-error" aria-invalid="true"{% endif %}
+            >
+            <span class="field-error" id="signup-name-error">{{ field_errors.full_name|default:"" }}</span>
         </div>
 
         <div class="field">
             <label for="signup-email">Email Address</label>
-            <input id="signup-email" type="email" name="email"
-                   placeholder="Enter your email" autocomplete="email" required>
+            <input
+                id="signup-email"
+                type="email"
+                name="email"
+                placeholder="Enter your email"
+                autocomplete="email"
+                value="{{ form_data.email|default:'' }}"
+                required
+                {% if field_errors.email %}class="input-error" aria-invalid="true"{% endif %}
+            >
+            <span class="field-error" id="signup-email-error">{{ field_errors.email|default:"" }}</span>
         </div>
 
         <div class="field">
             <label for="signup-mobile">Mobile Number</label>
-            <input id="signup-mobile" type="tel" name="mobile"
-                   placeholder="11-digit mobile number"
-                   minlength="11" maxlength="11" pattern="[0-9]{11}"
-                   inputmode="numeric" autocomplete="tel" required>
+            <input
+                id="signup-mobile"
+                type="tel"
+                name="mobile"
+                placeholder="11-digit mobile number"
+                minlength="11"
+                maxlength="11"
+                pattern="[0-9]{11}"
+                inputmode="numeric"
+                autocomplete="tel"
+                value="{{ form_data.mobile|default:'' }}"
+                required
+                {% if field_errors.mobile %}class="input-error" aria-invalid="true"{% endif %}
+            >
+            <span class="field-error" id="signup-mobile-error">{{ field_errors.mobile|default:"" }}</span>
         </div>
 
         <div class="field">
             <label for="signup-password">Password</label>
             <div class="password-wrap">
-                <input id="signup-password" type="password" name="password"
-                       placeholder="Create a password"
-                       autocomplete="new-password" required>
-                <button class="toggle-password" type="button"
-                        aria-label="Show password"
-                        aria-pressed="false"
-                        onclick="togglePassword('signup-password', this)">
+                <input
+                    id="signup-password"
+                    type="password"
+                    name="password"
+                    placeholder="Create a password"
+                    autocomplete="new-password"
+                    required
+                    {% if field_errors.password %}class="input-error" aria-invalid="true"{% endif %}
+                >
+                <button
+                    class="toggle-password"
+                    type="button"
+                    aria-label="Show password"
+                    aria-pressed="false"
+                    onclick="togglePassword('signup-password', this)">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
                          stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                          aria-hidden="true">
@@ -230,18 +321,27 @@
                     </svg>
                 </button>
             </div>
+            <span class="field-error" id="signup-password-error">{{ field_errors.password|default:"" }}</span>
         </div>
 
         <div class="field">
             <label for="signup-confirm">Confirm Password</label>
             <div class="password-wrap">
-                <input id="signup-confirm" type="password" name="confirm_password"
-                       placeholder="Enter password again"
-                       autocomplete="new-password" required>
-                <button class="toggle-password" type="button"
-                        aria-label="Show password"
-                        aria-pressed="false"
-                        onclick="togglePassword('signup-confirm', this)">
+                <input
+                    id="signup-confirm"
+                    type="password"
+                    name="confirm_password"
+                    placeholder="Enter password again"
+                    autocomplete="new-password"
+                    required
+                    {% if field_errors.confirm_password %}class="input-error" aria-invalid="true"{% endif %}
+                >
+                <button
+                    class="toggle-password"
+                    type="button"
+                    aria-label="Show password"
+                    aria-pressed="false"
+                    onclick="togglePassword('signup-confirm', this)">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
                          stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                          aria-hidden="true">
@@ -250,6 +350,7 @@
                     </svg>
                 </button>
             </div>
+            <span class="field-error" id="signup-confirm-error">{{ field_errors.confirm_password|default:"" }}</span>
         </div>
 
         <button class="submit-btn" type="submit">Create Account</button>
@@ -262,30 +363,63 @@
 </div>
 
 
+<!-- LOGIN FORM -->
 <div class="container {% if not show_login %}hidden{% endif %}" id="login">
+
     <h2>Welcome Back</h2>
     <p class="subtitle">Login to continue your college application.</p>
 
-   <form method="POST" action="{% url 'login' %}">
-    {% csrf_token %}
-    <input type="hidden" name="form_type" value="login">
+    <div id="login-alert" class="form-alert hidden" role="alert"></div>
+
+    {% if messages and show_login %}
+        {% for message in messages %}
+            <div class="form-alert
+                {% if 'success' in message.tags %}success
+                {% elif 'error' in message.tags %}error
+                {% else %}info{% endif %}"
+                role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="POST" action="{% url 'login' %}" id="login-form">
+        {% csrf_token %}
+        <input type="hidden" name="form_type" value="login">
 
         <div class="field">
             <label for="login-email">Email Address</label>
-            <input id="login-email" type="email" name="email"
-                   placeholder="Enter your email" autocomplete="email" required>
+            <input
+                id="login-email"
+                type="email"
+                name="email"
+                placeholder="Enter your email"
+                autocomplete="email"
+                value="{{ form_data.email|default:'' }}"
+                required
+                {% if field_errors.email %}class="input-error" aria-invalid="true"{% endif %}
+            >
+            <span class="field-error" id="login-email-error">{{ field_errors.email|default:"" }}</span>
         </div>
 
         <div class="field">
             <label for="login-password">Password</label>
             <div class="password-wrap">
-                <input id="login-password" type="password" name="password"
-                       placeholder="Enter your password"
-                       autocomplete="current-password" required>
-                <button class="toggle-password" type="button"
-                        aria-label="Show password"
-                        aria-pressed="false"
-                        onclick="togglePassword('login-password', this)">
+                <input
+                    id="login-password"
+                    type="password"
+                    name="password"
+                    placeholder="Enter your password"
+                    autocomplete="current-password"
+                    required
+                    {% if field_errors.password %}class="input-error" aria-invalid="true"{% endif %}
+                >
+                <button
+                    class="toggle-password"
+                    type="button"
+                    aria-label="Show password"
+                    aria-pressed="false"
+                    onclick="togglePassword('login-password', this)">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
                          stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                          aria-hidden="true">
@@ -294,10 +428,15 @@
                     </svg>
                 </button>
             </div>
+            <span class="field-error" id="login-password-error">{{ field_errors.password|default:"" }}</span>
         </div>
 
         <button class="submit-btn" type="submit">Sign In</button>
     </form>
+
+    <div class="link">
+        <a href="{% url 'forgot-password' %}">Forgot Password?</a>
+    </div>
 
     <div class="link">
         Don't have an account?
