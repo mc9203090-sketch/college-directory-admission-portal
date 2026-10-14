@@ -1070,3 +1070,116 @@ footer p {
         font-size: 9px;
     }
 }
+
+/* =====================================================
+   MOBILE HAMBURGER MENU
+===================================================== */
+
+/* Desktop par hamburger hidden rahega */
+.menu-toggle {
+    display: none;
+}
+
+@media (max-width: 768px) {
+
+    header {
+        position: sticky;
+        top: 0;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        text-align: left;
+        padding: 13px 18px;
+    }
+
+    .logo {
+        font-size: 16px;
+        white-space: normal;
+        text-align: left;
+        max-width: calc(100% - 55px);
+    }
+
+    /* Hamburger icon */
+    .menu-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        flex-shrink: 0;
+        border: 1px solid rgba(255,255,255,0.35);
+        border-radius: 6px;
+        background: transparent;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+    .menu-toggle:hover {
+        color: #f5a623;
+    }
+
+    /* Menu closed by default */
+    .navbar {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        margin-top: 12px;
+        padding-top: 8px;
+        border-top: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .navbar.menu-open {
+        display: flex;
+    }
+
+    .navbar > a,
+    .navbar .dropdown {
+        display: block;
+        width: 100%;
+        text-align: left;
+    }
+
+    .navbar > a,
+    .navbar .dropdown > a {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 13px 8px;
+        font-size: 14px;
+    }
+
+    .navbar .dropdown > a {
+        cursor: pointer;
+    }
+
+    /* Dropdowns */
+    .navbar .dropdown:hover .sub-menu {
+        display: none;
+    }
+
+    .navbar .dropdown.active .sub-menu {
+        display: block;
+    }
+
+    .navbar .sub-menu {
+        position: static;
+        width: 100%;
+        min-width: 0;
+        padding: 4px 0;
+        margin-bottom: 5px;
+        border-radius: 5px;
+        background: #01283f;
+        box-shadow: none;
+    }
+
+    .navbar .sub-menu li a {
+        display: block;
+        text-align: left;
+        padding: 11px 18px;
+        font-size: 13px;
+    }
+}
