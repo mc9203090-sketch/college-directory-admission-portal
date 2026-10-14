@@ -384,6 +384,11 @@ path(
     views.reset_password,
     name="reset-password",
 ),
+path(
+    "reset-password/resend/",
+    views.resend_reset_otp,
+    name="resend-reset-otp",
+),
 
     path(
         "accounts/login/",

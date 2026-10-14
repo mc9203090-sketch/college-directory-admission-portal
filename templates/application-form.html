@@ -276,25 +276,7 @@
             <span class="field-error" id="signup-email-error">{{ field_errors.email|default:"" }}</span>
         </div>
 
-        <div class="field">
-            <label for="signup-mobile">Mobile Number</label>
-            <input
-                id="signup-mobile"
-                type="tel"
-                name="mobile"
-                placeholder="11-digit mobile number"
-                minlength="11"
-                maxlength="11"
-                pattern="[0-9]{11}"
-                inputmode="numeric"
-                autocomplete="tel"
-                value="{{ form_data.mobile|default:'' }}"
-                required
-                {% if field_errors.mobile %}class="input-error" aria-invalid="true"{% endif %}
-            >
-            <span class="field-error" id="signup-mobile-error">{{ field_errors.mobile|default:"" }}</span>
-        </div>
-
+        
         <div class="field">
             <label for="signup-password">Password</label>
             <div class="password-wrap">

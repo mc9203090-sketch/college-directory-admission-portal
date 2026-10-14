@@ -13,12 +13,13 @@ from django.contrib.auth.password_validation import validate_password
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from django.core.mail import send_mail
+
 from django.contrib.auth.hashers import make_password, check_password
 from django.utils import timezone
 from django.utils.dateparse import parse_date
 from django.shortcuts import render, redirect
 from .models import TeachingApplication
-
+from .models import StudentProfile
 from .models import (
     College,
     AdmissionApplication,
@@ -274,18 +275,27 @@ def admission_application_multiple(request):
 # SIGN UP / LOGIN
 # =========================================================
 
-
 def application_form(request):
+    # Already logged-in users do not need to sign up or log in again.
     if request.user.is_authenticated:
-        return redirect("dashboard")
+        return redirect("choose-college")
 
     show_login = request.GET.get("mode") == "login"
 
+    form_data = {}
+    field_errors = {}
+
     if request.method == "POST":
         form_type = request.POST.get("form_type", "signup")
+
         email = request.POST.get("email", "").strip().lower()
         password = request.POST.get("password", "")
 
+        form_data["email"] = email
+
+        # ==========================================
+        # LOGIN
+        # ==========================================
         if form_type == "login":
             show_login = True
 
@@ -294,6 +304,7 @@ def application_form(request):
                     request,
                     "Please enter your email and password.",
                 )
+
             else:
                 users = User.objects.filter(email__iexact=email)
 
@@ -302,8 +313,10 @@ def application_form(request):
                         request,
                         "Invalid email or password.",
                     )
+
                 else:
                     user_record = users.first()
+
                     user = authenticate(
                         request,
                         username=user_record.username,
@@ -315,96 +328,109 @@ def application_form(request):
                             request,
                             "Invalid email or password.",
                         )
+
                     else:
                         login(request, user)
+
+                        messages.success(
+                            request,
+                            "You have logged in successfully.",
+                        )
+
                         return redirect("choose-college")
 
+        # ==========================================
+        # SIGN UP
+        # ==========================================
         elif form_type == "signup":
+            show_login = False
+
             full_name = request.POST.get(
                 "full_name", ""
             ).strip()
-            mobile = request.POST.get(
-                "mobile", ""
-            ).strip()
+
             confirm_password = request.POST.get(
                 "confirm_password", ""
             )
 
-            if not all([
-                full_name,
-                email,
-                mobile,
-                password,
-                confirm_password,
-            ]):
+            form_data["full_name"] = full_name
+
+            # Check required fields.
+            if not full_name or not email or not password or not confirm_password:
                 messages.error(
                     request,
                     "Please complete all required fields.",
                 )
 
-            elif not re.fullmatch(r"\d{11}", mobile):
-                messages.error(
-                    request,
-                    "Mobile number must contain exactly 11 digits.",
-                )
-
-            elif password != confirm_password:
-                messages.error(
-                    request,
-                    "Passwords do not match.",
-                )
-
+            # Validate email.
             else:
                 try:
                     validate_email(email)
-                    validate_password(password)
-                except ValidationError as error:
-                    for message in error.messages:
-                        messages.error(request, message)
-                else:
-                    existing_user = User.objects.filter(
-                        email__iexact=email
-                    ).first()
+                except ValidationError:
+                    messages.error(
+                        request,
+                        "Please enter a valid email address.",
+                    )
 
-                    if existing_user is not None:
+                else:
+                    # Confirm password.
+                    if password != confirm_password:
+                        messages.error(
+                            request,
+                            "Passwords do not match.",
+                        )
+
+                    # Check if this email already exists.
+                    elif User.objects.filter(
+                        email__iexact=email
+                    ).exists():
                         messages.error(
                             request,
                             "This email already has an account. Please log in.",
                         )
-                    else:
-                        try:
-                            with transaction.atomic():
-                                user = User.objects.create_user(
-                                    username=email,
-                                    email=email,
-                                    first_name=full_name,
-                                    password=password,
-                                    is_active=True,
-                                )
 
-                                profile, created = (
+                    else:
+                        # Validate password strength.
+                        try:
+                            validate_password(password)
+                        except ValidationError as error:
+                            for message in error.messages:
+                                messages.error(request, message)
+
+                        else:
+                            try:
+                                with transaction.atomic():
+                                    user = User.objects.create_user(
+                                        username=email,
+                                        email=email,
+                                        first_name=full_name,
+                                        password=password,
+                                        is_active=True,
+                                    )
+
+                                    # Create the student profile.
+                                    # Mobile number is not required.
                                     StudentProfile.objects.get_or_create(
                                         user=user
                                     )
-                                )
-                                profile.mobile = mobile
-                                profile.save(
-                                    update_fields=["mobile"]
+
+                                # Automatically log in the new user.
+                                login(request, user)
+
+                                messages.success(
+                                    request,
+                                    "Your account was created successfully.",
                                 )
 
-                            messages.success(
-                                request,
-                                "Your account was created successfully. "
-                                "You can now log in.",
-                            )
-                            return redirect("/accounts/login/?mode=login")
+                                # Continue to college selection.
+                                return redirect("choose-college")
 
-                        except Exception:
-                            messages.error(
-                                request,
-                                "We could not create your account. "
-                                "Please try again.",
-                            )
+                            except Exception:
+                                messages.error(
+                                    request,
+                                    "We could not create your account. "
+                                    "Please try again or use another email.",
+                                )
 
         else:
             messages.error(
@@ -415,9 +441,12 @@ def application_form(request):
     return render(
         request,
         "application-form.html",
-        {"show_login": show_login},
+        {
+            "show_login": show_login,
+            "form_data": form_data,
+            "field_errors": field_errors,
+        },
     )
-
 # =========================================================
 # EMAIL OTP VERIFICATION
 # =========================================================
@@ -686,58 +715,81 @@ def forgot_password(request):
             messages.error(request, "Please enter your email address.")
             return render(request, "forgot-password.html")
 
-        # Same response prevents revealing whether an account exists.
+        try:
+            validate_email(email)
+        except ValidationError:
+            messages.error(request, "Please enter a valid email address.")
+            return render(request, "forgot-password.html")
+
         user = User.objects.filter(
             email__iexact=email,
             is_active=True,
         ).first()
 
-        if user:
-            try:
-                otp = f"{secrets.randbelow(1_000_000):06d}"
-                now = timezone.now()
+        # Keep the response generic for privacy.
+        if not user:
+            messages.error(
+                request,
+                "If an active account exists for this email, "
+                "a reset code can be sent. Please check your email."
+            )
+            return render(request, "forgot-password.html")
 
-                # Send first; keep the old record if delivery fails.
-                sent = send_mail(
-                    "College Portal Password Reset Code",
-                    (
-                        f"Your password reset code is: {otp}\n\n"
-                        "It expires in 10 minutes. "
-                        "If you did not request this, ignore this email."
-                    ),
-                    None,
-                    [user.email],
-                    fail_silently=False,
+        # Prevent repeated requests within 60 seconds.
+        previous = EmailOTP.objects.filter(
+            email__iexact=email,
+            is_verified=False,
+        ).order_by("-created_at").first()
+
+        if previous:
+            elapsed = (timezone.now() - previous.created_at).total_seconds()
+            if elapsed < 60:
+                messages.error(
+                    request,
+                    f"Please wait {int(60 - elapsed) + 1} seconds before requesting another code."
                 )
+                return render(request, "forgot-password.html")
 
-                if sent == 1:
-                    EmailOTP.objects.filter(
-                        email__iexact=email,
-                        is_verified=False,
-                    ).delete()
+        otp = f"{secrets.randbelow(1_000_000):06d}"
 
-                    EmailOTP.objects.create(
-                        email=email,
-                        code_hash=make_password(otp),
-                        expires_at=now + timedelta(minutes=10),
-                    )
+        try:
+            sent = send_mail(
+                subject="Your College Portal Login Code",
+                message=(
+                    f"Your one-time verification code is: {otp}\n\n"
+                    "This code expires in 10 minutes.\n"
+                    "If you did not request it, please ignore this email."
+                ),
+                from_email=None,
+                recipient_list=[user.email],
+                fail_silently=False,
+            )
 
-                    request.session["password_reset_email"] = email
-                    request.session["password_reset_user_id"] = user.id
-                else:
-                    # Do not disclose whether the email exists.
-                    pass
+            if sent != 1:
+                raise RuntimeError("Email was not accepted for delivery.")
 
-            except Exception:
-                # Keep the public response generic.
-                pass
+            EmailOTP.objects.filter(
+                email__iexact=user.email,
+                is_verified=False,
+            ).delete()
 
-        messages.success(
-            request,
-            "If an active account exists for that email, a reset code "
-            "will be sent. Check your inbox and spam folder."
-        )
-        return redirect("reset-password")
+            EmailOTP.objects.create(
+                email=user.email,
+                code_hash=make_password(otp),
+                expires_at=timezone.now() + timedelta(minutes=10),
+            )
+
+            request.session["password_reset_email"] = user.email
+            request.session["password_reset_user_id"] = user.id
+
+            return redirect("reset-password")
+
+        except Exception:
+            messages.error(
+                request,
+                "We could not send the code. Check your email settings and try again."
+            )
+            return render(request, "forgot-password.html")
 
     return render(request, "forgot-password.html")
 
@@ -748,16 +800,11 @@ def reset_password(request):
     user_id = request.session.get("password_reset_user_id")
 
     if not email or not user_id:
-        messages.error(
-            request,
-            "Please request a password reset code first."
-        )
+        messages.error(request, "Please request an OTP first.")
         return redirect("forgot-password")
 
     if request.method == "POST":
         code = request.POST.get("otp", "").strip()
-        password = request.POST.get("password", "")
-        confirm_password = request.POST.get("confirm_password", "")
 
         record = EmailOTP.objects.filter(
             email__iexact=email,
@@ -765,52 +812,125 @@ def reset_password(request):
         ).order_by("-created_at").first()
 
         if not record:
-            messages.error(request, "Please request a new reset code.")
+            messages.error(request, "Please request a new OTP.")
         elif timezone.now() >= record.expires_at:
-            messages.error(request, "The reset code has expired. Request a new one.")
+            messages.error(request, "OTP expired. Please request a new one.")
         elif record.attempts >= 5:
-            messages.error(request, "Too many attempts. Request a new code.")
+            messages.error(
+                request,
+                "Too many incorrect attempts. Please request a new OTP."
+            )
         elif not check_password(code, record.code_hash):
             record.attempts += 1
             record.save(update_fields=["attempts"])
-            messages.error(request, "Invalid reset code.")
-        elif not password or password != confirm_password:
-            messages.error(request, "Passwords are empty or do not match.")
+            messages.error(request, "Incorrect OTP. Please try again.")
         else:
-            try:
-                validate_password(password)
-            except ValidationError as error:
-                for message in error.messages:
-                    messages.error(request, message)
-            else:
-                with transaction.atomic():
-                    user = User.objects.select_for_update().filter(
-                        id=user_id,
-                        email__iexact=email,
-                        is_active=True,
-                    ).first()
+            with transaction.atomic():
+                user = User.objects.select_for_update().filter(
+                    id=user_id,
+                    email__iexact=email,
+                    is_active=True,
+                ).first()
 
-                    if not user:
-                        messages.error(request, "Please request a new reset code.")
-                        return redirect("forgot-password")
+                if not user:
+                    messages.error(
+                        request,
+                        "This account could not be verified. Please try again."
+                    )
+                    return redirect("forgot-password")
 
-                    # Mark the code used and change password atomically.
-                    record.is_verified = True
-                    record.save(update_fields=["is_verified"])
-                    user.set_password(password)
-                    user.save(update_fields=["password"])
+                record.is_verified = True
+                record.save(update_fields=["is_verified"])
 
-                request.session.pop("password_reset_email", None)
-                request.session.pop("password_reset_user_id", None)
+                # Automatically log the verified account in.
+                login(request, user)
 
-                messages.success(
-                    request,
-                    "Password changed successfully. Please log in."
-                )
-                return redirect("login")
+            request.session.pop("password_reset_email", None)
+            request.session.pop("password_reset_user_id", None)
 
-    return render(request, "reset-password.html")
+            messages.success(
+                request,
+                "Email verified successfully. You are now logged in."
+            )
 
+            # Send the user into the college/admission flow.
+            return redirect("choose-college")
+
+    return render(request, "reset.html")
+
+
+@require_http_methods(["POST"])
+def resend_reset_otp(request):
+    email = request.session.get("password_reset_email")
+    user_id = request.session.get("password_reset_user_id")
+
+    if not email or not user_id:
+        messages.error(request, "Please request an OTP first.")
+        return redirect("forgot-password")
+
+    user = User.objects.filter(
+        id=user_id,
+        email__iexact=email,
+        is_active=True,
+    ).first()
+
+    if not user:
+        messages.error(request, "Please start the verification process again.")
+        return redirect("forgot-password")
+
+    previous = EmailOTP.objects.filter(
+        email__iexact=email,
+        is_verified=False,
+    ).order_by("-created_at").first()
+
+    if previous:
+        elapsed = (timezone.now() - previous.created_at).total_seconds()
+
+        if elapsed < 60:
+            messages.error(
+                request,
+                f"Please wait {int(60 - elapsed) + 1} seconds before resending."
+            )
+            return redirect("reset-password")
+
+    otp = f"{secrets.randbelow(1_000_000):06d}"
+
+    try:
+        sent = send_mail(
+            subject="Your College Portal Login Code",
+            message=(
+                f"Your new one-time verification code is: {otp}\n\n"
+                "This code expires in 10 minutes.\n"
+                "If you did not request it, please ignore this email."
+            ),
+            from_email=None,
+            recipient_list=[user.email],
+            fail_silently=False,
+        )
+
+        if sent != 1:
+            raise RuntimeError("Email was not accepted for delivery.")
+
+        EmailOTP.objects.filter(
+            email__iexact=email,
+            is_verified=False,
+        ).delete()
+
+        EmailOTP.objects.create(
+            email=user.email,
+            code_hash=make_password(otp),
+            expires_at=timezone.now() + timedelta(minutes=10),
+        )
+
+        messages.success(request, "A new OTP has been sent to your email.")
+
+    except Exception:
+        messages.error(
+            request,
+            "Could not resend the OTP. Please try again later."
+        )
+
+    return redirect("reset-password")
 
 # =========================================================
 # LOGOUT
