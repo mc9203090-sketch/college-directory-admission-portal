@@ -856,7 +856,7 @@ def reset_password(request):
             # Send the user into the college/admission flow.
             return redirect("choose-college")
 
-    return render(request, "reset.html")
+    return render(request, "reset-password.html")
 
 
 @require_http_methods(["POST"])
