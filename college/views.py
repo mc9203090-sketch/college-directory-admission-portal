@@ -1,4 +1,4 @@
-
+from django.views.decorators.http import require_http_methods
 from datetime import timedelta
 import re
 import secrets
@@ -274,6 +274,7 @@ def admission_application_multiple(request):
 # SIGN UP / LOGIN
 # =========================================================
 
+
 def application_form(request):
     if request.user.is_authenticated:
         return redirect("dashboard")
@@ -310,16 +311,10 @@ def application_form(request):
                     )
 
                     if user is None:
-                        if not user_record.is_active:
-                            messages.error(
-                                request,
-                                "Please verify your email before logging in.",
-                            )
-                        else:
-                            messages.error(
-                                request,
-                                "Invalid email or password.",
-                            )
+                        messages.error(
+                            request,
+                            "Invalid email or password.",
+                        )
                     else:
                         login(request, user)
                         return redirect("choose-college")
@@ -354,7 +349,10 @@ def application_form(request):
                 )
 
             elif password != confirm_password:
-                messages.error(request, "Passwords do not match.")
+                messages.error(
+                    request,
+                    "Passwords do not match.",
+                )
 
             else:
                 try:
@@ -368,7 +366,7 @@ def application_form(request):
                         email__iexact=email
                     ).first()
 
-                    if existing_user and existing_user.is_active:
+                    if existing_user is not None:
                         messages.error(
                             request,
                             "This email already has an account. Please log in.",
@@ -376,51 +374,35 @@ def application_form(request):
                     else:
                         try:
                             with transaction.atomic():
-                                if existing_user is None:
-                                    user = User.objects.create_user(
-                                        username=email,
-                                        email=email,
-                                        first_name=full_name,
-                                        password=password,
-                                        is_active=False,
-                                    )
-                                else:
-                                    user = existing_user
-                                    user.first_name = full_name
-                                    user.set_password(password)
-                                    user.save(
-                                        update_fields=[
-                                            "first_name",
-                                            "password",
-                                        ]
-                                    )
+                                user = User.objects.create_user(
+                                    username=email,
+                                    email=email,
+                                    first_name=full_name,
+                                    password=password,
+                                    is_active=True,
+                                )
 
-                                request.session[
-                                    "pending_verification_email"
-                                ] = email
-                                request.session[
-                                    "pending_verification_mobile"
-                                ] = mobile
-
-                                generate_email_otp(email)
+                                profile, created = (
+                                    StudentProfile.objects.get_or_create(
+                                        user=user
+                                    )
+                                )
+                                profile.mobile = mobile
+                                profile.save(
+                                    update_fields=["mobile"]
+                                )
 
                             messages.success(
                                 request,
-                                "A verification code has been sent to your email. "
-                                "Please check your inbox.",
+                                "Your account was created successfully. "
+                                "You can now log in.",
                             )
-                            return redirect("verify-email")
+                            return redirect("/accounts/login/?mode=login")
 
                         except Exception:
-                            request.session.pop(
-                                "pending_verification_email", None
-                            )
-                            request.session.pop(
-                                "pending_verification_mobile", None
-                            )
                             messages.error(
                                 request,
-                                "We could not send the verification code. "
+                                "We could not create your account. "
                                 "Please try again.",
                             )
 
@@ -435,7 +417,6 @@ def application_form(request):
         "application-form.html",
         {"show_login": show_login},
     )
-
 
 # =========================================================
 # EMAIL OTP VERIFICATION
@@ -691,6 +672,144 @@ def application_detail(request, id):
         "application-detail.html",
         {"application": application},
     )
+
+# =========================================================
+# FORGOT PASSWORD
+# =========================================================
+
+@require_http_methods(["GET", "POST"])
+def forgot_password(request):
+    if request.method == "POST":
+        email = request.POST.get("email", "").strip().lower()
+
+        if not email:
+            messages.error(request, "Please enter your email address.")
+            return render(request, "forgot-password.html")
+
+        # Same response prevents revealing whether an account exists.
+        user = User.objects.filter(
+            email__iexact=email,
+            is_active=True,
+        ).first()
+
+        if user:
+            try:
+                otp = f"{secrets.randbelow(1_000_000):06d}"
+                now = timezone.now()
+
+                # Send first; keep the old record if delivery fails.
+                sent = send_mail(
+                    "College Portal Password Reset Code",
+                    (
+                        f"Your password reset code is: {otp}\n\n"
+                        "It expires in 10 minutes. "
+                        "If you did not request this, ignore this email."
+                    ),
+                    None,
+                    [user.email],
+                    fail_silently=False,
+                )
+
+                if sent == 1:
+                    EmailOTP.objects.filter(
+                        email__iexact=email,
+                        is_verified=False,
+                    ).delete()
+
+                    EmailOTP.objects.create(
+                        email=email,
+                        code_hash=make_password(otp),
+                        expires_at=now + timedelta(minutes=10),
+                    )
+
+                    request.session["password_reset_email"] = email
+                    request.session["password_reset_user_id"] = user.id
+                else:
+                    # Do not disclose whether the email exists.
+                    pass
+
+            except Exception:
+                # Keep the public response generic.
+                pass
+
+        messages.success(
+            request,
+            "If an active account exists for that email, a reset code "
+            "will be sent. Check your inbox and spam folder."
+        )
+        return redirect("reset-password")
+
+    return render(request, "forgot-password.html")
+
+
+@require_http_methods(["GET", "POST"])
+def reset_password(request):
+    email = request.session.get("password_reset_email")
+    user_id = request.session.get("password_reset_user_id")
+
+    if not email or not user_id:
+        messages.error(
+            request,
+            "Please request a password reset code first."
+        )
+        return redirect("forgot-password")
+
+    if request.method == "POST":
+        code = request.POST.get("otp", "").strip()
+        password = request.POST.get("password", "")
+        confirm_password = request.POST.get("confirm_password", "")
+
+        record = EmailOTP.objects.filter(
+            email__iexact=email,
+            is_verified=False,
+        ).order_by("-created_at").first()
+
+        if not record:
+            messages.error(request, "Please request a new reset code.")
+        elif timezone.now() >= record.expires_at:
+            messages.error(request, "The reset code has expired. Request a new one.")
+        elif record.attempts >= 5:
+            messages.error(request, "Too many attempts. Request a new code.")
+        elif not check_password(code, record.code_hash):
+            record.attempts += 1
+            record.save(update_fields=["attempts"])
+            messages.error(request, "Invalid reset code.")
+        elif not password or password != confirm_password:
+            messages.error(request, "Passwords are empty or do not match.")
+        else:
+            try:
+                validate_password(password)
+            except ValidationError as error:
+                for message in error.messages:
+                    messages.error(request, message)
+            else:
+                with transaction.atomic():
+                    user = User.objects.select_for_update().filter(
+                        id=user_id,
+                        email__iexact=email,
+                        is_active=True,
+                    ).first()
+
+                    if not user:
+                        messages.error(request, "Please request a new reset code.")
+                        return redirect("forgot-password")
+
+                    # Mark the code used and change password atomically.
+                    record.is_verified = True
+                    record.save(update_fields=["is_verified"])
+                    user.set_password(password)
+                    user.save(update_fields=["password"])
+
+                request.session.pop("password_reset_email", None)
+                request.session.pop("password_reset_user_id", None)
+
+                messages.success(
+                    request,
+                    "Password changed successfully. Please log in."
+                )
+                return redirect("login")
+
+    return render(request, "reset-password.html")
 
 
 # =========================================================

@@ -373,6 +373,18 @@ path("college/<slug:slug>/", views.college_detail, name="college_detail"),
     # STUDENT ACCOUNT
     # =====================================================
 
+path(
+    "forgot-password/",
+    views.forgot_password,
+    name="forgot-password",
+),
+
+path(
+    "reset-password/",
+    views.reset_password,
+    name="reset-password",
+),
+
     path(
         "accounts/login/",
         views.application_form,
