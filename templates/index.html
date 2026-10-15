@@ -17,14 +17,21 @@
 </head>
 
 <body id="top">
-
-
 <!-- NAVBAR -->
 
 <header>
     <div class="logo">
         🎓 Discover Colleges in Chishtian
     </div>
+
+    <!-- Mobile Hamburger Button -->
+    <button class="menu-toggle"
+            id="menu-toggle"
+            type="button"
+            aria-label="Open navigation menu"
+            aria-expanded="false">
+        <i class="fa-solid fa-bars"></i>
+    </button>
 
     <nav class="navbar" id="navbar">
 
@@ -38,29 +45,10 @@
             </a>
 
             <ul class="sub-menu">
-                <li>
-                    <a href="{% url 'superior' %}">
-                        Superior College Chishtian
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{% url 'pgc' %}">
-                        Punjab College Chishtian
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{% url 'chishtian_science' %}">
-                        Chishtian Science College
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{% url 'ripah' %}">
-                        Riphah International College
-                    </a>
-                </li>
+                <li><a href="{% url 'superior' %}">Superior College Chishtian</a></li>
+                <li><a href="{% url 'pgc' %}">Punjab College Chishtian</a></li>
+                <li><a href="{% url 'chishtian_science' %}">Chishtian Science College</a></li>
+                <li><a href="{% url 'ripah' %}">Riphah International College</a></li>
             </ul>
         </div>
 
@@ -71,34 +59,16 @@
             </a>
 
             <ul class="sub-menu">
-                <li>
-                    <a href="{% url 'contact' %}">
-                        Superior College
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{% url 'contactpgc' %}">
-                        Punjab College
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{% url 'contactcsc' %}">
-                        Chishtian Science College
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{% url 'contactrip' %}">
-                        Riphah International College
-                    </a>
-                </li>
+                <li><a href="{% url 'contact' %}">Superior College</a></li>
+                <li><a href="{% url 'contactpgc' %}">Punjab College</a></li>
+                <li><a href="{% url 'contactcsc' %}">Chishtian Science College</a></li>
+                <li><a href="{% url 'contactrip' %}">Riphah International College</a></li>
             </ul>
         </div>
 
     </nav>
 </header>
+
     <!-- HERO -->
 
     <section class="hero">
