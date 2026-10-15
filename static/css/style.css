@@ -1183,3 +1183,79 @@ footer p {
         font-size: 13px;
     }
 }
+
+/* =====================================================
+   MOBILE NAVBAR DROPDOWN FIX
+===================================================== */
+
+@media (max-width: 768px) {
+
+    /* Keep the mobile menu inside the header */
+    header {
+        position: relative;
+    }
+
+    /* Show menu only when hamburger is clicked */
+    #navbar {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #navbar.menu-open {
+        display: flex;
+    }
+
+    /* Home, Colleges and Contact Us */
+    #navbar > a,
+    #navbar > .dropdown {
+        width: 100%;
+        display: block;
+    }
+
+    #navbar > a,
+    #navbar .dropdown > .dropdown-toggle {
+        width: 100%;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 13px 12px;
+        text-align: left;
+        cursor: pointer;
+    }
+
+    /* Hide college/contact lists until their menu is clicked */
+    #navbar .dropdown .sub-menu {
+        display: none;
+        position: static;
+        width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 5px 0;
+        background: #01283f;
+        box-shadow: none;
+        border-radius: 5px;
+    }
+
+    /* Show the selected dropdown */
+    #navbar .dropdown.active > .sub-menu {
+        display: block;
+    }
+
+    /* Individual college and contact links */
+    #navbar .sub-menu li {
+        width: 100%;
+        list-style: none;
+    }
+
+    #navbar .sub-menu li a {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 12px 20px;
+        text-align: left;
+    }
+}
